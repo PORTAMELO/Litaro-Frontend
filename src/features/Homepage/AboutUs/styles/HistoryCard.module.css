@@ -1,0 +1,58 @@
+.introduction-section{
+  background: var(--background-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 3rem;
+  padding: 2rem;
+  gap: 2rem
+}
+
+.image-introduction-section{
+  max-width: 50rem;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-introduction-section img{
+  width: 700px;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.left-button-introduction-section,
+.right-button-introduction-section{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: transform 0.2s ease,
+              opacity 0.2s ease;
+}
+
+.left-button-introduction-section:hover,
+.right-button-introduction-section:hover{
+  transform: translateY(-1px);
+  opacity: 0.8;
+  color: var(--secondary-color);
+}
+
+
+.left-button-introduction-section{
+  left: -60px;
+}
+
+.right-button-introduction-section{
+  right: -60px;
+}
+
+.text-introduction-section{
+  align-items: center;
+  text-align: center;
+}

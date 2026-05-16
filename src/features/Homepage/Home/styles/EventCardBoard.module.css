@@ -1,0 +1,89 @@
+/*Event Card Board*/
+
+.event-card-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 3rem 2rem;
+  margin: 2rem 3rem;
+  padding: 2rem;
+}
+
+/*Event Card*/
+
+.event-card {
+  flex: 1 1 20rem;
+  max-width: 22rem;
+
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/*Upper Event Card*/
+
+.upper-event-card {
+  position: relative;
+  height: 12rem;
+}
+
+.upper-event-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px 16px 0 0;
+  object-fit: cover;
+}
+
+.label {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 1rem;
+
+  background: #ffffff;
+  color: #6e6e6e;
+  font-size: .75rem;
+  padding: .375rem .75rem;
+  border-radius: 1rem;
+}
+
+/*Lower Event Card*/
+
+.lower-event-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+}
+
+.info {
+  display: flex;
+  gap: 1rem;
+}
+
+.date,
+.grade {
+  font-size: 0.875rem;
+}
+
+.date {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.grade {
+  color: #6b7280;
+}
+
+.title {
+  font-size: 1.25rem;
+  color: #111827;
+  margin: 0;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #6b7280;
+}

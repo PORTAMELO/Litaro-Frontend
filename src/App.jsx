@@ -1,11 +1,28 @@
-import './App.css'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Homepage from "./features/Homepage/Homepage";
+import Home from "./features/Homepage/Home/Home";
+import AboutUs from "./features/Homepage/AboutUs/AboutUs";
+import Calendar from "./features/Homepage/Calendar/Calendar";
+import Admissions from "./features/Homepage/Admissions/Admissions";
+import "./App.css";
 
 function App() {
   return (
     <>
-      <h1>Hello React!</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/Homepage" />} />
+          <Route path="/Homepage" element={<Homepage />}>
+            <Route index element={<Navigate to="Inicio" />} />
+            <Route path="Inicio" element={<Home />} />
+            <Route path="Nosotros" element={<AboutUs />} />
+            <Route path="Calendario" element={<Calendar />} />
+            <Route path="Admisiones" element={<Admissions />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

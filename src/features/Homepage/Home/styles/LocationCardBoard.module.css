@@ -1,0 +1,97 @@
+/*Location Card*/
+
+.location-card {
+  background: var(--background-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  margin: 2rem 3rem;
+  padding: 2rem;
+}
+
+/*Left Location Card*/
+
+.left-location-card {
+  flex: 1 1 32rem;
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/*Title*/
+
+.left-location-card h2 {
+  margin: 0;
+  font-size: var(--text-2xl);
+  line-height: 1.2;
+  color: var(--primary-color);
+}
+
+/*Description*/
+
+.left-location-card p {
+  margin: 0;
+  max-width: 65ch;
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+/*Image & Map*/
+
+.left-location-card img,
+.right-location-card iframe {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/*Image*/
+
+.left-location-card img {
+  max-width: 22rem;
+  object-fit: cover;
+}
+
+/*Buttons*/
+
+.location-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+/*Arrows*/
+
+.previous-location-button,
+.next-location-button {
+  cursor: pointer;
+  color: var(--primary-color);
+
+  transition: transform 0.2s ease,
+              opacity 0.2s ease;
+}
+
+.previous-location-button:hover,
+.next-location-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.8;
+  color: var(--secondary-color);
+}
+
+/*Right Location Card*/
+
+.right-location-card {
+  flex: 1 1 28rem;
+  max-width: 42rem;
+}
+
+/*Map*/
+
+.right-location-card iframe {
+  min-height: 28rem;
+  border: none;
+}

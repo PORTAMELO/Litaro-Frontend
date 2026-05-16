@@ -1,0 +1,69 @@
+/*Footer*/
+
+.footer {
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2rem;
+    margin: 0;
+    margin-top: 10rem;
+    padding: 3rem 6rem;
+    padding-bottom: 5rem;
+}
+
+.contact-section {
+    flex: 3;
+    max-width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.contact-section p{
+    margin: 0;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.navigation-section, .social-section{
+    flex: 1;
+    max-width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.navigation-section a, .social-section a{
+    color: white;
+    text-decoration: none;
+}
+
+.navigation-section a:hover, .social-section a:hover{
+    opacity: 0.8;
+}
+
+.social {
+    display: flex;
+    align-items: center;
+    gap: 0 1rem;
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
+span {
+    font-size: 1rem;
+}

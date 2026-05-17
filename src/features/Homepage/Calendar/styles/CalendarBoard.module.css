@@ -1,0 +1,157 @@
+.CalendarBoard {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 2rem 3rem;
+  padding: 2rem;
+}
+
+.wrapper {
+  position: center;
+  padding: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.yearTitle {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.monthCard {
+  background: #fff;
+  border: 0.5px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 12px 10px;
+}
+
+.monthName {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #888;
+  margin: 0 0 6px 2px;
+}
+
+/* ---------- TOOLTIP ---------- */
+
+.tooltip {
+  position: fixed;
+  background: #fff;
+  border: 0.5px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #111;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+}
+
+.tooltipTitle {
+  font-weight: 500;
+}
+
+.tooltipCat {
+  color: #888;
+  font-size: 11px;
+}
+
+.tooltipDate {
+  color: #aaa;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.wrapper :global(.react-calendar) {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+}
+
+.wrapper :global(.react-calendar__navigation) {
+  display: none;
+}
+
+.wrapper :global(.react-calendar__tile) {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  cursor: default;
+  padding: 6px 0;
+  border-radius: 6px;
+  color: #111;
+}
+
+.tileOverlay {
+  position: absolute;
+  inset: 2px;
+  border-radius: 6px;
+  z-index: 0;
+}
+
+.wrapper :global(.react-calendar__tile abbr) {
+  position: relative;
+  z-index: 1;
+}
+
+.hasEvent {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.wrapper :global(.hasEvent:hover) {
+  filter: brightness(0.95);
+}
+
+.wrapper :global(.react-calendar__tile--now) {
+  background: #E6F1FB;
+  color: #185FA5;
+}
+
+.wrapper :global(.react-calendar__month-view__weekdays) {
+  text-transform: capitalize;
+}
+
+.wrapper :global(.react-calendar__month-view__weekdays__weekday abbr) {
+  text-decoration: none;
+}
+
+.wrapper :global(.react-calendar__month-view__days__day--weekend) {
+  color: #111;
+}
+
+.EventList {
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  column-gap: 2rem;
+  row-gap: 1rem;
+  align-content: center;
+}
+
+.EventItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.EventDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}

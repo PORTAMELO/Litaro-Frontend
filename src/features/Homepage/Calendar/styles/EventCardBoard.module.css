@@ -1,0 +1,123 @@
+/*Event Card Board*/
+
+.event-card-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 3rem 2rem;
+  margin: 2rem 3rem;
+  padding: 2rem;
+}
+
+/*Event Card*/
+
+.event-card {
+  flex: 1 1 24rem;
+  max-width: 26rem;
+
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+}
+
+/*Upper Event Card*/
+
+.upper-event-card {
+  position: relative;
+  border-radius: 16px;
+}
+
+.dot-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+
+  background: #ffffff;
+  color: #6e6e6e;
+  padding: .375rem .75rem;
+  border-radius: 1rem;
+}
+
+.dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: .75rem;
+}
+
+.title-date {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title-date h1 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #111827;
+  margin: 0;
+}
+
+.title-date p {
+  font-size: 0.875rem;
+  color: #111827;
+  margin: 0;
+}
+
+/*Lower Event Card*/
+
+.lower-event-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+}
+
+.event-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.event-labels div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.float-span {
+  font-size: 0.875rem;
+}
+
+.icon {
+  font-size: 1rem;
+}
+
+.lower-event-card hr {
+  width: 100%;
+  border: none;
+  border-top: 1.5px solid #000;
+  margin: 1rem 0;   
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #6b7280;
+  margin: 0;
+}

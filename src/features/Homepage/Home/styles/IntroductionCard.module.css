@@ -1,0 +1,32 @@
+.introduction-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color);
+  gap: 10rem;
+  margin: 2rem 3rem;
+  padding: 2rem;
+  
+}
+
+.text-introduction-card {
+  flex: 1;
+  max-width: 40rem;
+}
+
+.introduction-card img{
+  width: 100%;
+  max-width: 45rem;
+  min-height: 25rem;
+
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+
+  object-fit: cover;
+  
+}
+
+.introduction-card p{
+  text-align: center;
+  line-height: 1.7;
+}

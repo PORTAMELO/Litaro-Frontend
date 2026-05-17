@@ -1,0 +1,56 @@
+.mission-vision {
+  display: flex;
+  flex-direction: row;
+
+  gap: 5rem;
+  margin: 2rem 3rem;
+  padding: 2rem;;
+
+}
+
+.mission, .vision {
+  display: flex;
+  flex-direction: column;  
+  flex: 1;
+  border-radius: 16px;
+  color: white;
+  padding: 5rem 2rem;
+  gap: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission h1, .vision h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.mission p, .vision p {
+  font-size: 1rem;
+}
+
+.mission {
+  background-color: #1b4fbf;
+}
+
+.vision {
+  background-color: #4da61f;
+}
+
+.mission::before, .vision::before {
+  content: '';
+  position: absolute;
+  top: -12rem;
+  right: -12rem;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+}
+
+.mission::before {
+  background: #305dc0;
+}
+
+.vision::before {
+  background: #67ab43;
+}

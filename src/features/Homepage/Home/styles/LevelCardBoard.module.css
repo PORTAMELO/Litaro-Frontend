@@ -1,0 +1,49 @@
+.level-card-board {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 3rem 6rem;
+    margin: 2rem 3rem;
+    padding: 2rem;
+}
+
+.level-card {
+    flex: 1 1 24rem;
+    max-width: 26rem;
+
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.upper-level-card {
+    height: 8rem;
+}
+
+.upper-level-card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px 16px 0 0;
+    object-fit: cover;
+}
+
+.lower-level-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    color: #111827;
+    margin: 0;
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #6b7280;
+}

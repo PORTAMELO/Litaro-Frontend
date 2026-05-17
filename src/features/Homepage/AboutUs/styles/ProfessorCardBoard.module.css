@@ -1,0 +1,93 @@
+/* Professor Card Board */
+
+.professor-card-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 3rem 2rem;
+  margin: 2rem 3rem;
+  padding: 2rem;
+}
+
+/* Professor Card */
+
+.professor-card {
+  flex: 1 1 18rem;
+  max-width: 20rem;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--background-color);
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Upper Professor Card */
+
+.upper-professor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.upper-professor-card img {
+  width: 7rem;
+  height: 7rem;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  background: #c4c4c4;
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+
+  color: #111827;
+  margin: 0;
+}
+
+/* Lower Professor Card */
+
+.lower-professor-card {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+
+  background-color: #cbd5e1;
+  border-radius: 16px;
+}
+
+/* Role */
+
+.role {
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: #000;
+  margin: 0 0 1rem 0;
+}
+
+/* Description */
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+
+  color: #000;
+  margin: 0;
+
+  white-space: pre-line;
+}

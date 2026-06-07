@@ -4,6 +4,7 @@ import Home from "./features/Homepage/Home/Home";
 import AboutUs from "./features/Homepage/AboutUs/AboutUs";
 import Calendar from "./features/Homepage/Calendar/Calendar";
 import Admissions from "./features/Homepage/Admissions/Admissions";
+import Login from "./features/Loginpage/Loginpage";
 import "./App.css";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="Calendario" element={<Calendar />} />
             <Route path="Admisiones" element={<Admissions />} />
           </Route>
+            <Route path="Login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -12,12 +12,12 @@ const EventCardBoard = ({ events }) => {
             </div>
 
             <div className={styles["lower-event-card"]}>
-              <div className={styles["info"]}>
-                <p className={styles["date"]}>{event.date}</p>
-                <p className={styles["grade"]}>{event.grade}</p>
+              <div className={styles["lw-info"]}>
+                <p className={styles["lw-date"]}>{event.date}</p>
+                <p className={styles["lw-grade"]}>{event.grade}</p>
               </div>
-              <h2 className={styles["title"]}>{event.title}</h2>
-              <p className={styles["description"]}>{event.description}</p>
+              <h2 className={styles["lw-title"]}>{event.title}</h2>
+              <p className={styles["lw-description"]}>{event.description}</p>
             </div>
           </div>
         );

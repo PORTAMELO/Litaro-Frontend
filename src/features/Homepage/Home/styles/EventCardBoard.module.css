@@ -4,49 +4,47 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  gap: 3rem 2rem;
-  margin: 2rem 3rem;
-  padding: 2rem;
+  gap: var(--space-xl) var(--space-lg);
+  margin: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg);
 }
 
 /*Event Card*/
 
 .event-card {
-  flex: 1 1 20rem;
-  max-width: 22rem;
-
+  flex: 1 1 15rem;
+  max-width: 15rem;
   display: flex;
   flex-direction: column;
   background: var(--background-color);
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 /*Upper Event Card*/
 
 .upper-event-card {
   position: relative;
-  height: 12rem;
+  height: 9.6rem;
 }
 
 .upper-event-card img {
   width: 100%;
   height: 100%;
-  border-radius: 16px 16px 0 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   object-fit: cover;
 }
 
-.label {
+.upper-event-card p {
   position: absolute;
-  bottom: 0.5rem;
-  left: 1rem;
-
-  background: #ffffff;
-  color: #6e6e6e;
-  font-size: .75rem;
-  padding: .375rem .75rem;
-  border-radius: 1rem;
+  bottom: var(--space-xs);
+  left: var(--space-sm);
+  padding: .375rem .75rem; /*fixed*/
+  border-radius: var(--radius-lg);
+  font-size: var(--text-xs);
+  font-weight: var(--font-regular);
+  background: var(--background-color);
+  color: var(--color-muted);
 }
 
 /*Lower Event Card*/
@@ -54,36 +52,39 @@
 .lower-event-card {
   display: flex;
   flex-direction: column;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem; /*fixed*/
 }
 
-.info {
+.lw-info {
   display: flex;
-  gap: 1rem;
+  gap: 1rem; /*fixed*/
 }
 
-.date,
-.grade {
-  font-size: 0.875rem;
+.lw-date {
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
 }
 
-.date {
-  color: var(--primary-color);
-  font-weight: 500;
+.lw-grade {
+  font-weight: var(--font-medium);
+  color: var(--color-muted);
 }
 
-.grade {
-  color: #6b7280;
+.lw-date,
+.lw-grade {
+  font-size: var(--text-sm);
 }
 
-.title {
-  font-size: 1.25rem;
-  color: #111827;
+.lw-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
   margin: 0;
 }
 
-.description {
-  font-size: 1rem;
+.lw-description {
+  font-size: var(--text-md);
+  font-weight: var(--text-regular);
   line-height: 1.5;
-  color: #6b7280;
+  color: var(--color-muted);
 }

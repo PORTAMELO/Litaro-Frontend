@@ -1,97 +1,85 @@
 /*Location Card*/
 
-.location-card {
-  background: var(--background-color);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.location-card-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 5rem;
-  margin: 2rem 3rem;
-  padding: 2rem;
+  gap: var(--space-xl) var(--space-lg);
+  margin: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--background-color);
+
 }
 
 /*Left Location Card*/
 
 .left-location-card {
-  flex: 1 1 32rem;
-  max-width: 40rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 1.5rem;
+  /*text-align: center;*/
+  gap: var(--space-sm);
 }
 
-/*Title*/
-
-.left-location-card h2 {
-  margin: 0;
-  font-size: var(--text-2xl);
-  line-height: 1.2;
-  color: var(--primary-color);
+.left-location-card h1 {
+  margin: var(--space-lg);
+  font-size: var(--text-xxl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
 }
-
-/*Description*/
 
 .left-location-card p {
   margin: 0;
-  max-width: 65ch;
-  font-size: var(--text-base);
-  line-height: 1.7;
+  font-size: var(--text-md);
+  font-weight: var(--font-regular);
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
 /*Image & Map*/
 
 .left-location-card img,
-.right-location-card iframe {
-  width: 100%;
+.right-location-card iframe { 
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
-/*Image*/
-
 .left-location-card img {
-  max-width: 22rem;
+  margin: var(--space-sm);
+  width: 60%;
   object-fit: cover;
 }
 
-/*Buttons*/
-
 .location-buttons {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-lg);
 }
-
-/*Arrows*/
 
 .previous-location-button,
 .next-location-button {
   cursor: pointer;
   color: var(--primary-color);
-
-  transition: transform 0.2s ease,
-              opacity 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .previous-location-button:hover,
 .next-location-button:hover {
   transform: translateY(-2px);
-  opacity: 0.8;
   color: var(--secondary-color);
 }
 
 /*Right Location Card*/
 
-.right-location-card {
-  flex: 1 1 28rem;
-  max-width: 42rem;
+.right-location-card iframe {
+  width: 100%;
 }
 
-/*Map*/
+@media (max-width: 1200px) {
+  .location-card-board {
+    grid-template-columns: 1fr;
+  }
 
-.right-location-card iframe {
-  min-height: 28rem;
-  border: none;
+  .left-location-card img {
+    width: 100%;
+  }
 }

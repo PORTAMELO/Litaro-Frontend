@@ -1,58 +1,54 @@
 .introduction-section{
-  background: var(--background-color);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  margin: 2rem 3rem;
-  padding: 2rem;
-  gap: 2rem
+  gap: var(--space-xl) var(--space-lg);
+  margin: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--background-color);
 }
 
-.image-introduction-section{
-  max-width: 50rem;
-  width: 100%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.introduction-section p{
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--font-regular);
+  line-height: 1.5;
+  white-space: pre-line;
+  color: var(--color-text);
 }
 
-.image-introduction-section img{
-  width: 700px;
-  max-width: 100%;
+.introduction-carousel{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.introduction-carousel img{
+  width: 80%;
+  object-fit: cover;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  display: block;
 }
 
-.left-button-introduction-section,
-.right-button-introduction-section{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+.previous-image,
+.next-image{
+  width: 10%;
   cursor: pointer;
   color: var(--primary-color);
   transition: transform 0.2s ease,
               opacity 0.2s ease;
 }
 
-.left-button-introduction-section:hover,
-.right-button-introduction-section:hover{
-  transform: translateY(-1px);
+.previous-image:hover,
+.next-image:hover{
+  transform: translateY(-2px);
   opacity: 0.8;
   color: var(--secondary-color);
 }
 
-
-.left-button-introduction-section{
-  left: -60px;
-}
-
-.right-button-introduction-section{
-  right: -60px;
-}
-
-.text-introduction-section{
-  align-items: center;
-  text-align: center;
+@media (max-width: 1200px) {
+  .introduction-section {
+    grid-template-columns: 1fr;
+  }
 }

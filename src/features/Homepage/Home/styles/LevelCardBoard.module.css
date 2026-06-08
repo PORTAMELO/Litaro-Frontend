@@ -2,21 +2,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
-    gap: 3rem 6rem;
-    margin: 2rem 3rem;
-    padding: 2rem;
+    gap: var(--space-xl) var(--space-lg);
+    margin: var(--space-lg) var(--space-xl);
+    padding: var(--space-lg);
 }
 
 .level-card {
-    flex: 1 1 24rem;
-    max-width: 26rem;
-
+    flex: 1 1 18rem;
+    max-width: 18rem;
     display: flex;
     flex-direction: column;
     background: var(--background-color);
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
 
 .upper-level-card {
@@ -26,24 +24,26 @@
 .upper-level-card img {
     width: 100%;
     height: 100%;
-    border-radius: 16px 16px 0 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     object-fit: cover;
 }
 
 .lower-level-card {
     display: flex;
     flex-direction: column;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem; /*fixed*/
 }
 
-.title {
-    font-size: 1.25rem;
-    color: #111827;
+.lower-level-card h4 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text);
     margin: 0;
 }
 
-.description {
-    font-size: 1rem;
+.lower-level-card p {
+    font-size: var(--text-md);
+    font-weight: var(--text-regular);
     line-height: 1.5;
-    color: #6b7280;
+    color: var(--color-muted);
 }

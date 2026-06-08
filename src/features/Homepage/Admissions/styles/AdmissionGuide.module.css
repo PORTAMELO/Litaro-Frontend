@@ -2,10 +2,8 @@
   position: relative;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 1500px;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: var(--space-lg) auto;
+  padding: var(--space-lg)
 }
 
 .guide-line {
@@ -14,14 +12,14 @@
   left: 50%;
   width: 3px;
   height: 100%;
-  background-color: #a9fac5;
+  background-color: var(--secondary-color);
   transform: translateX(-50%);
 }
 
 .guide-item {
   display: flex;
   width: 100%;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .guide-item-left {
@@ -36,7 +34,7 @@
   width: 45%;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
 .guide-item-right .guide-content {
@@ -52,31 +50,27 @@
   border-radius: 50%;
   background-color: var(--secondary-color);
   color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
 }
 
 .guide-card {
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 1.25rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm)
 }
 
 .guide-card-title {
-  margin-bottom: 0.5rem;
-
-  font-size: 1rem;
-  font-weight: 600;
-
+  margin-bottom: 0.4rem; /*fixed*/
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
   color: var(--secondary-color);
 }
 
 .guide-card-text {
-  color: #475569;
-
-  line-height: 1.6;
-
-  font-size: 0.95rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+  font-size: var(--text-md);
 }

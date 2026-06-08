@@ -30,13 +30,13 @@ const LocationCardBoard = ({ locations }) => {
   const location = locations[state.index];
 
   return (
-    <div className={styles["location-card"]}>
+    <div className={styles["location-card-board"]}>
       <div className={styles["left-location-card"]}>
-        <h2> {location.title}</h2>
+        <h1> {location.title}</h1>
         <p>{location.description}</p>
         <img src={location.image} alt={location.title} />
         <div className={styles["location-buttons"]}>
-          <IoIosArrowDropleftCircle 
+          <IoIosArrowDropleftCircle
             size={"3.5rem"}
             className={styles["previous-location-button"]}
             onClick={() =>
@@ -45,8 +45,8 @@ const LocationCardBoard = ({ locations }) => {
           >
             Anterior
           </IoIosArrowDropleftCircle>
-          
-          <IoIosArrowDroprightCircle 
+
+          <IoIosArrowDroprightCircle
             size={"3.5rem"}
             className={styles["next-location-button"]}
             onClick={() => dispatch({ type: "next", length: locations.length })}

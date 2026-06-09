@@ -1,12 +1,13 @@
 .mobile-navigation {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: var(--space-sm) 4rem;
+  padding: var(--space-sm) 1rem;
+  width: 100%;
+  box-sizing: border-box;
   background: #ffffff;
   border-top: 2px solid var(--primary-color);
   gap: var(--space-xl);
-  width: 100%;
   position: sticky;
   bottom: 0;
   z-index: 1000;

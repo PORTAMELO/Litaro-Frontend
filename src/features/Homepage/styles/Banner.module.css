@@ -5,16 +5,13 @@
     flex-wrap: wrap;
     justify-content: center;
 
-    gap: 2rem 1.5rem;
-    margin: 2rem 0rem;
-    padding: 5rem 10rem;
+    gap: var(--space-lg) var(--space-md);
+    margin: var(--space-lg) 0;
+    padding: 5rem 10rem; /*fixed*/
 }
 
 .label {
-    /*border: 2px solid #fff;*/
-    flex: 1 1 10rem;
-    
-
+    flex: 1 1 8rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,13 +19,21 @@
 }
 
 .title {
-    font-size: 2rem;
+    font-size: var(--text-xl);
     font-weight: bold;
     margin: 0;
 }
 
 .subtitle {
-    font-size: 1.75rem;
+    font-size: var(--text-xl);
     margin: 0;
-    margin-top: 0.5rem;
+    margin-top: var(--space-xs);
+}
+
+@media (max-width: 1200px) {
+    .banner {
+        margin: 0;
+        padding: 0;
+        display: none;
+    }
 }

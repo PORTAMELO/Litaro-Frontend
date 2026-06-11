@@ -11,8 +11,8 @@ const LevelCardBoard = ({ levels }) => {
             </div>
 
             <div className={styles["lower-level-card"]}>
-              <h4 className={styles["title"]}>{level.title}</h4>
-              <p className={styles["description"]}>{level.description}</p>
+              <h4>{level.title}</h4>
+              <p>{level.description}</p>
             </div>
           </div>
         );

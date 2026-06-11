@@ -1,48 +1,52 @@
+/*Calendar Board*/
+
 .CalendarBoard {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  margin: 2rem 3rem;
-  padding: 2rem;
+  display: grid;
+  grid-template-columns: 13fr 7fr;
+  align-items: start;
+  gap: var(--space-xl) var(--space-lg);
+  margin: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--background-color);
 }
 
 .wrapper {
-  position: center;
-  padding: 1.5rem;
-}
-
-.header {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.yearTitle {
-  font-size: 28px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: #111;
+  position: relative;
+  padding: var(--space-md);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  min-width: 0;
+  gap: var(--space-sm);
 }
 
 .monthCard {
   background: #fff;
-  border: 0.5px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 12px 10px;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  padding: 12px 10px; /*fixed*/
+  min-width: 10rem; /*fixed*/
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.monthCard:hover {
+  cursor: pointer;
+  border-color: var(--primary-color);
+}
+
+.monthCardSelected {
+  border: 2px solid var(--primary-color);
 }
 
 .monthName {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: #888;
-  margin: 0 0 6px 2px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-muted);
+  margin: 0 0 6px 2px; /*fixed*/
 }
 
 /* ---------- TOOLTIP ---------- */
@@ -50,36 +54,36 @@
 .tooltip {
   position: fixed;
   background: #fff;
-  border: 0.5px solid #ddd;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 12px;
-  color: #111;
+  border: 0.5px solid #ddd; /*fixed*/
+  border-radius: var(--radius-md);
+  padding: 8px 12px; /*fixed*/
+  font-size: var(--text-md);
+  color: var(--color-text);
   pointer-events: none;
-  z-index: 9999;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+  z-index: 1000;
+  box-shadow: var(--shadow-sm)
 }
 
 .tooltipTitle {
-  font-weight: 500;
+  font-weight: var(--font-semibold);
 }
 
 .tooltipCat {
-  color: #888;
-  font-size: 11px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
 }
 
 .tooltipDate {
-  color: #aaa;
-  font-size: 11px;
-  margin-top: 2px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  margin-top: 2px; /*fixed*/
 }
 
 .wrapper :global(.react-calendar) {
   width: 100%;
   border: none;
   background: transparent;
-  font-size: 15px;
+  font-size: var(--text-lg);
 }
 
 .wrapper :global(.react-calendar__navigation) {
@@ -91,15 +95,15 @@
   overflow: hidden;
   pointer-events: none;
   cursor: default;
-  padding: 6px 0;
-  border-radius: 6px;
+  padding: 6px 0; /*fixed*/
+  border-radius: var(--radius-md);
   color: #111;
 }
 
 .tileOverlay {
   position: absolute;
-  inset: 2px;
-  border-radius: 6px;
+  inset: 2px; /*fixed*/
+  border-radius: var(--radius-md);
   z-index: 0;
 }
 
@@ -119,7 +123,7 @@
 
 .wrapper :global(.react-calendar__tile--now) {
   background: #E6F1FB;
-  color: #185FA5;
+  color: var(--primary-color)
 }
 
 .wrapper :global(.react-calendar__month-view__weekdays) {
@@ -131,27 +135,40 @@
 }
 
 .wrapper :global(.react-calendar__month-view__days__day--weekend) {
-  color: #111;
+  color: var(--color-text)
 }
 
 .EventList {
   display: grid;
-  grid-template-columns: repeat(1, auto);
-  column-gap: 2rem;
-  row-gap: 1rem;
-  align-content: center;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(220px, 1fr)
+    );
+  gap: 1rem 2rem;
+  align-content: start;
 }
 
 .EventItem {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   white-space: nowrap;
 }
 
 .EventDot {
-  width: 16px;
-  height: 16px;
-  border-radius: 999px;
+  width: 16px; /*fixed*/
+  height: 16px; /*fixed*/
+  border-radius: 50%;
   flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .CalendarBoard {
+    grid-template-columns: 1fr;
+  }
+
+  .EventList {
+    grid-template-columns: 1fr;
+  }
 }

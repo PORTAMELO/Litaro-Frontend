@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styles from "../styles/Footer.module.css";
 //prettier-ignore
 import { FaWhatsapp, FaInstagram, FaFacebook, FaYoutube, FaTiktok, FaTwitter, FaTelegram } from "react-icons/fa";
@@ -19,9 +18,6 @@ const Footer = ({ information, socials }) => {
   return (
     <footer className={styles["footer"]}>
       <div className={styles["contact-section"]}>
-        <h1 className={styles["title"]}>
-          Instituto Nacional de Promoción Social
-        </h1>
         <p>
           <FaLocationDot className={styles["icon"]} />
           <span> {information.location}</span>
@@ -38,20 +34,6 @@ const Footer = ({ information, socials }) => {
           <MdSchedule className={styles["icon"]} />
           <span> {information.schedule}</span>
         </p>
-      </div>
-      <div className={styles["navigation-section"]}>
-        <Link to="/Homepage/Inicio">
-          <span>Inicio ↗</span>
-        </Link>
-        <Link to="/Homepage/Nosotros">
-          <span>Nosotros ↗</span>
-        </Link>
-        <Link to="/Homepage/Calendario">
-          <span>Calendario ↗</span>
-        </Link>
-        <Link to="/Homepage/Admisiones">
-          <span>Admisiones ↗</span>
-        </Link>
       </div>
       <div className={styles["social-section"]}>
         {socials.map((social, index) => {
@@ -70,6 +52,9 @@ const Footer = ({ information, socials }) => {
           );
         })}
       </div>
+      <h1 className={styles["title"]}>
+        Instituto Nacional de Promoción Social
+      </h1>
     </footer>
   );
 };

@@ -1,146 +1,95 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/LoginForm.module.css';
-import logo from "../../../../assets/logoinps.jpg";
+import logo from '../../../../assets/logoinps.jpg';
+import { loginRequest } from '../../../../api/auth';
+import { useAuth } from '../../../../shared/context/AuthContext';
 
-function LoginForm({ onSubmit }) {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    remember: false
-  });
+function LoginForm() {
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError]       = useState(null);
+  const [loading, setLoading]   = useState(false);
 
-  const [showError, setShowError] = useState(false);
+  const { login } = useAuth();
+  const navigate  = useNavigate();
 
   const handleInputChange = (e) => {
-    const { id, value, type, checked } = e.target;
-
-    setFormData(prev => ({
-      ...prev,
-      [id]: type === 'checkbox' ? checked : value
-    }));
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
+    setLoading(true);
 
-    if (!formData.email || !formData.password) {
-      setShowError(true);
-      return;
+    try {
+      const userData = await loginRequest(formData.email, formData.password);
+      login(userData);
+      navigate('/dashboard', { replace: true });
+    } catch {
+      setError('Usuario o contraseña incorrectos');
+    } finally {
+      setLoading(false);
     }
-
-    setShowError(false);
-    onSubmit?.(formData);
-  };
-
-  const handleForgotPassword = () => {
-    console.log('Forgot password clicked');
   };
 
   return (
-
     <div className={styles["login-page"]}>
 
-    
-    <div className={styles["login-visual"]}>
-
-      <img src={logo} alt="Login" />
-
-      <h2>
-          Instituto Nacional de Promoción Social
-      </h2>
-
-    </div>
-
-
-    
-
-
-    <div className={styles["login-container"]}>
-      <div className={styles["login-header"]}>
-        <h2 className={styles["login-title"]}>
-          BIENVENIDO
-        </h2>
-
-        <p className={styles["login-subtitle"]}>
-          Accede a tu portal educativo
-        </p>
+      <div className={styles["login-visual"]}>
+        <img src={logo} alt="Logo INPS" />
+        <h2>Instituto Nacional de Promoción Social</h2>
       </div>
 
-      {showError && (
-        <div className={styles["login-error-message"]}>
-          Usuario o contraseña incorrectos
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit}>
-
-        {/* Campo usuario/email */}
-        <div className={styles["login-form-group"]}>
-          <label htmlFor="email">
-            Usuario
-          </label>
-
-          <input
-            id="email"
-            type="email"
-            placeholder="Tu usuario"
-            required
-            value={formData.email}
-            onChange={handleInputChange}
-          />
+      <div className={styles["login-container"]}>
+        <div className={styles["login-header"]}>
+          <h2 className={styles["login-title"]}>BIENVENIDO</h2>
+          <p className={styles["login-subtitle"]}>Accede a tu portal educativo</p>
         </div>
 
-        {/* Campo contraseña */}
-        <div className={styles["login-form-group"]}>
-          <label htmlFor="password">
-            Contraseña
-          </label>
+        {error && (
+          <div className={styles["login-error-message"]}>{error}</div>
+        )}
 
-          <input
-            id="password"
-            type="password"
-            placeholder="Tu contraseña"
-            required
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        {/* Opciones del formulario */}
-        <div className={styles["login-form-options"]}>
-
-          {/* Checkbox recordar sesión */}
-          <div className={styles["login-checkbox-wrapper"]}>
+        <form onSubmit={handleSubmit}>
+          <div className={styles["login-form-group"]}>
+            <label htmlFor="email">Usuario</label>
             <input
-              type="checkbox"
-              id="remember"
-              checked={formData.remember}
+              id="email"
+              type="email"
+              placeholder="Tu correo"
+              required
+              autoComplete="username"
+              value={formData.email}
               onChange={handleInputChange}
             />
-
-            <label htmlFor="remember">
-              Recordarme
-            </label>
           </div>
 
-          {/* Link recuperar contraseña */}
-          <a
-            href="#"
-            className={styles["login-forgot-password"]}
-            onClick={handleForgotPassword}
-          >
-            ¿Olvidaste tu contraseña?
-          </a>
+          <div className={styles["login-form-group"]}>
+            <label htmlFor="password">Contraseña</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Tu contraseña"
+              required
+              autoComplete="current-password"
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </div>
 
-        </div>
+          <div className={styles["login-form-options"]}>
+            <a href="#" className={styles["login-forgot-password"]}>
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
 
-        {/* Botón iniciar sesión */}
-        <button type="submit">
-          Iniciar Sesión
-        </button>
-
-      </form>
-    </div>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Ingresando...' : 'Iniciar Sesión'}
+          </button>
+        </form>
+      </div>
 
     </div>
   );

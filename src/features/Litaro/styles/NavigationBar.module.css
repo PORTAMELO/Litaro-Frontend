@@ -1,0 +1,121 @@
+.navigation-bar {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--space-sm) 0;
+  min-height: 100vh;
+  width: 15%;
+  background: #ffffff;
+  gap: var(--space-lg);
+  position: sticky;
+  left: 0;
+  z-index: 1000;
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+.navigation-header {
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.navigation-header,
+.navigation-profile {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-sm);
+  padding: 0.5rem 1rem;
+}
+
+.navigation-header-title p,
+.navigation-profile-title p {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.navigation-header-title span,
+.navigation-profile-title span {
+  font-size: var(--text-md);
+  font-weight: var(--text-regular);
+  line-height: 1.5;
+  color: var(--color-muted);
+}
+
+.navigation-profile {
+  margin-top: auto;
+}
+
+.navigation-options {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--space-sm) 0;
+  gap: var(--space-xs);
+}
+
+/*.navigation-options p {
+  margin: 0;
+  gap: var(--space-xs);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}*/
+
+.navigation-options p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+  cursor: pointer;
+}
+
+.navigation-options a {
+  text-decoration: none;
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: inherit;
+  width: 100%;
+}
+
+.active {
+  background: #cbd5e1;
+  color: var(--primary-color);
+}
+
+.navigation-options p:hover {
+  background: rgba(22, 17, 58, 0.05);
+}
+
+.icon {
+  font-size: var(--text-xl);
+}
+
+.icon {
+  font-size: var(--text-xl);
+  flex-shrink: 0;
+  transition: transform 0.1s ease;
+}
+
+.navigation-header img,
+.navigation-profile img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 1200px) {
+  .mobile-navigation {
+    margin: 0;
+    padding: 0;
+    display: none;
+  }
+}

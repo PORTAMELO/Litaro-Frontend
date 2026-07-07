@@ -46,6 +46,16 @@
     --shadow-md: 0 8px 16px rgba(0,0,0, .08);
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
     font-family: "Nunito", sans-serif;
+}
+
+body {
+  margin: 0;
 }

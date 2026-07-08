@@ -7,12 +7,24 @@ import AboutUs from "./features/Homepage/AboutUs/AboutUs";
 import Calendar from "./features/Homepage/Calendar/Calendar";
 import Admissions from "./features/Homepage/Admissions/Admissions";
 import Login from "./features/Loginpage/Loginpage";
-import LitaroAdmin from "./features/Litaro/LitaroAdmin";
-import AdministracionView from "./features/Litaro/Administracion/AdministracionView";
-import EstadisticasView from "./features/Litaro/Estadisticas/EstadisticasView";
+import LitaroAdmin from "./features/LitaroAdmin/LitaroAdmin";
+import LitaroProfessor from "./features/LitaroProfessor/LitaroProfessor";
+import LitaroStudent from "./features/LitaroStudent/LitaroStudent";
+
+import AdministracionView from "./features/LitaroAdmin/Administracion/AdministracionView";
+import EstadisticasView from "./features/LitaroAdmin/Estadisticas/EstadisticasView";
 import "./App.css";
 import { useAuth } from "./shared/context/AuthContext";
-import WebContentManager from "./features/Litaro/WebContentManager/WebContentManager";
+import WebContentManager from "./features/LitaroAdmin/WebContentManager/WebContentManager";
+import ComunicacionesView from "./features/LitaroAdmin/Comunicaciones/ComunicacionesView";
+import ForoView from "./features/LitaroAdmin/Foro/ForoView";
+import ReportesView from "./features/LitaroAdmin/Reportes/ReportesView";
+import SeguridadView from "./features/LitaroAdmin/Seguridad/SeguridadView";
+
+import InicioProfessor from "./features/LitaroProfessor/Inicio/InicioProfessor";
+import NotasProfessor from "./features/LitaroProfessor/Notas/NotasProfessor";
+import AsistenciaProfessor from "./features/LitaroProfessor/Asistencia/AsistenciaProfessor";
+import ForoProfessor from "./features/LitaroProfessor/Foro/ForoProfessor";
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -40,11 +52,25 @@ function App() {
           <Route path="Admisiones" element={<Admissions />} />
         </Route>
         <Route path="/Login" element={<Login />} />
-        <Route path="/Litaro" element={<LitaroAdmin />}>
+        <Route path="/LitaroAdmin" element={<LitaroAdmin />}>
           <Route index element={<Navigate to="Administracion" />} />
           <Route path="Administracion" element={<AdministracionView />} />
           <Route path="Estadisticas" element={<EstadisticasView />} />
+          <Route path="Comunicaciones" element={<ComunicacionesView />} />
+          <Route path="Foro" element={<ForoView />} />
+          <Route path="Reportes" element={<ReportesView />} />
+          <Route path="Seguridad" element={<SeguridadView />} />
           <Route path="PaginaWeb" element={<WebContentManager />} />
+        </Route>
+        <Route path="/LitaroStudent" element={<LitaroStudent />}>
+        
+        </Route>
+        <Route path="/LitaroProfessor" element={<LitaroProfessor />}>
+          <Route index element={<Navigate to="Inicio" />} />
+          <Route path="Inicio" element={<InicioProfessor />} />
+          <Route path="Notas" element={<NotasProfessor />} />
+          <Route path="Asistencia" element={<AsistenciaProfessor />} />
+          <Route path="Foro" element={<ForoProfessor />} />
         </Route>
 
         {/* Rutas protegidas por ROL*/}

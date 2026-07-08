@@ -1,0 +1,26 @@
+.achievement-board {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  width: 100%;
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  align-self: flex-start; /* Lo alinea a la izquierda */
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  width: 100%;
+}

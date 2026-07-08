@@ -1,0 +1,47 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.section h2 {
+  font-size: var(--text-xxl);
+  color: var(--color-text);
+}
+
+.grid {
+  display: flex;
+  gap: var(--space-xl);
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding-bottom: var(--space-xs);
+
+  scrollbar-width: thin;
+}
+
+.grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.grid::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+  border-radius: 999px;
+}
+
+.grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,10 +1,7 @@
 import { HiMiniMegaphone } from "react-icons/hi2";
 import { ImStatsDots } from "react-icons/im";
 import {
-  MdForum,
   MdOutlineManageSearch,
-  MdOutlineSecurity,
-  MdWeb,
 } from "react-icons/md";
 import { TbFileReport } from "react-icons/tb";
 import { Link, useLocation } from "react-router-dom";
@@ -26,64 +23,42 @@ const NavigationBar = () => {
       <div className={styles["navigation-options"]}>
         <p
           className={
-            location.pathname === "/Litaro/Administracion" ? styles.active : ""
+            location.pathname === "/LitaroStudent/Inicio" ? styles.active : ""
           }
         >
           <MdOutlineManageSearch className={styles["icon"]} />
-          <Link to="/Litaro/Administracion">Administración</Link>
+          <Link to="/LitaroStudent/Inicio">Inicio</Link>
         </p>
         <p
           className={
-            location.pathname === "/Litaro/Estadisticas" ? styles.active : ""
+            location.pathname === "/LitaroStudent/Notas" ? styles.active : ""
           }
         >
           <ImStatsDots className={styles["icon"]} />
-          <Link to="/Litaro/Estadisticas">Estadisticas</Link>
+          <Link to="/LitaroStudent/Notas">Notas</Link>
         </p>
         <p
           className={
-            location.pathname === "/Litaro/Reportes" ? styles.active : ""
+            location.pathname === "/LitaroStudent/Asistencia" ? styles.active : ""
           }
         >
           <TbFileReport className={styles["icon"]} />
-          <Link to="/Litaro/Reportes">Reportes</Link>
+          <Link to="/LitaroStudent/Asistencia">Asistencia</Link>
         </p>
         <p
           className={
-            location.pathname === "/Litaro/Comunicaciones" ? styles.active : ""
+            location.pathname === "/LitaroStudent/Foro" ? styles.active : ""
           }
         >
           <HiMiniMegaphone className={styles["icon"]} />
-          <Link to="/Litaro/Comunicaciones">Comunicaciones</Link>
-        </p>
-        <p
-          className={location.pathname === "/Litaro/Foro" ? styles.active : ""}
-        >
-          <MdForum className={styles["icon"]} />
-          <Link to="/Litaro/Foro">Foro</Link>
-        </p>
-        <p
-          className={
-            location.pathname === "/Litaro/Seguridad" ? styles.active : ""
-          }
-        >
-          <MdOutlineSecurity className={styles["icon"]} />
-          <Link to="/Litaro/Seguridad">Seguridad</Link>
-        </p>
-        <p
-          className={
-            location.pathname === "/Litaro/PaginaWeb" ? styles.active : ""
-          }
-        >
-          <MdWeb className={styles["icon"]} />
-          <Link to="/Litaro/PaginaWeb">Página web</Link>
-        </p>
+          <Link to="/LitaroStudent/Foro">Foro</Link>
+        </p> 
       </div>
       <div className={styles["navigation-profile"]}>
         <img src={logo}></img>
         <div className={styles["navigation-profile-title"]}>
-          <p>Administrador</p>
-          <span>admin@inps.com</span>
+          <p>Estudiante</p>
+          <span>student@inps.com</span>
         </div>
       </div>
     </nav>

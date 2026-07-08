@@ -1,0 +1,86 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  padding: var(--space-lg);
+
+  background: var(--background-color);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #72d84b;
+
+  color: white;
+
+  border-radius: var(--radius-md);
+
+  font-size: 1.5rem;
+
+  flex-shrink: 0;
+}
+
+.header h3 {
+  margin: 0;
+
+  font-size: var(--text-xxl);
+
+  font-weight: var(--font-bold);
+
+  color: var(--color-text);
+}
+
+.header p {
+  margin: 0;
+
+  font-size: var(--text-lg);
+
+  font-weight: var(--font-semibold);
+
+  color: var(--color-muted);
+}
+
+.subjects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.subject {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.name {
+  font-size: var(--text-lg);
+
+  font-weight: var(--font-semibold);
+
+  color: var(--color-text);
+}
+
+.classroom {
+  font-size: var(--text-lg);
+
+  color: var(--color-muted);
+
+  text-align: right;
+}

@@ -1,0 +1,49 @@
+.schedule-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.schedule-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.subject-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #f4f6ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subject-image svg {
+  width: 34px;
+  height: 34px;
+  color: #5b6cff;
+}
+
+.schedule-card p {
+  margin: 0;
+  color: #7b7b7b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.schedule-card h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+}

@@ -1,0 +1,27 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f4f6;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.top-section {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 25px;
+  align-items: start; 
+}
+
+.bottom-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}

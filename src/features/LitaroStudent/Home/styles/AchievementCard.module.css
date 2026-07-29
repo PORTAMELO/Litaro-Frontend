@@ -1,0 +1,20 @@
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 120px;
+  gap: 12px;
+}
+
+.achievement-card svg {
+  width: 34px;
+  height: 34px;
+  color: #5b6cff;
+}
+
+.achievement-card p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 14px;
+}

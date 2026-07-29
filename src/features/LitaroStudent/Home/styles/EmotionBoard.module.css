@@ -1,0 +1,26 @@
+.emotion-board {
+  width: 100%;
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  align-self: flex-start; /* Lo alinea a la izquierda */
+}
+
+.cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  width: 100%;
+}

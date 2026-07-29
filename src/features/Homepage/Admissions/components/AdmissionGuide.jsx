@@ -15,18 +15,12 @@ const AdmissionGuide = ({ steps }) => {
           }`}
         >
           <div className={styles["guide-content"]}>
-            <div className={styles["guide-number"]}>
-              {index + 1}
-            </div>
+            <div className={styles["guide-number"]}>{index + 1}</div>
 
             <div className={styles["guide-card"]}>
-              <h3 className={styles["guide-card-title"]}>
-                Paso {index + 1}
-              </h3>
+              <h3 className={styles["guide-card-title"]}>Paso {index + 1}</h3>
 
-              <p className={styles["guide-card-text"]}>
-                {step}
-              </p>
+              <p className={styles["guide-card-text"]}>{step.description}</p>
             </div>
           </div>
         </article>

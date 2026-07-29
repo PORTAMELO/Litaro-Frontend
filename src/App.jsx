@@ -7,10 +7,25 @@ import AboutUs from "./features/Homepage/AboutUs/AboutUs";
 import Calendar from "./features/Homepage/Calendar/Calendar";
 import Admissions from "./features/Homepage/Admissions/Admissions";
 import Login from "./features/Loginpage/Loginpage";
-import "./App.css";
+import LitaroAdmin from "./features/LitaroAdmin/LitaroAdmin";
+import LitaroProfessor from "./features/LitaroProfessor/LitaroProfessor";
+import LitaroStudent from "./features/LitaroStudent/LitaroStudent";
 
-// Se deja momentaneo para mostrar el nombre del usuario en el dashboard temporal para verificar correcta autenticación y autorización de roles. Se eliminará cuando se implementen las rutas por rol.
+import AdministracionView from "./features/LitaroAdmin/Administracion/AdministracionView";
+import EstadisticasView from "./features/LitaroAdmin/Estadisticas/EstadisticasView";
+import "./App.css";
 import { useAuth } from "./shared/context/AuthContext";
+import WebContentManager from "./features/LitaroAdmin/WebContentManager/WebContentManager";
+import ComunicacionesView from "./features/LitaroAdmin/Comunicaciones/ComunicacionesView";
+import ForoView from "./features/LitaroAdmin/Foro/ForoView";
+import ReportesView from "./features/LitaroAdmin/Reportes/ReportesView";
+import SeguridadView from "./features/LitaroAdmin/Seguridad/SeguridadView";
+
+import InicioProfessor from "./features/LitaroProfessor/Inicio/InicioProfessor";
+import NotasProfessor from "./features/LitaroProfessor/Notas/NotasProfessor";
+import AsistenciaProfessor from "./features/LitaroProfessor/Asistencia/AsistenciaProfessor";
+import ForoProfessor from "./features/LitaroProfessor/Foro/ForoProfessor";
+
 function Dashboard() {
   const { user, logout } = useAuth();
   return (
@@ -27,7 +42,6 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-
         {/* Rutas públicas ── */}
         <Route path="/" element={<Navigate to="/Homepage" />} />
         <Route path="/Homepage" element={<Homepage />}>
@@ -37,20 +51,41 @@ function App() {
           <Route path="Calendario" element={<Calendar />} />
           <Route path="Admisiones" element={<Admissions />} />
         </Route>
-        <Route path="/login" element={<Login />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/LitaroAdmin" element={<LitaroAdmin />}>
+          <Route index element={<Navigate to="Administracion" />} />
+          <Route path="Administracion" element={<AdministracionView />} />
+          <Route path="Estadisticas" element={<EstadisticasView />} />
+          <Route path="Comunicaciones" element={<ComunicacionesView />} />
+          <Route path="Foro" element={<ForoView />} />
+          <Route path="Reportes" element={<ReportesView />} />
+          <Route path="Seguridad" element={<SeguridadView />} />
+          <Route path="PaginaWeb" element={<WebContentManager />} />
+        </Route>
+        <Route path="/LitaroStudent" element={<LitaroStudent />}>
+        
+        </Route>
+        <Route path="/LitaroProfessor" element={<LitaroProfessor />}>
+          <Route index element={<Navigate to="Inicio" />} />
+          <Route path="Inicio" element={<InicioProfessor />} />
+          <Route path="Notas" element={<NotasProfessor />} />
+          <Route path="Asistencia" element={<AsistenciaProfessor />} />
+          <Route path="Foro" element={<ForoProfessor />} />
+        </Route>
 
         {/* Rutas protegidas por ROL*/}
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute allowedRoles={['ADMIN', 'TEACHER', 'STUDENT', 'PARENT']}>
+            <PrivateRoute
+              allowedRoles={["ADMIN", "TEACHER", "STUDENT", "PARENT"]}
+            >
               <Dashboard />
             </PrivateRoute>
           }
         />
 
         {/* Aquí van las rutas por rol*/}
-
       </Routes>
     </BrowserRouter>
   );

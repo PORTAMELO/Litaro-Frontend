@@ -1,0 +1,8 @@
+.schedule-board { 
+  width: 100%; 
+  background: #0f57c5; 
+  border-radius: 18px; 
+  padding: 25px; 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 25px; }

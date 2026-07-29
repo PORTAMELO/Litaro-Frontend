@@ -27,32 +27,41 @@ const reducer = (state, action) => {
 const LocationCardBoard = ({ locations }) => {
   const [state, dispatch] = useReducer(reducer, { index: 0 });
 
+  if (!locations?.length) return null;
+
   const location = locations[state.index];
 
   return (
     <div className={styles["location-card-board"]}>
       <div className={styles["left-location-card"]}>
-        <h1> {location.title}</h1>
+        <h1>{location.title}</h1>
+
         <p>{location.description}</p>
+
         <img src={location.image} alt={location.title} />
+
         <div className={styles["location-buttons"]}>
           <IoIosArrowDropleftCircle
             size={"3.5rem"}
             className={styles["previous-location-button"]}
             onClick={() =>
-              dispatch({ type: "previous", length: locations.length })
+              dispatch({
+                type: "previous",
+                length: locations.length,
+              })
             }
-          >
-            Anterior
-          </IoIosArrowDropleftCircle>
+          />
 
           <IoIosArrowDroprightCircle
             size={"3.5rem"}
             className={styles["next-location-button"]}
-            onClick={() => dispatch({ type: "next", length: locations.length })}
-          >
-            Siguiente
-          </IoIosArrowDroprightCircle>
+            onClick={() =>
+              dispatch({
+                type: "next",
+                length: locations.length,
+              })
+            }
+          />
         </div>
       </div>
 
@@ -65,7 +74,7 @@ const LocationCardBoard = ({ locations }) => {
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
+        />
       </div>
     </div>
   );

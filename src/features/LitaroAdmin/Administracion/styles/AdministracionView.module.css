@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+
+  margin: var(--space-xl);
+}
+
+.container h1 {
+  font-size: 2rem;
+  color: var(--color-text);
+}

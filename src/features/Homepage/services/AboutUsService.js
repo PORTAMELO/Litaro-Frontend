@@ -2,7 +2,7 @@ import * as api from "../../../api/WebContentApi";
 
 const getSection = async (sectionName, contentKey) => {
   const response = await api.getContent(
-    "AboutUs",
+    "Nosotros",
     sectionName,
     contentKey
   );
@@ -11,13 +11,13 @@ const getSection = async (sectionName, contentKey) => {
 };
 
 export const getIntroduction = () =>
-  getSection("Introduction", "Description");
+  getSection("Introducción", "Description");
 
 export const getMission = () =>
-  getSection("MissionVision", "Mission");
+  getSection("Misión y Visión", "Mission");
 
 export const getVision = () =>
-  getSection("MissionVision", "Vision");
+  getSection("Misión y Visión", "Vision");
 
 export const getProfessors = () =>
-  getSection("Professors", "Cards");
+  getSection("Profesores", "Cards");

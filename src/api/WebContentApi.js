@@ -33,5 +33,5 @@ export const activateContent = (id) =>
 
 export const deactivateContent = (id) =>
   apiFetch(`/webcontents/${id}/deactivate`, {
-    method: "DELETE",
+    method: "PATCH",
   });

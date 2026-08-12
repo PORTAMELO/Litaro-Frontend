@@ -24,7 +24,6 @@ const WebContentManager = () => {
   const [configurations, setConfigurations] = useState([]);
   const [editorOpen, setEditorOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState(null);
-  const [form, setForm] = useState({});
 
   const [notification, setNotification] = useState({
     open: false,
@@ -103,15 +102,12 @@ const WebContentManager = () => {
     };
 
     setSelectedContent(newContent);
-    setForm(JSON.parse(configuration.templateJson));
 
     setEditorOpen(true);
   };
 
   const handleEdit = (content) => {
     setSelectedContent(content);
-
-    setForm(JSON.parse(content.dataJson));
 
     setEditorOpen(true);
   };
@@ -295,12 +291,9 @@ const WebContentManager = () => {
       <ContentEditor
         open={editorOpen}
         content={selectedContent}
-        form={form}
-        setForm={setForm}
         onClose={() => {
           setEditorOpen(false);
           setSelectedContent(null);
-          setForm({});
         }}
         onSave={handleSave}
       />

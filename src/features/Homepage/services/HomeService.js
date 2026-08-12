@@ -13,19 +13,19 @@ const getSection = async (sectionName, contentKey) => {
 };
 
 export const getIntroduction = () =>
-  getSection("Introduction", "Description");
+  getSection("Introducción", "Description");
 
 export const getLocations = () =>
-  getSection("Locations", "Cards");
+  getSection("Sedes", "Cards");
 
 export const getAcademicLevels = () =>
-  getSection("Levels", "Cards");
+  getSection("Niveles Académicos", "Cards");
 
 export const getEvents = () =>
-  getSection("Events", "Cards");
+  getSection("Eventos", "Cards");
 
 export const getStatistics = () =>
-  getSection("Banners", "Statistics");
+  getSection("Tarjetas", "Statistics");
 
 export const getValues = () =>
-  getSection("Banners", "Values");
+  getSection("Tarjetas", "Values");

@@ -2,7 +2,7 @@ import * as api from "../../../api/WebContentApi";
 
 const getSection = async (sectionName, contentKey) => {
   const response = await api.getContent(
-    "Calendar",
+    "Calendario",
     sectionName,
     contentKey
   );
@@ -11,4 +11,4 @@ const getSection = async (sectionName, contentKey) => {
 };
 
 export const getEvents = () =>
-  getSection("Events", "Cards");
+  getSection("Eventos", "Cards");

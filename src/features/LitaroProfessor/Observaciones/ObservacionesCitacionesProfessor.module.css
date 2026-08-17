@@ -1,0 +1,246 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin: var(--space-xl);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xxl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.subtitle {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-muted);
+  font-size: var(--text-md);
+}
+
+/* =========================
+   FILTROS
+========================= */
+
+.filtersCard,
+.studentsCard,
+.recordsCard {
+  background-color: var(--background-color);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.filtersCard {
+  padding: var(--space-lg);
+}
+
+.sectionTitle {
+  display: block;
+  margin-bottom: var(--space-md) !important;
+  font-size: var(--text-md) !important;
+  font-weight: var(--font-bold) !important;
+  color: var(--color-text);
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.filter label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+/* =========================
+   TABLAS
+========================= */
+
+.studentsCard,
+.recordsCard {
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tableTitle {
+  font-size: var(--text-lg) !important;
+  font-weight: var(--font-bold) !important;
+  color: var(--color-text);
+}
+
+.tableSubtitle {
+  margin-top: 2px !important;
+  color: var(--color-muted);
+  font-size: var(--text-sm) !important;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  background-color: rgba(22, 17, 58, 0.04);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(22, 17, 58, 0.02);
+}
+
+/* =========================
+   ESTUDIANTES
+========================= */
+
+.numberColumn,
+.numberCell {
+  width: 60px;
+  text-align: center !important;
+}
+
+.codeColumn {
+  width: 150px;
+}
+
+.actionsColumn {
+  width: 280px;
+}
+
+.studentName {
+  font-weight: var(--font-semibold);
+}
+
+.codeCell {
+  color: var(--color-muted) !important;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.observationButton,
+.appointmentButton {
+  min-height: 2.2rem !important;
+  padding: var(--space-xs) var(--space-sm) !important;
+  border-radius: var(--radius-md) !important;
+  font-family: inherit !important;
+  font-size: var(--text-sm) !important;
+  text-transform: none !important;
+}
+
+.observationButton {
+  color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.appointmentButton {
+  color: var(--primary-color) !important;
+  border-color: rgba(22, 17, 58, 0.3) !important;
+}
+
+.emptyCell {
+  padding: var(--space-lg) !important;
+  text-align: center !important;
+  color: var(--color-muted) !important;
+}
+
+/* =========================
+   REGISTROS
+========================= */
+
+.descriptionCell {
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+.recordActionsColumn {
+  width: 110px;
+  text-align: center !important;
+}
+
+.iconActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+  .filtersGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .container {
+    margin: var(--space-md);
+  }
+
+  .filtersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .observationButton,
+  .appointmentButton {
+    width: 100%;
+  }
+}

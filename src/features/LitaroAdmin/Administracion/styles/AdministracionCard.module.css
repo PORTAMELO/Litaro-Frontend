@@ -1,82 +1,116 @@
 .card {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
+  min-height: 11rem;
   padding: var(--space-lg);
 
-  background: var(--background-color);
+  overflow: hidden;
 
+  background-color: var(--card-color);
   border-radius: var(--radius-lg);
-
   box-shadow: var(--shadow-sm);
 
-  gap: var(--space-lg);
+  color: #ffffff;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+/* Image */
+
+.card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: var(--card-image);
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Color overlay */
+
+.card::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-color: var(--card-color);
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Content */
+
 .info {
+  position: relative;
+  z-index: 1;
+
   display: flex;
   flex-direction: column;
+  gap: var(--space-xs);
 
-  gap: var(--space-sm);
+  width: 100%;
 }
 
 .info h3 {
   margin: 0;
 
-  font-size: var(--text-xxl);
-
+  font-size: var(--text-xl);
   font-weight: var(--font-bold);
 
-  color: var(--color-text);
+  color: #ffffff;
 }
 
 .info p {
   margin: 0;
 
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
 
-  color: var(--color-text);
+  color: #ffffff;
 }
+
+/* Actions */
 
 .actions {
   display: flex;
-
   gap: var(--space-md);
 
-  font-size: 1.4rem;
+  margin-top: var(--space-md);
 
-  cursor: pointer;
+  color: #ffffff;
+  font-size: var(--text-xl);
 }
 
 .actions svg {
-  transition: 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .actions svg:hover {
   transform: translateY(-2px);
 }
 
-.icon {
-  font-size: 5rem;
+/* Hover */
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  flex-shrink: 0;
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-@media (max-width: 500px) {
-  .card {
-    flex-direction: column;
+.card:hover::before {
+  opacity: 0.6;
+}
 
-    text-align: center;
-  }
-
-  .actions {
-    justify-content: center;
-  }
+.card:hover::after {
+  opacity: 0.4;
 }

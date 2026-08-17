@@ -1,31 +1,45 @@
 .container {
   display: flex;
   flex-direction: column;
+
   gap: var(--space-xl);
 }
 
+/* Summary */
+
 .summary {
   display: grid;
+
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  gap: var(--space-xl);
+
+  gap: var(--space-lg);
 }
+
+/* Grades */
 
 .grades {
   display: flex;
   flex-direction: column;
+
   gap: var(--space-lg);
 }
 
 .gradesGrid {
   display: grid;
+
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+
   gap: var(--space-lg);
 }
 
+/* Actions */
+
 .actions {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-xl);
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: var(--space-lg);
 }
 
 @media (max-width: 900px) {

@@ -10,7 +10,6 @@ import {
   Stack,
 } from "@mui/material";
 
-
 const ColorField = ({ label, value, onCommit }) => {
   const [localValue, setLocalValue] = useState(value || "#000000");
 
@@ -30,9 +29,9 @@ const ColorField = ({ label, value, onCommit }) => {
         onBlur={() => onCommit(localValue)}
         style={{
           width: "100%",
-          height: 40,
+          height: "2.5rem",
           border: "1px solid rgba(0, 0, 0, 0.23)",
-          borderRadius: 4,
+          borderRadius: "var(--radius-md)",
           cursor: "pointer",
           padding: 2,
         }}
@@ -41,12 +40,7 @@ const ColorField = ({ label, value, onCommit }) => {
   );
 };
 
-const ContentEditor = ({
-  open,
-  content,
-  onClose,
-  onSave,
-}) => {
+const ContentEditor = ({ open, content, onClose, onSave }) => {
   const [form, setForm] = useState({});
 
   const [multilineKeys, setMultilineKeys] = useState({});
@@ -77,8 +71,10 @@ const ContentEditor = ({
     if (lower.includes("date")) {
       return {
         type: "date",
-        InputLabelProps: {
-          shrink: true,
+        slotProps: {
+          inputLabel: {
+            shrink: true,
+          },
         },
       };
     }
@@ -110,13 +106,39 @@ const ContentEditor = ({
   }, []);
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      PaperProps={{
+        sx: {
+          borderRadius: "var(--radius-lg)",
+          boxShadow: "var(--shadow-md)",
+        },
+      }}
+    >
+      <DialogTitle
+        sx={{
+          px: "var(--space-lg)",
+          pt: "var(--space-lg)",
+          pb: "var(--space-sm)",
+          fontFamily: "Nunito, sans-serif",
+          fontSize: "var(--text-xl)",
+          fontWeight: "var(--font-bold)",
+          color: "var(--color-text)",
+        }}
+      >
         {content?.webContentId ? "Editar contenido" : "Nuevo contenido"}
       </DialogTitle>
 
-      <DialogContent>
-        <Stack spacing={2} mt={1}>
+      <DialogContent
+        sx={{
+          px: "var(--space-lg)",
+          py: "var(--space-md)",
+        }}
+      >
+        <Stack spacing={1.5}>
           {Object.entries(form ?? {}).map(([key, value]) => {
             if (key.toLowerCase().includes("color")) {
               return (
@@ -139,18 +161,45 @@ const ContentEditor = ({
                 onChange={(e) =>
                   handleChange(key, e.target.value, typeof value === "number")
                 }
+                size="small"
               />
             );
           })}
         </Stack>
       </DialogContent>
 
-      <DialogActions sx={{ px: 3, pb: 3 }}>
-        <Button variant="outlined" onClick={onClose}>
+      <DialogActions
+        sx={{
+          px: "var(--space-lg)",
+          pb: "var(--space-lg)",
+          gap: "var(--space-xs)",
+        }}
+      >
+        <Button
+          variant="outlined"
+          onClick={onClose}
+          size="small"
+          sx={{
+            borderRadius: "var(--radius-md)",
+            textTransform: "none",
+            fontFamily: "inherit",
+            fontWeight: "var(--font-semibold)",
+          }}
+        >
           Cancelar
         </Button>
 
-        <Button variant="contained" onClick={() => onSave(form)}>
+        <Button
+          variant="contained"
+          onClick={() => onSave(form)}
+          size="small"
+          sx={{
+            borderRadius: "var(--radius-md)",
+            textTransform: "none",
+            fontFamily: "inherit",
+            fontWeight: "var(--font-semibold)",
+          }}
+        >
           Guardar
         </Button>
       </DialogActions>

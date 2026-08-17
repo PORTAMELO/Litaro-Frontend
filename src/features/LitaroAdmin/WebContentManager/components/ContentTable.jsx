@@ -38,13 +38,13 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
             : "";
 
         return (
-          <div style={{ paddingTop: 8 }}>
-            <strong>{title}</strong>
+          <div style={{ paddingTop: "var(--space-xs)" }}>
+            <span style={{ fontWeight: "var(--font-regular)" }}>{title}</span>
 
             {description && (
               <>
                 <br />
-                <small>
+                <small style={{ color: "var(--color-muted)" }}>
                   {description.length > 70
                     ? description.substring(0, 70) + "..."
                     : description}
@@ -121,6 +121,48 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
           paginationModel: {
             pageSize: 5,
           },
+        },
+      }}
+      sx={{
+        border: "1px solid rgba(0, 0, 0, 0.08)",
+        borderRadius: "var(--radius-md)",
+        boxShadow: "var(--shadow-sm)",
+        backgroundColor: "var(--background-color)",
+
+        "& .MuiDataGrid-columnHeaders": {
+          minHeight: "2.8rem !important",
+          maxHeight: "2.8rem !important",
+          backgroundColor: "rgba(22, 17, 58, 0.04)",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+        },
+
+        "& .MuiDataGrid-columnHeaderTitle": {
+          fontFamily: "Nunito, sans-serif",
+          fontSize: "var(--text-sm)",
+          fontWeight: "var(--font-bold)",
+          color: "var(--color-text)",
+        },
+
+        "& .MuiDataGrid-cell": {
+          fontFamily: "Nunito, sans-serif",
+          fontSize: "var(--text-sm)",
+          color: "var(--color-text)",
+          borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+        },
+
+        "& .MuiDataGrid-row": {
+          minHeight: "3.2rem !important",
+          maxHeight: "3.2rem !important",
+        },
+
+        "& .MuiDataGrid-footerContainer": {
+          minHeight: "3rem",
+          borderTop: "1px solid rgba(0, 0, 0, 0.06)",
+        },
+
+        "& .MuiTablePagination-root": {
+          fontFamily: "Nunito, sans-serif",
+          fontSize: "var(--text-sm)",
         },
       }}
     />

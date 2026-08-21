@@ -1,10 +1,10 @@
 import { HiMiniMegaphone } from "react-icons/hi2";
-import { ImStatsDots } from "react-icons/im";
-import { MdOutlineManageSearch } from "react-icons/md";
-import { TbFileReport } from "react-icons/tb";
+import { TbMessageReportFilled } from "react-icons/tb";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/logoinps.jpg";
 import styles from "../styles/NavigationBar.module.css";
+import { FaClipboardCheck } from "react-icons/fa";
+import { MdGrade } from "react-icons/md";
 
 const NavigationBar = () => {
   const location = useLocation();
@@ -21,19 +21,11 @@ const NavigationBar = () => {
       <div className={styles["navigation-options"]}>
         <p
           className={
-            location.pathname === "/LitaroProfessor/Inicio" ? styles.active : ""
-          }
-        >
-          <MdOutlineManageSearch className={styles["icon"]} />
-          <Link to="/LitaroProfessor/Inicio">Administración</Link>
-        </p>
-        <p
-          className={
             location.pathname === "/LitaroProfessor/Notas" ? styles.active : ""
           }
         >
-          <ImStatsDots className={styles["icon"]} />
-          <Link to="/LitaroProfessor/Notas">Estadisticas</Link>
+          <MdGrade className={styles["icon"]} />
+          <Link to="/LitaroProfessor/Notas">Notas</Link>
         </p>
         <p
           className={
@@ -42,8 +34,18 @@ const NavigationBar = () => {
               : ""
           }
         >
-          <TbFileReport className={styles["icon"]} />
-          <Link to="/LitaroProfessor/Asistencia">Reportes</Link>
+          <FaClipboardCheck className={styles["icon"]} />
+          <Link to="/LitaroProfessor/Asistencia">Asistencia</Link>
+        </p>
+        <p
+          className={
+            location.pathname === "/LitaroProfessor/Observaciones"
+              ? styles.active
+              : ""
+          }
+        >
+          <TbMessageReportFilled className={styles["icon"]} />
+          <Link to="/LitaroProfessor/Observaciones">Observaciones</Link>
         </p>
         <p
           className={

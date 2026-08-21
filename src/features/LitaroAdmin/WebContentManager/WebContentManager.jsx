@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as service from "../services/WebContentManagerService";
 import * as configurationService from "../services/WebContentConfigurationService";
+import styles from "./styles/WebContentManager.module.css";
 
 import {
   Accordion,
@@ -18,6 +19,8 @@ import ContentTable from "./components/ContentTable";
 import ContentEditor from "./components/ContentEditor";
 import AppNotification from "./components/AppNotification";
 import ConfirmDialog from "./components/ConfirmDialog";
+
+const pageOrder = ["Home", "Nosotros", "Calendario", "Admisiones"];
 
 const WebContentManager = () => {
   const [contents, setContents] = useState([]);
@@ -241,52 +244,67 @@ const WebContentManager = () => {
   }, {});
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <Typography variant="h4" gutterBottom>
-        Administrador de contenido
-      </Typography>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Administrador de contenido</h1>
 
-      {Object.entries(grouped).map(([page, sections]) => (
-        <Accordion key={page} defaultExpanded>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">{page}</Typography>
-          </AccordionSummary>
+      {pageOrder
+        .filter((page) => grouped[page])
+        .map((page) => {
+          const sections = grouped[page];
 
-          <AccordionDetails>
-            {Object.entries(sections).map(([section, data]) => (
-              <Accordion key={section} sx={{ mb: 2 }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>{section}</Typography>
-                </AccordionSummary>
+          return (
+            <Accordion key={page} defaultExpanded>
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography variant="h6">{page}</Typography>
+              </AccordionSummary>
 
-                <AccordionDetails>
-                  <Stack
-                    direction="row"
-                    justifyContent="flex-end"
-                    sx={{ mb: 2 }}
+              <AccordionDetails>
+                {Object.entries(sections).map(([section, data]) => (
+                  <Accordion
+                    key={section}
+                    className={styles["section-accordion"]}
                   >
-                    <Button
-                      variant="contained"
-                      startIcon={<AddIcon />}
-                      onClick={() => handleCreate(data.configuration)}
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      className={styles["section-accordion-summary"]}
                     >
-                      Nuevo
-                    </Button>
-                  </Stack>
+                      <Typography className={styles["section-title"]}>
+                        {section}
+                      </Typography>
+                    </AccordionSummary>
 
-                  <ContentTable
-                    rows={data.items}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    onActivate={handleActivate}
-                    onDeactivate={handleDeactivate}
-                  />
-                </AccordionDetails>
-              </Accordion>
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      ))}
+                    <AccordionDetails
+                      className={styles["section-accordion-details"]}
+                    >
+                      <Stack
+                        direction="row"
+                        justifyContent="flex-end"
+                        sx={{ mb: 1.5 }}
+                      >
+                        <Button
+                          variant="contained"
+                          startIcon={<AddIcon />}
+                          onClick={() => handleCreate(data.configuration)}
+                          className={styles["new-button"]}
+                        >
+                          Nuevo
+                        </Button>
+                      </Stack>
+
+                      <ContentTable
+                        rows={data.items}
+                        onEdit={handleEdit}
+                        onDelete={handleDelete}
+                        onActivate={handleActivate}
+                        onDeactivate={handleDeactivate}
+                      />
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
 
       <ContentEditor
         open={editorOpen}

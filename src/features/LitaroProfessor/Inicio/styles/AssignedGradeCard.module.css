@@ -10,11 +10,23 @@
   border-radius: var(--radius-lg);
 
   box-shadow: var(--shadow-sm);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Header */
 
 .header {
   display: flex;
   align-items: center;
+
   gap: var(--space-md);
 }
 
@@ -23,62 +35,64 @@
   height: 3rem;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
 
   background: #72d84b;
 
-  color: white;
+  color: #ffffff;
 
   border-radius: var(--radius-md);
 
-  font-size: 1.5rem;
-
-  flex-shrink: 0;
+  font-size: 1.4rem;
 }
 
 .header h3 {
   margin: 0;
 
-  font-size: var(--text-xxl);
-
+  font-size: var(--text-xl);
   font-weight: var(--font-bold);
 
   color: var(--color-text);
 }
 
 .header p {
-  margin: 0;
+  margin: var(--space-xs) 0 0;
 
-  font-size: var(--text-lg);
-
-  font-weight: var(--font-semibold);
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
 
   color: var(--color-muted);
 }
 
+/* Subjects */
+
 .subjects {
   display: flex;
   flex-direction: column;
+
   gap: var(--space-sm);
 }
 
 .subject {
   display: flex;
   justify-content: space-between;
+
   gap: var(--space-lg);
 }
 
 .name {
-  font-size: var(--text-lg);
-
+  font-size: var(--text-md);
   font-weight: var(--font-semibold);
 
   color: var(--color-text);
 }
 
 .classroom {
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
+  font-weight: var(--font-regular);
 
   color: var(--color-muted);
 

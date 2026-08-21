@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Button, MenuItem, Select, TextField, Typography } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import styles from "./NotasProfessor.module.css";
+import styles from "./NotasView.module.css";
 
 const mockFilters = {
   years: [

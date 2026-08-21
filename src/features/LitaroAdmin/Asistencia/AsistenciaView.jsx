@@ -1,19 +1,12 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Button, MenuItem, Select, TextField, Typography } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import styles from "./NotasProfessor.module.css";
+import styles from "./AsistenciaView.module.css";
 
 const mockFilters = {
   years: [
     { id: 2026, name: "2026" },
     { id: 2025, name: "2025" },
-  ],
-
-  periods: [
-    { id: 1, name: "Período 1" },
-    { id: 2, name: "Período 2" },
-    { id: 3, name: "Período 3" },
-    { id: 4, name: "Período 4" },
   ],
 
   grades: [
@@ -43,44 +36,72 @@ const initialStudents = [
     id: 1,
     code: "20260001",
     name: "Juan Pérez",
-    score: 4.5,
+    status: "PRESENT",
+    observation: "",
   },
   {
     id: 2,
     code: "20260002",
     name: "María Gómez",
-    score: 3.8,
+    status: "ABSENT",
+    observation: "Incapacidad médica",
   },
   {
     id: 3,
     code: "20260003",
     name: "Carlos Rodríguez",
-    score: 4.2,
+    status: "LATE",
+    observation: "Llegó 15 minutos tarde",
   },
   {
     id: 4,
     code: "20260004",
     name: "Laura Martínez",
-    score: 2.9,
+    status: "PRESENT",
+    observation: "",
   },
   {
     id: 5,
     code: "20260005",
     name: "Daniel Torres",
-    score: null,
+    status: "PRESENT",
+    observation: "",
   },
 ];
 
-const NotasView = () => {
+const statusOptions = [
+  {
+    value: "PRESENT",
+    label: "Presente",
+  },
+  {
+    value: "LATE",
+    label: "Tarde",
+  },
+  {
+    value: "ABSENT",
+    label: "Ausente",
+  },
+];
+
+const AsistenciaView = () => {
   const [filters, setFilters] = useState({
     year: 2026,
-    period: 1,
+    date: "2026-08-13",
     grade: 6,
     classroom: 101,
     subject: 1,
   });
 
   const [students, setStudents] = useState(initialStudents);
+
+  const selectedClassroom = mockFilters.classrooms.find(
+    (classroom) => classroom.id === filters.classroom,
+  );
+
+  const selectedSubject = mockFilters.subjects.find(
+    (subject) => subject.id === filters.subject,
+  );
 
   const handleFilterChange = (field, value) => {
     setFilters((prev) => ({
@@ -89,35 +110,21 @@ const NotasView = () => {
     }));
   };
 
-  const handleScoreChange = (studentId, value) => {
+  const handleStudentChange = (studentId, field, value) => {
     setStudents((prev) =>
       prev.map((student) =>
         student.id === studentId
           ? {
               ...student,
-              score: value === "" ? null : Number(value),
+              [field]: value,
             }
           : student,
       ),
     );
   };
 
-  const selectedClassroom = useMemo(
-    () =>
-      mockFilters.classrooms.find(
-        (classroom) => classroom.id === filters.classroom,
-      ),
-    [filters.classroom],
-  );
-
-  const selectedSubject = useMemo(
-    () =>
-      mockFilters.subjects.find((subject) => subject.id === filters.subject),
-    [filters.subject],
-  );
-
   const handleSave = () => {
-    console.log("Notas a guardar:", {
+    console.log("Asistencia a guardar:", {
       filters,
       students,
     });
@@ -127,17 +134,17 @@ const NotasView = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
-          <h1 className={styles.title}>Gestión de notas</h1>
+          <h1 className={styles.title}>Gestión de asistencia</h1>
 
           <p className={styles.subtitle}>
-            Consulta y registra las notas de los estudiantes.
+            Consulta y registra la asistencia de los estudiantes.
           </p>
         </div>
       </div>
 
       <section className={styles.filtersCard}>
         <Typography className={styles.sectionTitle}>
-          Seleccionar grupo
+          Seleccionar clase
         </Typography>
 
         <div className={styles.filtersGrid}>
@@ -174,35 +181,26 @@ const NotasView = () => {
           </div>
 
           <div className={styles.filter}>
-            <label>Período</label>
+            <label>Fecha</label>
 
-            <Select
+            <TextField
+              type="date"
               size="small"
-              value={filters.period}
-              onChange={(e) => handleFilterChange("period", e.target.value)}
-              fullWidth
-              sx={{
-                fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
-
-                "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
+              value={filters.date}
+              onChange={(e) => handleFilterChange("date", e.target.value)}
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
                 },
-              }}
-            >
-              {mockFilters.periods.map((period) => (
-                <MenuItem
-                  key={period.id}
-                  value={period.id}
-                  sx={{
+                htmlInput: {
+                  style: {
                     fontFamily: "inherit",
                     fontSize: "var(--text-sm)",
-                  }}
-                >
-                  {period.name}
-                </MenuItem>
-              ))}
-            </Select>
+                  },
+                },
+              }}
+              fullWidth
+            />
           </div>
 
           <div className={styles.filter}>
@@ -306,13 +304,11 @@ const NotasView = () => {
       <section className={styles.tableCard}>
         <div className={styles.tableHeader}>
           <div>
-            <Typography className={styles.tableTitle}>
-              {selectedSubject?.name}
-            </Typography>
+            <Typography className={styles.tableTitle}>Asistencia</Typography>
 
             <Typography className={styles.tableSubtitle}>
-              {selectedClassroom?.name} · Período {filters.period} ·{" "}
-              {filters.year}
+              {selectedClassroom?.name} · {selectedSubject?.name} ·{" "}
+              {filters.date}
             </Typography>
           </div>
 
@@ -322,7 +318,7 @@ const NotasView = () => {
             onClick={handleSave}
             className={styles.saveButton}
           >
-            Guardar cambios
+            Guardar asistencia
           </Button>
         </div>
 
@@ -333,7 +329,8 @@ const NotasView = () => {
                 <th className={styles.numberColumn}>#</th>
                 <th>Estudiante</th>
                 <th className={styles.codeColumn}>Código</th>
-                <th className={styles.scoreColumn}>Nota</th>
+                <th className={styles.statusColumn}>Estado</th>
+                <th>Observación</th>
               </tr>
             </thead>
 
@@ -347,27 +344,62 @@ const NotasView = () => {
                   <td className={styles.codeCell}>{student.code}</td>
 
                   <td>
-                    <TextField
-                      type="number"
+                    <Select
                       size="small"
-                      value={student.score ?? ""}
+                      value={student.status}
                       onChange={(e) =>
-                        handleScoreChange(student.id, e.target.value)
+                        handleStudentChange(
+                          student.id,
+                          "status",
+                          e.target.value,
+                        )
                       }
-                      slotProps={{
-                        htmlInput: {
-                          min: 0,
-                          max: 5,
-                          step: 0.1,
+                      className={styles.statusSelect}
+                      sx={{
+                        fontFamily: "inherit",
+                        fontSize: "var(--text-sm)",
+
+                        "& .MuiSelect-select": {
+                          fontSize: "var(--text-sm)",
                         },
                       }}
-                      className={styles.scoreInput}
+                    >
+                      {statusOptions.map((option) => (
+                        <MenuItem
+                          key={option.value}
+                          value={option.value}
+                          sx={{
+                            fontFamily: "inherit",
+                            fontSize: "var(--text-sm)",
+                          }}
+                        >
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </td>
+
+                  <td>
+                    <TextField
+                      size="small"
+                      fullWidth
+                      placeholder="Opcional"
+                      value={student.observation}
+                      onChange={(e) =>
+                        handleStudentChange(
+                          student.id,
+                          "observation",
+                          e.target.value,
+                        )
+                      }
                       sx={{
                         "& input": {
                           fontFamily: "inherit",
                           fontSize: "var(--text-sm)",
-                          textAlign: "center",
-                          fontWeight: "var(--font-semibold)",
+                        },
+
+                        "& input::placeholder": {
+                          fontSize: "var(--text-sm)",
                         },
                       }}
                     />
@@ -382,4 +414,4 @@ const NotasView = () => {
   );
 };
 
-export default NotasView;
+export default AsistenciaView;

@@ -7,6 +7,8 @@
 }
 
 .container h1 {
-  font-size: 2rem;
+  margin: 0;
+  font-size: var(--text-xxl);
+  font-weight: var(--font-bold);
   color: var(--color-text);
 }

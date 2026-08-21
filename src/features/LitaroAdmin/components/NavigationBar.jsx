@@ -2,14 +2,16 @@ import { HiMiniMegaphone } from "react-icons/hi2";
 import { ImStatsDots } from "react-icons/im";
 import {
   MdForum,
+  MdGrade,
   MdOutlineManageSearch,
   MdOutlineSecurity,
   MdWeb,
 } from "react-icons/md";
-import { TbFileReport } from "react-icons/tb";
+import { TbFileReport, TbMessageReportFilled } from "react-icons/tb";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/logoinps.jpg";
 import styles from "../styles/NavigationBar.module.css";
+import { FaClipboardCheck } from "react-icons/fa";
 
 const NavigationBar = () => {
   const location = useLocation();
@@ -33,6 +35,32 @@ const NavigationBar = () => {
         >
           <MdOutlineManageSearch className={styles["icon"]} />
           <Link to="/LitaroAdmin/Administracion">Administración</Link>
+        </p>
+        <p
+          className={
+            location.pathname === "/LitaroAdmin/Notas" ? styles.active : ""
+          }
+        >
+          <MdGrade className={styles["icon"]} />
+          <Link to="/LitaroAdmin/Notas">Notas</Link>
+        </p>
+        <p
+          className={
+            location.pathname === "/LitaroAdmin/Asistencia" ? styles.active : ""
+          }
+        >
+          <FaClipboardCheck className={styles["icon"]} />
+          <Link to="/LitaroAdmin/Asistencia">Asistencia</Link>
+        </p>
+        <p
+          className={
+            location.pathname === "/LitaroAdmin/Observaciones"
+              ? styles.active
+              : ""
+          }
+        >
+          <TbMessageReportFilled className={styles["icon"]} />
+          <Link to="/LitaroAdmin/Observaciones">Observaciones</Link>
         </p>
         <p
           className={

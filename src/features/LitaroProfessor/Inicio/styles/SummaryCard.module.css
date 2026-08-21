@@ -3,6 +3,8 @@
   justify-content: space-between;
   align-items: center;
 
+  gap: var(--space-lg);
+
   padding: var(--space-lg);
 
   background: var(--background-color);
@@ -11,19 +13,29 @@
 
   box-shadow: var(--shadow-sm);
 
-  gap: var(--space-lg);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Information */
 
 .info {
   display: flex;
   flex-direction: column;
+
   gap: var(--space-xs);
 }
 
 .info h3 {
   margin: 0;
 
-  font-size: var(--text-xl);
+  font-size: var(--text-md);
   font-weight: var(--font-semibold);
 
   color: var(--color-muted);
@@ -39,25 +51,27 @@
 .subtitle {
   margin: 0;
 
-  font-size: var(--text-xl);
-  font-weight: var(--font-semibold);
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
 
   color: var(--color-muted);
 }
 
-.icon {
-  width: 3.8rem;
-  height: 3.8rem;
+/* Icon */
 
-  border-radius: var(--radius-md);
+.icon {
+  width: 3.25rem;
+  height: 3.25rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  color: white;
-
-  font-size: 1.8rem;
-
   flex-shrink: 0;
+
+  border-radius: var(--radius-md);
+
+  color: #ffffff;
+
+  font-size: 1.5rem;
 }

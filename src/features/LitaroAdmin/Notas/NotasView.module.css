@@ -1,0 +1,210 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin: var(--space-xl);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xxl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.subtitle {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-muted);
+  font-size: var(--text-md);
+}
+
+.filtersCard,
+.tableCard {
+  background-color: var(--background-color);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.filtersCard {
+  padding: var(--space-lg);
+}
+
+.sectionTitle {
+  display: block;
+  margin-bottom: var(--space-md) !important;
+  font-size: var(--text-md) !important;
+  font-weight: var(--font-bold) !important;
+  color: var(--color-text);
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-md);
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.filter label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+}
+
+.tableCard {
+  overflow: hidden;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tableTitle {
+  font-size: var(--text-lg) !important;
+  font-weight: var(--font-bold) !important;
+  color: var(--color-text);
+}
+
+.tableSubtitle {
+  margin-top: 2px !important;
+  color: var(--color-muted);
+  font-size: var(--text-sm) !important;
+}
+
+.saveButton {
+  min-height: 2.4rem !important;
+  padding: var(--space-xs) var(--space-md) !important;
+  border-radius: var(--radius-md) !important;
+  font-family: inherit !important;
+  font-weight: var(--font-semibold) !important;
+  text-transform: none !important;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  background-color: rgba(22, 17, 58, 0.04);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+}
+
+.table td {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.table tbody tr:hover {
+  background-color: rgba(22, 17, 58, 0.02);
+}
+
+.numberColumn,
+.numberCell {
+  width: 60px;
+  text-align: center !important;
+}
+
+.codeColumn {
+  width: 150px;
+}
+
+.scoreColumn {
+  width: 140px;
+}
+
+.numberCell {
+  color: var(--color-muted) !important;
+}
+
+.studentName {
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+.codeCell {
+  color: var(--color-muted) !important;
+}
+
+.scoreInput {
+  width: 90px;
+}
+
+.scoreInput input {
+  font-family: inherit;
+  font-size: var(--text-sm);
+  text-align: center;
+  font-weight: var(--font-semibold);
+}
+
+@media (max-width: 1000px) {
+  .filtersGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .container {
+    margin: var(--space-md);
+  }
+
+  .filtersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tableHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+}
+
+.table td .MuiTextField-root input {
+  font-size: var(--text-sm);
+}
+
+.filterControl .MuiInputBase-root {
+  font-family: inherit;
+  font-size: var(--text-sm);
+}
+
+.filterControl .MuiInputLabel-root {
+  font-family: inherit;
+  font-size: var(--text-sm);
+}
+
+.filterControl .MuiSelect-select {
+  font-size: var(--text-sm);
+}
+
+.filterMenuItem {
+  font-family: inherit !important;
+  font-size: var(--text-sm) !important;
+}

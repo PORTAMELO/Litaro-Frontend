@@ -1,0 +1,116 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 11rem;
+  padding: var(--space-lg);
+
+  overflow: hidden;
+
+  background-color: var(--card-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+
+  color: #ffffff;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Image */
+
+.card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: var(--card-image);
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Color overlay */
+
+.card::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-color: var(--card-color);
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Content */
+
+.info {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+
+  width: 100%;
+}
+
+.info h3 {
+  margin: 0;
+
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+
+  color: #ffffff;
+}
+
+.info p {
+  margin: 0;
+
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
+
+  color: #ffffff;
+}
+
+/* Actions */
+
+.actions {
+  display: flex;
+  gap: var(--space-md);
+
+  margin-top: var(--space-md);
+
+  color: #ffffff;
+  font-size: var(--text-xl);
+}
+
+.actions svg {
+  transition: transform 0.2s ease;
+}
+
+.actions svg:hover {
+  transform: translateY(-2px);
+}
+
+/* Hover */
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card:hover::before {
+  opacity: 0.6;
+}
+
+.card:hover::after {
+  opacity: 0.4;
+}

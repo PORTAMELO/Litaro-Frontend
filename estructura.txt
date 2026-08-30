@@ -96,6 +96,7 @@
 │   │   │   │       └── AdministracionSection.module.css
 │   │   │   ├── Attendance
 │   │   │   │   ├── Attendance.jsx
+│   │   │   │   ├── Attendance.module.css
 │   │   │   │   ├── components
 │   │   │   │   ├── services
 │   │   │   │   └── styles
@@ -115,6 +116,7 @@
 │   │   │   ├── Grades
 │   │   │   │   ├── components
 │   │   │   │   ├── Grades.jsx
+│   │   │   │   ├── Grades.module.css
 │   │   │   │   ├── services
 │   │   │   │   └── styles
 │   │   │   ├── Home
@@ -143,7 +145,14 @@
 │   │   │   ├── Litaro.module.css
 │   │   │   ├── Observations
 │   │   │   │   ├── components
+│   │   │   │   │   ├── AppNotification.jsx
+│   │   │   │   │   ├── CitacionDialog.jsx
+│   │   │   │   │   ├── CitacionTable.jsx
+│   │   │   │   │   ├── ConfirmDialog.jsx
+│   │   │   │   │   ├── ObservacionDialog.jsx
+│   │   │   │   │   └── ObservacionTable.jsx
 │   │   │   │   ├── Observations.jsx
+│   │   │   │   ├── Observations.module.css
 │   │   │   │   ├── services
 │   │   │   │   └── styles
 │   │   │   ├── Reports
@@ -163,9 +172,16 @@
 │   │   │   │   └── styles
 │   │   │   └── Webpage
 │   │   │       ├── components
+│   │   │       │   ├── AppNotification.jsx
+│   │   │       │   ├── ConfirmDialog.jsx
+│   │   │       │   ├── ContentEditor.jsx
+│   │   │       │   └── ContentTable.jsx
 │   │   │       ├── services
+│   │   │       │   ├── WebContentConfigurationService.js
+│   │   │       │   └── WebContentManagerService.js
 │   │   │       ├── styles
-│   │   │       └── Webpage.jsx
+│   │   │       ├── Webpage.jsx
+│   │   │       └── Webpage.module.css
 │   │   ├── LitaroAdmin
 │   │   │   ├── Administracion
 │   │   │   │   ├── AdministracionView.jsx
@@ -293,6 +309,9 @@
 │   ├── main.jsx
 │   └── shared
 │       ├── components
+│       │   ├── Button
+│       │   │   ├── Button.jsx
+│       │   │   └── Button.module.css
 │       │   ├── PrivateRoute.jsx
 │       │   ├── ScrollToTop.jsx
 │       │   └── SectionTitle.jsx
@@ -306,4 +325,4 @@
 │       └── utils
 └── vite.config.js
 
-129 directories, 178 files
+130 directories, 196 files

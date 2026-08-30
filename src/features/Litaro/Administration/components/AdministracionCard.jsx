@@ -3,7 +3,7 @@ import Button from "../../../../shared/components/Button/Button";
 import colegio from "../../../../assets/colegio.jpeg";
 import { BsPencilFill } from "react-icons/bs";
 
-const AdministracionCard = ({ title, records, color }) => {
+const AdministracionCard = ({ title, records, color, onManage }) => {
   return (
     <div
       className={styles.card}
@@ -18,14 +18,12 @@ const AdministracionCard = ({ title, records, color }) => {
         <p>{records} Registros</p>
 
         <div className={styles.actions}>
-          <Button variant="tertiary" align="left">
-            <BsPencilFill />
-            <>Administrar</>
+          <Button variant="tertiary" align="left" onClick={onManage}>
+            <>
+              <BsPencilFill />
+              Administrar
+            </>
           </Button>
-          {/*<FaPlusCircle />
-          <FaClipboardList />
-          <FaSyncAlt />
-          <FaTrashAlt />*/}
         </div>
       </div>
     </div>

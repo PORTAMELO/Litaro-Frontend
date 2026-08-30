@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./shared/components/ScrollToTop";
 import PrivateRoute from "./shared/components/PrivateRoute";
-import { useAuth } from "./shared/context/AuthContext";
+import { useAuth } from "./shared/hooks/useAuth";
 import "./App.css";
 // Webpage
 import Homepage from "./features/Homepage/Homepage";
@@ -14,7 +14,7 @@ import Login from "./features/Loginpage/Loginpage";
 import LitaroAdmin from "./features/LitaroAdmin/LitaroAdmin";
 import LitaroProfessor from "./features/LitaroProfessor/LitaroProfessor";
 import LitaroStudent from "./features/LitaroStudent/LitaroStudent";
-// Administrador
+// Administradors
 import AdministracionView from "./features/LitaroAdmin/Administracion/AdministracionView";
 import NotasView from "./features/LitaroAdmin/Notas/NotasView";
 import AsistenciaView from "./features/LitaroAdmin/Asistencia/AsistenciaView";
@@ -34,6 +34,20 @@ import AsistenciaProfessor from "./features/LitaroProfessor/Asistencia/Asistenci
 import ObservacionesCitacionesProfessor from "./features/LitaroProfessor/Observaciones/ObservacionesCitacionesProfessor";
 import ForoProfessor from "./features/LitaroProfessor/Foro/ForoProfessor";
 
+//Litaro
+import Litaro from "./features/Litaro/Litaro";
+import HomeLitaro from "./features/Litaro/Home/Home";
+import AdministrationLitaro from "./features/Litaro/Administration/Administration";
+import AttendanceLitaro from "./features/Litaro/Attendance/Attendance";
+import CommunicationsLitaro from "./features/Litaro/Communications/Communications";
+import ForumLitaro from "./features/Litaro/Forum/Forum";
+import GradesLitaro from "./features/Litaro/Grades/Grades";
+import ObservationsLitaro from "./features/Litaro/Observations/Observations";
+import ReportsLitaro from "./features/Litaro/Reports/Reports";
+import SecurityLitaro from "./features/Litaro/Security/Security";
+import StatisticsLitaro from "./features/Litaro/Statistics/Statistics";
+import WebpageLitaro from "./features/Litaro/Webpage/Webpage";
+
 function Dashboard() {
   const { user, logout } = useAuth();
   return (
@@ -50,6 +64,27 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        <Route
+          path="/Litaro"
+          element={
+            <PrivateRoute allowedRoles={["Administrador", "Profesor", "Estudiante", "Padre"]}>
+              <Litaro />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<Navigate to="Home" replace />} />
+          <Route path="Home" element={<HomeLitaro />} />
+          <Route path="Administration" element={<AdministrationLitaro />} />
+          <Route path="Attendance" element={<AttendanceLitaro />} />
+          <Route path="Communications" element={<CommunicationsLitaro />} />
+          <Route path="Forum" element={<ForumLitaro />} />
+          <Route path="Grades" element={<GradesLitaro />} />
+          <Route path="Observations" element={<ObservationsLitaro />} />
+          <Route path="Reports" element={<ReportsLitaro />} />
+          <Route path="Security" element={<SecurityLitaro />} />
+          <Route path="Statistics" element={<StatisticsLitaro />} />
+          <Route path="Webpage" element={<WebpageLitaro />} />
+        </Route>
         {/* Rutas públicas ── */}
         <Route path="/" element={<Navigate to="/Homepage" />} />
         <Route path="/Homepage" element={<Homepage />}>
@@ -65,10 +100,7 @@ function App() {
           <Route path="Administracion" element={<AdministracionView />} />
           <Route path="Notas" element={<NotasView />} />
           <Route path="Asistencia" element={<AsistenciaView />} />
-          <Route
-            path="Observaciones"
-            element={<ObservacionesCitacionesView />}
-          />
+          <Route path="Observaciones" element={<ObservacionesCitacionesView />} />
           <Route path="Estadisticas" element={<EstadisticasView />} />
           <Route path="Comunicaciones" element={<ComunicacionesView />} />
           <Route path="Foro" element={<ForoView />} />
@@ -82,10 +114,7 @@ function App() {
           <Route path="Inicio" element={<InicioProfessor />} />
           <Route path="Notas" element={<NotasProfessor />} />
           <Route path="Asistencia" element={<AsistenciaProfessor />} />
-          <Route
-            path="Observaciones"
-            element={<ObservacionesCitacionesProfessor />}
-          />
+          <Route path="Observaciones" element={<ObservacionesCitacionesProfessor />} />
           <Route path="Foro" element={<ForoProfessor />} />
         </Route>
 
@@ -93,9 +122,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute
-              allowedRoles={["ADMIN", "TEACHER", "STUDENT", "PARENT"]}
-            >
+            <PrivateRoute allowedRoles={["ADMIN", "TEACHER", "STUDENT", "PARENT"]}>
               <Dashboard />
             </PrivateRoute>
           }

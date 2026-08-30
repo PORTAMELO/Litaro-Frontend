@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../styles/LoginForm.module.css';
-import logo from '../../../../assets/logoinps.jpg';
-import { loginRequest } from '../../../../api/auth';
-import { useAuth } from '../../../../shared/context/AuthContext';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../styles/LoginForm.module.css";
+import logo from "../../../../assets/logoinps.jpg";
+import { loginRequest } from "../../../../api/auth";
+import { useAuth } from "../../../../shared/hooks/useAuth";
+import Button from "../../../../shared/components/Button/Button";
 
 function LoginForm() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError]       = useState(null);
-  const [loading, setLoading]   = useState(false);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -26,9 +27,10 @@ function LoginForm() {
     try {
       const userData = await loginRequest(formData.email, formData.password);
       login(userData);
-      navigate('/dashboard', { replace: true });
+      //navigate('/dashboard', { replace: true });
+      navigate("/Litaro", { replace: true });
     } catch {
-      setError('Usuario o contraseña incorrectos');
+      setError("Usuario o contraseña incorrectos");
     } finally {
       setLoading(false);
     }
@@ -36,7 +38,6 @@ function LoginForm() {
 
   return (
     <div className={styles["login-page"]}>
-
       <div className={styles["login-visual"]}>
         <img src={logo} alt="Logo INPS" />
         <h2>Instituto Nacional de Promoción Social</h2>
@@ -48,9 +49,7 @@ function LoginForm() {
           <p className={styles["login-subtitle"]}>Accede a tu portal educativo</p>
         </div>
 
-        {error && (
-          <div className={styles["login-error-message"]}>{error}</div>
-        )}
+        {error && <div className={styles["login-error-message"]}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className={styles["login-form-group"]}>
@@ -85,12 +84,11 @@ function LoginForm() {
             </a>
           </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? 'Ingresando...' : 'Iniciar Sesión'}
-          </button>
+          <Button type="submit" variant="secondary" fullWidth={true} loading={loading}>
+            Iniciar Sesión
+          </Button>
         </form>
       </div>
-
     </div>
   );
 }

@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+
+  margin: var(--space-xl);
+}
+
+.container h1 {
+  margin: 0;
+  font-size: var(--text-xxl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}

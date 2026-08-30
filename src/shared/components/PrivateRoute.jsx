@@ -1,14 +1,25 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 function PrivateRoute({ children, allowedRoles }) {
-  const { user, isAuthenticated } = useAuth();
+  const { user, loading, isAuthenticated } = useAuth();
 
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  // Todavía estamos comprobando la sesión
+  if (loading) {
+    return null;
+  }
 
-  if (allowedRoles && !allowedRoles.includes(user.role))
+  // Terminamos de comprobar y no hay sesión
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Hay sesión, pero el usuario no tiene el rol necesario
+  if (allowedRoles && !allowedRoles.includes(user.role)) {
     return <Navigate to="/unauthorized" replace />;
+  }
 
+  // Todo correcto
   return children;
 }
 

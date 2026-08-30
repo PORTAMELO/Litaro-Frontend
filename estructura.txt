@@ -1,0 +1,309 @@
+.
+├── eslint.config.js
+├── estructura.txt
+├── index.html
+├── package.json
+├── package-lock.json
+├── public
+│   ├── favicon.svg
+│   └── icons.svg
+├── README.md
+├── src
+│   ├── api
+│   │   ├── auth.js
+│   │   ├── config.js
+│   │   ├── session.js
+│   │   ├── WebContentApi.js
+│   │   └── WebContentConfigurationApi.js
+│   ├── App.css
+│   ├── App.jsx
+│   ├── assets
+│   │   ├── colegio.jpeg
+│   │   ├── fonts
+│   │   │   └── Nunito-VariableFont_wght.ttf
+│   │   └── logoinps.jpg
+│   ├── features
+│   │   ├── Homepage
+│   │   │   ├── AboutUs
+│   │   │   │   ├── AboutUsData.js
+│   │   │   │   ├── AboutUs.jsx
+│   │   │   │   ├── components
+│   │   │   │   │   ├── HistoryCard.jsx
+│   │   │   │   │   ├── MissionVision.jsx
+│   │   │   │   │   └── ProfessorCardBoard.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── HistoryCard.module.css
+│   │   │   │       ├── MissionVision.module.css
+│   │   │   │       └── ProfessorCardBoard.module.css
+│   │   │   ├── Admissions
+│   │   │   │   ├── AdmissionsData.js
+│   │   │   │   ├── Admissions.jsx
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AdmissionGuide.jsx
+│   │   │   │   │   └── IntroductionCard.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── AdmissionGuide.module.css
+│   │   │   │       └── IntroductionCard.module.css
+│   │   │   ├── Calendar
+│   │   │   │   ├── CalendarData.js
+│   │   │   │   ├── Calendar.jsx
+│   │   │   │   ├── components
+│   │   │   │   │   ├── CalendarBoard.jsx
+│   │   │   │   │   └── EventCardBoard.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── CalendarBoard.module.css
+│   │   │   │       └── EventCardBoard.module.css
+│   │   │   ├── components
+│   │   │   │   ├── Banner.jsx
+│   │   │   │   ├── Footer.jsx
+│   │   │   │   ├── Header.jsx
+│   │   │   │   └── MobileNavigation.jsx
+│   │   │   ├── Home
+│   │   │   │   ├── components
+│   │   │   │   │   ├── EventCardBoard.jsx
+│   │   │   │   │   ├── IntroductionCard.jsx
+│   │   │   │   │   ├── LevelCardBoard.jsx
+│   │   │   │   │   └── LocationCardBoard.jsx
+│   │   │   │   ├── HomeData.js
+│   │   │   │   ├── Home.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── EventCardBoard.module.css
+│   │   │   │       ├── IntroductionCard.module.css
+│   │   │   │       ├── LevelCardBoard.module.css
+│   │   │   │       └── LocationCardBoard.module.css
+│   │   │   ├── HomePageData.js
+│   │   │   ├── Homepage.jsx
+│   │   │   ├── services
+│   │   │   │   ├── AboutUsService.js
+│   │   │   │   ├── AdmissionsService.js
+│   │   │   │   ├── CalendarService.js
+│   │   │   │   └── HomeService.js
+│   │   │   └── styles
+│   │   │       ├── Banner.module.css
+│   │   │       ├── Footer.module.css
+│   │   │       ├── Header.module.css
+│   │   │       └── MobileNavigation.module.css
+│   │   ├── Litaro
+│   │   │   ├── Administration
+│   │   │   │   ├── Administration.jsx
+│   │   │   │   ├── Administration.module.css
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AdministracionCard.jsx
+│   │   │   │   │   └── AdministracionSection.jsx
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   │       ├── AdministracionCard.module.css
+│   │   │   │       └── AdministracionSection.module.css
+│   │   │   ├── Attendance
+│   │   │   │   ├── Attendance.jsx
+│   │   │   │   ├── components
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── Communications
+│   │   │   │   ├── Communications.jsx
+│   │   │   │   ├── components
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── components
+│   │   │   │   ├── NavigationBar.jsx
+│   │   │   │   └── NavigationBar.module.css
+│   │   │   ├── Forum
+│   │   │   │   ├── components
+│   │   │   │   ├── Forum.jsx
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── Grades
+│   │   │   │   ├── components
+│   │   │   │   ├── Grades.jsx
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── Home
+│   │   │   │   ├── AdministratorHome
+│   │   │   │   │   ├── AdministratorHome.jsx
+│   │   │   │   │   ├── components
+│   │   │   │   │   ├── services
+│   │   │   │   │   └── styles
+│   │   │   │   ├── components
+│   │   │   │   ├── Home.jsx
+│   │   │   │   ├── ParentHome
+│   │   │   │   │   ├── components
+│   │   │   │   │   ├── ParentHome.jsx
+│   │   │   │   │   ├── services
+│   │   │   │   │   └── styles
+│   │   │   │   ├── ProfessorHome
+│   │   │   │   │   ├── components
+│   │   │   │   │   ├── ProfessorHome.jsx
+│   │   │   │   │   ├── services
+│   │   │   │   │   └── styles
+│   │   │   │   ├── StudentHome
+│   │   │   │   │   ├── components
+│   │   │   │   │   └── StudentHome.jsx
+│   │   │   │   └── styles
+│   │   │   ├── Litaro.jsx
+│   │   │   ├── Litaro.module.css
+│   │   │   ├── Observations
+│   │   │   │   ├── components
+│   │   │   │   ├── Observations.jsx
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── Reports
+│   │   │   │   ├── components
+│   │   │   │   ├── Reports.jsx
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── Security
+│   │   │   │   ├── components
+│   │   │   │   ├── Security.jsx
+│   │   │   │   ├── services
+│   │   │   │   └── styles
+│   │   │   ├── Statistics
+│   │   │   │   ├── components
+│   │   │   │   ├── services
+│   │   │   │   ├── Statistics.jsx
+│   │   │   │   └── styles
+│   │   │   └── Webpage
+│   │   │       ├── components
+│   │   │       ├── services
+│   │   │       ├── styles
+│   │   │       └── Webpage.jsx
+│   │   ├── LitaroAdmin
+│   │   │   ├── Administracion
+│   │   │   │   ├── AdministracionView.jsx
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AdministracionCard.jsx
+│   │   │   │   │   └── AdministracionSection.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── AdministracionCard.module.css
+│   │   │   │       ├── AdministracionSection.module.css
+│   │   │   │       └── AdministracionView.module.css
+│   │   │   ├── Asistencia
+│   │   │   │   ├── AsistenciaView.jsx
+│   │   │   │   └── AsistenciaView.module.css
+│   │   │   ├── components
+│   │   │   │   └── NavigationBar.jsx
+│   │   │   ├── Comunicaciones
+│   │   │   │   └── ComunicacionesView.jsx
+│   │   │   ├── Estadisticas
+│   │   │   │   └── EstadisticasView.jsx
+│   │   │   ├── Foro
+│   │   │   │   └── ForoView.jsx
+│   │   │   ├── LitaroAdmin.jsx
+│   │   │   ├── LitaroAdmin.module.css
+│   │   │   ├── Notas
+│   │   │   │   ├── NotasView.jsx
+│   │   │   │   └── NotasView.module.css
+│   │   │   ├── Observaciones
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AppNotification.jsx
+│   │   │   │   │   ├── CitacionDialog.jsx
+│   │   │   │   │   ├── CitacionTable.jsx
+│   │   │   │   │   ├── ConfirmDialog.jsx
+│   │   │   │   │   ├── ObservacionDialog.jsx
+│   │   │   │   │   └── ObservacionTable.jsx
+│   │   │   │   ├── ObservacionesCitacionesView.jsx
+│   │   │   │   └── ObservacionesCitacionesView.module.css
+│   │   │   ├── Reportes
+│   │   │   │   └── ReportesView.jsx
+│   │   │   ├── Seguridad
+│   │   │   │   └── SeguridadView.jsx
+│   │   │   ├── services
+│   │   │   │   ├── WebContentConfigurationService.js
+│   │   │   │   └── WebContentManagerService.js
+│   │   │   ├── styles
+│   │   │   │   └── NavigationBar.module.css
+│   │   │   └── WebContentManager
+│   │   │       ├── components
+│   │   │       │   ├── AppNotification.jsx
+│   │   │       │   ├── ConfirmDialog.jsx
+│   │   │       │   ├── ContentEditor.jsx
+│   │   │       │   └── ContentTable.jsx
+│   │   │       ├── styles
+│   │   │       │   └── WebContentManager.module.css
+│   │   │       └── WebContentManager.jsx
+│   │   ├── LitaroParent
+│   │   │   └── LitaroParent.jsx
+│   │   ├── LitaroProfessor
+│   │   │   ├── Asistencia
+│   │   │   │   ├── AsistenciaProfessor.jsx
+│   │   │   │   └── AsistenciaProfessor.module.css
+│   │   │   ├── components
+│   │   │   │   └── NavigationBar.jsx
+│   │   │   ├── Foro
+│   │   │   │   └── ForoProfessor.jsx
+│   │   │   ├── Inicio
+│   │   │   │   ├── components
+│   │   │   │   │   ├── ActionCard.jsx
+│   │   │   │   │   ├── AssignedGradeCard.jsx
+│   │   │   │   │   └── SummaryCard.jsx
+│   │   │   │   ├── InicioProfessor.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── ActionCard.module.css
+│   │   │   │       ├── AssignedGradeCard.module.css
+│   │   │   │       ├── InicioProfesor.module.css
+│   │   │   │       └── SummaryCard.module.css
+│   │   │   ├── LitaroProfessor.jsx
+│   │   │   ├── LitaroProfessor.module.css
+│   │   │   ├── Notas
+│   │   │   │   ├── NotasProfessor.jsx
+│   │   │   │   └── NotasProfessor.module.css
+│   │   │   ├── Observaciones
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AppNotification.jsx
+│   │   │   │   │   ├── CitacionDialog.jsx
+│   │   │   │   │   ├── CitacionTable.jsx
+│   │   │   │   │   ├── ConfirmDialog.jsx
+│   │   │   │   │   ├── ObservacionDialog.jsx
+│   │   │   │   │   └── ObservacionTable.jsx
+│   │   │   │   ├── ObservacionesCitacionesProfessor.jsx
+│   │   │   │   └── ObservacionesCitacionesProfessor.module.css
+│   │   │   └── styles
+│   │   │       └── NavigationBar.module.css
+│   │   ├── LitaroStudent
+│   │   │   ├── components
+│   │   │   │   └── NavigationBar.jsx
+│   │   │   ├── Home
+│   │   │   │   ├── components
+│   │   │   │   │   ├── AchievementBoard.jsx
+│   │   │   │   │   ├── AchievementCard.jsx
+│   │   │   │   │   ├── EmotionBoard.jsx
+│   │   │   │   │   ├── EmotionCard.jsx
+│   │   │   │   │   ├── ScheduleBoard.jsx
+│   │   │   │   │   ├── ScheduleCard.jsx
+│   │   │   │   │   └── StudentCard.jsx
+│   │   │   │   └── styles
+│   │   │   │       ├── AchievementBoard.module.css
+│   │   │   │       ├── AchievementCard.module.css
+│   │   │   │       ├── EmotionBoard.module.css
+│   │   │   │       ├── EmotionCard.module.css
+│   │   │   │       ├── ScheduleBoard.module.css
+│   │   │   │       ├── ScheduleCard.module.css
+│   │   │   │       └── StudentCard.module.css
+│   │   │   ├── LitaroStudent.jsx
+│   │   │   └── styles
+│   │   │       ├── LitaroStudent.module.css
+│   │   │       └── NavigationBar.module.css
+│   │   └── Loginpage
+│   │       ├── Login
+│   │       │   ├── components
+│   │       │   │   └── LoginForm.jsx
+│   │       │   └── styles
+│   │       │       └── LoginForm.module.css
+│   │       └── Loginpage.jsx
+│   ├── index.css
+│   ├── main.jsx
+│   └── shared
+│       ├── components
+│       │   ├── PrivateRoute.jsx
+│       │   ├── ScrollToTop.jsx
+│       │   └── SectionTitle.jsx
+│       ├── context
+│       │   ├── AuthContext.js
+│       │   └── AuthProvider.jsx
+│       ├── hooks
+│       │   └── useAuth.js
+│       ├── styles
+│       │   └── SectionTitle.module.css
+│       └── utils
+└── vite.config.js
+
+129 directories, 178 files

@@ -1,10 +1,22 @@
-import { apiFetch } from './config';
+import { apiFetch } from "./config";
 
 export const loginRequest = (email, password) =>
-  apiFetch('/auth/login', {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-  }, true);
+  apiFetch(
+    "/auth/login",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    },
+    true,
+  );
 
 export const logoutRequest = () =>
-  apiFetch('/auth/logout', { method: 'POST' });
+  apiFetch("/auth/logout", {
+    method: "POST",
+  });
+
+export const sessionRequest = () =>
+  apiFetch("/auth/session", {}, true);

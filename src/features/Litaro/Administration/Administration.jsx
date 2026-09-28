@@ -22,12 +22,22 @@ import {
   FaBookReader,
   FaListUl,
   FaTags,
+  FaUserShield,
 } from "react-icons/fa";
 import styles from "./Administration.module.css";
 import RecordsTable from "./components/RecordsTable";
 import DynamicForm from "./components/DynamicForm";
 import RoleForm from "./components/RoleForm";
+import PermissionsMatrix from "./components/PermissionsMatrix";
+import UserRolesManager from "./components/UserRolesManager";
 import { ROLE_FORM_CONFIG } from "./roleFormConfig";
+import { usePermissions } from "../../../shared/hooks/usePermissions";
+
+const getRowId = (tableName, row) => {
+  if (!tableName) return undefined;
+  const field = `${tableName.charAt(0).toLowerCase()}${tableName.slice(1)}Id`;
+  return row[field];
+};
 
 const Administration = () => {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -41,10 +51,17 @@ const Administration = () => {
   const [roleFormSaving, setRoleFormSaving] = useState(false);
   const [roleFormError, setRoleFormError] = useState(null);
   const [studentOptions, setStudentOptions] = useState([]);
+  const [permissionsOpen, setPermissionsOpen] = useState(false);
+  const [userRolesOpen, setUserRolesOpen] = useState(false);
+  const [userRolesTarget, setUserRolesTarget] = useState(null);
 
   const [feedback, setFeedback] = useState(null);
 
+  const { can, ready } = usePermissions();
+
   const handleCreate = async () => {
+    if (!can(selectedCard?.tableName, "create")) return;
+
     if (selectedCard?.role) {
       const roleConfig = ROLE_FORM_CONFIG[selectedCard.role];
 
@@ -67,6 +84,12 @@ const Administration = () => {
   };
 
   const handleManage = async (card) => {
+    if (card.special === "permissions") {
+      setSelectedCard(card);
+      setPermissionsOpen(true);
+      return;
+    }
+
     try {
       const schemaData = await service.getSchema(card.tableName);
       const hasFilters = schemaData.some((column) => column.filterable);
@@ -86,6 +109,13 @@ const Administration = () => {
       setManagerOpen(true);
     } catch (error) {
       console.error("Error cargando la administración:", error);
+    }
+  };
+
+  const handleEdit = (row) => {
+    if (selectedCard?.tableName === "User") {
+      setUserRolesTarget(row);
+      setUserRolesOpen(true);
     }
   };
 
@@ -140,8 +170,8 @@ const Administration = () => {
       setFeedback({
         severity: "success",
         message: result?.temporaryPassword
-          ? `${roleConfig.roleLabel} creado correctamente. Contraseña temporal: ${result.temporaryPassword}`
-          : `${roleConfig.roleLabel} creado correctamente.`,
+          ? `${roleConfig.roleLabel} guardado correctamente. Contraseña temporal: ${result.temporaryPassword}`
+          : `${roleConfig.roleLabel} guardado correctamente.`,
       });
 
       await refreshRecords();
@@ -151,6 +181,28 @@ const Administration = () => {
       setRoleFormSaving(false);
     }
   };
+
+  const handleSetProfileActive = async (row, active) => {
+    try {
+      const id = getRowId(selectedCard.tableName, row);
+      await service.setProfileEstado(selectedCard.endpoint, id, active);
+
+      setFeedback({
+        severity: "success",
+        message: active ? "Perfil activado correctamente." : "Perfil desactivado correctamente.",
+      });
+
+      await refreshRecords();
+    } catch (error) {
+      setFeedback({
+        severity: "error",
+        message: error.message ?? "No fue posible actualizar el estado del perfil.",
+      });
+    }
+  };
+
+  const handleActivate = (row) => handleSetProfileActive(row, true);
+  const handleDeactivate = (row) => handleSetProfileActive(row, false);
 
   const institutional = [
     {
@@ -245,6 +297,25 @@ const Administration = () => {
     },
   ];
 
+  const security = [
+    {
+      title: "Roles",
+      tableName: "Role",
+      endpoint: "/roles",
+      records: 17478,
+      color: "#3B3F58",
+      icon: <FaUserShield />,
+    },
+    {
+      title: "Permisos por rol",
+      tableName: "RolePermission",
+      records: 17478,
+      color: "#3B3F58",
+      icon: <FaUserShield />,
+      special: "permissions",
+    },
+  ];
+
   const academic = [
     {
       title: "Grados",
@@ -322,17 +393,41 @@ const Administration = () => {
 
   const activeRoleConfig = selectedCard?.role ? ROLE_FORM_CONFIG[selectedCard.role] : null;
 
+  const canRead = (card) => can(card.tableName, "read");
+  const institutionalCards = institutional.filter(canRead);
+  const catalogCards = catalogs.filter(canRead);
+  const userCards = users.filter(canRead);
+  const securityCards = security.filter(canRead);
+  const academicCards = academic.filter(canRead);
+  const noAccess = [institutionalCards, catalogCards, userCards, securityCards, academicCards].every(
+    (cards) => cards.length === 0
+  );
+
   return (
     <div className={styles.container}>
       <h1>Administración</h1>
 
-      <AdministracionSection title="Administración institucional" cards={institutional} onManage={handleManage} />
+      {ready && noAccess && <p>No tienes permisos para administrar ninguna tabla.</p>}
 
-      <AdministracionSection title="Catálogos" cards={catalogs} onManage={handleManage} />
+      {institutionalCards.length > 0 && (
+        <AdministracionSection title="Administración institucional" cards={institutionalCards} onManage={handleManage} />
+      )}
 
-      <AdministracionSection title="Administración de usuarios" cards={users} onManage={handleManage} />
+      {catalogCards.length > 0 && (
+        <AdministracionSection title="Catálogos" cards={catalogCards} onManage={handleManage} />
+      )}
 
-      <AdministracionSection title="Administración académica" cards={academic} onManage={handleManage} />
+      {userCards.length > 0 && (
+        <AdministracionSection title="Perfiles" cards={userCards} onManage={handleManage} />
+      )}
+
+      {securityCards.length > 0 && (
+        <AdministracionSection title="Roles" cards={securityCards} onManage={handleManage} />
+      )}
+
+      {academicCards.length > 0 && (
+        <AdministracionSection title="Administración académica" cards={academicCards} onManage={handleManage} />
+      )}
 
       {selectedCard && (
         <RecordsTable
@@ -344,6 +439,9 @@ const Administration = () => {
           lookups={lookups}
           roleFields={activeRoleConfig?.fields}
           onQuery={handleQuery}
+          onEdit={handleEdit}
+          onActivate={handleActivate}
+          onDeactivate={handleDeactivate}
           onSchemaChange={handleSchemaChange}
           onClose={() => {
             setManagerOpen(false);
@@ -378,6 +476,28 @@ const Administration = () => {
           onSave={handleRoleSave}
         />
       )}
+
+      <PermissionsMatrix
+        open={permissionsOpen}
+        onClose={() => {
+          setPermissionsOpen(false);
+          setSelectedCard(null);
+        }}
+        canEdit={can("RolePermission", "update")}
+      />
+
+      <UserRolesManager
+        open={userRolesOpen}
+        user={userRolesTarget}
+        onClose={() => {
+          setUserRolesOpen(false);
+          setUserRolesTarget(null);
+        }}
+        canEdit={can("User", "update")}
+        onSaved={() =>
+          setFeedback({ severity: "success", message: "Roles actualizados correctamente." })
+        }
+      />
 
       <Snackbar
         open={!!feedback}

@@ -3,10 +3,12 @@ import { ImStatsDots } from "react-icons/im";
 import { MdForum, MdGrade, MdOutlineManageSearch, MdOutlineSecurity, MdWeb, MdLogout } from "react-icons/md";
 import { TbFileReport, TbMessageReportFilled } from "react-icons/tb";
 import { FaClipboardCheck } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { MdSwapHoriz } from "react-icons/md";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logoinps.jpg";
 import styles from "./NavigationBar.module.css";
 import { useAuth } from "../../../shared/hooks/useAuth";
+import { getRoleOptions, roleLabel } from "../../../shared/utils/profileOptions";
 
 const navigationItems = {
   administration: {
@@ -70,6 +72,19 @@ const navigationItems = {
   },
 };
 
+const genericNavigation = {
+  administration: false,
+  grades: true,
+  attendance: true,
+  observations: true,
+  statistics: false,
+  reports: false,
+  communications: true,
+  forum: true,
+  security: false,
+  webpage: false,
+};
+
 const navigationByRole = {
   Administrador: {
     administration: true,
@@ -110,7 +125,7 @@ const navigationByRole = {
     webpage: false,
   },
 
-  Padre: {
+  Acudiente: {
     administration: false,
     grades: true,
     attendance: true,
@@ -125,11 +140,20 @@ const navigationByRole = {
 };
 
 const NavigationBar = () => {
-  const { user, logout } = useAuth();
-  const roleConfig = navigationByRole[user?.role] ?? {};
+  const { user, logout, clearChosenRole } = useAuth();
+  const navigate = useNavigate();
+
+  const roleConfig = navigationByRole[user?.role] ?? genericNavigation;
   const options = Object.entries(roleConfig)
     .filter(([, enabled]) => enabled)
     .map(([key]) => navigationItems[key]);
+
+  const canSwitchProfile = getRoleOptions(user).length > 1;
+
+  const handleSwitchProfile = () => {
+    clearChosenRole();
+    navigate("/SeleccionarPerfil");
+  };
 
   return (
     <nav className={styles["navigation-bar"]}>
@@ -138,7 +162,7 @@ const NavigationBar = () => {
         <img src={logo}></img>
         <div className={styles["navigation-header-title"]}>
           <p>Litaro INPS</p>
-          <span>Portal {user?.role}</span>
+          <span>Portal {roleLabel(user?.role)}</span>
         </div>
       </div>
 
@@ -154,6 +178,28 @@ const NavigationBar = () => {
             </NavLink>
           );
         })}
+
+        {canSwitchProfile && (
+          <button
+            type="button"
+            onClick={handleSwitchProfile}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              font: "inherit",
+              color: "inherit",
+              padding: "0.5rem 0",
+              textAlign: "left",
+            }}
+          >
+            <MdSwapHoriz className={styles.icon} />
+            <span>Cambiar de vista</span>
+          </button>
+        )}
       </div>
 
       {/*Profile*/}

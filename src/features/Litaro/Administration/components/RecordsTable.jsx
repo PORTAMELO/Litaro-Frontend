@@ -9,9 +9,11 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import BlockIcon from "@mui/icons-material/Block";
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 import ColumnFilterConfig from "./ColumnFilterConfig";
 import RecordsFilterForm from "./RecordsFilterForm";
+import { usePermissions } from "../../../../shared/hooks/usePermissions";
 
 const getColumnType = (dataType) => {
   switch (dataType) {
@@ -64,6 +66,11 @@ const RecordsTable = ({
 }) => {
   const [configOpen, setConfigOpen] = useState(false);
   const [hasQueried, setHasQueried] = useState(false);
+
+  const { can } = usePermissions();
+  const canCreate = can(tableName, "create");
+  const canUpdate = can(tableName, "update");
+  const canDelete = can(tableName, "delete");
 
   useEffect(() => {
     setHasQueried(false);
@@ -127,17 +134,26 @@ const RecordsTable = ({
   };
 
   const columns = roleFields
-    ? roleFields
-      .filter((field) => field.type !== "password")
-      .map((field) => {
-        const columnSchema = schema?.find((c) => toCamel(c.columnName) === field.name);
+    ? (() => {
+      const built = roleFields
+        .filter((field) => field.type !== "password")
+        .map((field) => {
+          const columnSchema = schema?.find((c) => toCamel(c.columnName) === field.name);
 
-        if (!columnSchema) return null;
-        if (columnSchema.visible === false) return null;
+          if (!columnSchema) return null;
+          if (columnSchema.visible === false) return null;
 
-        return buildColumn(field.name, columnSchema);
-      })
-      .filter(Boolean)
+          return buildColumn(field.name, columnSchema);
+        })
+        .filter(Boolean);
+
+      const activeColumnSchema = schema?.find((c) => toCamel(c.columnName) === "active");
+      if (activeColumnSchema && activeColumnSchema.visible !== false && !built.some((c) => c.field === "active")) {
+        built.push(buildColumn("active", activeColumnSchema));
+      }
+
+      return built;
+    })()
     : rows.length > 0
       ? Object.keys(rows[0])
         .map((key) => {
@@ -151,7 +167,7 @@ const RecordsTable = ({
         .filter(Boolean)
       : [];
 
-  columns.push({
+  if (canUpdate || canDelete) columns.push({
     field: "actions",
     headerName: "Acciones",
     width: 220,
@@ -160,13 +176,23 @@ const RecordsTable = ({
 
     renderCell: ({ row }) => (
       <>
-        <Tooltip title="Editar">
-          <IconButton color="primary" onClick={() => onEdit?.(row)}>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
+        {canUpdate && tableName === "User" && (
+          <Tooltip title="Gestionar roles">
+            <IconButton color="primary" onClick={() => onEdit?.(row)}>
+              <AdminPanelSettingsIcon />
+            </IconButton>
+          </Tooltip>
+        )}
 
-        {row.active !== undefined &&
+        {canUpdate && tableName !== "User" && (
+          <Tooltip title="Editar">
+            <IconButton color="primary" onClick={() => onEdit?.(row)}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        {canUpdate && row.active !== undefined &&
           (row.active ? (
             <Tooltip title="Desactivar">
               <IconButton color="warning" onClick={() => onDeactivate?.(row)}>
@@ -181,11 +207,13 @@ const RecordsTable = ({
             </Tooltip>
           ))}
 
-        <Tooltip title="Eliminar">
-          <IconButton color="error" onClick={() => onDelete?.(row)}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        {canDelete && (
+          <Tooltip title="Eliminar">
+            <IconButton color="error" onClick={() => onDelete?.(row)}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        )}
       </>
     ),
   });
@@ -202,7 +230,7 @@ const RecordsTable = ({
             </IconButton>
           </Tooltip>
 
-          {!hideCreate && (
+          {!hideCreate && canCreate && (
             <Button
               variant="contained"
               startIcon={<AddIcon />}

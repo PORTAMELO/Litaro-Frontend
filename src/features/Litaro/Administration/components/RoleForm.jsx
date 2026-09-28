@@ -15,17 +15,41 @@ import {
 
 import * as service from "../services/AdministrationService";
 
+const PROFILE_LABELS = {
+  student: "Estudiante",
+  parent: "Padre/Acudiente",
+  teacher: "Profesor",
+};
+
+const profileSummary = (lookupResult) =>
+  Object.entries(PROFILE_LABELS)
+    .map(([key, label]) => {
+      const status = lookupResult?.[key];
+      const estado = status?.exists ? (status.active ? "Activo" : "Inactivo") : "No tiene";
+      return `${label}: ${estado}`;
+    })
+    .join(" · ");
+
 const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSave, saving, error }) => {
   const [form, setForm] = useState({});
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [columnSchema, setColumnSchema] = useState([]);
   const [characteristicOptions, setCharacteristicOptions] = useState({});
   const [fkOptions, setFkOptions] = useState({});
+  const [lookupResult, setLookupResult] = useState(null);
+  const [lookupLoading, setLookupLoading] = useState(false);
+
+  const profileKey = roleTableName?.toLowerCase();
+  const existingProfile = lookupResult?.found ? lookupResult[profileKey] : null;
+  const isExistingUser = !!lookupResult?.found;
+  const isReactivation = !!(existingProfile?.exists && !existingProfile.active);
+  const isBlocked = !!(existingProfile?.exists && existingProfile.active);
 
   useEffect(() => {
     if (!open) {
       setForm({});
       setSelectedStudents([]);
+      setLookupResult(null);
       return;
     }
 
@@ -36,6 +60,44 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
       setColumnSchema([...ownColumns, ...userColumns]);
     });
   }, [open, roleTableName]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const documentType = form.documentType?.trim();
+    const documentNumber = form.documentNumber?.trim();
+
+    if (!documentType || !documentNumber || documentNumber.length < 5) {
+      setLookupResult(null);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setLookupLoading(true);
+
+      service
+        .lookupUserByDocument(documentType, documentNumber)
+        .then((result) => {
+          setLookupResult(result);
+
+          if (result?.found) {
+            setForm((previous) => ({
+              ...previous,
+              firstName: result.firstName ?? "",
+              lastName: result.lastName ?? "",
+              email: result.email ?? "",
+              phoneNumber: result.phoneNumber ?? "",
+              campusId: result.campusId ?? "",
+            }));
+          }
+        })
+        .catch(() => setLookupResult(null))
+        .finally(() => setLookupLoading(false));
+    }, 500);
+
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, form.documentType, form.documentNumber]);
 
   useEffect(() => {
     if (!open) return;
@@ -105,6 +167,10 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
       ) {
         payload[field.name] = Number(payload[field.name]);
       }
+
+      if (field.hideWhenExisting && isExistingUser) {
+        delete payload[field.name];
+      }
     });
 
     if (students) {
@@ -143,7 +209,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
           color: "var(--color-text)",
         }}
       >
-        {title}
+        {isReactivation ? `Reactivar ${title.replace(/^Nuevo /, "")}` : title}
       </DialogTitle>
 
       <DialogContent
@@ -158,9 +224,24 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
           </Alert>
         )}
 
+        {isExistingUser && (
+          <Alert severity={isBlocked ? "warning" : "info"} sx={{ mb: 1.5 }}>
+            Ya existe un usuario con este documento
+            {lookupResult.firstName ? `: ${lookupResult.firstName} ${lookupResult.lastName ?? ""}` : ""}.
+            <br />
+            {profileSummary(lookupResult)}.
+            {isBlocked && " Este usuario ya tiene este perfil activo."}
+            {isReactivation && " Este perfil está inactivo: guardar lo reactivará con los datos que diligencies."}
+            {!isBlocked && !isReactivation && " Solo se piden los datos propios de este nuevo perfil."}
+          </Alert>
+        )}
+
         <Stack spacing={1.5}>
           {fields.map((field) => {
+            if (field.hideWhenExisting && isExistingUser) return null;
+
             const value = form[field.name] ?? "";
+            const disabled = !!(field.shared && isExistingUser);
 
             const characteristicId = getCharacteristicIdFor(field.name);
 
@@ -176,7 +257,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
                   onChange={(event) => handleChange(field.name, event.target.value)}
                   fullWidth
                   size="small"
-                  disabled={options.length === 0}
+                  disabled={disabled || options.length === 0}
                   helperText={options.length === 0 ? "Cargando opciones…" : undefined}
                 >
                   {options.map((option) => (
@@ -197,6 +278,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
                   key={field.name}
                   options={options}
                   value={selected}
+                  disabled={disabled}
                   getOptionLabel={(option) => option.label ?? ""}
                   isOptionEqualToValue={(a, b) => a.id === b.id}
                   onChange={(_, option) => handleChange(field.name, option ? option.id : "")}
@@ -224,6 +306,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
                   onChange={(event) => handleChange(field.name, event.target.value)}
                   fullWidth
                   size="small"
+                  disabled={disabled}
                 >
                   {field.options.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -250,6 +333,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
                 type={inputType}
                 fullWidth
                 size="small"
+                disabled={disabled}
                 autoComplete={field.type === "password" ? "new-password" : undefined}
                 helperText={field.helperText}
                 onChange={(event) => handleChange(field.name, event.target.value)}
@@ -259,6 +343,12 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
               />
             );
           })}
+
+          {lookupLoading && (
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              Buscando documento…
+            </Typography>
+          )}
 
           {students && (
             <>
@@ -304,7 +394,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
           variant="contained"
           size="small"
           onClick={handleSubmit}
-          disabled={saving}
+          disabled={saving || isBlocked}
           sx={{
             borderRadius: "var(--radius-md)",
             textTransform: "none",
@@ -312,7 +402,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
             fontWeight: "var(--font-semibold)",
           }}
         >
-          Guardar
+          {isReactivation ? "Reactivar perfil" : "Guardar"}
         </Button>
       </DialogActions>
     </Dialog>

@@ -30,8 +30,8 @@ import DynamicForm from "./components/DynamicForm";
 import RoleForm from "./components/RoleForm";
 import PermissionsMatrix from "./components/PermissionsMatrix";
 import UserRolesManager from "./components/UserRolesManager";
-import { ROLE_FORM_CONFIG } from "./roleFormConfig";
-import { usePermissions } from "../../../shared/hooks/usePermissions";
+import { ROLE_FORM_CONFIG } from "./RoleFormConfig";
+import { usePermissions } from "../../../shared/hooks/UsePermissions";
 
 const getRowId = (tableName, row) => {
   if (!tableName) return undefined;

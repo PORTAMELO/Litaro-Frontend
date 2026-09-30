@@ -13,7 +13,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 import ColumnFilterConfig from "./ColumnFilterConfig";
 import RecordsFilterForm from "./RecordsFilterForm";
-import { usePermissions } from "../../../../shared/hooks/usePermissions";
+import { usePermissions } from "../../../../shared/hooks/UsePermissions";
 
 const getColumnType = (dataType) => {
   switch (dataType) {

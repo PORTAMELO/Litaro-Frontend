@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./shared/components/ScrollToTop";
 import PrivateRoute from "./shared/components/PrivateRoute";
-import { useAuth } from "./shared/hooks/useAuth";
+import { useAuth } from "./shared/hooks/UseAuth";
 import "./App.css";
 // Webpage
 import Homepage from "./features/Homepage/Homepage";

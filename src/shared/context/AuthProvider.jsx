@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { logoutRequest, sessionRequest } from "../../api/auth";
+import { logoutRequest, sessionRequest } from "../../api/Auth";
 import { permissionsRequest } from "../../api/Permissions";
-import { getRoleOptions } from "../utils/profileOptions";
+import { getRoleOptions } from "../utils/ProfileOptions";
 
 import { AuthContext } from "./AuthContext";
 

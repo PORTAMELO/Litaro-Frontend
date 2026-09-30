@@ -1,4 +1,4 @@
-import { apiFetch } from "../../../../api/config";
+import { apiFetch } from "../../../../api/Config";
 
 export const getRecords = async (endpoint, filters) => {
     const query = buildQueryString(filters);

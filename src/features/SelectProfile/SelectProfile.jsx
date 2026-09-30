@@ -6,8 +6,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BadgeIcon from "@mui/icons-material/Badge";
 
-import { useAuth } from "../../shared/hooks/useAuth";
-import { getRoleOptions } from "../../shared/utils/profileOptions";
+import { useAuth } from "../../shared/hooks/UseAuth";
+import { getRoleOptions } from "../../shared/utils/ProfileOptions";
 import logo from "../../assets/logoinps.jpg";
 import styles from "./SelectProfile.module.css";
 

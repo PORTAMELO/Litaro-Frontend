@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { useAuth } from "./useAuth";
+import { useAuth } from "./UseAuth";
 import { hasFlag } from "../utils/Permissions";
 
 export function usePermissions() {

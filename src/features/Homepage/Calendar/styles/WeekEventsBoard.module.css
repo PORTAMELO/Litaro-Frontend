@@ -1,0 +1,212 @@
+.weekBoard {
+  margin: var(--space-lg) var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--background-color);
+  border-radius: var(--radius-lg);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.weekLabel {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  text-align: center;
+  min-width: 16rem; 
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem; 
+  height: 2rem; 
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.navButton:hover {
+  background: #e6f1fb;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.datePicker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-md);
+  color: var(--color-muted);
+}
+
+.datePicker input {
+  font-family: inherit;
+  font-size: var(--text-md);
+  padding: 4px 8px; 
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  background: #fff;
+}
+
+.currentWeekButton {
+  font-family: inherit;
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  padding: 6px 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+}
+
+.currentWeekButton:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(9rem, 1fr));
+  gap: var(--space-sm);
+  overflow-x: auto;
+  padding-bottom: var(--space-xs);
+}
+
+.dayColumn {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  min-height: 10rem;
+  overflow: hidden;
+}
+
+.today {
+  border-color: var(--primary-color);
+}
+
+.dayHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(22, 17, 58, 0.04);
+}
+
+.dayName {
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: var(--color-muted);
+}
+
+.dayNumber {
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.today .dayHeader {
+  background: #e6f1fb;
+}
+
+.today .dayName,
+.today .dayNumber {
+  color: var(--primary-color);
+}
+
+.dayBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+  flex: 1;
+}
+
+.noEvents {
+  margin: auto 0;
+  text-align: center;
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+
+.eventCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  padding: var(--space-xs) var(--space-sm);
+  border-left: 4px solid; /*fixed*/
+  border-radius: var(--radius-md);
+  background: var(--background-color);
+}
+
+.eventTitle {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.eventInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.icon {
+  flex-shrink: 0;
+  font-size: var(--text-md);
+}
+
+
+@media (max-width: 700px) {
+  .weekBoard {
+    margin: var(--space-sm);
+    padding: var(--space-sm);
+  }
+
+  .weekLabel {
+    min-width: 0;
+    font-size: var(--text-md);
+  }
+
+  .daysGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dayColumn {
+    min-height: auto;
+  }
+}

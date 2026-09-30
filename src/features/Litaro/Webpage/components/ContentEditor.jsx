@@ -71,6 +71,20 @@ const ContentEditor = ({ open, content, onClose, onSave }) => {
       };
     }
 
+    if (key === "startTime" || key === "endTime") {
+      return {
+        type: "time",
+        slotProps: {
+          inputLabel: {
+            shrink: true,
+          },
+          htmlInput: {
+            step: 300, // saltos de 5 minutos
+          },
+        },
+      };
+    }
+
     if (lower.includes("image") || lower.includes("url")) {
       return {
         type: "text",

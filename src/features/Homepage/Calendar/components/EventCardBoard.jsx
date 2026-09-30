@@ -18,7 +18,8 @@ const EventCardBoard = ({ events }) => {
                   className={styles["dot"]}
                   style={{ background: event.color }}
                 ></div>
-                <span className={styles["label"]}>{event.category}</span>
+                <span className={styles["label"]}>{event.responsible}</span>
+
               </div>
               <div className={styles["title-date"]}>
                 <h1>{event.title}</h1>
@@ -29,7 +30,7 @@ const EventCardBoard = ({ events }) => {
               <div className={styles["event-labels"]}>
                 <div>
                   <FaCalendarCheck className={styles["icon"]} />
-                  <span className={styles["float-span"]}>{event.duration}</span>
+                  <span className={styles["float-span"]}>{event.schedule}</span>
                 </div>
                 <div>
                   <MdPlace className={styles["icon"]} />

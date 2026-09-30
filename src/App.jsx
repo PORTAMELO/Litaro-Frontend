@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./shared/components/ScrollToTop";
 import PrivateRoute from "./shared/components/PrivateRoute";
-import { useAuth } from "./shared/hooks/useAuth";
+import { useAuth } from "./shared/hooks/UseAuth";
 import "./App.css";
 // Webpage
 import Homepage from "./features/Homepage/Homepage";
@@ -11,6 +11,7 @@ import Calendar from "./features/Homepage/Calendar/Calendar";
 import Admissions from "./features/Homepage/Admissions/Admissions";
 // Login y rutas
 import Login from "./features/Loginpage/Loginpage";
+import SelectProfile from "./features/SelectProfile/SelectProfile";
 import LitaroAdmin from "./features/LitaroAdmin/LitaroAdmin";
 import LitaroProfessor from "./features/LitaroProfessor/LitaroProfessor";
 import LitaroStudent from "./features/LitaroStudent/LitaroStudent";
@@ -64,10 +65,21 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+        {/* Tras el login, si hay más de un perfil/rol disponible, PrivateRoute
+            manda aquí en vez de a /Litaro (ver PrivateRoute y AuthProvider). */}
+        <Route
+          path="/SeleccionarPerfil"
+          element={
+            <PrivateRoute requireRole={false}>
+              <SelectProfile />
+            </PrivateRoute>
+          }
+        />
+
         <Route
           path="/Litaro"
           element={
-            <PrivateRoute allowedRoles={["Administrador", "Profesor", "Estudiante", "Padre"]}>
+            <PrivateRoute>
               <Litaro />
             </PrivateRoute>
           }
@@ -122,7 +134,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute allowedRoles={["Administrador", "Profesor", "Estudiante", "Padre"]}>
+            <PrivateRoute allowedRoles={["Administrador", "Profesor", "Estudiante", "Acudiente"]}>
               <Dashboard />
             </PrivateRoute>
           }

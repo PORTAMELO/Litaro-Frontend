@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/LoginForm.module.css";
 import logo from "../../../../assets/logoinps.jpg";
-import { loginRequest } from "../../../../api/auth";
-import { useAuth } from "../../../../shared/hooks/useAuth";
+import { loginRequest } from "../../../../api/Auth";
+import { useAuth } from "../../../../shared/hooks/UseAuth";
 import Button from "../../../../shared/components/Button/Button";
 
 function LoginForm() {

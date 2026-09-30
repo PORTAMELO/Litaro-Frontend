@@ -1,9 +1,10 @@
-import { useAuth } from "../../../shared/hooks/useAuth";
+import { useAuth } from "../../../shared/hooks/UseAuth";
 
 import AdministratorHome from "./AdministratorHome/AdministratorHome";
 import ProfessorHome from "./ProfessorHome/ProfessorHome";
 import StudentHome from "./StudentHome/StudentHome";
 import ParentHome from "./ParentHome/ParentHome";
+import GenericHome from "./GenericHome/GenericHome";
 
 const Home = () => {
   const { user } = useAuth();
@@ -18,8 +19,11 @@ const Home = () => {
     case "Estudiante":
       return <StudentHome />;
 
-    case "Padre":
+    case "Acudiente":
       return <ParentHome />;
+
+    default:
+      return <GenericHome />;
   }
 };
 

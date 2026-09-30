@@ -25,7 +25,7 @@ export const getEvents = () =>
   getSection("Eventos", "Cards");
 
 export const getStatistics = () =>
-  getSection("Tarjetas", "Statistics");
+  getSection("Estadisticas", "Statistics");
 
 export const getValues = () =>
-  getSection("Tarjetas", "Values");
+  getSection("Valores", "Values");

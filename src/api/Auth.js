@@ -1,4 +1,4 @@
-import { apiFetch } from "./config";
+import { apiFetch } from "./Config";
 
 export const loginRequest = (email, password) =>
   apiFetch(

@@ -214,16 +214,18 @@ const Webpage = () => {
       acc[configuration.pageName] = {};
     }
 
-    acc[configuration.pageName][configuration.sectionName] = {
-      configuration,
+    if (!acc[configuration.pageName][configuration.sectionName]) {
+      acc[configuration.pageName][configuration.sectionName] = {
+        configuration,
+        items: [],
+      };
+    }
 
-      items: contents.filter(
-        (x) =>
-          x.pageName === configuration.pageName &&
-          x.sectionName === configuration.sectionName &&
-          x.contentKey === configuration.contentKey,
-      ),
-    };
+    acc[configuration.pageName][configuration.sectionName].items = contents.filter(
+      (x) =>
+        x.pageName === configuration.pageName &&
+        x.sectionName === configuration.sectionName,
+    );
 
     return acc;
   }, {});

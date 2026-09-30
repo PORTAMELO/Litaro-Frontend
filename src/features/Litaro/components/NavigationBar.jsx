@@ -7,8 +7,8 @@ import { MdSwapHoriz } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logoinps.jpg";
 import styles from "./NavigationBar.module.css";
-import { useAuth } from "../../../shared/hooks/useAuth";
-import { getRoleOptions, roleLabel } from "../../../shared/utils/profileOptions";
+import { useAuth } from "../../../shared/hooks/UseAuth";
+import { getRoleOptions, roleLabel } from "../../../shared/utils/ProfileOptions";
 
 const navigationItems = {
   administration: {

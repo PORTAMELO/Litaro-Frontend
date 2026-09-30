@@ -1,4 +1,4 @@
-import { useAuth } from "../../../shared/hooks/useAuth";
+import { useAuth } from "../../../shared/hooks/UseAuth";
 
 import AdministratorHome from "./AdministratorHome/AdministratorHome";
 import ProfessorHome from "./ProfessorHome/ProfessorHome";

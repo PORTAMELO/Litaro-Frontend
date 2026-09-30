@@ -1,5 +1,5 @@
-import { useAuth } from "../../../../shared/hooks/useAuth";
-import { roleLabel } from "../../../../shared/utils/profileOptions";
+import { useAuth } from "../../../../shared/hooks/UseAuth";
+import { roleLabel } from "../../../../shared/utils/ProfileOptions";
 
 const GenericHome = () => {
     const { user } = useAuth();

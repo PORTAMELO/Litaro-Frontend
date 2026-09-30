@@ -23,7 +23,7 @@ import {
 import SaveIcon from "@mui/icons-material/Save";
 
 import * as service from "../services/AdministrationService";
-import { PERMISSION } from "../../../../shared/utils/permissions";
+import { PERMISSION } from "../../../../shared/utils/Permissions";
 
 // Nombres amigables de las tablas que se administran desde estas tarjetas.
 // Deben coincidir con ManagedTables en RolePermissionEndpoints.cs.

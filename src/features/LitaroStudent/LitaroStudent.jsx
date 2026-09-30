@@ -112,7 +112,7 @@ const LitaroStudent = () => {
       <NavigationBar />
 
      <main className={styles.content}>
-  <div className={styles["top-section"]}>
+  <aside className={styles.sidebar}>
     <StudentCard
       image={student.image}
       grade={student.grade}
@@ -120,12 +120,14 @@ const LitaroStudent = () => {
       name={student.name}
     />
 
-    <ScheduleBoard schedule={schedule} />
-  </div>
-
-  <div className={styles["bottom-section"]}>
-    <AchievementBoard achievements={achievements} />
     <EmotionBoard emotions={emotions} />
+
+  </aside>
+
+  <div className={styles.main}>
+    <ScheduleBoard schedule={schedule} />
+
+    <AchievementBoard achievements={achievements} />
   </div>
 
   <Outlet />

@@ -1,30 +1,49 @@
 .student-card {
-  width: 260px;
-  background: #fff;
-  border-radius: 15px;
-  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  gap: var(--space-md);
+  padding: 40px var(--space-lg) var(--space-lg); /*fixed*/
+  text-align: center;
+  border-radius: var(--radius-lg);
+  background-color: #fff;
+  background-image: linear-gradient(var(--primary-color), var(--primary-color));
+  background-size: 100% 95px; /*fixed*/
+  background-repeat: no-repeat;
+  box-shadow: var(--shadow-sm);
 }
 
 .student-image img {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
+  width: 110px; /*fixed*/
+  height: 110px; /*fixed*/
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #fff; /*fixed*/
+  background: #fff;
+  box-shadow: var(--shadow-md);
 }
 
 .student-info {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs);
 }
 
-.student-info p {
+.student-info p:first-child {
+  flex-basis: 100%;
+  margin: 0 0 var(--space-xs);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.student-info p:not(:first-child) {
   margin: 0;
-  font-size: 22px;
-  font-weight: 600;
+  padding: var(--space-xxs) var(--space-sm);
+  border-radius: 999px;
+  background: #eef0ff;
+  color: var(--primary-color);
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
 }

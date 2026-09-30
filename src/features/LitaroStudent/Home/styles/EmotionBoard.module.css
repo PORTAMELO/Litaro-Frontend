@@ -1,26 +1,23 @@
 .emotion-board {
-  width: 100%;
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .title {
   margin: 0;
-  font-size: 18px;
-  font-weight: 700;
-  align-self: flex-start; /* Lo alinea a la izquierda */
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
 }
 
+/* Lista vertical de opciones */
 .cards {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  width: 100%;
+  flex-direction: column;
+  gap: var(--space-xs);
 }

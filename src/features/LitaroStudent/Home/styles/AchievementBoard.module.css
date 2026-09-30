@@ -1,26 +1,23 @@
 .achievement-board {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-
-  width: 100%;
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .title {
   margin: 0;
-  font-size: 18px;
-  font-weight: 700;
-  align-self: flex-start; /* Lo alinea a la izquierda */
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
 }
 
+/* Insignias en línea */
 .cards {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 25px;
   flex-wrap: wrap;
-  width: 100%;
+  gap: var(--space-xs);
 }

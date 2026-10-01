@@ -1,20 +1,26 @@
 .achievement-card {
-  display: flex;
-  flex-direction: column;
+  display: inline-flex;
   align-items: center;
-  text-align: center;
-  width: 120px;
-  gap: 12px;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 999px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
 }
 
 .achievement-card svg {
-  width: 34px;
-  height: 34px;
-  color: #5b6cff;
+  width: 18px; /*fixed*/
+  height: 18px; /*fixed*/
+  color: #b45309;
+}
+
+.achievement-card svg path {
+  stroke: currentColor;
 }
 
 .achievement-card p {
   margin: 0;
-  font-weight: 600;
-  font-size: 14px;
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: #78350f;
 }

@@ -6,22 +6,35 @@
 
 .content {
   flex: 1;
-  padding: 30px;
+  min-width: 0;
+  max-width: 1400px;
+  padding: var(--space-xl);
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr); /*fixed*/
+  gap: var(--space-lg);
+  align-items: start;
+}
 
+.sidebar,
+.main {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: var(--space-lg);
 }
 
-.top-section {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 25px;
-  align-items: start; 
+/* El perfil acompaña al hacer scroll */
+.sidebar {
+  position: sticky;
+  top: var(--space-xl);
 }
 
-.bottom-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
+@media (max-width: 1000px) {
+  .content {
+    grid-template-columns: 1fr;
+    padding: var(--space-md);
+  }
+
+  .sidebar {
+    position: static;
+  }
 }

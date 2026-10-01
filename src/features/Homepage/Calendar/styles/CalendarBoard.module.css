@@ -138,29 +138,116 @@
   color: var(--color-text)
 }
 
+
+.EventPanel {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  min-width: 0;
+}
+
+.EventPanelHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.EventPanelTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.EventCount {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: #fff;
+  background: var(--primary-color);
+  border-radius: 999px;
+  padding: 1px 8px; 
+}
+
+.ShowAllButton {
+  font-family: inherit;
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: var(--primary-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .EventList {
-  display: grid;
-  grid-template-columns:
-    repeat(
-      auto-fit,
-      minmax(220px, 1fr)
-    );
-  gap: 1rem 2rem;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxs);
+  max-height: 36rem; 
+  overflow-y: auto;
+  padding-top: var(--space-sm);
+  padding-right: var(--space-xs);
 }
 
 .EventItem {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  white-space: nowrap;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+}
+
+.EventItem:hover {
+  background: var(--background-color);
 }
 
 .EventDot {
-  width: 16px; /*fixed*/
-  height: 16px; /*fixed*/
+  width: 16px; 
+  height: 16px; 
   border-radius: 50%;
   flex-shrink: 0;
+}
+
+.EventTitle {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--text-md);
+  color: var(--color-text);
+}
+
+.EventDate {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.EmptyList {
+  margin: var(--space-md) 0;
+  text-align: center;
+  font-size: var(--text-md);
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.EventList::-webkit-scrollbar {
+  width: 6px; 
+}
+
+.EventList::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
 }
 
 @media (max-width: 1200px) {
@@ -169,6 +256,6 @@
   }
 
   .EventList {
-    grid-template-columns: 1fr;
+    max-height: 24rem; 
   }
 }

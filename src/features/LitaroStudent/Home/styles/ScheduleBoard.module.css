@@ -1,8 +1,22 @@
-.schedule-board { 
-  width: 100%; 
-  background: #0f57c5; 
-  border-radius: 18px; 
-  padding: 25px; 
-  display: grid; 
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 25px; }
+.schedule-board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /*fixed*/
+  gap: var(--space-sm);
+}

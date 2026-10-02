@@ -59,9 +59,12 @@ export const apiFetch = async (
         .json()
         .catch(() => ({}));
 
-      throw new Error(
-        error.message ?? "Error en la petición",
+      const httpError = new Error(
+        (typeof error === "string" ? error : error?.message) ?? "Error en la petición",
       );
+      httpError.status = response.status;
+
+      throw httpError;
     }
 
     // Sin contenido

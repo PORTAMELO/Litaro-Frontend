@@ -15,7 +15,7 @@ const AdministracionCard = ({ title, records, color, onManage }) => {
       <div className={styles.info}>
         <h3>{title}</h3>
 
-        <p>{records} Registros</p>
+        {records !== undefined && <p>{records} Registros</p>}
 
         <div className={styles.actions}>
           <Button variant="tertiary" align="left" onClick={onManage}>

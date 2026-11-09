@@ -87,6 +87,24 @@ export const setProfileEstado = async (endpoint, id, active) => {
     });
 };
 
+export const getAcademicYears = async () => {
+    const result = await getRecords("/academic-years");
+    return result.records ?? [];
+};
+
+export const importSimat = async (file, yearId, dryRun) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const params = new URLSearchParams({ yearId, dryRun });
+
+    return await apiFetch(`/simat/import?${params.toString()}`, {
+        method: "POST",
+        body: formData,
+        timeoutMs: 180000,
+    });
+};
+
 function buildQueryString(filters) {
     if (!filters) return "";
 

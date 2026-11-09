@@ -399,9 +399,13 @@ const Administration = () => {
   const userCards = users.filter(canRead);
   const securityCards = security.filter(canRead);
   const academicCards = academic.filter(canRead);
-  const noAccess = [institutionalCards, catalogCards, userCards, securityCards, academicCards].every(
-    (cards) => cards.length === 0
-  );
+  const noAccess = [
+    institutionalCards,
+    catalogCards,
+    userCards,
+    securityCards,
+    academicCards,
+  ].every((cards) => cards.length === 0);
 
   return (
     <div className={styles.container}>

@@ -15,6 +15,18 @@ import ColumnFilterConfig from "./ColumnFilterConfig";
 import RecordsFilterForm from "./RecordsFilterForm";
 import { usePermissions } from "../../../../shared/hooks/UsePermissions";
 
+const toDisplayDate = (raw) => {
+  if (!raw) return raw;
+
+  const calendarDate = /^(\d{4})-(\d{2})-(\d{2})(?:T00:00:00(?:\.0+)?(?:Z|\+00:00)?)?$/.exec(raw);
+  if (calendarDate) {
+    const [, year, month, day] = calendarDate;
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  }
+
+  return new Date(raw);
+};
+
 const getColumnType = (dataType) => {
   switch (dataType) {
     case "smallint":
@@ -120,7 +132,7 @@ const RecordsTable = ({
         const raw = getRawValue(row, key);
 
         if (lookup) return lookup[String(raw)] ?? raw;
-        if (type === "date" || type === "dateTime") return raw ? new Date(raw) : raw;
+        if (type === "date" || type === "dateTime") return toDisplayDate(raw);
 
         return raw;
       },

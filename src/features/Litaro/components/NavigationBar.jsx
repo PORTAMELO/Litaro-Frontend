@@ -1,6 +1,15 @@
 import { HiMiniMegaphone } from "react-icons/hi2";
 import { ImStatsDots } from "react-icons/im";
-import { MdForum, MdGrade, MdOutlineManageSearch, MdOutlineSecurity, MdWeb, MdLogout, MdSchedule } from "react-icons/md";
+import {
+  MdForum,
+  MdGrade,
+  MdOutlineManageSearch,
+  MdOutlineSecurity,
+  MdWeb,
+  MdLogout,
+  MdSchedule,
+  MdHowToReg,
+} from "react-icons/md";
 import { TbFileReport, TbMessageReportFilled } from "react-icons/tb";
 import { FaClipboardCheck } from "react-icons/fa";
 import { MdSwapHoriz } from "react-icons/md";
@@ -15,6 +24,12 @@ const navigationItems = {
     label: "Administración",
     path: "/Litaro/Administration",
     icon: MdOutlineManageSearch,
+  },
+
+  enrollment: {
+    label: "Matrícula",
+    path: "/Litaro/Enrollment",
+    icon: MdHowToReg,
   },
 
   grades: {
@@ -80,6 +95,7 @@ const navigationItems = {
 
 const genericNavigation = {
   administration: false,
+  enrollment: false,
   grades: true,
   schedule: true,
   attendance: true,
@@ -92,9 +108,16 @@ const genericNavigation = {
   webpage: false,
 };
 
+const enrollmentNavigation = { ...genericNavigation, enrollment: true };
+
 const navigationByRole = {
+  Rector: enrollmentNavigation,
+  Secretaría: enrollmentNavigation,
+  Secretaria: enrollmentNavigation,
+
   Administrador: {
     administration: true,
+    enrollment: true,
     grades: true,
     schedule: true,
     attendance: true,
@@ -109,6 +132,7 @@ const navigationByRole = {
 
   Profesor: {
     administration: false,
+    enrollment: false,
     grades: true,
     schedule: true,
     attendance: true,
@@ -123,6 +147,7 @@ const navigationByRole = {
 
   Estudiante: {
     administration: false,
+    enrollment: false,
     grades: true,
     schedule: true,
     attendance: true,
@@ -137,6 +162,7 @@ const navigationByRole = {
 
   Acudiente: {
     administration: false,
+    enrollment: false,
     grades: true,
     schedule: true,
     attendance: true,

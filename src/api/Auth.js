@@ -20,3 +20,23 @@ export const logoutRequest = () =>
 
 export const sessionRequest = () =>
   apiFetch("/auth/session", {}, true);
+
+export const activateRequest = (login, birthDate, newPassword) =>
+  apiFetch(
+    "/auth/activate",
+    {
+      method: "POST",
+      body: JSON.stringify({ login, birthDate, newPassword }),
+    },
+    true,
+  );
+
+export const changePasswordRequest = (login, currentPassword, newPassword) =>
+  apiFetch(
+    "/auth/change-password",
+    {
+      method: "POST",
+      body: JSON.stringify({ login, currentPassword, newPassword }),
+    },
+    true,
+  );

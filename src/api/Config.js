@@ -9,14 +9,16 @@ const DEFAULT_TIMEOUT_MS = 90000; // 90 segundos
 
 export const apiFetch = async (
   endpoint,
-  options = {},
+  requestOptions = {},
   isAuthCall = false,
 ) => {
+  const { timeoutMs = DEFAULT_TIMEOUT_MS, ...options } = requestOptions;
+
   const timeoutController = new AbortController();
 
   const timeoutId = setTimeout(() => {
     timeoutController.abort();
-  }, DEFAULT_TIMEOUT_MS);
+  }, timeoutMs);
 
   const sessionSignal = getSessionSignal();
 
@@ -27,6 +29,8 @@ export const apiFetch = async (
       timeoutController.signal,
     ]);
 
+  const isFormData = options.body instanceof FormData;
+
   try {
     const response = await fetch(
       `${API_BASE_URL}${endpoint}`,
@@ -36,7 +40,7 @@ export const apiFetch = async (
         signal: combinedSignal,
         cache: "no-store",
         headers: {
-          "Content-Type": "application/json",
+          ...(isFormData ? {} : { "Content-Type": "application/json" }),
           ...options.headers,
         },
       },

@@ -15,7 +15,9 @@ export function usePermissions() {
 
   const can = useCallback((tableName, action) => hasFlag(byTable.get(tableName)?.permissions ?? 0, action), [byTable]);
 
+  const sees = useCallback((keys) => keys.some((key) => (byTable.get(key)?.permissions ?? 0) > 0), [byTable]);
+
   const viewFor = useCallback((tableName) => byTable.get(tableName)?.view ?? null, [byTable]);
 
-  return { can, viewFor, ready: permissions !== null };
+  return { can, sees, viewFor, ready: permissions !== null };
 }

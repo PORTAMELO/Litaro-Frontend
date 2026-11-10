@@ -1,3 +1,4 @@
 import { apiFetch } from "./Config";
 
-export const permissionsRequest = () => apiFetch("/permissions/me");
+export const permissionsRequest = (role) =>
+  apiFetch(`/permissions/me${role ? `?role=${encodeURIComponent(role)}` : ""}`);

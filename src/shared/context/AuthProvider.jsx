@@ -11,7 +11,7 @@ const ACTIVE_ROLE_KEY = "litaro_active_role";
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [permissions, setPermissions] = useState(null);
+  const [permissionState, setPermissionState] = useState({ owner: null, list: null });
 
   const applyRole = useCallback((sessionData) => {
     const options = getRoleOptions(sessionData);
@@ -47,22 +47,24 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?.role) return;
 
     let cancelled = false;
 
-    permissionsRequest()
+    permissionsRequest(user.role)
       .then((data) => {
-        if (!cancelled) setPermissions(data?.permissions ?? []);
+        if (!cancelled) setPermissionState({ owner: user, list: data?.permissions ?? [] });
       })
       .catch(() => {
-        if (!cancelled) setPermissions([]);
+        if (!cancelled) setPermissionState({ owner: user, list: [] });
       });
 
     return () => {
       cancelled = true;
     };
   }, [user]);
+
+  const permissions = permissionState.owner === user ? permissionState.list : null;
 
   const login = useCallback(
     (sessionData) => {

@@ -1,9 +1,3 @@
-export const STAFF_ROLES = ["Administrador", "Secretaría", "Secretaria"];
-export const RECTOR_ROLES = ["Rector"];
-export const VIEWER_ROLES = [...STAFF_ROLES, ...RECTOR_ROLES];
-
-export const hasAnyRole = (user, names) => (user?.roles ?? []).some((role) => names.includes(role));
-
 export const PAGE_SIZE = 50;
 
 export const PRE_STATUS = {

@@ -5,7 +5,6 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import styles from "./Enrollment.module.css";
 import { enrollmentTheme } from "./EnrollmentTheme";
 import * as service from "./services/EnrollmentService";
-import { useAuth } from "../../../shared/hooks/UseAuth";
 import { usePermissions } from "../../../shared/hooks/UsePermissions";
 import PeriodStrip from "./components/PeriodStrip";
 import OldStudentsTab from "./components/OldStudentsTab";
@@ -13,17 +12,15 @@ import NewStudentsTab from "./components/NewStudentsTab";
 import AlertsTab from "./components/AlertsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
-import { RECTOR_ROLES, STAFF_ROLES, VIEWER_ROLES, hasAnyRole } from "./utils/EnrollmentUtils";
 
 const yearText = (year) => `Año ${year.yearId}${year.active ? "" : " (inactivo)"}`;
 
 const Enrollment = () => {
-  const { user } = useAuth();
   const { can, ready } = usePermissions();
 
-  const staff = hasAnyRole(user, STAFF_ROLES);
-  const rector = hasAnyRole(user, RECTOR_ROLES);
-  const viewer = hasAnyRole(user, VIEWER_ROLES);
+  const viewer = can("EnrollmentProcess", "read");
+  const staff = can("EnrollmentProcess", "create") || can("EnrollmentProcess", "update");
+  const rector = can("AdmissionDecision", "update");
 
   const [options, setOptions] = useState(null);
   const [optionsError, setOptionsError] = useState(null);
@@ -92,6 +89,14 @@ const Enrollment = () => {
 
   const notify = useCallback((message, kind = "info") => setToast({ id: Date.now(), message, kind }), []);
   const reload = useCallback(() => setVersion((current) => current + 1), []);
+
+  if (!ready) {
+    return (
+      <div className={styles.page}>
+        <p className={styles.message}>Cargando…</p>
+      </div>
+    );
+  }
 
   if (!viewer) {
     return (

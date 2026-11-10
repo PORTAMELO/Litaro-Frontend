@@ -26,7 +26,7 @@ import * as service from "../services/AdministrationService";
 import { PERMISSION } from "../../../../shared/utils/Permissions";
 
 // Nombres amigables de las tablas que se administran desde estas tarjetas.
-// Deben coincidir con ManagedTables en RolePermissionEndpoints.cs.
+// Deben coincidir con PermissionCatalog.cs.
 const TABLE_LABELS = {
     School: "Colegio",
     Campus: "Sedes",
@@ -47,7 +47,37 @@ const TABLE_LABELS = {
     GradeScore: "Notas",
     Attendance: "Asistencia",
     StudentLog: "Observador",
+    Space: "Espacios",
+    StudyPlan: "Plan de estudios",
+    TeacherAvailability: "Disponibilidad docente",
 };
+
+const PROCESS_LABELS = {
+    AdministrationModule: "Menú Administración",
+    EnrollmentProcess: "Proceso de matrícula",
+    AdmissionDecision: "Decisión de admisiones",
+    MySchedule: "Mi horario",
+    GradesModule: "Menú Notas",
+    ObservationsModule: "Menú Observaciones",
+    StatisticsModule: "Menú Estadísticas",
+    ReportsModule: "Menú Reportes",
+    CommunicationsModule: "Menú Comunicaciones",
+    ForumModule: "Menú Foro",
+    SecurityModule: "Menú Seguridad",
+    WebpageModule: "Menú Contenido Web",
+};
+
+const GROUPS = [
+    { kind: "table", label: "Tablas" },
+    { kind: "process", label: "Procesos" },
+];
+
+const withGroupHeaders = (rows) =>
+    GROUPS.flatMap((group) => {
+        const items = rows.filter((row) => (row.kind ?? "table") === group.kind);
+
+        return items.length > 0 ? [{ header: group.label, tableName: `group-${group.kind}` }, ...items] : [];
+    });
 
 // Matriz de permisos por rol: no reutiliza RecordsTable/DynamicForm porque
 // "Permissions" es un bitmask (Read/Create/Update/Delete) que aquí se edita
@@ -150,9 +180,17 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                         </TableHead>
 
                         <TableBody>
-                            {rows.map((row) => (
+                            {withGroupHeaders(rows).map((row) => row.header ? (
                                 <TableRow key={row.tableName}>
-                                    <TableCell>{TABLE_LABELS[row.tableName] ?? row.tableName}</TableCell>
+                                    <TableCell colSpan={7} sx={{ fontWeight: 700, backgroundColor: "rgba(22, 17, 58, 0.04)" }}>
+                                        {row.header}
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                <TableRow key={row.tableName}>
+                                    <TableCell>
+                                        {TABLE_LABELS[row.tableName] ?? PROCESS_LABELS[row.tableName] ?? row.tableName}
+                                    </TableCell>
 
                                     <TableCell align="center">
                                         <Checkbox
@@ -191,6 +229,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                     </TableCell>
 
                                     <TableCell>
+                                        {row.kind !== "process" && (
                                         <TextField
                                             size="small"
                                             variant="standard"
@@ -200,6 +239,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                             onChange={(event) => changeView(row.tableName, event.target.value)}
                                             placeholder="/Litaro/..."
                                         />
+                                        )}
                                     </TableCell>
 
                                     <TableCell align="center">

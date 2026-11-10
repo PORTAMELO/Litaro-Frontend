@@ -9,15 +9,19 @@ import {
   MdLogout,
   MdSchedule,
   MdHowToReg,
+  MdNotifications,
 } from "react-icons/md";
 import { TbFileReport, TbMessageReportFilled } from "react-icons/tb";
 import { FaClipboardCheck } from "react-icons/fa";
 import { MdSwapHoriz } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logoinps.jpg";
 import styles from "./NavigationBar.module.css";
 import { useAuth } from "../../../shared/hooks/UseAuth";
 import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { getSummary } from "../Notifications/services/NotificationService";
+import { NOTIFICATIONS_CHANGED } from "../Notifications/utils/NotificationUtils";
 import { getRoleOptions, roleLabel } from "../../../shared/utils/ProfileOptions";
 
 const navigationItems = {
@@ -61,6 +65,14 @@ const navigationItems = {
     path: "/Litaro/Observations",
     icon: TbMessageReportFilled,
     keys: ["ObservationsModule"],
+  },
+
+  notifications: {
+    label: "Notificaciones",
+    path: "/Litaro/Notifications",
+    icon: MdNotifications,
+    keys: ["Notification", "NotificationSettings"],
+    counted: true,
   },
 
   statistics: {
@@ -109,7 +121,32 @@ const navigationItems = {
 const NavigationBar = () => {
   const { user, logout, clearChosenRole } = useAuth();
   const navigate = useNavigate();
-  const { sees } = usePermissions();
+  const location = useLocation();
+  const { can, sees } = usePermissions();
+  const [unread, setUnread] = useState(0);
+
+  const watchesInbox = can("Notification", "read");
+
+  useEffect(() => {
+    if (!watchesInbox) return undefined;
+
+    let cancelled = false;
+
+    const refresh = () =>
+      getSummary()
+        .then((summary) => {
+          if (!cancelled) setUnread(summary?.unread ?? 0);
+        })
+        .catch(() => {});
+
+    refresh();
+    window.addEventListener(NOTIFICATIONS_CHANGED, refresh);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener(NOTIFICATIONS_CHANGED, refresh);
+    };
+  }, [watchesInbox, location.pathname]);
 
   const options = Object.values(navigationItems).filter((item) => sees(item.keys));
 
@@ -140,6 +177,7 @@ const NavigationBar = () => {
             <NavLink key={option.path} to={option.path} className={({ isActive }) => (isActive ? styles.active : "")}>
               <Icon className={styles.icon}></Icon>
               <span>{option.label}</span>
+              {option.counted && watchesInbox && unread > 0 && <b className={styles.count}>{unread}</b>}
             </NavLink>
           );
         })}

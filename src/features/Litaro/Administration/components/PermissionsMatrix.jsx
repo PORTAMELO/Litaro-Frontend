@@ -65,6 +65,8 @@ const PROCESS_LABELS = {
     ForumModule: "Menú Foro",
     SecurityModule: "Menú Seguridad",
     WebpageModule: "Menú Contenido Web",
+    Notification: "Notificaciones",
+    NotificationSettings: "Destinatarios de notificaciones",
 };
 
 const GROUPS = [

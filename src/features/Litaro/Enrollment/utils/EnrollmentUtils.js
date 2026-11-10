@@ -1,3 +1,7 @@
+import { parseDay } from "../../../../shared/utils/Dates";
+
+export { formatDate, formatDateTime, formatDay, todayInColombia } from "../../../../shared/utils/Dates";
+
 export const PAGE_SIZE = 50;
 
 export const PRE_STATUS = {
@@ -21,39 +25,6 @@ export const ALERT_TYPE = {
 };
 
 export const DOCUMENT_TYPES = ["RC", "TI", "CC", "CE", "NUIP", "PEP", "PPT"];
-
-const MONTHS = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
-
-const parseDay = (value) => {
-  const [year, month, day] = String(value).slice(0, 10).split("-").map(Number);
-  return { year, month, day };
-};
-
-export const todayInColombia = () => new Date().toLocaleDateString("en-CA", { timeZone: "America/Bogota" });
-
-export const formatDay = (value) => {
-  if (!value) return "";
-
-  const { month, day } = parseDay(value);
-  return `${day} ${MONTHS[month - 1]}`;
-};
-
-export const formatDate = (value) => {
-  if (!value) return "";
-
-  const { year, month, day } = parseDay(value);
-  return `${day} ${MONTHS[month - 1]} ${year}`;
-};
-
-export const formatDateTime = (value) => {
-  if (!value) return "";
-
-  const date = new Date(value);
-  const sameYear = date.getFullYear() === new Date().getFullYear();
-  const time = date.toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit" });
-
-  return `${date.getDate()} ${MONTHS[date.getMonth()]}${sameYear ? "" : ` ${date.getFullYear()}`}, ${time}`;
-};
 
 const toUtc = (value) => {
   const { year, month, day } = parseDay(value);

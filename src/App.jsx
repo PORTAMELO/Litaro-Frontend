@@ -50,6 +50,7 @@ import StatisticsLitaro from "./features/Litaro/Statistics/Statistics";
 import WebpageLitaro from "./features/Litaro/Webpage/Webpage";
 import ScheduleLitaro from "./features/Litaro/Schedule/Schedule";
 import EnrollmentLitaro from "./features/Litaro/Enrollment/Enrollment";
+import NotificationsLitaro from "./features/Litaro/Notifications/Notifications";
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -100,6 +101,7 @@ function App() {
           <Route path="Webpage" element={<WebpageLitaro />} />
           <Route path="Schedule" element={<ScheduleLitaro />} />
           <Route path="Enrollment" element={<EnrollmentLitaro />} />
+          <Route path="Notifications" element={<NotificationsLitaro />} />
         </Route>
         {/* Rutas públicas ── */}
         <Route path="/" element={<Navigate to="/Homepage" />} />

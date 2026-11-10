@@ -146,6 +146,17 @@
   color: inherit;
 }
 
+.count {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 0 7px;
+  border-radius: 10px;
+  background-color: rgba(22, 17, 58, 0.08);
+  color: var(--primary-color);
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+}
+
 .icon {
   flex-shrink: 0;
   font-size: var(--text-xl);

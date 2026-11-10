@@ -17,6 +17,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logoinps.jpg";
 import styles from "./NavigationBar.module.css";
 import { useAuth } from "../../../shared/hooks/UseAuth";
+import { usePermissions } from "../../../shared/hooks/UsePermissions";
 import { getRoleOptions, roleLabel } from "../../../shared/utils/ProfileOptions";
 
 const navigationItems = {
@@ -24,166 +25,93 @@ const navigationItems = {
     label: "Administración",
     path: "/Litaro/Administration",
     icon: MdOutlineManageSearch,
+    keys: ["AdministrationModule"],
   },
 
   enrollment: {
     label: "Matrícula",
     path: "/Litaro/Enrollment",
     icon: MdHowToReg,
+    keys: ["EnrollmentProcess", "AdmissionDecision"],
   },
 
   grades: {
     label: "Notas",
     path: "/Litaro/Grades",
     icon: MdGrade,
+    keys: ["GradesModule"],
   },
 
   schedule: {
     label: "Horarios",
     path: "/Litaro/Schedule",
     icon: MdSchedule,
+    keys: ["Schedule", "MySchedule"],
   },
 
   attendance: {
     label: "Asistencia",
     path: "/Litaro/Attendance",
     icon: FaClipboardCheck,
+    keys: ["AttendanceRoll", "AttendanceSummary", "LateArrival", "AttendanceExcuse", "AttendanceSettings"],
   },
 
   observations: {
     label: "Observaciones",
     path: "/Litaro/Observations",
     icon: TbMessageReportFilled,
+    keys: ["ObservationsModule"],
   },
 
   statistics: {
     label: "Estadísticas",
     path: "/Litaro/Statistics",
     icon: ImStatsDots,
+    keys: ["StatisticsModule"],
   },
 
   reports: {
     label: "Reportes",
     path: "/Litaro/Reports",
     icon: TbFileReport,
+    keys: ["ReportsModule"],
   },
 
   communications: {
     label: "Comunicaciones",
     path: "/Litaro/Communications",
     icon: HiMiniMegaphone,
+    keys: ["CommunicationsModule"],
   },
 
   forum: {
     label: "Foro",
     path: "/Litaro/Forum",
     icon: MdForum,
+    keys: ["ForumModule"],
   },
 
   security: {
     label: "Seguridad",
     path: "/Litaro/Security",
     icon: MdOutlineSecurity,
+    keys: ["SecurityModule"],
   },
 
   webpage: {
     label: "Contenido Web",
     path: "/Litaro/Webpage",
     icon: MdWeb,
-  },
-};
-
-const genericNavigation = {
-  administration: false,
-  enrollment: false,
-  grades: true,
-  schedule: true,
-  attendance: true,
-  observations: true,
-  statistics: false,
-  reports: false,
-  communications: true,
-  forum: true,
-  security: false,
-  webpage: false,
-};
-
-const enrollmentNavigation = { ...genericNavigation, enrollment: true };
-
-const navigationByRole = {
-  Rector: enrollmentNavigation,
-  Secretaría: enrollmentNavigation,
-  Secretaria: enrollmentNavigation,
-
-  Administrador: {
-    administration: true,
-    enrollment: true,
-    grades: true,
-    schedule: true,
-    attendance: true,
-    observations: true,
-    statistics: true,
-    reports: true,
-    communications: true,
-    forum: true,
-    security: true,
-    webpage: true,
-  },
-
-  Profesor: {
-    administration: false,
-    enrollment: false,
-    grades: true,
-    schedule: true,
-    attendance: true,
-    observations: true,
-    statistics: false,
-    reports: false,
-    communications: true,
-    forum: true,
-    security: false,
-    webpage: false,
-  },
-
-  Estudiante: {
-    administration: false,
-    enrollment: false,
-    grades: true,
-    schedule: true,
-    attendance: true,
-    observations: true,
-    statistics: false,
-    reports: true,
-    communications: true,
-    forum: true,
-    security: false,
-    webpage: false,
-  },
-
-  Acudiente: {
-    administration: false,
-    enrollment: false,
-    grades: true,
-    schedule: true,
-    attendance: true,
-    observations: true,
-    statistics: false,
-    reports: true,
-    communications: true,
-    forum: true,
-    security: false,
-    webpage: false,
+    keys: ["WebpageModule"],
   },
 };
 
 const NavigationBar = () => {
   const { user, logout, clearChosenRole } = useAuth();
   const navigate = useNavigate();
+  const { sees } = usePermissions();
 
-  const roleConfig = navigationByRole[user?.role] ?? genericNavigation;
-  const options = Object.entries(roleConfig)
-    .filter(([, enabled]) => enabled)
-    .map(([key]) => navigationItems[key]);
+  const options = Object.values(navigationItems).filter((item) => sees(item.keys));
 
   const canSwitchProfile = getRoleOptions(user).length > 1;
 

@@ -10,12 +10,16 @@ import { litaroTheme } from "../../../shared/styles/LitaroTheme";
 import ExcusesTab from "./components/ExcusesTab";
 import LateArrivalsTab from "./components/LateArrivalsTab";
 import RollTab from "./components/RollTab";
+import SettingsTab from "./components/SettingsTab";
+import SummaryTab from "./components/SummaryTab";
 import * as service from "./services/AttendanceService";
 
 const TABS = [
   { value: "roll", label: "Tomar lista", key: "AttendanceRoll", Component: RollTab },
+  { value: "summary", label: "Resumen", key: "AttendanceSummary", Component: SummaryTab },
   { value: "excuses", label: "Excusas", key: "AttendanceExcuse", Component: ExcusesTab },
   { value: "late", label: "Llegadas tarde", key: "LateArrival", Component: LateArrivalsTab },
+  { value: "settings", label: "Parámetros", key: "AttendanceSettings", Component: SettingsTab },
 ];
 
 const Attendance = () => {

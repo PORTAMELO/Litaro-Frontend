@@ -67,6 +67,11 @@ const PROCESS_LABELS = {
     WebpageModule: "Menú Contenido Web",
     Notification: "Notificaciones",
     NotificationSettings: "Destinatarios de notificaciones",
+    AttendanceRoll: "Toma de lista",
+    AttendanceSummary: "Resumen de asistencia",
+    LateArrival: "Llegadas tarde",
+    AttendanceExcuse: "Excusas",
+    AttendanceSettings: "Parámetros de asistencia",
 };
 
 const GROUPS = [

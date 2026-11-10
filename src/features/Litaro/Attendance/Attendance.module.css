@@ -1,209 +1,155 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  margin: var(--space-xl);
+.classGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--space-sm);
 }
 
-.header {
+.classCard {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.title {
-  margin: 0;
-  font-size: var(--text-xxl);
-  font-weight: var(--font-bold);
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background-color: #ffffff;
   color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
 }
 
-.subtitle {
-  margin: var(--space-xs) 0 0;
+.classCard:hover {
+  border-color: rgba(22, 17, 58, 0.4);
+}
+
+.classCard:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 1px;
+}
+
+.classCardActive {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.classTime {
+  display: block;
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+}
+
+.classMeta {
+  display: block;
   color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.classTaken {
+  flex-shrink: 0;
+  color: #9ca3af;
+  font-size: 1.1rem;
+}
+
+.classPending {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.choice {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background-color: rgba(22, 17, 58, 0.05);
+}
+
+.choiceOption {
+  padding: 4px 12px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  color: #9ca3af;
+  font: inherit;
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+}
+
+.choiceOption:disabled {
+  cursor: default;
+}
+
+.choiceOption:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 1px;
+}
+
+.choicePresent {
+  background-color: #ffffff;
+  color: var(--color-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.choiceAbsent {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.searchResults {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.searchResult {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   font-size: var(--text-md);
 }
 
-.filtersCard,
-.tableCard {
-  background-color: var(--background-color);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-}
-
-.filtersCard {
-  padding: var(--space-lg);
-}
-
-.sectionTitle {
-  display: block;
-  margin-bottom: var(--space-md) !important;
-  font-size: var(--text-md) !important;
-  font-weight: var(--font-bold) !important;
-  color: var(--color-text);
-}
-
-.filtersGrid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--space-md);
-}
-
-.filter {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.filter label {
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
-  color: var(--color-text);
-}
-
-.tableCard {
-  overflow: hidden;
-}
-
-.tableHeader {
+.settingRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-lg);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.tableTitle {
-  font-size: var(--text-lg) !important;
-  font-weight: var(--font-bold) !important;
-  color: var(--color-text);
-}
-
-.tableSubtitle {
-  margin-top: 2px !important;
-  color: var(--color-muted);
-  font-size: var(--text-sm) !important;
-}
-
-.saveButton {
-  min-height: 2.4rem !important;
-  padding: var(--space-xs) var(--space-md) !important;
-  border-radius: var(--radius-md) !important;
-  font-family: inherit !important;
-  font-weight: var(--font-semibold) !important;
-  text-transform: none !important;
-}
-
-.tableWrapper {
-  overflow-x: auto;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table th {
-  padding: var(--space-sm) var(--space-md);
-  text-align: left;
-  background-color: rgba(22, 17, 58, 0.04);
-  color: var(--color-text);
-  font-size: var(--text-sm);
-  font-weight: var(--font-bold);
-}
-
-.table td {
-  padding: var(--space-sm) var(--space-md);
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  font-family: inherit;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
+}
+
+.settingRow:first-child {
+  border-top: 0;
+}
+
+.settingInput {
+  width: 7rem;
+}
+
+.settingGroup {
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.settingGroupTitle {
+  margin-bottom: var(--space-xs);
   color: var(--color-text);
-}
-
-.table td .MuiTextField-root input {
-  font-size: var(--text-sm);
-}
-
-.table tbody tr:hover {
-  background-color: rgba(22, 17, 58, 0.02);
-}
-
-.numberColumn,
-.numberCell {
-  width: 60px;
-  text-align: center !important;
-}
-
-.codeColumn {
-  width: 150px;
-}
-
-.statusColumn {
-  width: 170px;
-}
-
-.numberCell {
-  color: var(--color-muted) !important;
-}
-
-.studentName {
-  font-family: inherit;
-  font-size: var(--text-sm);
+  font-size: var(--text-md);
   font-weight: var(--font-semibold);
 }
 
-.codeCell {
-  color: var(--color-muted) !important;
-}
-
-.statusSelect {
-  min-width: 140px;
-}
-
-.statusSelect .MuiSelect-select {
-  font-family: inherit;
-  font-size: var(--text-sm);
-  line-height: 1.4;
-}
-
-@media (max-width: 1000px) {
-  .filtersGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 700px) {
-  .container {
-    margin: var(--space-md);
-  }
-
-  .filtersGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .tableHeader {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: var(--space-md);
-  }
-}
-
-.filterControl .MuiInputBase-root {
-  font-family: inherit;
-  font-size: var(--text-sm);
-}
-
-.filterControl .MuiInputLabel-root {
-  font-family: inherit;
-  font-size: var(--text-sm);
-}
-
-.filterControl .MuiSelect-select {
-  font-size: var(--text-sm);
-}
-
-.filterMenuItem {
-  font-family: inherit !important;
-  font-size: var(--text-sm) !important;
+.footerActions {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }

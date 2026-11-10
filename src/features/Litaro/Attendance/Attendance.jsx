@@ -7,11 +7,15 @@ import { useLoad } from "../../../shared/hooks/UseLoad";
 import { usePermissions } from "../../../shared/hooks/UsePermissions";
 import { useToast } from "../../../shared/hooks/UseToast";
 import { litaroTheme } from "../../../shared/styles/LitaroTheme";
+import ExcusesTab from "./components/ExcusesTab";
+import LateArrivalsTab from "./components/LateArrivalsTab";
 import RollTab from "./components/RollTab";
 import * as service from "./services/AttendanceService";
 
 const TABS = [
   { value: "roll", label: "Tomar lista", key: "AttendanceRoll", Component: RollTab },
+  { value: "excuses", label: "Excusas", key: "AttendanceExcuse", Component: ExcusesTab },
+  { value: "late", label: "Llegadas tarde", key: "LateArrival", Component: LateArrivalsTab },
 ];
 
 const Attendance = () => {

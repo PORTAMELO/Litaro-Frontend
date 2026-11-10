@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
+import ui from "../../../../shared/components/Ui/Ui.module.css";
 import { formatDay, todayInColombia, windowState } from "../utils/EnrollmentUtils";
 
 const OPEN_COLOR = "#0fd355";
@@ -27,7 +28,7 @@ const Window = ({ name, start, end, today }) => {
       <div className={styles.windowTop}>
         <span className={styles.windowName}>{name}</span>
         <span className={styles.windowState}>
-          <span className={styles.dot} style={{ backgroundColor: info.color }} aria-hidden="true" />
+          <span className={ui.dot} style={{ backgroundColor: info.color }} aria-hidden="true" />
           {info.text}
         </span>
       </div>

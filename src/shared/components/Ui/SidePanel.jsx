@@ -1,7 +1,7 @@
 import { Drawer, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-import styles from "../Enrollment.module.css";
+import styles from "./Ui.module.css";
 
 const SidePanel = ({ open, title, subtitle, busy = false, onClose, footer, children }) => (
   <Drawer

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
+import ui from "../../../../shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "./SidePanel";
-import { Field, StatusMark } from "./Ui";
+import SidePanel from "../../../../shared/components/Ui/SidePanel";
+import { Field, StatusMark } from "../../../../shared/components/Ui/Ui";
 import { ADMISSION_STATUS, ageAt, formatDate, formatDateTime, todayInColombia } from "../utils/EnrollmentUtils";
 
 const DECISIONS = {
@@ -108,7 +109,7 @@ const AdmissionPanel = ({ row, canDecide, onClose, onDecided }) => {
 
         {error && <p className={styles.error}>{error}</p>}
 
-        <div className={styles.panelActions}>
+        <div className={ui.panelActions}>
           <Button onClick={() => choose(null)} disabled={busy}>
             Volver
           </Button>
@@ -125,7 +126,7 @@ const AdmissionPanel = ({ row, canDecide, onClose, onDecided }) => {
     );
   } else if (decidable && canDecide) {
     footer = (
-      <div className={styles.panelActions}>
+      <div className={ui.panelActions}>
         <Button color="error" onClick={() => choose("REJECTED")} sx={{ marginRight: "auto" }}>
           Rechazar
         </Button>

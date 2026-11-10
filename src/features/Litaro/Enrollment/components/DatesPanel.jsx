@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
+import ui from "../../../../shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "./SidePanel";
-import { Field } from "./Ui";
+import SidePanel from "../../../../shared/components/Ui/SidePanel";
+import { Field } from "../../../../shared/components/Ui/Ui";
 
 const DatesPanel = ({ yearId, period, onClose, onSaved }) => {
   const [dates, setDates] = useState({
@@ -58,7 +59,7 @@ const DatesPanel = ({ yearId, period, onClose, onSaved }) => {
       footer={
         <>
           {error && <p className={styles.error}>{error}</p>}
-          <div className={styles.panelActions}>
+          <div className={ui.panelActions}>
             <Button onClick={onClose} disabled={saving}>
               Cancelar
             </Button>

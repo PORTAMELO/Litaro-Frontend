@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-export const enrollmentTheme = createTheme({
+export const litaroTheme = createTheme({
   palette: {
     primary: { main: "#16113a" },
     error: { main: "#b91c1c" },

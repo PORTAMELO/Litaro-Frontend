@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Popover, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
+import ui from "../../../../shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
 
 const ResponsePopover = ({ target, onClose, onSaved }) => {
@@ -56,7 +57,7 @@ const ResponsePopover = ({ target, onClose, onSaved }) => {
 
         {error && <p className={styles.error}>{error}</p>}
 
-        <div className={styles.panelActions}>
+        <div className={ui.panelActions}>
           <Button onClick={onClose} disabled={busy}>
             Cancelar
           </Button>

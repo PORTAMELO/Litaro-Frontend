@@ -11,8 +11,9 @@ import {
 } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
+import ui from "../../../../shared/components/Ui/Ui.module.css";
 import * as administration from "../../Administration/services/AdministrationService";
-import { Field } from "./Ui";
+import { Field } from "../../../../shared/components/Ui/Ui";
 
 const startYear = (year) => new Date(year.startDate).getUTCFullYear();
 
@@ -100,9 +101,9 @@ const Result = ({ result }) => {
                       <span className={styles.secondaryText}>{issue.name}</span>
                     </td>
                     <td>
-                      <span className={styles.status}>
+                      <span className={ui.status}>
                         <span
-                          className={styles.dot}
+                          className={ui.dot}
                           style={{ backgroundColor: SEVERITY_COLOR[issue.severity] ?? "#6b7280" }}
                           aria-hidden="true"
                         />
@@ -224,8 +225,8 @@ const ImportDialog = ({ open, onClose, onImported }) => {
               </TextField>
             </Field>
 
-            <div className={styles.field}>
-              <span className={styles.fieldLabel}>Archivo</span>
+            <div className={ui.field}>
+              <span className={ui.fieldLabel}>Archivo</span>
               <Button
                 variant="outlined"
                 onClick={() => fileInput.current?.click()}

@@ -3,7 +3,7 @@ import { Button, Checkbox, FormControlLabel } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
-import { EmptyState, SegmentedFilter, StatusMark } from "./Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
 import { ALERT_TYPE, PAGE_SIZE, formatDateTime } from "../utils/EnrollmentUtils";
 
 const AlertsTab = ({ alerts, onChanged, notify }) => {
@@ -47,6 +47,7 @@ const AlertsTab = ({ alerts, onChanged, notify }) => {
       <div className={styles.card}>
         <div className={styles.toolbar}>
           <SegmentedFilter
+          className={styles.toolbarSegment}
             label="Estado de las alertas"
             options={[
               { value: "PENDING", label: "Pendientes", count: pending.length },

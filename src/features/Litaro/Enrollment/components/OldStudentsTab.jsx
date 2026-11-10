@@ -6,7 +6,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
 import ResponsePopover from "./ResponsePopover";
-import { EmptyState, SegmentedFilter, StatusMark } from "./Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
 import {
   PAGE_SIZE,
   PRE_STATUS,
@@ -136,6 +136,7 @@ const OldStudentsTab = ({ yearId, rows, period, canManage, onChanged, notify, on
         />
 
         <SegmentedFilter
+          className={styles.toolbarSegment}
           label="Filtrar por respuesta"
           options={options}
           value={active}

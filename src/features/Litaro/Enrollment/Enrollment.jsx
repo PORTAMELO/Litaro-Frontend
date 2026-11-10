@@ -3,7 +3,7 @@ import { Button, IconButton, Snackbar, Tab, Tabs, TextField, ThemeProvider } fro
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import styles from "./Enrollment.module.css";
-import { enrollmentTheme } from "./EnrollmentTheme";
+import { litaroTheme } from "../../../shared/styles/LitaroTheme";
 import * as service from "./services/EnrollmentService";
 import { usePermissions } from "../../../shared/hooks/UsePermissions";
 import PeriodStrip from "./components/PeriodStrip";
@@ -126,7 +126,7 @@ const Enrollment = () => {
   );
 
   return (
-    <ThemeProvider theme={enrollmentTheme}>
+    <ThemeProvider theme={litaroTheme}>
       <div className={styles.page}>
         <div className={styles.header}>
           <div>

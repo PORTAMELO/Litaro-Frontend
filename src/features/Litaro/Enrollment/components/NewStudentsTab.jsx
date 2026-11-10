@@ -6,7 +6,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "../Enrollment.module.css";
 import AdmissionForm from "./AdmissionForm";
 import AdmissionPanel from "./AdmissionPanel";
-import { EmptyState, SegmentedFilter, StatusMark } from "./Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
 import {
   ADMISSION_STATUS,
   PAGE_SIZE,
@@ -145,6 +145,7 @@ const NewStudentsTab = ({ yearId, rows, grades, period, canCreate, canDecide, on
         />
 
         <SegmentedFilter
+          className={styles.toolbarSegment}
           label="Filtrar por estado"
           options={options}
           value={active}

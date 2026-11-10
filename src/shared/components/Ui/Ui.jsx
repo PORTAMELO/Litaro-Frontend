@@ -1,6 +1,6 @@
 import { useId } from "react";
 
-import styles from "../Enrollment.module.css";
+import styles from "./Ui.module.css";
 
 export const StatusMark = ({ label, color }) => (
   <span className={styles.status}>
@@ -9,8 +9,8 @@ export const StatusMark = ({ label, color }) => (
   </span>
 );
 
-export const SegmentedFilter = ({ label, options, value, onChange }) => (
-  <div className={styles.segment} role="group" aria-label={label}>
+export const SegmentedFilter = ({ label, options, value, onChange, className = "" }) => (
+  <div className={`${styles.segment} ${className}`} role="group" aria-label={label}>
     {options.map((option) => (
       <button
         type="button"

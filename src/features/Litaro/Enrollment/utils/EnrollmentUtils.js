@@ -18,12 +18,6 @@ export const ADMISSION_STATUS = {
   REJECTED: { label: "Rechazada", color: "#b91c1c" },
 };
 
-export const ALERT_TYPE = {
-  ADMISSION_APPROVED: { label: "Admisión aprobada", color: "#0f9d58" },
-  CUPO_RELEASED: { label: "Cupo liberado", color: "#d97706" },
-  NOT_IN_SIMAT: { label: "No está en el SIMAT", color: "#2563eb" },
-};
-
 export const DOCUMENT_TYPES = ["RC", "TI", "CC", "CE", "NUIP", "PEP", "PPT"];
 
 const toUtc = (value) => {

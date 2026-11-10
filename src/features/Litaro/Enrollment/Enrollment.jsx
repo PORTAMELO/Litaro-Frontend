@@ -9,7 +9,6 @@ import { usePermissions } from "../../../shared/hooks/UsePermissions";
 import PeriodStrip from "./components/PeriodStrip";
 import OldStudentsTab from "./components/OldStudentsTab";
 import NewStudentsTab from "./components/NewStudentsTab";
-import AlertsTab from "./components/AlertsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
 
@@ -64,9 +63,8 @@ const Enrollment = () => {
       service.getPeriod(yearId),
       service.getPreEnrollments(yearId),
       service.getAdmissions(yearId),
-      staff ? service.getSimatAlerts("") : Promise.resolve([]),
     ])
-      .then(([period, pre, admissions, alerts]) => {
+      .then(([period, pre, admissions]) => {
         if (cancelled) return;
 
         setData({
@@ -75,7 +73,6 @@ const Enrollment = () => {
           period: period ?? null,
           pre: pre ?? [],
           admissions: admissions ?? [],
-          alerts: alerts ?? [],
         });
       })
       .catch((error) => {
@@ -85,7 +82,7 @@ const Enrollment = () => {
     return () => {
       cancelled = true;
     };
-  }, [viewer, staff, yearId, key]);
+  }, [viewer, yearId, key]);
 
   const notify = useCallback((message, kind = "info") => setToast({ id: Date.now(), message, kind }), []);
   const reload = useCallback(() => setVersion((current) => current + 1), []);
@@ -113,10 +110,9 @@ const Enrollment = () => {
 
   const waiting = loaded ? current.pre.filter((row) => row.status === "RESERVED").length : 0;
   const pendingRequests = loaded ? current.admissions.filter((row) => row.status === "PENDING").length : 0;
-  const pendingAlerts = loaded ? current.alerts.filter((alert) => alert.status === "PENDING").length : 0;
 
   const fallbackTab = rector && !staff ? "new" : "old";
-  const activeTab = tab === "alerts" && !staff ? fallbackTab : (tab ?? fallbackTab);
+  const activeTab = tab ?? fallbackTab;
 
   const tabLabel = (text, count) => (
     <span>
@@ -194,7 +190,6 @@ const Enrollment = () => {
             >
               <Tab value="old" label={tabLabel("Antiguos", waiting)} />
               <Tab value="new" label={tabLabel("Nuevos", pendingRequests)} />
-              {staff && <Tab value="alerts" label={tabLabel("Alertas SIMAT", pendingAlerts)} />}
             </Tabs>
 
             {activeTab === "old" && (
@@ -223,7 +218,6 @@ const Enrollment = () => {
               />
             )}
 
-            {activeTab === "alerts" && <AlertsTab alerts={current.alerts} onChanged={reload} notify={notify} />}
           </>
         )}
 
@@ -246,7 +240,7 @@ const Enrollment = () => {
           onImported={(result) => {
             notify(
               `Importación aplicada: ${result.studentsCreated} estudiantes nuevos y ${result.studentsUpdated} actualizados.` +
-                (result.alertsCreated > 0 ? ` Secretaría tiene ${result.alertsCreated} alertas nuevas.` : ""),
+                (result.alertsCreated > 0 ? ` Hay ${result.alertsCreated} notificaciones nuevas.` : ""),
             );
             reload();
           }}

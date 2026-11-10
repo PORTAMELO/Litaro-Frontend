@@ -27,6 +27,3 @@ export const getAdmissionEvents = (id) => apiFetch(`${BASE}/admissions/${id}/eve
 
 export const decideAdmission = (id, decision, note) => post(`${BASE}/admissions/${id}/decision`, { decision, note });
 
-export const getSimatAlerts = (status) => apiFetch(`${BASE}/simat-alerts${status ? `?status=${status}` : ""}`);
-
-export const resolveSimatAlerts = (ids, note) => post(`${BASE}/simat-alerts/resolve`, { ids, note });

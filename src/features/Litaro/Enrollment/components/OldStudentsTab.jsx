@@ -1,5 +1,16 @@
 import { useState } from "react";
-import { Button, IconButton, InputAdornment, Menu, MenuItem, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  InputAdornment,
+  Menu,
+  MenuItem,
+  TextField,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -15,6 +26,7 @@ import {
   formatDay,
   matchesQuery,
   plural,
+  todayInColombia,
 } from "../utils/EnrollmentUtils";
 
 const FILTERS = [
@@ -24,16 +36,43 @@ const FILTERS = [
   { value: "LOST", label: "Perdieron el cupo" },
 ];
 
-const OldStudentsTab = ({ yearId, rows, period, canManage, onChanged, notify, onConfigure }) => {
+const OldStudentsTab = ({ yearId, rows, period, canManage, canRestore, onChanged, notify, onConfigure }) => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState(null);
   const [limit, setLimit] = useState(PAGE_SIZE);
   const [menuAnchor, setMenuAnchor] = useState(null);
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState(false);
+  const [restoring, setRestoring] = useState(false);
+  const [confirmingRestore, setConfirmingRestore] = useState(false);
 
   const totals = countBy(rows, (row) => row.status);
   const waiting = totals.RESERVED ?? 0;
+  const lost = totals.LOST ?? 0;
+  const restorable = canRestore && lost > 0 && Boolean(period) && period.preEnrollmentEnd >= todayInColombia();
+
+  const restore = async () => {
+    setConfirmingRestore(false);
+    setRestoring(true);
+
+    try {
+      const result = await service.restoreLostPreEnrollments(yearId);
+      const restored = result?.restored ?? 0;
+      const reverts = result?.simatReverts ?? 0;
+
+      notify(
+        `Se ${plural(restored, "restableció", "restablecieron")} ${restored} ${plural(restored, "cupo", "cupos")}.` +
+          (reverts > 0
+            ? ` Secretaría recibirá ${reverts} ${plural(reverts, "aviso", "avisos")} para revertir la novedad en el SIMAT.`
+            : ""),
+      );
+      onChanged();
+    } catch (error) {
+      notify(error.message ?? "No fue posible restablecer los cupos.", "error");
+    } finally {
+      setRestoring(false);
+    }
+  };
   const active = filter ?? (waiting > 0 ? "RESERVED" : "all");
 
   const options = [
@@ -155,6 +194,17 @@ const OldStudentsTab = ({ yearId, rows, period, canManage, onChanged, notify, on
               <MenuItem onClick={generate} disabled={generating}>
                 Reservar cupos que falten
               </MenuItem>
+              {restorable && (
+                <MenuItem
+                  onClick={() => {
+                    setMenuAnchor(null);
+                    setConfirmingRestore(true);
+                  }}
+                  disabled={restoring}
+                >
+                  Restablecer cupos perdidos
+                </MenuItem>
+              )}
             </Menu>
           </div>
         )}
@@ -244,6 +294,21 @@ const OldStudentsTab = ({ yearId, rows, period, canManage, onChanged, notify, on
           </button>
         </div>
       )}
+
+      <Dialog open={confirmingRestore} onClose={() => setConfirmingRestore(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>Restablecer cupos</DialogTitle>
+        <DialogContent>
+          {lost === 1
+            ? "1 estudiante volverá a quedar sin respuesta."
+            : `${lost} estudiantes volverán a quedar sin respuesta.`}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmingRestore(false)}>Cancelar</Button>
+          <Button variant="contained" onClick={restore}>
+            Restablecer
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {response && (
         <ResponsePopover

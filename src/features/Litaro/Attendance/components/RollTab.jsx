@@ -3,7 +3,7 @@ import { MenuItem, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
 import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
@@ -66,7 +66,7 @@ const RollTab = ({ options, can, notify }) => {
 
       {error && <p className={page.message}>{error}</p>}
 
-      {!error && !data && loading && <p className={page.message}>Cargando…</p>}
+      {!error && !data && loading && <TableSkeleton rows={6} columns={3} />}
 
       {!error && data && agenda.length === 0 && (
         <div className={page.card}>

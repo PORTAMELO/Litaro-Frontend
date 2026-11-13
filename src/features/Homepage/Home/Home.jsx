@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
 import colegio from "../../../assets/colegio.jpeg";
 import SectionTitle from "../../../shared/components/SectionTitle.jsx";
+import { useLoad } from "../../../shared/hooks/UseLoad";
 import Banner from "../components/Banner";
+import LoadError from "../components/LoadError";
+import SectionSkeleton from "../components/SectionSkeleton";
 import EventCardBoard from "./components/EventCardBoard";
 import LevelCardBoard from "./components/LevelCardBoard";
 import LocationCardBoard from "./components/LocationCardBoard";
@@ -29,50 +31,51 @@ const initialState = {
   values: [],
 };
 
+const loadContent = async () => {
+  const [introduction, locations, levels, events, statistics, values] =
+    await Promise.all([
+      getIntroduction(),
+      getLocations(),
+      getAcademicLevels(),
+      getEvents(),
+      getStatistics(),
+      getValues(),
+    ]);
+
+  return {
+    introduction,
+
+    locations: locations.map((item) => ({
+      ...item,
+      image: images[item.image],
+    })),
+
+    levels: levels.map((item) => ({
+      ...item,
+      image: images[item.image],
+    })),
+
+    events: events.map((item) => ({
+      ...item,
+      image: images[item.image],
+    })),
+
+    statistics,
+    values,
+  };
+};
+
 const Home = () => {
-  const [content, setContent] = useState(initialState);
+  const { data, error, loading, reload } = useLoad(loadContent, []);
+  const content = data ?? initialState;
 
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const [introduction, locations, levels, events, statistics, values] =
-          await Promise.all([
-            getIntroduction(),
-            getLocations(),
-            getAcademicLevels(),
-            getEvents(),
-            getStatistics(),
-            getValues(),
-          ]);
-
-        setContent({
-          introduction,
-
-          locations: locations.map((item) => ({
-            ...item,
-            image: images[item.image],
-          })),
-
-          levels: levels.map((item) => ({
-            ...item,
-            image: images[item.image],
-          })),
-
-          events: events.map((item) => ({
-            ...item,
-            image: images[item.image],
-          })),
-
-          statistics,
-          values,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    loadContent();
-  }, []);
+  if (error) {
+    return (
+      <section>
+        <LoadError onRetry={reload} />
+      </section>
+    );
+  }
 
   return (
     <section
@@ -85,30 +88,34 @@ const Home = () => {
       <div className="section-intro">
         <SectionTitle text="Instituto Nacional de Promoción Social" center />
 
-        <IntroductionCard
-          text={content.introduction[0]?.description || ""}
-          image={colegio}
-        />
+        {loading ? (
+          <SectionSkeleton variant="intro" />
+        ) : (
+          <IntroductionCard
+            text={content.introduction[0]?.description || ""}
+            image={colegio}
+          />
+        )}
       </div>
 
-      <Banner labels={content.statistics} />
+      {loading ? <SectionSkeleton variant="banner" /> : <Banner labels={content.statistics} />}
 
       <div className="section-map">
-        <LocationCardBoard locations={content.locations} />
+        {loading ? <SectionSkeleton variant="cards" /> : <LocationCardBoard locations={content.locations} />}
       </div>
 
       <div className="section-academic-level">
         <SectionTitle text="Niveles académicos" center />
 
-        <LevelCardBoard levels={content.levels} />
+        {loading ? <SectionSkeleton variant="cards" /> : <LevelCardBoard levels={content.levels} />}
       </div>
 
-      <Banner labels={content.values} />
+      {loading ? <SectionSkeleton variant="banner" /> : <Banner labels={content.values} />}
 
       <div className="section-events">
         <SectionTitle text="Eventos destacados" center />
 
-        <EventCardBoard events={content.events} />
+        {loading ? <SectionSkeleton variant="cards" /> : <EventCardBoard events={content.events} />}
       </div>
     </section>
   );

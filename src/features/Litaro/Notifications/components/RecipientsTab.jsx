@@ -4,7 +4,7 @@ import { Autocomplete, Button, FormControlLabel, Switch, TextField } from "@mui/
 import page from "../../../../shared/components/Ui/Page.module.css";
 import SidePanel from "../../../../shared/components/Ui/SidePanel";
 import ui from "../../../../shared/components/Ui/Ui.module.css";
-import { EmptyState, Field } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, Field, TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import * as service from "../services/NotificationService";
 import { TEMPLATE_LIMIT } from "../utils/NotificationUtils";
@@ -66,7 +66,7 @@ const RecipientsTab = ({ canEdit, notify }) => {
   };
 
   if (error) return <p className={page.message}>{error}</p>;
-  if (!data && loading) return <p className={page.message}>Cargando…</p>;
+  if (!data && loading) return <TableSkeleton rows={6} columns={2} />;
 
   return (
     <>

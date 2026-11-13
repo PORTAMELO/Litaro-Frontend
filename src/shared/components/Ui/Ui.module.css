@@ -149,3 +149,32 @@
   outline: 2px solid var(--primary-color);
   outline-offset: 1px;
 }
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.skeletonRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.skeletonRow:first-child {
+  border-top: 0;
+}
+
+.contentSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}

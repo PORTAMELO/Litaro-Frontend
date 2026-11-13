@@ -38,7 +38,7 @@ const LocationCardBoard = ({ locations }) => {
 
         <p>{location.description}</p>
 
-        <img src={location.image} alt={location.title} />
+        <img src={location.image} alt={location.title} loading="lazy" />
 
         <div className={styles["location-buttons"]}>
           <IoIosArrowDropleftCircle

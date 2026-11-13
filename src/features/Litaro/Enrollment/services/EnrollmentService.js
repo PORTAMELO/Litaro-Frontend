@@ -27,3 +27,5 @@ export const getAdmissionEvents = (id) => apiFetch(`${BASE}/admissions/${id}/eve
 
 export const decideAdmission = (id, decision, note) => post(`${BASE}/admissions/${id}/decision`, { decision, note });
 
+
+export const restoreLostPreEnrollments = (yearId) => post(`${BASE}/pre-enrollments/restore?yearId=${yearId}`);

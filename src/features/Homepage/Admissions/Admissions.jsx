@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-
 import colegio from "../../../assets/colegio.jpeg";
 
 import SectionTitle from "../../../shared/components/SectionTitle.jsx";
+import { useLoad } from "../../../shared/hooks/UseLoad";
+import LoadError from "../components/LoadError";
+import SectionSkeleton from "../components/SectionSkeleton";
 import AdmissionGuide from "./components/AdmissionGuide";
 import IntroductionCard from "./components/IntroductionCard";
 
@@ -13,44 +14,49 @@ const initialState = {
   steps: [],
 };
 
+const loadContent = async () => {
+  const [introduction, steps] = await Promise.all([
+    getIntroduction(),
+    getSteps(),
+  ]);
+
+  return {
+    introduction,
+    steps,
+  };
+};
+
 const Admissions = () => {
-  const [content, setContent] = useState(initialState);
+  const { data, error, loading, reload } = useLoad(loadContent, []);
+  const content = data ?? initialState;
 
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const [introduction, steps] = await Promise.all([
-          getIntroduction(),
-          getSteps(),
-        ]);
-
-        setContent({
-          introduction,
-          steps,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    loadContent();
-  }, []);
+  if (error) {
+    return (
+      <section>
+        <LoadError onRetry={reload} />
+      </section>
+    );
+  }
 
   return (
     <section>
       <div>
         <SectionTitle text="¿Cómo realizar el proceso de admisión?" center />
 
-        <IntroductionCard
-          introduction={content.introduction[0]?.description || ""}
-          image={colegio}
-        />
+        {loading ? (
+          <SectionSkeleton variant="intro" />
+        ) : (
+          <IntroductionCard
+            introduction={content.introduction[0]?.description || ""}
+            image={colegio}
+          />
+        )}
       </div>
 
       <div>
         <SectionTitle text="Ruta de admisión" center />
 
-        <AdmissionGuide steps={content.steps} />
+        {loading ? <SectionSkeleton variant="cards" /> : <AdmissionGuide steps={content.steps} />}
       </div>
     </section>
   );

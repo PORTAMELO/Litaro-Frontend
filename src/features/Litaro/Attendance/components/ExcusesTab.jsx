@@ -14,7 +14,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
 import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import { formatDateTime } from "../../../../shared/utils/Dates";
 import * as service from "../services/AttendanceService";
@@ -87,6 +87,8 @@ const ExcusesTab = ({ options, can, notify }) => {
         </div>
 
         {error && <p className={page.message}>{error}</p>}
+
+        {!error && !data && <TableSkeleton rows={6} columns={6} />}
 
         {!error && data && rows.length === 0 && <EmptyState title="Sin excusas registradas" />}
 

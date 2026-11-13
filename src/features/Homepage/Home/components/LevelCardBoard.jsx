@@ -7,7 +7,7 @@ const LevelCardBoard = ({ levels }) => {
         return (
           <div className={styles["level-card"]} key={index}>
             <div className={styles["upper-level-card"]}>
-              <img src={level.image} alt="Foto correspondiente" />
+              <img src={level.image} alt="Foto correspondiente" loading="lazy" />
             </div>
 
             <div className={styles["lower-level-card"]}>

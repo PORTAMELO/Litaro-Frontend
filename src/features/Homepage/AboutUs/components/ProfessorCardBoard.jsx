@@ -7,7 +7,7 @@ const ProfessorCardBoard = ({ professors }) => {
         return (
           <div className={styles["professor-card"]} key={index}>
             <div className={styles["upper-professor-card"]}>
-              <img src={professor.image} alt={professor.name} />
+              <img src={professor.image} alt={professor.name} loading="lazy" />
               <h2 className={styles["name"]}>{professor.name}</h2>
             </div>
 

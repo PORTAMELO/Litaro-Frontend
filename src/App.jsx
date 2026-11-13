@@ -1,7 +1,10 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ScrollToTop from "./shared/components/ScrollToTop";
 import PrivateRoute from "./shared/components/PrivateRoute";
+import RouteErrorBoundary from "./shared/components/RouteErrorBoundary";
 import { useAuth } from "./shared/hooks/UseAuth";
+import { CardSkeleton, LayoutSkeleton } from "./shared/components/Ui/Skeletons";
 import "./App.css";
 // Webpage
 import Homepage from "./features/Homepage/Homepage";
@@ -10,47 +13,47 @@ import AboutUs from "./features/Homepage/AboutUs/AboutUs";
 import Calendar from "./features/Homepage/Calendar/Calendar";
 import Admissions from "./features/Homepage/Admissions/Admissions";
 // Login y rutas
-import Login from "./features/Loginpage/Loginpage";
-import SelectProfile from "./features/SelectProfile/SelectProfile";
-import LitaroAdmin from "./features/LitaroAdmin/LitaroAdmin";
-import LitaroProfessor from "./features/LitaroProfessor/LitaroProfessor";
-import LitaroStudent from "./features/LitaroStudent/LitaroStudent";
+const Login = lazy(() => import("./features/Loginpage/Loginpage"));
+const SelectProfile = lazy(() => import("./features/SelectProfile/SelectProfile"));
+const LitaroAdmin = lazy(() => import("./features/LitaroAdmin/LitaroAdmin"));
+const LitaroProfessor = lazy(() => import("./features/LitaroProfessor/LitaroProfessor"));
+const LitaroStudent = lazy(() => import("./features/LitaroStudent/LitaroStudent"));
 // Administradors
-import AdministracionView from "./features/LitaroAdmin/Administracion/AdministracionView";
-import NotasView from "./features/LitaroAdmin/Notas/NotasView";
-import AsistenciaView from "./features/LitaroAdmin/Asistencia/AsistenciaView";
-import ObservacionesCitacionesView from "./features/LitaroAdmin/Observaciones/ObservacionesCitacionesView";
-import EstadisticasView from "./features/LitaroAdmin/Estadisticas/EstadisticasView";
-import ComunicacionesView from "./features/LitaroAdmin/Comunicaciones/ComunicacionesView";
-import ForoView from "./features/LitaroAdmin/Foro/ForoView";
-import ReportesView from "./features/LitaroAdmin/Reportes/ReportesView";
-import SeguridadView from "./features/LitaroAdmin/Seguridad/SeguridadView";
-import WebContentManager from "./features/LitaroAdmin/WebContentManager/WebContentManager";
+const AdministracionView = lazy(() => import("./features/LitaroAdmin/Administracion/AdministracionView"));
+const NotasView = lazy(() => import("./features/LitaroAdmin/Notas/NotasView"));
+const AsistenciaView = lazy(() => import("./features/LitaroAdmin/Asistencia/AsistenciaView"));
+const ObservacionesCitacionesView = lazy(() => import("./features/LitaroAdmin/Observaciones/ObservacionesCitacionesView"));
+const EstadisticasView = lazy(() => import("./features/LitaroAdmin/Estadisticas/EstadisticasView"));
+const ComunicacionesView = lazy(() => import("./features/LitaroAdmin/Comunicaciones/ComunicacionesView"));
+const ForoView = lazy(() => import("./features/LitaroAdmin/Foro/ForoView"));
+const ReportesView = lazy(() => import("./features/LitaroAdmin/Reportes/ReportesView"));
+const SeguridadView = lazy(() => import("./features/LitaroAdmin/Seguridad/SeguridadView"));
+const WebContentManager = lazy(() => import("./features/LitaroAdmin/WebContentManager/WebContentManager"));
 //Student
 
 //Professor
-import InicioProfessor from "./features/LitaroProfessor/Inicio/InicioProfessor";
-import NotasProfessor from "./features/LitaroProfessor/Notas/NotasProfessor";
-import AsistenciaProfessor from "./features/LitaroProfessor/Asistencia/AsistenciaProfessor";
-import ObservacionesCitacionesProfessor from "./features/LitaroProfessor/Observaciones/ObservacionesCitacionesProfessor";
-import ForoProfessor from "./features/LitaroProfessor/Foro/ForoProfessor";
+const InicioProfessor = lazy(() => import("./features/LitaroProfessor/Inicio/InicioProfessor"));
+const NotasProfessor = lazy(() => import("./features/LitaroProfessor/Notas/NotasProfessor"));
+const AsistenciaProfessor = lazy(() => import("./features/LitaroProfessor/Asistencia/AsistenciaProfessor"));
+const ObservacionesCitacionesProfessor = lazy(() => import("./features/LitaroProfessor/Observaciones/ObservacionesCitacionesProfessor"));
+const ForoProfessor = lazy(() => import("./features/LitaroProfessor/Foro/ForoProfessor"));
 
 //Litaro
-import Litaro from "./features/Litaro/Litaro";
-import HomeLitaro from "./features/Litaro/Home/Home";
-import AdministrationLitaro from "./features/Litaro/Administration/Administration";
-import AttendanceLitaro from "./features/Litaro/Attendance/Attendance";
-import CommunicationsLitaro from "./features/Litaro/Communications/Communications";
-import ForumLitaro from "./features/Litaro/Forum/Forum";
-import GradesLitaro from "./features/Litaro/Grades/Grades";
-import ObservationsLitaro from "./features/Litaro/Observations/Observations";
-import ReportsLitaro from "./features/Litaro/Reports/Reports";
-import SecurityLitaro from "./features/Litaro/Security/Security";
-import StatisticsLitaro from "./features/Litaro/Statistics/Statistics";
-import WebpageLitaro from "./features/Litaro/Webpage/Webpage";
-import ScheduleLitaro from "./features/Litaro/Schedule/Schedule";
-import EnrollmentLitaro from "./features/Litaro/Enrollment/Enrollment";
-import NotificationsLitaro from "./features/Litaro/Notifications/Notifications";
+const Litaro = lazy(() => import("./features/Litaro/Litaro"));
+const HomeLitaro = lazy(() => import("./features/Litaro/Home/Home"));
+const AdministrationLitaro = lazy(() => import("./features/Litaro/Administration/Administration"));
+const AttendanceLitaro = lazy(() => import("./features/Litaro/Attendance/Attendance"));
+const CommunicationsLitaro = lazy(() => import("./features/Litaro/Communications/Communications"));
+const ForumLitaro = lazy(() => import("./features/Litaro/Forum/Forum"));
+const GradesLitaro = lazy(() => import("./features/Litaro/Grades/Grades"));
+const ObservationsLitaro = lazy(() => import("./features/Litaro/Observations/Observations"));
+const ReportsLitaro = lazy(() => import("./features/Litaro/Reports/Reports"));
+const SecurityLitaro = lazy(() => import("./features/Litaro/Security/Security"));
+const StatisticsLitaro = lazy(() => import("./features/Litaro/Statistics/Statistics"));
+const WebpageLitaro = lazy(() => import("./features/Litaro/Webpage/Webpage"));
+const ScheduleLitaro = lazy(() => import("./features/Litaro/Schedule/Schedule"));
+const EnrollmentLitaro = lazy(() => import("./features/Litaro/Enrollment/Enrollment"));
+const NotificationsLitaro = lazy(() => import("./features/Litaro/Notifications/Notifications"));
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -67,14 +70,17 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <RouteErrorBoundary>
       <Routes>
         {/* Tras el login, si hay más de un perfil/rol disponible, PrivateRoute
             manda aquí en vez de a /Litaro (ver PrivateRoute y AuthProvider). */}
         <Route
           path="/SeleccionarPerfil"
           element={
-            <PrivateRoute requireRole={false}>
-              <SelectProfile />
+            <PrivateRoute requireRole={false} fallback={<CardSkeleton />}>
+              <Suspense fallback={<CardSkeleton />}>
+                <SelectProfile />
+              </Suspense>
             </PrivateRoute>
           }
         />
@@ -83,7 +89,9 @@ function App() {
           path="/Litaro"
           element={
             <PrivateRoute>
-              <Litaro />
+              <Suspense fallback={<LayoutSkeleton />}>
+                <Litaro />
+              </Suspense>
             </PrivateRoute>
           }
         >
@@ -112,8 +120,8 @@ function App() {
           <Route path="Calendario" element={<Calendar />} />
           <Route path="Admisiones" element={<Admissions />} />
         </Route>
-        <Route path="/Login" element={<Login />} />
-        <Route path="/LitaroAdmin" element={<LitaroAdmin />}>
+        <Route path="/Login" element={<Suspense fallback={<CardSkeleton />}><Login /></Suspense>} />
+        <Route path="/LitaroAdmin" element={<Suspense fallback={<LayoutSkeleton />}><LitaroAdmin /></Suspense>}>
           <Route index element={<Navigate to="Administracion" />} />
           <Route path="Administracion" element={<AdministracionView />} />
           <Route path="Notas" element={<NotasView />} />
@@ -126,8 +134,8 @@ function App() {
           <Route path="Seguridad" element={<SeguridadView />} />
           <Route path="PaginaWeb" element={<WebContentManager />} />
         </Route>
-        <Route path="/LitaroStudent" element={<LitaroStudent />}></Route>
-        <Route path="/LitaroProfessor" element={<LitaroProfessor />}>
+        <Route path="/LitaroStudent" element={<Suspense fallback={<LayoutSkeleton />}><LitaroStudent /></Suspense>}></Route>
+        <Route path="/LitaroProfessor" element={<Suspense fallback={<LayoutSkeleton />}><LitaroProfessor /></Suspense>}>
           <Route index element={<Navigate to="Inicio" />} />
           <Route path="Inicio" element={<InicioProfessor />} />
           <Route path="Notas" element={<NotasProfessor />} />
@@ -148,6 +156,7 @@ function App() {
 
         {/* Aquí van las rutas por rol*/}
       </Routes>
+      </RouteErrorBoundary>
     </BrowserRouter>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as service from "./services/WebContentManagerService";
 import * as configurationService from "./services/WebContentConfigurationService";
 import styles from "./Webpage.module.css";
+import { ContentSkeleton } from "../../../shared/components/Ui/Ui";
 
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Button, Stack } from "@mui/material";
 
@@ -20,6 +21,7 @@ const Webpage = () => {
   const [configurations, setConfigurations] = useState([]);
   const [editorOpen, setEditorOpen] = useState(false);
   const [selectedContent, setSelectedContent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [notification, setNotification] = useState({
     open: false,
@@ -43,6 +45,9 @@ const Webpage = () => {
       setConfigurations(configurationData);
     } catch (err) {
       console.error(err);
+      setNotification({ open: true, severity: "error", title: "Error", message: "No fue posible cargar el contenido." });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -234,7 +239,9 @@ const Webpage = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Administrador de contenido</h1>
 
-      {pageOrder
+      {loading && <ContentSkeleton />}
+
+      {!loading && pageOrder
         .filter((page) => grouped[page])
         .map((page) => {
           const sections = grouped[page];

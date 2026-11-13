@@ -3,7 +3,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import UndoIcon from "@mui/icons-material/Undo";
 
 import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import * as service from "../services/AttendanceService";
 import StudentSearch from "./StudentSearch";
@@ -56,7 +56,9 @@ const LateArrivalsTab = ({ options, can, notify }) => {
 
         {error && <p className={page.message}>{error}</p>}
 
-        {!error && rows.length === 0 && <EmptyState title="Sin llegadas tarde hoy" />}
+        {!error && !data && <TableSkeleton rows={6} columns={5} />}
+
+        {!error && data && rows.length === 0 && <EmptyState title="Sin llegadas tarde hoy" />}
 
         {rows.length > 0 && (
           <div className={page.tableWrapper}>

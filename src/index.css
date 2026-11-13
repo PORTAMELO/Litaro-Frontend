@@ -1,8 +1,10 @@
 @font-face {
     font-family: Nunito;
-    src: url("../src/assets/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
+    src: url("../src/assets/fonts/Nunito-VariableFont_wght.woff2") format("woff2"),
+        url("../src/assets/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
     font-weight: 400 700;
     font-style: normal;
+    font-display: swap;
 }
 
 

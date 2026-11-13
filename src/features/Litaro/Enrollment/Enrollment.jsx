@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, IconButton, Snackbar, Tab, Tabs, TextField, ThemeProvider } from "@mui/material";
+import { Button, IconButton, Tab, Tabs, TextField, ThemeProvider } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import styles from "./Enrollment.module.css";
@@ -12,6 +12,8 @@ import NewStudentsTab from "./components/NewStudentsTab";
 import MovementsTab from "./components/MovementsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
+import { TableSkeleton } from "../../../shared/components/Ui/Ui";
+import Toast from "../../../shared/components/Ui/Toast";
 
 const yearText = (year) => `Año ${year.yearId}${year.active ? "" : " (inactivo)"}`;
 
@@ -92,7 +94,7 @@ const Enrollment = () => {
   if (!ready) {
     return (
       <div className={styles.page}>
-        <p className={styles.message}>Cargando…</p>
+        <TableSkeleton rows={8} columns={3} />
       </div>
     );
   }
@@ -182,7 +184,7 @@ const Enrollment = () => {
           </p>
         )}
 
-        {!failed && !optionsError && yearId !== null && !current && <p className={styles.message}>Cargando…</p>}
+        {!failed && !optionsError && yearId !== null && !current && <TableSkeleton rows={8} columns={3} />}
 
         {(loaded || !viewer) && (
           <>
@@ -208,6 +210,7 @@ const Enrollment = () => {
                 rows={current.pre}
                 period={current.period}
                 canManage={staff}
+                canRestore={can("EnrollmentProcess", "update")}
                 onChanged={reload}
                 notify={notify}
                 onConfigure={() => setDatesOpen(true)}
@@ -238,6 +241,7 @@ const Enrollment = () => {
           <DatesPanel
             yearId={yearId}
             period={current?.period ?? null}
+            pendingCount={(current?.pre ?? []).filter((row) => row.status === "RESERVED").length}
             onClose={() => setDatesOpen(false)}
             onSaved={() => {
               setDatesOpen(false);
@@ -259,21 +263,7 @@ const Enrollment = () => {
           }}
         />
 
-        {toast && (
-          <Snackbar
-            key={toast.id}
-            open
-            autoHideDuration={toast.kind === "error" ? 8000 : 4000}
-            onClose={(_, reason) => {
-              if (reason !== "clickaway") setToast(null);
-            }}
-            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          >
-            <div className={`${styles.toast} ${toast.kind === "error" ? styles.toastError : ""}`} role="status">
-              {toast.message}
-            </div>
-          </Snackbar>
-        )}
+        <Toast toast={toast} onClose={() => setToast(null)} />
       </div>
     </ThemeProvider>
   );

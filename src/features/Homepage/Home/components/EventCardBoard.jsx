@@ -7,7 +7,7 @@ const EventCardBoard = ({ events }) => {
         return (
           <div className={styles["event-card"]} key={index}>
             <div className={styles["upper-event-card"]}>
-              <img src={event.image} alt={event.title} />
+              <img src={event.image} alt={event.title} loading="lazy" />
               <p className={styles["label"]}>{event.label}</p>
             </div>
 

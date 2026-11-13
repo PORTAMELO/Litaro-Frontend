@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 
 import page from "../../../../shared/components/Ui/Page.module.css";
+import { TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
@@ -21,7 +22,7 @@ const SettingsTab = ({ can, notify }) => {
   const [stamp, setStamp] = useState(0);
 
   if (error) return <p className={page.message}>{error}</p>;
-  if (!data) return <p className={page.message}>Cargando…</p>;
+  if (!data) return <TableSkeleton rows={5} columns={2} />;
 
   return (
     <SettingsForm

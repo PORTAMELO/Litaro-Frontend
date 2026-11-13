@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { logoutRequest, sessionRequest } from "../../api/Auth";
 import { permissionsRequest } from "../../api/Permissions";
@@ -100,19 +100,22 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      permissions,
+      login,
+      logout,
+      chooseRole,
+      clearChosenRole,
+      isAuthenticated: !!user,
+    }),
+    [user, loading, permissions, login, logout, chooseRole, clearChosenRole]
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        permissions,
-        login,
-        logout,
-        chooseRole,
-        clearChosenRole,
-        isAuthenticated: !!user,
-      }}
-    >
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

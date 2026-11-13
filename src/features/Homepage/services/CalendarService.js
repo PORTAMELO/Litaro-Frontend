@@ -1,8 +1,8 @@
 import * as api from "../../../api/WebContentApi";
 
 const getSection = async (sectionName, contentKey) => {
-  const response = await api.getContent(
-    "Calendario",
+  const response = api.selectSection(
+    await api.getPageContent("Calendario"),
     sectionName,
     contentKey
   );

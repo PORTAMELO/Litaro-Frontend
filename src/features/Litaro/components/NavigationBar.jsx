@@ -43,7 +43,7 @@ const navigationItems = {
     label: "Notas",
     path: "/Litaro/Grades",
     icon: MdGrade,
-    keys: ["GradesModule"],
+    keys: ["GradesModule", "GradeBook", "StudyPlanner", "StudyPlannerPanel", "GradeSettings"],
   },
 
   schedule: {

@@ -45,6 +45,7 @@ const Administration = () => {
   const [lookups, setLookups] = useState({});
   const [schema, setSchema] = useState([]);
   const [managerOpen, setManagerOpen] = useState(false);
+  const [recordsLoading, setRecordsLoading] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [lastFilters, setLastFilters] = useState(undefined);
   const [roleFormOpen, setRoleFormOpen] = useState(false);
@@ -90,25 +91,29 @@ const Administration = () => {
       return;
     }
 
+    setSelectedCard(card);
+    setSchema([]);
+    setRecords([]);
+    setLookups({});
+    setRecordsLoading(true);
+    setManagerOpen(true);
+
     try {
       const schemaData = await service.getSchema(card.tableName);
       const hasFilters = schemaData.some((column) => column.filterable);
 
-      setSelectedCard(card);
       setSchema(schemaData);
 
-      if (hasFilters) {
-        setRecords([]);
-        setLookups({});
-      } else {
+      if (!hasFilters) {
         const result = await service.getRecords(card.endpoint);
         setRecords(result.records);
         setLookups(result.lookups);
       }
-
-      setManagerOpen(true);
     } catch (error) {
       console.error("Error cargando la administración:", error);
+      setManagerOpen(false);
+    } finally {
+      setRecordsLoading(false);
     }
   };
 
@@ -120,6 +125,8 @@ const Administration = () => {
   };
 
   const handleQuery = async (filters) => {
+    setRecordsLoading(true);
+
     try {
       const result = await service.getRecords(selectedCard.endpoint, filters);
       setRecords(result.records);
@@ -127,6 +134,8 @@ const Administration = () => {
       setLastFilters(filters);
     } catch (error) {
       console.error("Error consultando registros:", error);
+    } finally {
+      setRecordsLoading(false);
     }
   };
 
@@ -142,9 +151,15 @@ const Administration = () => {
   };
 
   const refreshRecords = async () => {
-    const result = await service.getRecords(selectedCard.endpoint, lastFilters);
-    setRecords(result.records);
-    setLookups(result.lookups);
+    setRecordsLoading(true);
+
+    try {
+      const result = await service.getRecords(selectedCard.endpoint, lastFilters);
+      setRecords(result.records);
+      setLookups(result.lookups);
+    } finally {
+      setRecordsLoading(false);
+    }
   };
 
   const handleSave = async (formData) => {
@@ -439,6 +454,7 @@ const Administration = () => {
           title={selectedCard.title}
           tableName={selectedCard.tableName}
           rows={records}
+          loading={recordsLoading}
           schema={schema}
           lookups={lookups}
           roleFields={activeRoleConfig?.fields}

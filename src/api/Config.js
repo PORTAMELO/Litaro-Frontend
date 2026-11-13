@@ -12,7 +12,7 @@ export const apiFetch = async (
   requestOptions = {},
   isAuthCall = false,
 ) => {
-  const { timeoutMs = DEFAULT_TIMEOUT_MS, ...options } = requestOptions;
+  const { timeoutMs = DEFAULT_TIMEOUT_MS, raw = false, ...options } = requestOptions;
 
   const timeoutController = new AbortController();
 
@@ -76,7 +76,7 @@ export const apiFetch = async (
       return null;
     }
 
-    return response.json();
+    return raw ? response.blob() : response.json();
   } catch (error) {
     if (error.name === "AbortError") {
       throw new Error(

@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { Skeleton } from "@mui/material";
 
 import styles from "./Ui.module.css";
 
@@ -51,5 +52,30 @@ export const EmptyState = ({ title, text, children }) => (
     <h3 className={styles.emptyTitle}>{title}</h3>
     {text && <p className={styles.emptyText}>{text}</p>}
     {children}
+  </div>
+);
+
+export const TableSkeleton = ({ rows = 6, columns = 3, label = "Cargando" }) => (
+  <div className={styles.skeleton} role="status" aria-label={label}>
+    {Array.from({ length: rows }, (_, row) => (
+      <div key={row} className={styles.skeletonRow}>
+        {Array.from({ length: columns }, (__, column) => (
+          <Skeleton
+            key={column}
+            variant="rounded"
+            height={14}
+            width={column === 0 ? "38%" : `${18 - ((row + column) % 3) * 3}%`}
+          />
+        ))}
+      </div>
+    ))}
+  </div>
+);
+
+export const ContentSkeleton = () => (
+  <div className={styles.contentSkeleton} role="status" aria-label="Cargando">
+    <Skeleton variant="rounded" height={28} width="32%" />
+    <Skeleton variant="rounded" height={16} width="52%" />
+    <TableSkeleton />
   </div>
 );

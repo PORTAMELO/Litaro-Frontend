@@ -470,20 +470,6 @@
   grid-template-columns: 12rem 1fr;
 }
 
-.toast {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  max-width: 28rem;
-  padding: 10px 14px;
-  border-radius: 10px;
-  background-color: var(--primary-color);
-  box-shadow: var(--shadow-md);
-  color: #ffffff;
-  font-size: var(--text-md);
-  line-height: 1.4;
-}
-
 @media (max-width: 1000px) {
   .hideMedium {
     display: none;
@@ -540,6 +526,3 @@
   padding-top: var(--space-xs);
 }
 
-.toastError {
-  background-color: #b91c1c;
-}

@@ -9,6 +9,20 @@ export const getAllContents = () =>
 export const getContent = (pageName, sectionName, contentKey) =>
   apiFetch(`/webcontents/${pageName}/${sectionName}/${contentKey}`);
 
+const pendingPages = new Map();
+
+export const getPageContent = (pageName) => {
+  const pending = pendingPages.get(pageName);
+  if (pending) return pending;
+
+  const request = apiFetch(`/webcontents/page/${encodeURIComponent(pageName)}`).finally(() => pendingPages.delete(pageName));
+  pendingPages.set(pageName, request);
+  return request;
+};
+
+export const selectSection = (rows, sectionName, contentKey) =>
+  (rows ?? []).filter((row) => row.sectionName === sectionName && row.contentKey === contentKey);
+
 export const createContent = (content) =>
   apiFetch("/webcontents", {
     method: "POST",

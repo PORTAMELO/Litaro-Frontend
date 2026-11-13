@@ -3,7 +3,7 @@ import { MenuItem, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
 import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import * as service from "../services/AttendanceService";
 import { formatHours } from "../utils/AttendanceUtils";
@@ -95,7 +95,7 @@ const SummaryTab = ({ options }) => {
 
       {ready && error && <p className={page.message}>{error}</p>}
 
-      {ready && !error && !summary && <p className={page.message}>Cargando…</p>}
+      {ready && !error && !summary && <TableSkeleton rows={8} columns={5} />}
 
       {summary && Number(summary.plannedHours) === 0 && <EmptyState title="Esta materia no tiene clases en el horario" />}
 

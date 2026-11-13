@@ -1,32 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import SectionTitle from "../../../shared/components/SectionTitle.jsx";
+import { useLoad } from "../../../shared/hooks/UseLoad";
+import LoadError from "../components/LoadError";
+import SectionSkeleton from "../components/SectionSkeleton";
 import EventCardBoard from "./components/EventCardBoard";
 import CalendarBoard from "./components/CalendarBoard";
 import WeekEventsBoard from "./components/WeekEventsBoard";
 import { getEvents } from "../services/CalendarService";
 
+const NO_EVENTS = [];
+
 const Calendar = () => {
-  const [events, setEvents] = useState([]);
+  const { data, error, loading, reload } = useLoad(getEvents, []);
+  const events = data ?? NO_EVENTS;
 
   const [selectedMonth, setSelectedMonth] = useState(null);
 
   const year = new Date().getFullYear();
-
-
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const events = await getEvents();
-
-        setEvents(events);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    loadContent();
-  }, []);
 
   const filteredEvents = useMemo(() => {
     // 1. Solo eventos del año
@@ -52,28 +43,40 @@ const Calendar = () => {
 
 
 
+  if (error) {
+    return (
+      <section>
+        <LoadError onRetry={reload} />
+      </section>
+    );
+  }
+
   return (
     <section>
       <div className="section-week">
         <SectionTitle text="¿Qué hay esta semana en el INPS?" center />
 
-        <WeekEventsBoard events={events} />
+        {loading ? <SectionSkeleton variant="cards" /> : <WeekEventsBoard events={events} />}
       </div>
-      
+
       <div className="section-calendar">
         <SectionTitle text="Calendario institucional" center />
 
-        <CalendarBoard events={events} 
-        filteredEvents={filteredEvents}
-        year={year}
-        selectedMonth={selectedMonth}
-        onSelectMonth={setSelectedMonth}/>
+        {loading ? (
+          <SectionSkeleton variant="calendar" />
+        ) : (
+          <CalendarBoard events={events}
+          filteredEvents={filteredEvents}
+          year={year}
+          selectedMonth={selectedMonth}
+          onSelectMonth={setSelectedMonth}/>
+        )}
       </div>
 
       <div className="section-events">
         <SectionTitle text="¡No te pierdas nada del INPS!" center />
 
-        <EventCardBoard events={filteredEvents} />
+        {loading ? <SectionSkeleton variant="cards" /> : <EventCardBoard events={filteredEvents} />}
       </div>
     </section>
   );

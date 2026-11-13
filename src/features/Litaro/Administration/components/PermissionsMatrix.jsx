@@ -72,6 +72,11 @@ const PROCESS_LABELS = {
     LateArrival: "Llegadas tarde",
     AttendanceExcuse: "Excusas",
     AttendanceSettings: "Parámetros de asistencia",
+    GradeBook: "Planilla de notas",
+    GradeDesign: "Diseño de notas",
+    StudyPlanner: "Plan de estudio",
+    StudyPlannerPanel: "Seguimiento de planes de estudio",
+    GradeSettings: "Parámetros de notas",
 };
 
 const GROUPS = [

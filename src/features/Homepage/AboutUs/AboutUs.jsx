@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-
 import colegio from "../../../assets/colegio.jpeg";
 
 import SectionTitle from "../../../shared/components/SectionTitle.jsx";
+import { useLoad } from "../../../shared/hooks/UseLoad";
+import LoadError from "../components/LoadError";
+import SectionSkeleton from "../components/SectionSkeleton";
 import HistoryCard from "./components/HistoryCard";
 import MissionVision from "./components/MissionVision";
 import ProfessorCardBoard from "./components/ProfessorCardBoard";
@@ -25,60 +26,69 @@ const initialState = {
   professors: [],
 };
 
+const loadContent = async () => {
+  const [introduction, mission, vision, professors] = await Promise.all([
+    getIntroduction(),
+    getMission(),
+    getVision(),
+    getProfessors(),
+  ]);
+
+  return {
+    introduction,
+    mission,
+    vision,
+    professors: professors.map((item) => ({
+      ...item,
+      image: images[item.image],
+    })),
+  };
+};
+
 const AboutUs = () => {
-  const [content, setContent] = useState(initialState);
+  const { data, error, loading, reload } = useLoad(loadContent, []);
+  const content = data ?? initialState;
 
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const [introduction, mission, vision, professors] = await Promise.all([
-          getIntroduction(),
-          getMission(),
-          getVision(),
-          getProfessors(),
-        ]);
-
-        setContent({
-          introduction,
-          mission,
-          vision,
-          professors: professors.map((item) => ({
-            ...item,
-            image: images[item.image],
-          })),
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    loadContent();
-  }, []);
+  if (error) {
+    return (
+      <section>
+        <LoadError onRetry={reload} />
+      </section>
+    );
+  }
 
   return (
     <section>
       <div className="section-intro">
         <SectionTitle text="Nosotros" center />
 
-        <HistoryCard
-          imagen={colegio}
-          text={content.introduction[0]?.description || ""}
-        />
+        {loading ? (
+          <SectionSkeleton variant="intro" />
+        ) : (
+          <HistoryCard
+            imagen={colegio}
+            text={content.introduction[0]?.description || ""}
+          />
+        )}
       </div>
 
       <div className="section-mission-vision">
         <SectionTitle text="Misión y Visión" center />
 
-        <MissionVision
-          mision={content.mission[0]?.description || ""}
-          vision={content.vision[0]?.description || ""}
-        />
+        {loading ? (
+          <SectionSkeleton variant="intro" />
+        ) : (
+          <MissionVision
+            mision={content.mission[0]?.description || ""}
+            vision={content.vision[0]?.description || ""}
+          />
+        )}
       </div>
 
       <div className="section-professors">
         <SectionTitle text="Nuestro cuerpo académico" center />
 
-        <ProfessorCardBoard professors={content.professors} />
+        {loading ? <SectionSkeleton variant="cards" /> : <ProfessorCardBoard professors={content.professors} />}
       </div>
     </section>
   );

@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, 
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
 import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import { useLoad } from "../../../../shared/hooks/UseLoad";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
@@ -19,7 +19,7 @@ const RollSheet = ({ classroomId, date, startTime, notify, onSaved }) => {
   const [stamp, setStamp] = useState(0);
 
   if (error) return <p className={page.message}>{error}</p>;
-  if (!sheet) return <p className={page.message}>Cargando…</p>;
+  if (!sheet) return <TableSkeleton rows={8} columns={4} />;
 
   return (
     <RollSheetForm

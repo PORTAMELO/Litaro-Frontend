@@ -1,0 +1,123 @@
+.block {
+  display: block;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm, 6px);
+  background: linear-gradient(90deg, rgba(127, 127, 127, 0.16) 25%, rgba(127, 127, 127, 0.3) 50%, rgba(127, 127, 127, 0.16) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--background-color);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 15%;
+  min-width: 14rem;
+  padding: var(--space-md) var(--space-sm);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-width: 0;
+  padding: var(--space-lg);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.cardPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-lg);
+  background: var(--background-color);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  width: min(100%, 24rem);
+  padding: var(--space-lg);
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block {
+    animation: none;
+  }
+}
+
+.errorText {
+  margin: 0;
+  text-align: center;
+}
+
+.retry {
+  padding: 0.6rem 1.6rem;
+  border: 0;
+  border-radius: var(--radius-md, 8px);
+  background-color: var(--primary-color, #16113a);
+  color: #ffffff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.retry:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

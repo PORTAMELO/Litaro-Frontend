@@ -1,0 +1,136 @@
+.block {
+  display: block;
+  border-radius: var(--radius-sm, 4px);
+  background: linear-gradient(90deg, rgba(127, 127, 127, 0.16) 25%, rgba(127, 127, 127, 0.3) 50%, rgba(127, 127, 127, 0.16) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.intro {
+  display: flex;
+  gap: var(--space-lg, 2rem);
+  align-items: stretch;
+  width: 100%;
+}
+
+.lines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-sm, 0.8rem);
+  justify-content: center;
+}
+
+.line {
+  width: 100%;
+  height: 1rem;
+}
+
+.lineShort {
+  width: 60%;
+  height: 1rem;
+}
+
+.image {
+  flex: 1;
+  min-height: 16rem;
+  border-radius: var(--radius-lg, 16px);
+}
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md, 1.2rem);
+  justify-content: center;
+  width: 100%;
+}
+
+.pill {
+  width: 10rem;
+  height: 3.5rem;
+  border-radius: var(--radius-lg, 16px);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--space-lg, 2rem);
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm, 0.8rem);
+}
+
+.cardImage {
+  width: 100%;
+  height: 12rem;
+  border-radius: var(--radius-lg, 16px);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-md, 1.2rem);
+  width: 100%;
+}
+
+.month {
+  height: 5rem;
+  border-radius: var(--radius-md, 8px);
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md, 1.2rem);
+  min-height: 50vh;
+  padding: var(--space-xl, 3rem) var(--space-md, 1.2rem);
+  text-align: center;
+}
+
+.errorText {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.retry {
+  padding: 0.6rem 1.6rem;
+  border: 0;
+  border-radius: var(--radius-md, 8px);
+  background-color: var(--primary-color, #1f3b73);
+  color: #ffffff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.retry:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block {
+    animation: none;
+  }
+}

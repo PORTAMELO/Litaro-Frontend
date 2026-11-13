@@ -1,366 +1,71 @@
-import { useMemo, useState } from "react";
-import { Button, MenuItem, Select, TextField, Typography } from "@mui/material";
-import SaveIcon from "@mui/icons-material/Save";
-import styles from "./Grades.module.css";
+import { useState } from "react";
+import { Tab, Tabs, ThemeProvider } from "@mui/material";
 
-const mockFilters = {
-  years: [
-    { id: 2026, name: "2026" },
-    { id: 2025, name: "2025" },
-  ],
+import page from "../../../shared/components/Ui/Page.module.css";
+import Toast from "../../../shared/components/Ui/Toast";
+import { useLoad } from "../../../shared/hooks/UseLoad";
+import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { useToast } from "../../../shared/hooks/UseToast";
+import { litaroTheme } from "../../../shared/styles/LitaroTheme";
+import DeadlinesTab from "./components/DeadlinesTab";
+import GradeSheetTab from "./components/GradeSheetTab";
+import PlannerPanelTab from "./components/PlannerPanelTab";
+import PlannersTab from "./components/PlannersTab";
+import * as service from "./services/GradingService";
 
-  periods: [
-    { id: 1, name: "Período 1" },
-    { id: 2, name: "Período 2" },
-    { id: 3, name: "Período 3" },
-    { id: 4, name: "Período 4" },
-  ],
-
-  grades: [
-    { id: 6, name: "6" },
-    { id: 7, name: "7" },
-    { id: 8, name: "8" },
-  ],
-
-  classrooms: [
-    { id: 101, name: "601" },
-    { id: 102, name: "602" },
-    { id: 103, name: "701" },
-    { id: 104, name: "801" },
-  ],
-
-  subjects: [
-    { id: 1, name: "Matemáticas" },
-    { id: 2, name: "Español" },
-    { id: 3, name: "Ciencias" },
-    { id: 4, name: "Sociales" },
-    { id: 5, name: "Inglés" },
-  ],
-};
-
-const initialStudents = [
-  {
-    id: 1,
-    code: "20260001",
-    name: "Juan Pérez",
-    score: 4.5,
-  },
-  {
-    id: 2,
-    code: "20260002",
-    name: "María Gómez",
-    score: 3.8,
-  },
-  {
-    id: 3,
-    code: "20260003",
-    name: "Carlos Rodríguez",
-    score: 4.2,
-  },
-  {
-    id: 4,
-    code: "20260004",
-    name: "Laura Martínez",
-    score: 2.9,
-  },
-  {
-    id: 5,
-    code: "20260005",
-    name: "Daniel Torres",
-    score: null,
-  },
+const TABS = [
+  { value: "sheet", label: "Planilla", key: "GradeBook", actions: ["read", "update"], Component: GradeSheetTab },
+  { value: "planners", label: "Plan de estudio", key: "StudyPlanner", actions: ["create"], Component: PlannersTab },
+  { value: "panel", label: "Seguimiento", key: "StudyPlannerPanel", actions: ["read"], Component: PlannerPanelTab },
+  { value: "settings", label: "Parámetros", key: "GradeSettings", actions: ["read"], Component: DeadlinesTab },
 ];
 
 const Grades = () => {
-  const [filters, setFilters] = useState({
-    year: 2026,
-    period: 1,
-    grade: 6,
-    classroom: 101,
-    subject: 1,
-  });
+  const { can, ready } = usePermissions();
+  const { toast, notify, close } = useToast();
+  const [chosenTab, setChosenTab] = useState(null);
 
-  const [students, setStudents] = useState(initialStudents);
+  const tabs = TABS.filter((tab) => tab.actions.some((action) => can(tab.key, action)));
+  const active = tabs.find((tab) => tab.value === chosenTab) ?? tabs[0];
 
-  const handleFilterChange = (field, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleScoreChange = (studentId, value) => {
-    setStudents((prev) =>
-      prev.map((student) =>
-        student.id === studentId
-          ? {
-              ...student,
-              score: value === "" ? null : Number(value),
-            }
-          : student,
-      ),
-    );
-  };
-
-  const selectedClassroom = useMemo(
-    () => mockFilters.classrooms.find((classroom) => classroom.id === filters.classroom),
-    [filters.classroom],
-  );
-
-  const selectedSubject = useMemo(
-    () => mockFilters.subjects.find((subject) => subject.id === filters.subject),
-    [filters.subject],
-  );
-
-  const handleSave = () => {
-    console.log("Notas a guardar:", {
-      filters,
-      students,
-    });
-  };
+  const { data: options, error } = useLoad(() => service.getOptions(), [], ready && tabs.length > 0);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Gestión de notas</h1>
-
-          <p className={styles.subtitle}>Consulta y registra las notas de los estudiantes.</p>
+    <ThemeProvider theme={litaroTheme}>
+      <div className={page.page}>
+        <div className={page.header}>
+          <h1 className={page.title}>Notas</h1>
         </div>
+
+        {!ready && <p className={page.message}>Cargando…</p>}
+
+        {ready && tabs.length === 0 && <p className={page.message}>No tienes permisos para ver las notas.</p>}
+
+        {ready && tabs.length > 0 && (
+          <>
+            <Tabs
+              className={page.tabs}
+              value={active.value}
+              onChange={(_, value) => setChosenTab(value)}
+              variant="scrollable"
+              scrollButtons={false}
+            >
+              {tabs.map((tab) => (
+                <Tab key={tab.value} value={tab.value} label={tab.label} />
+              ))}
+            </Tabs>
+
+            {error && <p className={page.message}>{error}</p>}
+
+            {!error && !options && <p className={page.message}>Cargando…</p>}
+
+            {options && <active.Component options={options} can={can} notify={notify} />}
+          </>
+        )}
+
+        <Toast toast={toast} onClose={close} />
       </div>
-
-      <section className={styles.filtersCard}>
-        <Typography className={styles.sectionTitle}>Seleccionar grupo</Typography>
-
-        <div className={styles.filtersGrid}>
-          <div className={styles.filter}>
-            <label>Año académico</label>
-
-            <Select
-              size="small"
-              value={filters.year}
-              onChange={(e) => handleFilterChange("year", e.target.value)}
-              fullWidth
-              sx={{
-                fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
-
-                "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
-                },
-              }}
-            >
-              {mockFilters.years.map((year) => (
-                <MenuItem
-                  key={year.id}
-                  value={year.id}
-                  sx={{
-                    fontFamily: "inherit",
-                    fontSize: "var(--text-sm)",
-                  }}
-                >
-                  {year.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-
-          <div className={styles.filter}>
-            <label>Período</label>
-
-            <Select
-              size="small"
-              value={filters.period}
-              onChange={(e) => handleFilterChange("period", e.target.value)}
-              fullWidth
-              sx={{
-                fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
-
-                "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
-                },
-              }}
-            >
-              {mockFilters.periods.map((period) => (
-                <MenuItem
-                  key={period.id}
-                  value={period.id}
-                  sx={{
-                    fontFamily: "inherit",
-                    fontSize: "var(--text-sm)",
-                  }}
-                >
-                  {period.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-
-          <div className={styles.filter}>
-            <label>Grado</label>
-
-            <Select
-              size="small"
-              value={filters.grade}
-              onChange={(e) => handleFilterChange("grade", e.target.value)}
-              fullWidth
-              sx={{
-                fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
-
-                "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
-                },
-              }}
-            >
-              {mockFilters.grades.map((grade) => (
-                <MenuItem
-                  key={grade.id}
-                  value={grade.id}
-                  sx={{
-                    fontFamily: "inherit",
-                    fontSize: "var(--text-sm)",
-                  }}
-                >
-                  {grade.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-
-          <div className={styles.filter}>
-            <label>Grupo</label>
-
-            <Select
-              size="small"
-              value={filters.classroom}
-              onChange={(e) => handleFilterChange("classroom", e.target.value)}
-              fullWidth
-              sx={{
-                fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
-
-                "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
-                },
-              }}
-            >
-              {mockFilters.classrooms.map((classroom) => (
-                <MenuItem
-                  key={classroom.id}
-                  value={classroom.id}
-                  sx={{
-                    fontFamily: "inherit",
-                    fontSize: "var(--text-sm)",
-                  }}
-                >
-                  {classroom.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-
-          <div className={styles.filter}>
-            <label>Asignatura</label>
-
-            <Select
-              size="small"
-              value={filters.subject}
-              onChange={(e) => handleFilterChange("subject", e.target.value)}
-              fullWidth
-              sx={{
-                fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
-
-                "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
-                },
-              }}
-            >
-              {mockFilters.subjects.map((subject) => (
-                <MenuItem
-                  key={subject.id}
-                  value={subject.id}
-                  sx={{
-                    fontFamily: "inherit",
-                    fontSize: "var(--text-sm)",
-                  }}
-                >
-                  {subject.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.tableCard}>
-        <div className={styles.tableHeader}>
-          <div>
-            <Typography className={styles.tableTitle}>{selectedSubject?.name}</Typography>
-
-            <Typography className={styles.tableSubtitle}>
-              {selectedClassroom?.name} · Período {filters.period} · {filters.year}
-            </Typography>
-          </div>
-
-          <Button variant="contained" startIcon={<SaveIcon />} onClick={handleSave} className={styles.saveButton}>
-            Guardar cambios
-          </Button>
-        </div>
-
-        <div className={styles.tableWrapper}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th className={styles.numberColumn}>#</th>
-                <th>Estudiante</th>
-                <th className={styles.codeColumn}>Código</th>
-                <th className={styles.scoreColumn}>Nota</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {students.map((student, index) => (
-                <tr key={student.id}>
-                  <td className={styles.numberCell}>{index + 1}</td>
-
-                  <td className={styles.studentName}>{student.name}</td>
-
-                  <td className={styles.codeCell}>{student.code}</td>
-
-                  <td>
-                    <TextField
-                      type="number"
-                      size="small"
-                      value={student.score ?? ""}
-                      onChange={(e) => handleScoreChange(student.id, e.target.value)}
-                      slotProps={{
-                        htmlInput: {
-                          min: 0,
-                          max: 5,
-                          step: 0.1,
-                        },
-                      }}
-                      className={styles.scoreInput}
-                      sx={{
-                        "& input": {
-                          fontFamily: "inherit",
-                          fontSize: "var(--text-sm)",
-                          textAlign: "center",
-                          fontWeight: "var(--font-semibold)",
-                        },
-                      }}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </div>
+    </ThemeProvider>
   );
 };
 

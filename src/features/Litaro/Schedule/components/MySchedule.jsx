@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Tab, Tabs, Typography } from "@mui/material";
 
+import { TableSkeleton } from "../../../../shared/components/Ui/Ui";
 import styles from "../Schedule.module.css";
 import WeekView from "./WeekView";
 import { getMySchedule } from "../services/ScheduleService";
@@ -16,7 +17,7 @@ const MySchedule = ({ role, notifyError }) => {
       .catch((error) => notifyError(error, "No se pudo cargar tu horario"));
   }, [notifyError]);
 
-  if (!data) return <p className={styles.emptyText}>Cargando horario...</p>;
+  if (!data) return <TableSkeleton rows={6} columns={6} label="Cargando horario" />;
 
   if (role === "Profesor") {
     return (

@@ -36,7 +36,7 @@ const navigationItems = {
     label: "Matrícula",
     path: "/Litaro/Enrollment",
     icon: MdHowToReg,
-    keys: ["EnrollmentProcess", "AdmissionDecision"],
+    keys: ["EnrollmentProcess", "AdmissionDecision", "StudentMovement"],
   },
 
   grades: {

@@ -18,6 +18,13 @@ export const ADMISSION_STATUS = {
   REJECTED: { label: "Rechazada", color: "#b91c1c" },
 };
 
+export const ENROLLMENT_STATUS = {
+  ACTIVE: { label: "Matriculado", color: "#0f9d58" },
+  WITHDRAWN: { label: "Retirado", color: "#6b7280" },
+  TRANSFERRED: { label: "Trasladado", color: "#2563eb" },
+  GRADUATED: { label: "Graduado", color: "#7c3aed" },
+};
+
 export const DOCUMENT_TYPES = ["RC", "TI", "CC", "CE", "NUIP", "PEP", "PPT"];
 
 const toUtc = (value) => {

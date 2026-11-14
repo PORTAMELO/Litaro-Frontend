@@ -7,6 +7,12 @@ export const PERFORMANCE = {
 
 export const NEUTRAL_COLOR = "#b8b8c2";
 
+export const CLOSING_RESULT = {
+  PROMOTED: { label: "Promovido", color: "#0f9d58" },
+  FAILED: { label: "Reprobado", color: "#b91c1c" },
+  PENDING: { label: "Pendiente por notas", color: "#d97706" },
+};
+
 export const COMPONENTS = {
   HETERO: "HETERO",
   SABER: "SABER",

@@ -57,6 +57,7 @@ const PROCESS_LABELS = {
     EnrollmentProcess: "Proceso de matrícula",
     AdmissionDecision: "Decisión de admisiones",
     StudentMovement: "Cambios de curso, sede y retiro",
+    YearClosing: "Cierre de año y promoción",
     MySchedule: "Mi horario",
     GradesModule: "Menú Notas",
     ObservationsModule: "Menú Observaciones",

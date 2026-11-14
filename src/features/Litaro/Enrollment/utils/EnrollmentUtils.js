@@ -23,6 +23,8 @@ export const ENROLLMENT_STATUS = {
   WITHDRAWN: { label: "Retirado", color: "#6b7280" },
   TRANSFERRED: { label: "Trasladado", color: "#2563eb" },
   GRADUATED: { label: "Graduado", color: "#7c3aed" },
+  PROMOTED: { label: "Promovido", color: "#0f9d58" },
+  FAILED: { label: "Reprobado", color: "#b91c1c" },
 };
 
 export const DOCUMENT_TYPES = ["RC", "TI", "CC", "CE", "NUIP", "PEP", "PPT"];

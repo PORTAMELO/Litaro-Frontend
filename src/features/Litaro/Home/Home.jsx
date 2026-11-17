@@ -1,4 +1,5 @@
 import { useAuth } from "@/shared/hooks/useAuth";
+import { ROLES } from "@/shared/utils/Roles";
 
 import AdministratorHome from "./AdministratorHome/AdministratorHome";
 import ProfessorHome from "./ProfessorHome/ProfessorHome";
@@ -10,16 +11,16 @@ const Home = () => {
   const { user } = useAuth();
 
   switch (user?.role) {
-    case "Administrador":
+    case ROLES.ADMIN:
       return <AdministratorHome />;
 
-    case "Profesor":
+    case ROLES.TEACHER:
       return <ProfessorHome />;
 
-    case "Estudiante":
+    case ROLES.STUDENT:
       return <StudentHome />;
 
-    case "Acudiente":
+    case ROLES.PARENT:
       return <ParentHome />;
 
     default:

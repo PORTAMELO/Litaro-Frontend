@@ -204,3 +204,20 @@
 .toastError {
   background-color: #b91c1c;
 }
+
+.toastBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.toastTitle {
+  font-weight: var(--font-bold);
+}
+
+.toastDetails {
+  margin: 2px 0 0;
+  padding-left: 1.1rem;
+}

@@ -8,14 +8,15 @@ import BadgeIcon from "@mui/icons-material/Badge";
 
 import { useAuth } from "@/shared/hooks/useAuth";
 import { getRoleOptions } from "@/shared/utils/ProfileOptions";
+import { ROLES } from "@/shared/utils/Roles";
 import logo from "@/assets/logoinps.jpg";
 import styles from "./SelectProfile.module.css";
 
 const ICONS = {
-    Estudiante: SchoolIcon,
-    Profesor: GroupsIcon,
-    Acudiente: PersonIcon,
-    Administrador: AdminPanelSettingsIcon,
+    [ROLES.STUDENT]: SchoolIcon,
+    [ROLES.TEACHER]: GroupsIcon,
+    [ROLES.PARENT]: PersonIcon,
+    [ROLES.ADMIN]: AdminPanelSettingsIcon,
 };
 
 const SelectProfile = () => {

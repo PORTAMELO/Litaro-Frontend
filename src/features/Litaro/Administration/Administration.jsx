@@ -1,7 +1,8 @@
 import { useState } from "react";
 import * as service from "./services/AdministrationService";
 import AdministracionSection from "./components/AdministracionSection";
-import { Snackbar, Alert } from "@mui/material";
+import Toast from "@/shared/components/Ui/Toast";
+import { useToast } from "@/shared/hooks/useToast";
 import {
   FaSchool,
   FaBuilding,
@@ -56,9 +57,11 @@ const Administration = () => {
   const [userRolesOpen, setUserRolesOpen] = useState(false);
   const [userRolesTarget, setUserRolesTarget] = useState(null);
 
-  const [feedback, setFeedback] = useState(null);
+  const { toast, notify, close: closeToast } = useToast();
 
   const { can, ready } = usePermissions();
+
+  const showError = (error, fallback) => notify(error?.message ?? fallback, "error");
 
   const handleCreate = async () => {
     if (!can(selectedCard?.tableName, "create")) return;
@@ -71,7 +74,7 @@ const Administration = () => {
           const result = await service.getRecords("/students");
           setStudentOptions(result.records ?? []);
         } catch (error) {
-          console.error("Error cargando estudiantes:", error);
+          showError(error, "No fue posible cargar la lista de estudiantes.");
           setStudentOptions([]);
         }
       }
@@ -110,7 +113,7 @@ const Administration = () => {
         setLookups(result.lookups);
       }
     } catch (error) {
-      console.error("Error cargando la administración:", error);
+      showError(error, "No fue posible cargar esta sección.");
       setManagerOpen(false);
     } finally {
       setRecordsLoading(false);
@@ -133,7 +136,7 @@ const Administration = () => {
       setLookups(result.lookups);
       setLastFilters(filters);
     } catch (error) {
-      console.error("Error consultando registros:", error);
+      showError(error, "No fue posible consultar los registros.");
     } finally {
       setRecordsLoading(false);
     }
@@ -146,7 +149,7 @@ const Administration = () => {
       const schemaData = await service.getSchema(selectedCard.tableName);
       setSchema(schemaData);
     } catch (error) {
-      console.error("Error actualizando el schema:", error);
+      showError(error, "No fue posible actualizar las columnas.");
     }
   };
 
@@ -168,7 +171,7 @@ const Administration = () => {
       setFormOpen(false);
       await refreshRecords();
     } catch (error) {
-      console.error("Error creando el registro:", error);
+      showError(error, "No fue posible crear el registro.");
     }
   };
 
@@ -182,12 +185,15 @@ const Administration = () => {
       const result = await service.createRecord(roleConfig.endpoint, payload);
       setRoleFormOpen(false);
 
-      setFeedback({
-        severity: "success",
-        message: result?.temporaryPassword
-          ? `${roleConfig.roleLabel} guardado correctamente. Contraseña temporal: ${result.temporaryPassword}`
-          : `${roleConfig.roleLabel} guardado correctamente.`,
-      });
+      // La contraseña temporal se muestra una sola vez: el aviso no se cierra solo.
+      if (result?.temporaryPassword) {
+        notify(`Contraseña temporal: ${result.temporaryPassword}`, "success", {
+          title: `${roleConfig.roleLabel} guardado correctamente.`,
+          persistent: true,
+        });
+      } else {
+        notify(`${roleConfig.roleLabel} guardado correctamente.`, "success");
+      }
 
       await refreshRecords();
     } catch (error) {
@@ -202,17 +208,11 @@ const Administration = () => {
       const id = getRowId(selectedCard.tableName, row);
       await service.setProfileEstado(selectedCard.endpoint, id, active);
 
-      setFeedback({
-        severity: "success",
-        message: active ? "Perfil activado correctamente." : "Perfil desactivado correctamente.",
-      });
+      notify(active ? "Perfil activado correctamente." : "Perfil desactivado correctamente.", "success");
 
       await refreshRecords();
     } catch (error) {
-      setFeedback({
-        severity: "error",
-        message: error.message ?? "No fue posible actualizar el estado del perfil.",
-      });
+      showError(error, "No fue posible actualizar el estado del perfil.");
     }
   };
 
@@ -514,23 +514,10 @@ const Administration = () => {
           setUserRolesTarget(null);
         }}
         canEdit={can("User", "update")}
-        onSaved={() =>
-          setFeedback({ severity: "success", message: "Roles actualizados correctamente." })
-        }
+        onSaved={() => notify("Roles actualizados correctamente.", "success")}
       />
 
-      <Snackbar
-        open={!!feedback}
-        autoHideDuration={10000}
-        onClose={() => setFeedback(null)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        {feedback && (
-          <Alert severity={feedback.severity} onClose={() => setFeedback(null)} sx={{ width: "100%" }}>
-            {feedback.message}
-          </Alert>
-        )}
-      </Snackbar>
+      <Toast toast={toast} onClose={closeToast} />
     </div>
   );
 };

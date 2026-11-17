@@ -5,7 +5,7 @@ import styles from "../Schedule.module.css";
 import WeekView from "./WeekView";
 import BlockDialog from "./BlockDialog";
 import ProgressPanel from "./ProgressPanel";
-import ConfirmDialog from "./ConfirmDialog";
+import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
 import { BLOCK_TYPES, blockTitle, dayLabel, shortTime } from "../utils/ScheduleUtils";
 import { deleteBlock, getProgress, getScheduleView, saveBlock } from "../services/ScheduleService";
 
@@ -120,9 +120,9 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
       const warnings = result?.warnings ?? [];
 
       if (warnings.length > 0) {
-        notify({ severity: "warning", title: "Se guardó, pero revisa lo siguiente", details: warnings });
+        notify("", "warning", { title: "Se guardó, pero revisa lo siguiente", details: warnings });
       } else {
-        notify({ severity: "success", message: id ? "Cambios guardados en el horario." : "Agregado al horario." });
+        notify(id ? "Cambios guardados en el horario." : "Agregado al horario.", "success");
       }
 
       closeDialog();
@@ -139,7 +139,7 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
     setConfirm({ open: false, block: null });
     try {
       await deleteBlock(block.scheduleId);
-      notify({ severity: "success", message: "Quitado del horario." });
+      notify("Quitado del horario.", "success");
       closeDialog();
       reload();
     } catch (error) {

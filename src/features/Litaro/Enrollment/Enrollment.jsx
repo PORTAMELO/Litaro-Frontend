@@ -6,6 +6,7 @@ import styles from "./Enrollment.module.css";
 import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import * as service from "./services/EnrollmentService";
 import { usePermissions } from "@/shared/hooks/usePermissions";
+import { useToast } from "@/shared/hooks/useToast";
 import PeriodStrip from "./components/PeriodStrip";
 import OldStudentsTab from "./components/OldStudentsTab";
 import NewStudentsTab from "./components/NewStudentsTab";
@@ -33,7 +34,7 @@ const Enrollment = () => {
   const [tab, setTab] = useState(null);
   const [datesOpen, setDatesOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
-  const [toast, setToast] = useState(null);
+  const { toast, notify, close: closeToast } = useToast();
 
   const years = options?.years ?? [];
   const yearId = chosenYear ?? (years.length > 0 ? Math.max(...years.map((year) => year.yearId)) : null);
@@ -88,7 +89,6 @@ const Enrollment = () => {
     };
   }, [viewer, yearId, key]);
 
-  const notify = useCallback((message, kind = "info") => setToast({ id: Date.now(), message, kind }), []);
   const reload = useCallback(() => setVersion((current) => current + 1), []);
 
   if (!ready) {
@@ -263,7 +263,7 @@ const Enrollment = () => {
           }}
         />
 
-        <Toast toast={toast} onClose={() => setToast(null)} />
+        <Toast toast={toast} onClose={closeToast} />
       </div>
     </ThemeProvider>
   );

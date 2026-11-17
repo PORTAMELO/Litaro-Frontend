@@ -19,7 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import styles from "../Schedule.module.css";
-import ConfirmDialog from "./ConfirmDialog";
+import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
 
 const buttonSx = {
   borderRadius: "var(--radius-md)",
@@ -81,7 +81,7 @@ const CatalogSection = ({
     setSaving(true);
     try {
       await onSave(dialog.row, form);
-      notify({ severity: "success", message: dialog.row ? "Cambios guardados correctamente." : "Registro agregado correctamente." });
+      notify(dialog.row ? "Cambios guardados correctamente." : "Registro agregado correctamente.", "success");
       closeDialog();
     } catch (error) {
       notifyError(error, "No se pudo guardar");
@@ -95,7 +95,7 @@ const CatalogSection = ({
     setConfirm(null);
     try {
       await onDelete(row);
-      notify({ severity: "success", message: "Registro eliminado correctamente." });
+      notify("Registro eliminado correctamente.", "success");
     } catch (error) {
       notifyError(error, "No se pudo eliminar");
     }

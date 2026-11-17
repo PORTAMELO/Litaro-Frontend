@@ -4,14 +4,16 @@ import { MenuItem, Select, Tab, Tabs, Typography } from "@mui/material";
 import styles from "./Schedule.module.css";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { usePermissions } from "@/shared/hooks/usePermissions";
-import AppNotification from "./components/AppNotification";
+import Toast from "@/shared/components/Ui/Toast";
+import { useToast } from "@/shared/hooks/useToast";
 import ScheduleEditor from "./components/ScheduleEditor";
 import MySchedule from "./components/MySchedule";
 import ParentAttentionBoard from "./components/ParentAttentionBoard";
 import { AssignmentsTab, AvailabilityTab, ClassroomsTab, SpacesTab, StudyPlanTab } from "./components/CatalogTabs";
+import { ROLES } from "@/shared/utils/Roles";
 import { getAssignments, getClassrooms, getLookupOptions, getSpaces } from "./services/ScheduleService";
 
-const READ_ONLY_ROLES = ["Profesor", "Estudiante", "Acudiente"];
+const READ_ONLY_ROLES = [ROLES.TEACHER, ROLES.STUDENT, ROLES.PARENT];
 
 const selectSx = {
   fontFamily: "inherit",
@@ -23,20 +25,12 @@ const Schedule = () => {
   const { user } = useAuth();
   const { can, ready } = usePermissions();
 
-  const [notification, setNotification] = useState({ open: false, severity: "success", title: "", message: "", details: [] });
-
-  const notify = useCallback(
-    ({ severity = "success", title = "", message = "", details = [] }) =>
-      setNotification({ open: true, severity, title, message, details }),
-    [],
-  );
+  const { toast, notify, close } = useToast();
 
   const notifyError = useCallback(
     (error, fallbackTitle = "Ocurrió un error") =>
-      notify({
-        severity: "error",
+      notify(error?.message ?? "Intenta de nuevo.", "error", {
         title: error?.status === 409 ? "Cruce de horario" : error?.status === 403 ? "Sin permiso" : fallbackTitle,
-        message: error?.message ?? "Intenta de nuevo.",
       }),
     [notify],
   );
@@ -66,7 +60,7 @@ const Schedule = () => {
         <p className={styles.emptyText}>No tienes permisos para consultar el horario. Solicítalos al administrador.</p>
       )}
 
-      <AppNotification {...notification} onClose={() => setNotification((prev) => ({ ...prev, open: false }))} />
+      <Toast toast={toast} onClose={close} />
     </div>
   );
 };

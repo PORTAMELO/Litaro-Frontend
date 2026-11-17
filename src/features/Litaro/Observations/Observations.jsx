@@ -10,8 +10,10 @@ import styles from "./Observations.module.css";
 
 import ObservacionDialog from "./components/ObservacionDialog";
 import CitacionDialog from "./components/CitacionDialog";
-import AppNotification from "./components/AppNotification";
-import ConfirmDialog from "./components/ConfirmDialog";
+import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
+import Toast from "@/shared/components/Ui/Toast";
+import { useConfirm } from "@/shared/hooks/useConfirm";
+import { useToast } from "@/shared/hooks/useToast";
 
 const mockFilters = {
   years: [
@@ -124,6 +126,9 @@ const Observations = () => {
   const [observations, setObservations] = useState(initialObservations);
   const [appointments, setAppointments] = useState(initialAppointments);
 
+  const { toast, notify, close: closeToast } = useToast();
+  const { ask, dialogProps } = useConfirm();
+
   const [observationDialog, setObservationDialog] = useState({
     open: false,
     student: null,
@@ -136,19 +141,6 @@ const Observations = () => {
     appointment: null,
   });
 
-  const [notification, setNotification] = useState({
-    open: false,
-    severity: "success",
-    title: "",
-    message: "",
-  });
-
-  const [confirm, setConfirm] = useState({
-    open: false,
-    title: "",
-    message: "",
-    action: null,
-  });
 
   const selectedClassroom = mockFilters.classrooms.find((classroom) => classroom.id === filters.classroom);
 
@@ -169,15 +161,6 @@ const Observations = () => {
       grade: value,
       classroom: mockFilters.classrooms.find((classroom) => classroom.grade === value)?.id ?? "",
     }));
-  };
-
-  const showNotification = ({ severity = "success", title = "", message = "" }) => {
-    setNotification({
-      open: true,
-      severity,
-      title,
-      message,
-    });
   };
 
   const openObservation = (student, observation = null) => {
@@ -225,10 +208,7 @@ const Observations = () => {
         ),
       );
 
-      showNotification({
-        severity: "success",
-        message: "Observación actualizada correctamente.",
-      });
+      notify("Observación actualizada correctamente.", "success");
     } else {
       setObservations((prev) => [
         ...prev,
@@ -239,10 +219,7 @@ const Observations = () => {
         },
       ]);
 
-      showNotification({
-        severity: "success",
-        message: "Observación registrada correctamente.",
-      });
+      notify("Observación registrada correctamente.", "success");
     }
 
     closeObservation();
@@ -261,10 +238,7 @@ const Observations = () => {
         ),
       );
 
-      showNotification({
-        severity: "success",
-        message: "Citación actualizada correctamente.",
-      });
+      notify("Citación actualizada correctamente.", "success");
     } else {
       setAppointments((prev) => [
         ...prev,
@@ -275,43 +249,32 @@ const Observations = () => {
         },
       ]);
 
-      showNotification({
-        severity: "success",
-        message: "Citación registrada correctamente.",
-      });
+      notify("Citación registrada correctamente.", "success");
     }
 
     closeAppointment();
   };
 
   const handleDeleteObservation = (observation) => {
-    setConfirm({
-      open: true,
+    ask({
       title: "Eliminar observación",
       message: "¿Está seguro de eliminar esta observación?",
       action: () => {
         setObservations((prev) => prev.filter((item) => item.id !== observation.id));
 
-        showNotification({
-          severity: "success",
-          message: "Observación eliminada correctamente.",
-        });
+        notify("Observación eliminada correctamente.", "success");
       },
     });
   };
 
   const handleDeleteAppointment = (appointment) => {
-    setConfirm({
-      open: true,
+    ask({
       title: "Eliminar citación",
       message: "¿Está seguro de eliminar esta citación?",
       action: () => {
         setAppointments((prev) => prev.filter((item) => item.id !== appointment.id));
 
-        showNotification({
-          severity: "success",
-          message: "Citación eliminada correctamente.",
-        });
+        notify("Citación eliminada correctamente.", "success");
       },
     });
   };
@@ -649,35 +612,9 @@ const Observations = () => {
         onSave={handleAppointmentSave}
       />
 
-      <AppNotification
-        {...notification}
-        onClose={() =>
-          setNotification((prev) => ({
-            ...prev,
-            open: false,
-          }))
-        }
-      />
+      <Toast toast={toast} onClose={closeToast} />
 
-      <ConfirmDialog
-        open={confirm.open}
-        title={confirm.title}
-        message={confirm.message}
-        onClose={() =>
-          setConfirm((prev) => ({
-            ...prev,
-            open: false,
-          }))
-        }
-        onConfirm={async () => {
-          await confirm.action?.();
-
-          setConfirm((prev) => ({
-            ...prev,
-            open: false,
-          }));
-        }}
-      />
+      <ConfirmDialog {...dialogProps} />
     </div>
   );
 };

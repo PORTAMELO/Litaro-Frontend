@@ -1,11 +1,19 @@
 import { useReducer } from "react";
 import styles from "../styles/LocationCardBoard.module.css";
-import { parseMapLink } from "../../utils/MapLink";
-import { FaMapLocationDot } from "react-icons/fa6";
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
 } from "react-icons/io";
+
+// Solo se acepta la URL de "Insertar mapa" de Google Maps (https://www.google.com/maps/embed?pb=…).
+// Cualquier otro valor no llega al iframe: dentro de él se abriría una página de Litaro
+// y la portada se cargaría en bucle.
+const EMBED_PREFIX = "https://www.google.com/maps/embed?pb=";
+
+const embedUrl = (value) => {
+  const url = String(value ?? "").trim();
+  return url.startsWith(EMBED_PREFIX) ? url : null;
+};
 
 const reducer = (state, action) => {
   const total = action.length;
@@ -32,7 +40,7 @@ const LocationCardBoard = ({ locations }) => {
   if (!locations?.length) return null;
 
   const location = locations[state.index];
-  const map = parseMapLink(location.map);
+  const map = embedUrl(location.map);
 
   return (
     <div className={styles["location-card-board"]}>
@@ -69,22 +77,15 @@ const LocationCardBoard = ({ locations }) => {
       </div>
 
       <div className={styles["right-location-card"]}>
-        {map?.embed ? (
+        {map ? (
           <iframe
-            src={map.embed}
+            src={map}
             title={`Mapa de ${location.title}`}
             className={styles.map}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
-        ) : map?.link ? (
-          <div className={styles.mapUnavailable}>
-            <FaMapLocationDot className={styles.mapIcon} aria-hidden="true" />
-            <a className={styles.mapLink} href={map.link} target="_blank" rel="noopener noreferrer">
-              Ver ubicación en Google Maps
-            </a>
-          </div>
         ) : (
           <p className={styles.mapUnavailable}>El mapa de esta sede no está disponible.</p>
         )}

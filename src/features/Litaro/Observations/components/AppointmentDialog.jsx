@@ -48,7 +48,7 @@ const formFrom = (appointment) =>
       }
     : { ...initialForm, date: new Date().toISOString().split("T")[0] };
 
-const CitacionDialog = ({ open, student, appointment, onClose, onSave }) => {
+const AppointmentDialog = ({ open, student, appointment, onClose, onSave }) => {
   // Al abrir el diálogo, o al cambiar el registro, el formulario vuelve a sus valores.
   const [form, setForm] = useState(() => formFrom(appointment));
   const [shownFor, setShownFor] = useState({ open, appointment });
@@ -235,4 +235,4 @@ const CitacionDialog = ({ open, student, appointment, onClose, onSave }) => {
   );
 };
 
-export default CitacionDialog;
+export default AppointmentDialog;

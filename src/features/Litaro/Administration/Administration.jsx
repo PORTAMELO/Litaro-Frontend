@@ -1,30 +1,8 @@
 import { useState } from "react";
 import * as service from "./services/AdministrationService";
-import AdministracionSection from "./components/AdministracionSection";
+import AdministrationSection from "./components/AdministrationSection";
 import Toast from "@/shared/components/Ui/Toast";
 import { useToast } from "@/shared/hooks/useToast";
-import {
-  FaSchool,
-  FaBuilding,
-  FaUserGraduate,
-  FaUsers,
-  FaChalkboardTeacher,
-  FaBookOpen,
-  FaClipboardCheck,
-  FaGraduationCap,
-  FaCalendarAlt,
-  FaCalendarWeek,
-  FaUserFriends,
-  FaClipboardList,
-  FaClock,
-  FaTheaterMasks,
-  FaDoorOpen,
-  FaLayerGroup,
-  FaBookReader,
-  FaListUl,
-  FaTags,
-  FaUserShield,
-} from "react-icons/fa";
 import styles from "./Administration.module.css";
 import RecordsTable from "./components/RecordsTable";
 import DynamicForm from "./components/DynamicForm";
@@ -32,6 +10,7 @@ import RoleForm from "./components/RoleForm";
 import PermissionsMatrix from "./components/PermissionsMatrix";
 import UserRolesManager from "./components/UserRolesManager";
 import { ROLE_FORM_CONFIG } from "./RoleFormConfig";
+import { ACADEMIC_CARDS, CATALOGS_CARDS, INSTITUTIONAL_CARDS, SECURITY_CARDS, USERS_CARDS } from "./AdministrationCards";
 import { usePermissions } from "@/shared/hooks/usePermissions";
 
 const getRowId = (tableName, row) => {
@@ -219,180 +198,14 @@ const Administration = () => {
   const handleActivate = (row) => handleSetProfileActive(row, true);
   const handleDeactivate = (row) => handleSetProfileActive(row, false);
 
-  const institutional = [
-    {
-      title: "Colegio",
-      tableName: "School",
-      endpoint: "/schools",
-      records: 17478,
-      icon: <FaSchool />,
-    },
-    {
-      title: "Sedes",
-      tableName: "Campus",
-      endpoint: "/campus",
-      records: 17478,
-      icon: <FaBuilding />,
-    },
-    {
-      title: "Años académicos",
-      tableName: "AcademicYear",
-      endpoint: "/academic-years",
-      records: 17478,
-      icon: <FaCalendarAlt />,
-    },
-    {
-      title: "Períodos académicos",
-      tableName: "AcademicPeriod",
-      endpoint: "/academic-periods",
-      records: 17478,
-      icon: <FaCalendarWeek />,
-    },
-  ];
-
-  const catalogs = [
-    {
-      title: "Características",
-      tableName: "Characteristic",
-      endpoint: "/characteristics",
-      records: 17478,
-      icon: <FaListUl />,
-    },
-    {
-      title: "Detalles de característica",
-      tableName: "CharacteristicDetail",
-      endpoint: "/characteristic-details",
-      records: 17478,
-      icon: <FaTags />,
-    },
-  ];
-
-  const users = [
-    {
-      title: "Usuarios",
-      tableName: "User",
-      endpoint: "/users",
-      records: 17478,
-      icon: <FaUsers />,
-      readOnly: true,
-    },
-    {
-      title: "Estudiantes",
-      tableName: "Student",
-      endpoint: "/students",
-      records: 17478,
-      icon: <FaUserGraduate />,
-      role: "Student",
-    },
-    {
-      title: "Padres",
-      tableName: "Parent",
-      endpoint: "/parents",
-      records: 17478,
-      icon: <FaUserFriends />,
-      role: "Parent",
-    },
-    {
-      title: "Profesores",
-      tableName: "Teacher",
-      endpoint: "/teachers",
-      records: 17478,
-      icon: <FaChalkboardTeacher />,
-      role: "Teacher",
-    },
-  ];
-
-  const security = [
-    {
-      title: "Roles",
-      tableName: "Role",
-      endpoint: "/roles",
-      records: 17478,
-      icon: <FaUserShield />,
-    },
-    {
-      title: "Permisos por rol",
-      tableName: "RolePermission",
-      records: 17478,
-      icon: <FaUserShield />,
-      special: "permissions",
-    },
-  ];
-
-  const academic = [
-    {
-      title: "Grados",
-      tableName: "Grade",
-      endpoint: "/grades",
-      records: 17478,
-      icon: <FaLayerGroup />,
-    },
-    {
-      title: "Salones",
-      tableName: "Classroom",
-      endpoint: "/classrooms",
-      records: 17478,
-      icon: <FaDoorOpen />,
-    },
-    {
-      title: "Materias",
-      tableName: "Subject",
-      endpoint: "/subjects",
-      records: 17478,
-      icon: <FaBookOpen />,
-    },
-    {
-      title: "Asignaciones",
-      tableName: "AcademicAssignment",
-      endpoint: "/academic-assignments",
-      records: 17478,
-      icon: <FaTheaterMasks />,
-    },
-    {
-      title: "Horarios",
-      tableName: "Schedule",
-      endpoint: "/schedules",
-      records: 17478,
-      icon: <FaClock />,
-    },
-    {
-      title: "Matrículas",
-      tableName: "Enrollment",
-      endpoint: "/enrollments",
-      records: 17478,
-      icon: <FaClipboardList />,
-    },
-    {
-      title: "Notas",
-      tableName: "GradeScore",
-      endpoint: "/grade-scores",
-      records: 17478,
-      icon: <FaGraduationCap />,
-    },
-    {
-      title: "Asistencia",
-      tableName: "Attendance",
-      endpoint: "/attendances",
-      records: 17478,
-      icon: <FaClipboardCheck />,
-    },
-    {
-      title: "Observador",
-      tableName: "StudentLog",
-      endpoint: "/student-logs",
-      records: 17478,
-      icon: <FaBookReader />,
-    },
-  ];
-
   const activeRoleConfig = selectedCard?.role ? ROLE_FORM_CONFIG[selectedCard.role] : null;
 
   const canRead = (card) => can(card.tableName, "read");
-  const institutionalCards = institutional.filter(canRead);
-  const catalogCards = catalogs.filter(canRead);
-  const userCards = users.filter(canRead);
-  const securityCards = security.filter(canRead);
-  const academicCards = academic.filter(canRead);
+  const institutionalCards = INSTITUTIONAL_CARDS.filter(canRead);
+  const catalogCards = CATALOGS_CARDS.filter(canRead);
+  const userCards = USERS_CARDS.filter(canRead);
+  const securityCards = SECURITY_CARDS.filter(canRead);
+  const academicCards = ACADEMIC_CARDS.filter(canRead);
   const noAccess = [
     institutionalCards,
     catalogCards,
@@ -408,23 +221,23 @@ const Administration = () => {
       {ready && noAccess && <p>No tienes permisos para administrar ninguna tabla.</p>}
 
       {institutionalCards.length > 0 && (
-        <AdministracionSection title="Administración institucional" cards={institutionalCards} onManage={handleManage} />
+        <AdministrationSection title="Administración institucional" cards={institutionalCards} onManage={handleManage} />
       )}
 
       {catalogCards.length > 0 && (
-        <AdministracionSection title="Catálogos" cards={catalogCards} onManage={handleManage} />
+        <AdministrationSection title="Catálogos" cards={catalogCards} onManage={handleManage} />
       )}
 
       {userCards.length > 0 && (
-        <AdministracionSection title="Perfiles" cards={userCards} onManage={handleManage} />
+        <AdministrationSection title="Perfiles" cards={userCards} onManage={handleManage} />
       )}
 
       {securityCards.length > 0 && (
-        <AdministracionSection title="Roles" cards={securityCards} onManage={handleManage} />
+        <AdministrationSection title="Roles" cards={securityCards} onManage={handleManage} />
       )}
 
       {academicCards.length > 0 && (
-        <AdministracionSection title="Administración académica" cards={academicCards} onManage={handleManage} />
+        <AdministrationSection title="Administración académica" cards={academicCards} onManage={handleManage} />
       )}
 
       {selectedCard && (

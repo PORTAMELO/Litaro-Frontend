@@ -46,7 +46,7 @@ const formFrom = (observation) =>
       }
     : { ...initialForm, date: new Date().toISOString().split("T")[0] };
 
-const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
+const ObservationDialog = ({ open, student, observation, onClose, onSave }) => {
   // Al abrir el diálogo, o al cambiar el registro, el formulario vuelve a sus valores.
   const [form, setForm] = useState(() => formFrom(observation));
   const [shownFor, setShownFor] = useState({ open, observation });
@@ -221,4 +221,4 @@ const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
   );
 };
 
-export default ObservacionDialog;
+export default ObservationDialog;

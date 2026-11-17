@@ -1,8 +1,8 @@
-import styles from "../styles/AdministracionCard.module.css";
+import styles from "../styles/AdministrationCard.module.css";
 import Button from "@/shared/components/Button/Button";
 import { BsPencilFill } from "react-icons/bs";
 
-const AdministracionCard = ({ title, records, onManage }) => {
+const AdministrationCard = ({ title, records, onManage }) => {
   return (
     <div className={styles.card}>
       <div className={styles.info}>
@@ -23,4 +23,4 @@ const AdministracionCard = ({ title, records, onManage }) => {
   );
 };
 
-export default AdministracionCard;
+export default AdministrationCard;

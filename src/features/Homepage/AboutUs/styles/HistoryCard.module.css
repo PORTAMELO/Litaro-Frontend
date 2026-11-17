@@ -46,7 +46,7 @@
   color: var(--color-accent);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199.98px) {
   .introduction-section {
     grid-template-columns: 1fr;
   }

@@ -78,7 +78,7 @@ span {
     font-size: var(--text-body);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199.98px) {
     .footer {
         margin: 0;
         padding: 0;

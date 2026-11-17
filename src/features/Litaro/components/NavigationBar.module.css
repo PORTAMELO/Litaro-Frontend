@@ -226,3 +226,30 @@
     padding: 0;
   }
 }
+
+/* Menos de 900 px: la barra es un cajón que entra desde la izquierda. */
+@media (max-width: 899.98px) {
+  .navigation-bar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1200;
+    height: 100dvh;
+    max-width: 85vw;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition:
+      transform 0.2s ease,
+      visibility 0.2s;
+  }
+
+  /* Al abrir, la barra es visible de inmediato (así puede recibir el foco); al
+     cerrar, se oculta cuando termina de salir. */
+  .navigation-bar.open {
+    transform: none;
+    visibility: visible;
+    transition: transform 0.2s ease;
+  }
+}

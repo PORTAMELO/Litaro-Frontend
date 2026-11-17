@@ -18,6 +18,7 @@ const primitive = {
   gray550: "#8a8f98",
   gray600: "#4b5563",
   gray900: "#111827",
+  gray900Alpha40: "rgba(17, 24, 39, 0.4)",
   blackAlpha8: "rgba(0, 0, 0, 0.08)",
   green600: "#0f9d58",
   green700: "#15803d",
@@ -59,6 +60,8 @@ export const colors = {
   onPrimary: primitive.white,
   onPrimaryMuted: primitive.whiteAlpha40,
   onPrimaryTint: primitive.whiteAlpha12,
+  // Fondo oscurecido detrás de un cajón o diálogo.
+  scrim: primitive.gray900Alpha40,
 };
 
 export const fontFamily = '"Nunito", system-ui, sans-serif';

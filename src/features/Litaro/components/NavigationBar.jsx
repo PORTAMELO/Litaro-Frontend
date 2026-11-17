@@ -10,7 +10,9 @@ import { NOTIFICATIONS_CHANGED } from "../Notifications/utils/NotificationUtils"
 import { getRoleOptions, roleLabel } from "@/shared/utils/ProfileOptions";
 import { litaroModules, modulePath } from "../LitaroRoutes";
 
-const NavigationBar = () => {
+// En pantallas de menos de 900 px la barra es un cajón: `open` lo muestra y
+// `onNavigate` lo cierra al elegir una opción.
+const NavigationBar = ({ id, open = false, onNavigate }) => {
   const { user, logout, clearChosenRole } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,12 +47,17 @@ const NavigationBar = () => {
   const canSwitchProfile = getRoleOptions(user).length > 1;
 
   const handleSwitchProfile = () => {
+    onNavigate?.();
     clearChosenRole();
     navigate("/SeleccionarPerfil");
   };
 
   return (
-    <nav className={styles["navigation-bar"]}>
+    <nav
+      id={id}
+      aria-label="Menú principal"
+      className={open ? `${styles["navigation-bar"]} ${styles.open}` : styles["navigation-bar"]}
+    >
       {/*Header*/}
       <div className={styles["navigation-header"]}>
         <img src={logo} alt="" />
@@ -66,7 +73,12 @@ const NavigationBar = () => {
           const Icon = option.icon;
 
           return (
-            <NavLink key={option.path} to={modulePath(option)} className={({ isActive }) => (isActive ? styles.active : "")}>
+            <NavLink
+              key={option.path}
+              to={modulePath(option)}
+              onClick={onNavigate}
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
               <Icon className={styles.icon} aria-hidden="true" />
               <span>{option.label}</span>
               {option.counted && watchesInbox && unread > 0 && <b className={styles.count}>{unread}</b>}

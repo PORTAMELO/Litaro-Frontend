@@ -29,7 +29,7 @@
   display: block;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199.98px) {
   .introduction-card {
     grid-template-columns: 1fr;
   }

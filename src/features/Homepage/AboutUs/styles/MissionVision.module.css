@@ -55,7 +55,7 @@
   background: var(--color-primary-tint-strong);
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199.98px) {
   .mission-vision {
     grid-template-columns: 1fr;
   }

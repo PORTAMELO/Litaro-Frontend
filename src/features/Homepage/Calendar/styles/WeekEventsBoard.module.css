@@ -189,7 +189,7 @@
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 599.98px) {
   .weekBoard {
     margin: var(--space-sm);
     padding: var(--space-sm);

@@ -55,7 +55,7 @@
 
 .filtersGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   gap: var(--space-md);
 }
 
@@ -70,6 +70,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+  min-width: 0;
 }
 
 .filter label {
@@ -316,13 +317,19 @@
   color: var(--color-muted);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1199.98px) {
   .editorWithSide {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 599.98px) {
+  .editorFilters {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 599.98px) {
   .container {
     margin: var(--space-sm);
   }

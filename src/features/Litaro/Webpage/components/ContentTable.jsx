@@ -30,7 +30,7 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
         const json = JSON.parse(row.dataJson);
 
         const title =
-          json.title ?? json.name ?? json.description ?? "Sin contenido";
+          json.title ?? json.name ?? json.label ?? json.url ?? json.description ?? "Sin contenido";
 
         const description =
           json.description && json.description !== title

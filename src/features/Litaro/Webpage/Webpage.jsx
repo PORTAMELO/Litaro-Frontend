@@ -14,7 +14,10 @@ import ContentEditor from "./components/ContentEditor";
 import AppNotification from "./components/AppNotification";
 import ConfirmDialog from "./components/ConfirmDialog";
 
-const pageOrder = ["Home", "Nosotros", "Calendario", "Admisiones"];
+const pageOrder = ["Home", "Nosotros", "Calendario", "Admisiones", "Footer"];
+
+// Nombre que ve el usuario cuando difiere del nombre técnico de la página.
+const pageLabels = { Footer: "Información institucional" };
 
 const Webpage = () => {
   const [contents, setContents] = useState([]);
@@ -249,7 +252,7 @@ const Webpage = () => {
           return (
             <Accordion key={page} defaultExpanded>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">{page}</Typography>
+                <Typography variant="h6">{pageLabels[page] ?? page}</Typography>
               </AccordionSummary>
 
               <AccordionDetails>

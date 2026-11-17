@@ -5,6 +5,7 @@ import { permissionsRequest } from "@/api/Permissions";
 import { getRoleOptions } from "../utils/ProfileOptions";
 
 import { AuthContext } from "./AuthContext";
+import { PATHS } from "@/shared/utils/Paths";
 
 const ACTIVE_ROLE_KEY = "litaro_active_role";
 
@@ -96,7 +97,7 @@ export function AuthProvider({ children }) {
     } finally {
       sessionStorage.removeItem(ACTIVE_ROLE_KEY);
       setUser(null);
-      window.location.href = "/login";
+      window.location.href = PATHS.login;
     }
   }, []);
 

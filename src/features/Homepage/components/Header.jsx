@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/logoinps.jpg";
+import { PATHS } from "@/shared/utils/Paths";
 import styles from "../styles/Header.module.css";
 
 const Header = () => {
@@ -11,16 +12,16 @@ const Header = () => {
       </div>
 
       <nav className={styles["nav"]}>
-        <Link to="/Homepage/Inicio">Inicio</Link>
-        <Link to="/Homepage/Nosotros">Nosotros</Link>
-        <Link to="/Homepage/Calendario">Calendario</Link>
-        <Link to="/Homepage/Admisiones">Admisiones</Link>
+        <Link to={PATHS.home}>Inicio</Link>
+        <Link to={PATHS.aboutUs}>Nosotros</Link>
+        <Link to={PATHS.calendar}>Calendario</Link>
+        <Link to={PATHS.admissions}>Admisiones</Link>
       </nav>
 
       <nav className={styles["nav"]}>
         <Link
           className={styles["login-button"]}
-          to="/Login"
+          to={PATHS.login}
           style={{ padding: "10px" }}
         >
           Iniciar Sesión

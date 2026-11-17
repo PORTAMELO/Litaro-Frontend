@@ -4,15 +4,16 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { MdLogin } from "react-icons/md";
 
 import styles from "../styles/MobileNavigation.module.css";
+import { PATHS } from "@/shared/utils/Paths";
 
 // Barra inferior del sitio público en pantallas de menos de 1200 px, donde el
 // encabezado se oculta. Cada enlace incluye su ícono para que toda el área se pueda tocar.
 const links = [
-  { to: "/Homepage/Inicio", label: "Inicio", icon: FaHome },
-  { to: "/Homepage/Nosotros", label: "Nosotros", icon: FaPeopleGroup },
-  { to: "/Homepage/Calendario", label: "Calendario", icon: FaCalendar },
-  { to: "/Homepage/Admisiones", label: "Admisiones", icon: FaClipboardList },
-  { to: "/Login", label: "Ingresar", icon: MdLogin },
+  { to: PATHS.home, label: "Inicio", icon: FaHome },
+  { to: PATHS.aboutUs, label: "Nosotros", icon: FaPeopleGroup },
+  { to: PATHS.calendar, label: "Calendario", icon: FaCalendar },
+  { to: PATHS.admissions, label: "Admisiones", icon: FaClipboardList },
+  { to: PATHS.login, label: "Ingresar", icon: MdLogin },
 ];
 
 const MobileNavigation = () => (

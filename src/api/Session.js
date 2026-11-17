@@ -1,3 +1,5 @@
+import { PATHS } from "@/shared/utils/Paths";
+
 let isRedirecting = false;
 
 let sessionController = new AbortController();
@@ -11,7 +13,7 @@ export const handleUnauthorized = () => {
     return;
   }
 
-  if (window.location.pathname.toLowerCase() === "/login") {
+  if (window.location.pathname.toLowerCase() === PATHS.login.toLowerCase()) {
     return;
   }
 
@@ -19,5 +21,5 @@ export const handleUnauthorized = () => {
 
   sessionController.abort();
 
-  window.location.href = "/login";
+  window.location.href = PATHS.login;
 };

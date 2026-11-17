@@ -9,6 +9,7 @@ import { getSummary } from "../Notifications/services/NotificationService";
 import { NOTIFICATIONS_CHANGED } from "../Notifications/utils/NotificationUtils";
 import { getRoleOptions, roleLabel } from "@/shared/utils/ProfileOptions";
 import { litaroModules, modulePath } from "../LitaroRoutes";
+import { PATHS } from "@/shared/utils/Paths";
 
 // En pantallas de menos de 900 px la barra es un cajón: `open` lo muestra y
 // `onNavigate` lo cierra al elegir una opción.
@@ -49,7 +50,7 @@ const NavigationBar = ({ id, open = false, onNavigate }) => {
   const handleSwitchProfile = () => {
     onNavigate?.();
     clearChosenRole();
-    navigate("/SeleccionarPerfil");
+    navigate(PATHS.selectProfile);
   };
 
   return (

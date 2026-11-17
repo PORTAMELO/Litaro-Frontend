@@ -9,6 +9,7 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { getRoleOptions } from "@/shared/utils/ProfileOptions";
 import { ROLES } from "@/shared/utils/Roles";
+import { PATHS } from "@/shared/utils/Paths";
 import logo from "@/assets/logoinps.jpg";
 import styles from "./SelectProfile.module.css";
 import { colors } from "@/shared/styles/tokens";
@@ -28,7 +29,7 @@ const SelectProfile = () => {
 
     const handleSelect = (role) => {
         chooseRole(role);
-        navigate("/Litaro", { replace: true });
+        navigate(PATHS.portal, { replace: true });
     };
 
     if (options.length === 0) {

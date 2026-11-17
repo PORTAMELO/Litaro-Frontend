@@ -264,7 +264,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                             value={row.view ?? ""}
                                             disabled={!canEdit}
                                             onChange={(event) => changeView(row.tableName, event.target.value)}
-                                            placeholder="/Litaro/..."
+                                            placeholder="/Litaro/Notas"
                                         />
                                         )}
                                     </TableCell>

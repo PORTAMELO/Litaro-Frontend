@@ -14,8 +14,9 @@ import Admissions from "./features/Homepage/Admissions/Admissions";
 // Portal
 import ModuleGuard from "./features/Litaro/components/ModuleGuard";
 import { HomePage, LITARO_BASE, LITARO_HOME, litaroModules } from "./features/Litaro/LitaroRoutes";
+import { LEGACY_PATHS, PATHS } from "@/shared/utils/Paths";
 
-const Login = lazy(() => import("./features/Loginpage/Loginpage"));
+const Login = lazy(() => import("./features/Login/Login"));
 const SelectProfile = lazy(() => import("./features/SelectProfile/SelectProfile"));
 const Litaro = lazy(() => import("./features/Litaro/Litaro"));
 
@@ -26,17 +27,16 @@ function App() {
       <RouteErrorBoundary>
         <Routes>
           {/* Página pública */}
-          <Route path="/" element={<Navigate to="/Homepage" replace />} />
-          <Route path="/Homepage" element={<Homepage />}>
-            <Route index element={<Navigate to="Inicio" replace />} />
-            <Route path="Inicio" element={<Home />} />
-            <Route path="Nosotros" element={<AboutUs />} />
-            <Route path="Calendario" element={<Calendar />} />
-            <Route path="Admisiones" element={<Admissions />} />
+          <Route path="/" element={<Navigate to={PATHS.home} replace />} />
+          <Route element={<Homepage />}>
+            <Route path={PATHS.home} element={<Home />} />
+            <Route path={PATHS.aboutUs} element={<AboutUs />} />
+            <Route path={PATHS.calendar} element={<Calendar />} />
+            <Route path={PATHS.admissions} element={<Admissions />} />
           </Route>
 
           <Route
-            path="/Login"
+            path={PATHS.login}
             element={
               <Suspense fallback={<CardSkeleton />}>
                 <Login />
@@ -47,7 +47,7 @@ function App() {
           {/* Tras el login, si hay más de un perfil/rol disponible, PrivateRoute
               manda aquí en vez de al portal (ver PrivateRoute y AuthProvider). */}
           <Route
-            path="/SeleccionarPerfil"
+            path={PATHS.selectProfile}
             element={
               <PrivateRoute requireRole={false} fallback={<CardSkeleton />}>
                 <Suspense fallback={<CardSkeleton />}>
@@ -88,7 +88,19 @@ function App() {
             <Route path="*" element={<NotFound actionTo={LITARO_BASE} />} />
           </Route>
 
-          <Route path="/unauthorized" element={<Unauthorized fullScreen />} />
+          <Route path={PATHS.unauthorized} element={<Unauthorized fullScreen />} />
+
+          {/* URL anteriores: redirigen a las nuevas */}
+          {Object.entries(LEGACY_PATHS).map(([from, to]) => (
+            <Route key={from} path={from} element={<Navigate to={to} replace />} />
+          ))}
+          {litaroModules.map((module) => (
+            <Route
+              key={module.legacyPath}
+              path={`${LITARO_BASE}/${module.legacyPath}`}
+              element={<Navigate to={`${LITARO_BASE}/${module.path}`} replace />}
+            />
+          ))}
           <Route path="*" element={<NotFound fullScreen />} />
         </Routes>
       </RouteErrorBoundary>

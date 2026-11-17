@@ -5,6 +5,7 @@ import logo from "@/assets/logoinps.jpg";
 import { activateRequest, changePasswordRequest, loginRequest } from "@/api/Auth";
 import { useAuth } from "@/shared/hooks/useAuth";
 import Button from "@/shared/components/Button/Button";
+import { PATHS } from "@/shared/utils/Paths";
 
 const PASSWORD_RULES = "mínimo 8 caracteres, con una mayúscula, una minúscula y un número";
 
@@ -77,7 +78,7 @@ function LoginForm() {
     }
 
     login(data);
-    navigate("/Litaro", { replace: true });
+    navigate(PATHS.portal, { replace: true });
   };
 
   const handleSubmit = async (e) => {

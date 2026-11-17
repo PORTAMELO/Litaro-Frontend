@@ -1,18 +1,7 @@
 import { apiFetch } from "@/api/Config";
+import { toQuery } from "@/api/Query";
 
 const BASE = "/grading";
-
-const query = (params) => {
-  const search = new URLSearchParams();
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== null && value !== undefined && value !== "") search.set(key, value);
-  });
-
-  const text = search.toString();
-
-  return text ? `?${text}` : "";
-};
 
 const CLIENT_HEADERS = { "X-Requested-With": "XMLHttpRequest" };
 
@@ -22,7 +11,7 @@ const send = (method, url, body) =>
 export const getOptions = () => apiFetch(`${BASE}/options`);
 
 export const getSheet = (classroomId, subjectId, periodId) =>
-  apiFetch(`${BASE}/sheet${query({ classroomId, subjectId, periodId })}`);
+  apiFetch(`${BASE}/sheet${toQuery({ classroomId, subjectId, periodId })}`);
 
 export const setMode = (body) => send("PUT", `${BASE}/sheet/mode`, body);
 
@@ -52,6 +41,6 @@ export const downloadPlanner = (assignmentId) => apiFetch(`${BASE}/planners/${as
 export const requestPlanner = (assignmentId) =>
   apiFetch(`${BASE}/planners/${assignmentId}/request`, { method: "POST", headers: CLIENT_HEADERS });
 
-export const getDeadlines = (yearId) => apiFetch(`${BASE}/deadlines${query({ yearId })}`);
+export const getDeadlines = (yearId) => apiFetch(`${BASE}/deadlines${toQuery({ yearId })}`);
 
 export const saveDeadlines = (body) => send("PUT", `${BASE}/deadlines`, body);

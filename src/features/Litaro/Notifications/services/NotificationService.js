@@ -1,4 +1,5 @@
 import { apiFetch } from "@/api/Config";
+import { toQuery } from "@/api/Query";
 
 const post = (url, body) =>
   apiFetch(url, { method: "POST", ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
@@ -6,14 +7,7 @@ const post = (url, body) =>
 export const PAGE_SIZE = 50;
 
 export const getNotifications = ({ state, typeId, page = 1, pageSize = PAGE_SIZE } = {}) => {
-  const params = new URLSearchParams();
-
-  if (state) params.set("state", state);
-  if (typeId) params.set("typeId", typeId);
-  params.set("page", page);
-  params.set("pageSize", pageSize);
-
-  return apiFetch(`/notifications?${params.toString()}`);
+  return apiFetch(`/notifications${toQuery({ state: state || null, typeId: typeId || null, page, pageSize })}`);
 };
 
 export const getSummary = () => apiFetch("/notifications/summary");

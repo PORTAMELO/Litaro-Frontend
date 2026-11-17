@@ -1,7 +1,8 @@
 import { apiFetch } from "@/api/Config";
+import { toQuery } from "@/api/Query";
 
 export const getRecords = async (endpoint, filters) => {
-    const query = buildQueryString(filters);
+    const query = toQuery(filters);
     const result = await apiFetch(`${endpoint}${query}`);
 
     return Array.isArray(result) ? { records: result, lookups: {} } : result;
@@ -76,8 +77,7 @@ export const setUserRoles = async (userId, roles) => {
 };
 
 export const lookupUserByDocument = async (documentType, documentNumber) => {
-    const params = new URLSearchParams({ documentType, documentNumber });
-    return await apiFetch(`/users/lookup?${params.toString()}`);
+    return await apiFetch(`/users/lookup${toQuery({ documentType, documentNumber })}`);
 };
 
 export const setProfileEstado = async (endpoint, id, active) => {
@@ -96,26 +96,9 @@ export const importSimat = async (file, yearId, dryRun) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const params = new URLSearchParams({ yearId, dryRun });
-
-    return await apiFetch(`/simat/import?${params.toString()}`, {
+    return await apiFetch(`/simat/import${toQuery({ yearId, dryRun })}`, {
         method: "POST",
         body: formData,
         timeoutMs: 180000,
     });
 };
-
-function buildQueryString(filters) {
-    if (!filters) return "";
-
-    const params = new URLSearchParams();
-
-    Object.entries(filters).forEach(([key, value]) => {
-        if (value !== "" && value !== null && value !== undefined) {
-            params.append(key, value);
-        }
-    });
-
-    const qs = params.toString();
-    return qs ? `?${qs}` : "";
-}

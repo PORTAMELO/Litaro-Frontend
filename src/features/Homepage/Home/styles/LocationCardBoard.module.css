@@ -82,3 +82,26 @@
     width: 100%;
   }
 }
+
+.map {
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 4 / 3;
+  border: 0;
+}
+
+.mapUnavailable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 4 / 3;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  color: var(--color-muted);
+  font-size: var(--text-body);
+  text-align: center;
+}

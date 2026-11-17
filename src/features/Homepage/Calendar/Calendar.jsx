@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
-import SectionTitle from "../../../shared/components/SectionTitle.jsx";
-import { useLoad } from "../../../shared/hooks/UseLoad";
+import SectionTitle from "@/shared/components/SectionTitle.jsx";
+import { useLoad } from "@/shared/hooks/useLoad";
 import LoadError from "../components/LoadError";
 import SectionSkeleton from "../components/SectionSkeleton";
 import EventCardBoard from "./components/EventCardBoard";

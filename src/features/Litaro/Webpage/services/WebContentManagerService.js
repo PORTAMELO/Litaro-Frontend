@@ -1,4 +1,4 @@
-import * as api from "../../../../api/WebContentApi";
+import * as api from "@/api/WebContentApi";
 
 export const getAll = () =>
   api.getAllContentsForAdmin();

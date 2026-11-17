@@ -1,4 +1,4 @@
-import colegio from "../../../assets/colegio.jpeg";
+import colegio from "@/assets/colegio.jpeg";
 
 export const text =
   "Individuals that have been set free by Trainers who could no longer raise them have become common " +

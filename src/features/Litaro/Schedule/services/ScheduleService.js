@@ -1,4 +1,4 @@
-import { apiFetch } from "../../../../api/Config";
+import { apiFetch } from "@/api/Config";
 
 const toQuery = (params = {}) => {
   const entries = Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== "");

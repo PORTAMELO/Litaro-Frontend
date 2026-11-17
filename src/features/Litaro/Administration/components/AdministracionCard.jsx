@@ -1,6 +1,6 @@
 import styles from "../styles/AdministracionCard.module.css";
-import Button from "../../../../shared/components/Button/Button";
-import colegio from "../../../../assets/colegio.jpeg";
+import Button from "@/shared/components/Button/Button";
+import colegio from "@/assets/colegio.jpeg";
 import { BsPencilFill } from "react-icons/bs";
 
 const AdministracionCard = ({ title, records, color, onManage }) => {

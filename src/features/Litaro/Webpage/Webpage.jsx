@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as service from "./services/WebContentManagerService";
 import * as configurationService from "./services/WebContentConfigurationService";
 import styles from "./Webpage.module.css";
-import { ContentSkeleton } from "../../../shared/components/Ui/Ui";
+import { ContentSkeleton } from "@/shared/components/Ui/Ui";
 
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Button, Stack } from "@mui/material";
 

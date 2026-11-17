@@ -16,13 +16,13 @@ import { FaClipboardCheck } from "react-icons/fa";
 import { MdSwapHoriz } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../../assets/logoinps.jpg";
+import logo from "@/assets/logoinps.jpg";
 import styles from "./NavigationBar.module.css";
-import { useAuth } from "../../../shared/hooks/UseAuth";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 import { getSummary } from "../Notifications/services/NotificationService";
 import { NOTIFICATIONS_CHANGED } from "../Notifications/utils/NotificationUtils";
-import { getRoleOptions, roleLabel } from "../../../shared/utils/ProfileOptions";
+import { getRoleOptions, roleLabel } from "@/shared/utils/ProfileOptions";
 
 const navigationItems = {
   administration: {

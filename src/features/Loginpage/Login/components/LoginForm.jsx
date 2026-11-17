@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/LoginForm.module.css";
-import logo from "../../../../assets/logoinps.jpg";
-import { activateRequest, changePasswordRequest, loginRequest } from "../../../../api/Auth";
-import { useAuth } from "../../../../shared/hooks/UseAuth";
-import Button from "../../../../shared/components/Button/Button";
+import logo from "@/assets/logoinps.jpg";
+import { activateRequest, changePasswordRequest, loginRequest } from "@/api/Auth";
+import { useAuth } from "@/shared/hooks/useAuth";
+import Button from "@/shared/components/Button/Button";
 
 const PASSWORD_RULES = "mínimo 8 caracteres, con una mayúscula, una minúscula y un número";
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
-import { Field } from "../../../../shared/components/Ui/Ui";
+import page from "@/shared/components/Ui/Page.module.css";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import ui from "@/shared/components/Ui/Ui.module.css";
+import { Field } from "@/shared/components/Ui/Ui";
 
 const NAME_LIMIT = 150;
 const TEXT_LIMIT = 1000;

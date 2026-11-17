@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import { AuthProvider } from "./shared/context/AuthProvider";
+import { AuthProvider } from "@/shared/context/AuthProvider";
 
 const CHUNK_RELOAD_KEY = "litaro_chunk_reload";
 

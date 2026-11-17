@@ -31,7 +31,7 @@ import RoleForm from "./components/RoleForm";
 import PermissionsMatrix from "./components/PermissionsMatrix";
 import UserRolesManager from "./components/UserRolesManager";
 import { ROLE_FORM_CONFIG } from "./RoleFormConfig";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 
 const getRowId = (tableName, row) => {
   if (!tableName) return undefined;

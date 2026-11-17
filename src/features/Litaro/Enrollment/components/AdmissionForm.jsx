@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field, FieldGroup } from "../../../../shared/components/Ui/Ui";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field, FieldGroup } from "@/shared/components/Ui/Ui";
 import { DOCUMENT_TYPES, todayInColombia } from "../utils/EnrollmentUtils";
 
 const EMPTY_FORM = {

@@ -1,4 +1,4 @@
-import { apiFetch } from "../../../../api/Config";
+import { apiFetch } from "@/api/Config";
 
 const BASE = "/attendance-register";
 

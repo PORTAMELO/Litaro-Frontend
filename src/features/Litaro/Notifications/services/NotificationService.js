@@ -1,4 +1,4 @@
-import { apiFetch } from "../../../../api/Config";
+import { apiFetch } from "@/api/Config";
 
 const post = (url, body) =>
   apiFetch(url, { method: "POST", ...(body === undefined ? {} : { body: JSON.stringify(body) }) });

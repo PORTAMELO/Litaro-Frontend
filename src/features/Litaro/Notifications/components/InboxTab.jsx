@@ -4,10 +4,10 @@ import CheckIcon from "@mui/icons-material/Check";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, SegmentedFilter, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
-import { formatDateTime } from "../../../../shared/utils/Dates";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, SegmentedFilter, StatusMark, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { formatDateTime } from "@/shared/utils/Dates";
 import * as service from "../services/NotificationService";
 import { STATE, announceChange } from "../utils/NotificationUtils";
 import DoneDialog from "./DoneDialog";

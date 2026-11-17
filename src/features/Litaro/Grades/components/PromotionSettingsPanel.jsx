@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field } from "../../../../shared/components/Ui/Ui";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field } from "@/shared/components/Ui/Ui";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import styles from "../Grades.module.css";
 import * as service from "../services/YearClosingService";
 

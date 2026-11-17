@@ -1,6 +1,6 @@
-import colegio from "../../../assets/colegio.jpeg";
-import SectionTitle from "../../../shared/components/SectionTitle.jsx";
-import { useLoad } from "../../../shared/hooks/UseLoad";
+import colegio from "@/assets/colegio.jpeg";
+import SectionTitle from "@/shared/components/SectionTitle.jsx";
+import { useLoad } from "@/shared/hooks/useLoad";
 import Banner from "../components/Banner";
 import LoadError from "../components/LoadError";
 import SectionSkeleton from "../components/SectionSkeleton";

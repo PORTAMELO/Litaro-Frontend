@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import { formatDay, todayInColombia, windowState } from "../utils/EnrollmentUtils";
 
 const OPEN_COLOR = "#0fd355";

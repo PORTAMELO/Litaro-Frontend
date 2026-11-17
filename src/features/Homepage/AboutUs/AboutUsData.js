@@ -1,4 +1,4 @@
-import colegio from "../../../assets/colegio.jpeg";
+import colegio from "@/assets/colegio.jpeg";
 
 export const introtext =
   "Seadra generates whirlpools by spinning its body. The whirlpools are strong enough to " +

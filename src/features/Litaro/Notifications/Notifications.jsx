@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Tab, Tabs, ThemeProvider } from "@mui/material";
 
-import page from "../../../shared/components/Ui/Page.module.css";
-import Toast from "../../../shared/components/Ui/Toast";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
-import { useToast } from "../../../shared/hooks/UseToast";
-import { litaroTheme } from "../../../shared/styles/LitaroTheme";
+import page from "@/shared/components/Ui/Page.module.css";
+import Toast from "@/shared/components/Ui/Toast";
+import { usePermissions } from "@/shared/hooks/usePermissions";
+import { useToast } from "@/shared/hooks/useToast";
+import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import InboxTab from "./components/InboxTab";
 import RecipientsTab from "./components/RecipientsTab";
 

@@ -1,6 +1,6 @@
-import { parseDay } from "../../../../shared/utils/Dates";
+import { parseDay } from "@/shared/utils/Dates";
 
-export { formatDate, formatDateTime, formatDay, todayInColombia } from "../../../../shared/utils/Dates";
+export { formatDate, formatDateTime, formatDay, todayInColombia } from "@/shared/utils/Dates";
 
 export const PAGE_SIZE = 50;
 

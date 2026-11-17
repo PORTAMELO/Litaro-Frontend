@@ -1,5 +1,5 @@
 import styles from "../styles/AdministracionCard.module.css";
-import colegio from "../../../../assets/colegio.jpeg";
+import colegio from "@/assets/colegio.jpeg";
 
 import {
   FaPlusCircle,

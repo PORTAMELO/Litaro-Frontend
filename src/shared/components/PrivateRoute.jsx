@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/UseAuth";
+import { useAuth } from "../hooks/useAuth";
 import { LayoutSkeleton } from "./Ui/Skeletons";
 
 function PrivateRoute({ children, allowedRoles, requireRole = true, fallback = <LayoutSkeleton /> }) {

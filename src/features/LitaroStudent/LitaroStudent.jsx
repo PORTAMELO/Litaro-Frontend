@@ -6,7 +6,7 @@ import EmotionBoard from "./Home/components/EmotionBoard";
 import styles from "./styles/LitaroStudent.module.css";
 import { Outlet } from "react-router-dom";
 import { GrAchievement } from "react-icons/gr";
-import studentImg from "../../assets/logoinps.jpg";
+import studentImg from "@/assets/logoinps.jpg";
 
 
 

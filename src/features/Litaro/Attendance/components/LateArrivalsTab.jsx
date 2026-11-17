@@ -2,9 +2,9 @@ import { useState } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import UndoIcon from "@mui/icons-material/Undo";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import * as service from "../services/AttendanceService";
 import StudentSearch from "./StudentSearch";
 

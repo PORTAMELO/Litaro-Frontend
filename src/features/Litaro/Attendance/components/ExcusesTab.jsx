@@ -13,10 +13,10 @@ import {
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
-import { formatDateTime } from "../../../../shared/utils/Dates";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { formatDateTime } from "@/shared/utils/Dates";
 import * as service from "../services/AttendanceService";
 import ExcusePanel from "./ExcusePanel";
 

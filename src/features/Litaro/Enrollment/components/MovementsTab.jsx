@@ -6,7 +6,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "../Enrollment.module.css";
 import * as service from "../services/MovementService";
 import MovementPanel from "./MovementPanel";
-import { EmptyState, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, StatusMark } from "@/shared/components/Ui/Ui";
 import { ENROLLMENT_STATUS } from "../utils/EnrollmentUtils";
 
 const MIN_QUERY = 2;

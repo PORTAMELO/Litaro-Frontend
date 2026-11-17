@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { MenuItem, Select, Tab, Tabs, Typography } from "@mui/material";
 
 import styles from "./Schedule.module.css";
-import { useAuth } from "../../../shared/hooks/UseAuth";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 import AppNotification from "./components/AppNotification";
 import ScheduleEditor from "./components/ScheduleEditor";
 import MySchedule from "./components/MySchedule";

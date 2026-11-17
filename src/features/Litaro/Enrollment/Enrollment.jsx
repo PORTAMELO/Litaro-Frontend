@@ -3,17 +3,17 @@ import { Button, IconButton, Tab, Tabs, TextField, ThemeProvider } from "@mui/ma
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import styles from "./Enrollment.module.css";
-import { litaroTheme } from "../../../shared/styles/LitaroTheme";
+import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import * as service from "./services/EnrollmentService";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 import PeriodStrip from "./components/PeriodStrip";
 import OldStudentsTab from "./components/OldStudentsTab";
 import NewStudentsTab from "./components/NewStudentsTab";
 import MovementsTab from "./components/MovementsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
-import { TableSkeleton } from "../../../shared/components/Ui/Ui";
-import Toast from "../../../shared/components/Ui/Toast";
+import { TableSkeleton } from "@/shared/components/Ui/Ui";
+import Toast from "@/shared/components/Ui/Toast";
 
 const yearText = (year) => `Año ${year.yearId}${year.active ? "" : " (inactivo)"}`;
 

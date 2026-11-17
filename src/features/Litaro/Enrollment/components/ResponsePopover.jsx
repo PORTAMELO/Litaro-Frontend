@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Popover, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
 
 const ResponsePopover = ({ target, onClose, onSaved }) => {

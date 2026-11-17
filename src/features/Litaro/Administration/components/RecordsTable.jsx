@@ -13,7 +13,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 import ColumnFilterConfig from "./ColumnFilterConfig";
 import RecordsFilterForm from "./RecordsFilterForm";
-import { usePermissions } from "../../../../shared/hooks/UsePermissions";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 
 const toDisplayDate = (raw) => {
   if (!raw) return raw;

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field, StatusMark } from "../../../../shared/components/Ui/Ui";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field, StatusMark } from "@/shared/components/Ui/Ui";
 import { ADMISSION_STATUS, ageAt, formatDate, formatDateTime, todayInColombia } from "../utils/EnrollmentUtils";
 
 const DECISIONS = {

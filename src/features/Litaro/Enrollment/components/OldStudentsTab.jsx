@@ -17,7 +17,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
 import ResponsePopover from "./ResponsePopover";
-import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "@/shared/components/Ui/Ui";
 import {
   PAGE_SIZE,
   PRE_STATUS,

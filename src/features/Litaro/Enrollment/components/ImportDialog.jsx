@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as administration from "../../Administration/services/AdministrationService";
-import { Field } from "../../../../shared/components/Ui/Ui";
+import { Field } from "@/shared/components/Ui/Ui";
 
 const startYear = (year) => new Date(year.startDate).getUTCFullYear();
 

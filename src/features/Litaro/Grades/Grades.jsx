@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Tab, Tabs, ThemeProvider } from "@mui/material";
 
-import page from "../../../shared/components/Ui/Page.module.css";
-import Toast from "../../../shared/components/Ui/Toast";
-import { useLoad } from "../../../shared/hooks/UseLoad";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
-import { useToast } from "../../../shared/hooks/UseToast";
-import { litaroTheme } from "../../../shared/styles/LitaroTheme";
+import page from "@/shared/components/Ui/Page.module.css";
+import Toast from "@/shared/components/Ui/Toast";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { usePermissions } from "@/shared/hooks/usePermissions";
+import { useToast } from "@/shared/hooks/useToast";
+import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import DeadlinesTab from "./components/DeadlinesTab";
 import GradeSheetTab from "./components/GradeSheetTab";
 import PlannerPanelTab from "./components/PlannerPanelTab";

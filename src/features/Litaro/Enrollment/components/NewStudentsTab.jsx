@@ -6,7 +6,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "../Enrollment.module.css";
 import AdmissionForm from "./AdmissionForm";
 import AdmissionPanel from "./AdmissionPanel";
-import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "@/shared/components/Ui/Ui";
 import {
   ADMISSION_STATUS,
   PAGE_SIZE,

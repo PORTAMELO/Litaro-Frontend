@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField, Tooltip } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, StatusMark, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
 import { NOVELTY, OBSERVATION_LIMIT } from "../utils/AttendanceUtils";

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import { ContentSkeleton } from "../../shared/components/Ui/Ui";
+import { ContentSkeleton } from "@/shared/components/Ui/Ui";
 import NavigationBar from "./components/NavigationBar";
 import styles from "./Litaro.module.css";
 

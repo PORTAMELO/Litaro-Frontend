@@ -1,10 +1,10 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ScrollToTop from "./shared/components/ScrollToTop";
-import PrivateRoute from "./shared/components/PrivateRoute";
-import RouteErrorBoundary from "./shared/components/RouteErrorBoundary";
-import { useAuth } from "./shared/hooks/UseAuth";
-import { CardSkeleton, LayoutSkeleton } from "./shared/components/Ui/Skeletons";
+import ScrollToTop from "@/shared/components/ScrollToTop";
+import PrivateRoute from "@/shared/components/PrivateRoute";
+import RouteErrorBoundary from "@/shared/components/RouteErrorBoundary";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { CardSkeleton, LayoutSkeleton } from "@/shared/components/Ui/Skeletons";
 import "./App.css";
 // Webpage
 import Homepage from "./features/Homepage/Homepage";

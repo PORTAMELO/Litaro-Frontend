@@ -1,4 +1,4 @@
-import * as api from "../../../api/WebContentApi";
+import * as api from "@/api/WebContentApi";
 
 const getSection = async (sectionName, contentKey) => {
   const response = api.selectSection(

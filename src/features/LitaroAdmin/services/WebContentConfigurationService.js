@@ -1,4 +1,4 @@
-import * as api from "../../../api/WebContentConfigurationApi";
+import * as api from "@/api/WebContentConfigurationApi";
 
 export const getConfiguration = (
     page,

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
 

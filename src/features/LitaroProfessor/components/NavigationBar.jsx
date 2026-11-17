@@ -1,7 +1,7 @@
 import { HiMiniMegaphone } from "react-icons/hi2";
 import { TbMessageReportFilled } from "react-icons/tb";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../../assets/logoinps.jpg";
+import logo from "@/assets/logoinps.jpg";
 import styles from "../styles/NavigationBar.module.css";
 import { FaClipboardCheck } from "react-icons/fa";
 import { MdGrade } from "react-icons/md";

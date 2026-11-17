@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Tab, Tabs, Typography } from "@mui/material";
 
-import { TableSkeleton } from "../../../../shared/components/Ui/Ui";
+import { TableSkeleton } from "@/shared/components/Ui/Ui";
 import styles from "../Schedule.module.css";
 import WeekView from "./WeekView";
 import { getMySchedule } from "../services/ScheduleService";

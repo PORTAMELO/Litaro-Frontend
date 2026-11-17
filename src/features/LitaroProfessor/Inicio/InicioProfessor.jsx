@@ -1,6 +1,6 @@
 import { FaBook, FaClipboardCheck, FaGraduationCap } from "react-icons/fa";
 import { PiStudentFill } from "react-icons/pi";
-import SectionTitle from "../../../shared/components/SectionTitle";
+import SectionTitle from "@/shared/components/SectionTitle";
 
 import styles from "./styles/InicioProfesor.module.css";
 

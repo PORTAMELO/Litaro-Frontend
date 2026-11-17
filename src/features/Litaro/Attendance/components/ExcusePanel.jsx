@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
-import { Field, FieldGroup } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
-import { formatDate } from "../../../../shared/utils/Dates";
+import page from "@/shared/components/Ui/Page.module.css";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import ui from "@/shared/components/Ui/Ui.module.css";
+import { Field, FieldGroup } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { formatDate } from "@/shared/utils/Dates";
 import * as service from "../services/AttendanceService";
 import { REASON_LIMIT, localDateTime } from "../utils/AttendanceUtils";
 import StudentSearch from "./StudentSearch";

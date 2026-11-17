@@ -410,6 +410,104 @@
   line-height: 1.45;
 }
 
+.fieldNotice {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.tabDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  vertical-align: middle;
+}
+
+.checklistHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.checklistItem:first-child {
+  border-top: 0;
+}
+
+.checkDone,
+.checkPending {
+  display: inline-flex;
+}
+
+.checkDone {
+  color: var(--primary-color);
+}
+
+.checkPending {
+  color: var(--color-muted);
+}
+
+.checklistText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.checklistName {
+  color: var(--color-text);
+  font-size: var(--text-md);
+}
+
+.checklistOverdue {
+  margin-top: 2px;
+  color: #b91c1c;
+  font-size: var(--text-sm);
+}
+
+.checklistActions {
+  display: inline-flex;
+  align-items: center;
+}
+
+.settingsBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+.settingRow {
+  display: grid;
+  grid-template-columns: 1fr 10rem 2.25rem;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 .formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -486,6 +584,14 @@
 }
 
 @media (max-width: 700px) {
+  .settingRow {
+    grid-template-columns: 1fr 2.25rem;
+  }
+
+  .settingRow > :nth-child(2) {
+    grid-column: 1;
+  }
+
   .page {
     margin: var(--space-md);
   }

@@ -17,6 +17,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
 import ResponsePopover from "./ResponsePopover";
+import StudentFormPanel from "./StudentFormPanel";
 import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
 import {
   PAGE_SIZE,
@@ -36,7 +37,8 @@ const FILTERS = [
   { value: "LOST", label: "Perdieron el cupo" },
 ];
 
-const OldStudentsTab = ({ yearId, rows, period, canManage, canRestore, onChanged, notify, onConfigure }) => {
+const OldStudentsTab = ({ yearId, rows, formOptions, period, canManage, canRestore, onChanged, notify, onConfigure }) => {
+  const [openStudentId, setOpenStudentId] = useState(null);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState(null);
   const [limit, setLimit] = useState(PAGE_SIZE);
@@ -239,8 +241,15 @@ const OldStudentsTab = ({ yearId, rows, period, canManage, canRestore, onChanged
                 return (
                   <tr key={row.preEnrollmentId}>
                     <td>
-                      <span className={styles.primaryText}>{row.studentName}</span>
+                      <button type="button" className={styles.rowName} onClick={() => setOpenStudentId(row.studentId)}>
+                        {row.studentName}
+                      </button>
                       <span className={styles.secondaryText}>Documento {row.document}</span>
+                      {row.missingDocuments > 0 && (
+                        <span className={styles.secondaryText}>
+                          Faltan {row.missingDocuments} {plural(row.missingDocuments, "documento", "documentos")}
+                        </span>
+                      )}
                     </td>
 
                     <td className={styles.hideSmall}>{row.gradeName}</td>
@@ -293,6 +302,19 @@ const OldStudentsTab = ({ yearId, rows, period, canManage, canRestore, onChanged
             Mostrar más
           </button>
         </div>
+      )}
+
+      {openStudentId !== null && (
+        <StudentFormPanel
+          key={openStudentId}
+          studentId={openStudentId}
+          yearId={yearId}
+          options={formOptions}
+          canManage={canManage}
+          onClose={() => setOpenStudentId(null)}
+          onChanged={onChanged}
+          notify={notify}
+        />
       )}
 
       <Dialog open={confirmingRestore} onClose={() => setConfirmingRestore(false)} maxWidth="xs" fullWidth>

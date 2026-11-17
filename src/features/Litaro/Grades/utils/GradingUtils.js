@@ -67,8 +67,4 @@ export const formatColombiaDateTime = (isoUtc) => {
   return `${pad(local.getUTCDate())}/${pad(local.getUTCMonth() + 1)}/${local.getUTCFullYear()} ${pad(local.getUTCHours())}:${pad(local.getUTCMinutes())}`;
 };
 
-export const openBlob = (blob) => {
-  const url = URL.createObjectURL(blob);
-  window.open(url, "_blank", "noopener");
-  setTimeout(() => URL.revokeObjectURL(url), 60000);
-};
+export { openBlob } from "../../../../shared/utils/Files";

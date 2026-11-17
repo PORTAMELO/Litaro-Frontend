@@ -1,4 +1,5 @@
 import { apiFetch } from "../../../../api/Config";
+import { CLIENT_HEADERS } from "../../../../shared/utils/Files";
 
 const BASE = "/grading";
 
@@ -14,7 +15,6 @@ const query = (params) => {
   return text ? `?${text}` : "";
 };
 
-const CLIENT_HEADERS = { "X-Requested-With": "XMLHttpRequest" };
 
 const send = (method, url, body) =>
   apiFetch(url, { method, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });

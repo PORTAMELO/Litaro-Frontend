@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import "./index.css";
 import { injectTokens } from "@/shared/styles/tokens";
 import { litaroTheme } from "@/shared/styles/LitaroTheme";
@@ -34,10 +34,14 @@ injectTokens();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProvider theme={litaroTheme}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </ThemeProvider>
+    {/* injectFirst: los estilos de MUI se insertan primero, así los CSS Modules
+        los ajustan sin !important. */}
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={litaroTheme}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
   </StrictMode>,
 );

@@ -23,7 +23,6 @@
   margin-bottom: var(--space-lg);
   object-fit: cover;
   border-radius: 50%;
-  box-shadow: var(--shadow-md);
 }
 
 .login-visual h2 {

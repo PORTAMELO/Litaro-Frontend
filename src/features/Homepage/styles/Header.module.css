@@ -59,7 +59,7 @@
 }
 
 .nav a:hover {
-  color: var(--color-accent);
+  color: var(--color-primary);
 }
 
 .nav a::after {
@@ -79,9 +79,9 @@
 
 /*Login Button*/
 
-.login-button {
+.nav .login-button {
   background: var(--color-accent);
-  color: white !important;
+  color: var(--color-primary);
   padding: var(--space-sm) var(--space-lg);
   border-radius: 12px; /*fixed*/
   font-weight: var(--font-semibold);

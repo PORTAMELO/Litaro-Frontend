@@ -4,11 +4,12 @@
   justify-content: center;
   gap: var(--space-xs);
 
-  padding: var(--space-sm) var(--space-lg);
+  min-height: var(--control-height);
+  padding: 0 var(--space-lg);
   border-radius: var(--radius-md);
 
   font-family: inherit;
-  font-size: var(--text-body);
+  font-size: var(--text-label);
   font-weight: var(--font-semibold);
   line-height: 1.2;
   white-space: nowrap;

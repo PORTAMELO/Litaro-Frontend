@@ -41,7 +41,6 @@
 .left-location-card img,
 .right-location-card iframe { 
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
 }
 
 .left-location-card img {

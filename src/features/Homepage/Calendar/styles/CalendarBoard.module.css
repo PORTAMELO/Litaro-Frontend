@@ -24,7 +24,7 @@
 
 .monthCard {
   background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 12px 10px; /*fixed*/
   min-width: 10rem; /*fixed*/
@@ -59,9 +59,9 @@
   padding: 8px 12px; /*fixed*/
   font-size: var(--text-body);
   color: var(--color-text);
+  box-shadow: var(--shadow-md);
   pointer-events: none;
   z-index: 1000;
-  box-shadow: var(--shadow-sm)
 }
 
 .tooltipTitle {
@@ -144,7 +144,7 @@
   flex-direction: column;
   background: var(--color-surface);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
   padding: var(--space-md);
   margin-top: var(--space-md);
   min-width: 0;

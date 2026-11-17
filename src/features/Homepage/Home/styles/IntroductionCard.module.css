@@ -26,7 +26,6 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
   display: block;
 }
 

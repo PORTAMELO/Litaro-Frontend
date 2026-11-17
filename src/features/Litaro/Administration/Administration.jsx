@@ -33,7 +33,6 @@ import PermissionsMatrix from "./components/PermissionsMatrix";
 import UserRolesManager from "./components/UserRolesManager";
 import { ROLE_FORM_CONFIG } from "./RoleFormConfig";
 import { usePermissions } from "@/shared/hooks/usePermissions";
-import { colors } from "@/shared/styles/tokens";
 
 const getRowId = (tableName, row) => {
   if (!tableName) return undefined;
@@ -226,7 +225,6 @@ const Administration = () => {
       tableName: "School",
       endpoint: "/schools",
       records: 17478,
-      color: colors.primary,
       icon: <FaSchool />,
     },
     {
@@ -234,7 +232,6 @@ const Administration = () => {
       tableName: "Campus",
       endpoint: "/campus",
       records: 17478,
-      color: colors.primary,
       icon: <FaBuilding />,
     },
     {
@@ -242,7 +239,6 @@ const Administration = () => {
       tableName: "AcademicYear",
       endpoint: "/academic-years",
       records: 17478,
-      color: colors.primary,
       icon: <FaCalendarAlt />,
     },
     {
@@ -250,7 +246,6 @@ const Administration = () => {
       tableName: "AcademicPeriod",
       endpoint: "/academic-periods",
       records: 17478,
-      color: colors.primary,
       icon: <FaCalendarWeek />,
     },
   ];
@@ -261,7 +256,6 @@ const Administration = () => {
       tableName: "Characteristic",
       endpoint: "/characteristics",
       records: 17478,
-      color: colors.primary,
       icon: <FaListUl />,
     },
     {
@@ -269,7 +263,6 @@ const Administration = () => {
       tableName: "CharacteristicDetail",
       endpoint: "/characteristic-details",
       records: 17478,
-      color: colors.primary,
       icon: <FaTags />,
     },
   ];
@@ -280,7 +273,6 @@ const Administration = () => {
       tableName: "User",
       endpoint: "/users",
       records: 17478,
-      color: colors.primary,
       icon: <FaUsers />,
       readOnly: true,
     },
@@ -289,7 +281,6 @@ const Administration = () => {
       tableName: "Student",
       endpoint: "/students",
       records: 17478,
-      color: colors.primary,
       icon: <FaUserGraduate />,
       role: "Student",
     },
@@ -298,7 +289,6 @@ const Administration = () => {
       tableName: "Parent",
       endpoint: "/parents",
       records: 17478,
-      color: colors.primary,
       icon: <FaUserFriends />,
       role: "Parent",
     },
@@ -307,7 +297,6 @@ const Administration = () => {
       tableName: "Teacher",
       endpoint: "/teachers",
       records: 17478,
-      color: colors.primary,
       icon: <FaChalkboardTeacher />,
       role: "Teacher",
     },
@@ -319,14 +308,12 @@ const Administration = () => {
       tableName: "Role",
       endpoint: "/roles",
       records: 17478,
-      color: colors.primary,
       icon: <FaUserShield />,
     },
     {
       title: "Permisos por rol",
       tableName: "RolePermission",
       records: 17478,
-      color: colors.primary,
       icon: <FaUserShield />,
       special: "permissions",
     },
@@ -338,7 +325,6 @@ const Administration = () => {
       tableName: "Grade",
       endpoint: "/grades",
       records: 17478,
-      color: colors.primary,
       icon: <FaLayerGroup />,
     },
     {
@@ -346,7 +332,6 @@ const Administration = () => {
       tableName: "Classroom",
       endpoint: "/classrooms",
       records: 17478,
-      color: colors.primary,
       icon: <FaDoorOpen />,
     },
     {
@@ -354,7 +339,6 @@ const Administration = () => {
       tableName: "Subject",
       endpoint: "/subjects",
       records: 17478,
-      color: colors.primary,
       icon: <FaBookOpen />,
     },
     {
@@ -362,7 +346,6 @@ const Administration = () => {
       tableName: "AcademicAssignment",
       endpoint: "/academic-assignments",
       records: 17478,
-      color: colors.primary,
       icon: <FaTheaterMasks />,
     },
     {
@@ -370,7 +353,6 @@ const Administration = () => {
       tableName: "Schedule",
       endpoint: "/schedules",
       records: 17478,
-      color: colors.primary,
       icon: <FaClock />,
     },
     {
@@ -378,7 +360,6 @@ const Administration = () => {
       tableName: "Enrollment",
       endpoint: "/enrollments",
       records: 17478,
-      color: colors.primary,
       icon: <FaClipboardList />,
     },
     {
@@ -386,7 +367,6 @@ const Administration = () => {
       tableName: "GradeScore",
       endpoint: "/grade-scores",
       records: 17478,
-      color: colors.primary,
       icon: <FaGraduationCap />,
     },
     {
@@ -394,7 +374,6 @@ const Administration = () => {
       tableName: "Attendance",
       endpoint: "/attendances",
       records: 17478,
-      color: colors.primary,
       icon: <FaClipboardCheck />,
     },
     {
@@ -402,7 +381,6 @@ const Administration = () => {
       tableName: "StudentLog",
       endpoint: "/student-logs",
       records: 17478,
-      color: colors.primary,
       icon: <FaBookReader />,
     },
   ];

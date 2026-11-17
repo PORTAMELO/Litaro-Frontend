@@ -16,9 +16,9 @@
 
 .page-accordion {
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-sm) !important;
-  background-color: var(--color-background) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: none;
+  background-color: var(--color-background);
 }
 
 .page-accordion::before {
@@ -26,22 +26,22 @@
 }
 
 .page-accordion-summary {
-  min-height: 3.2rem !important;
-  padding: 0 var(--space-md) !important;
+  min-height: 3.2rem;
+  padding: 0 var(--space-md);
 }
 
 .page-accordion-summary.Mui-expanded {
-  min-height: 3.2rem !important;
+  min-height: 3.2rem;
 }
 
 .page-accordion-details {
-  padding: 0 var(--space-md) var(--space-md) !important;
+  padding: 0 var(--space-md) var(--space-md);
 }
 
 .section-accordion {
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md) !important;
-  box-shadow: none !important;
+  border-radius: var(--radius-md);
+  box-shadow: none;
 }
 
 .section-accordion::before {
@@ -49,36 +49,36 @@
 }
 
 .section-accordion-summary {
-  min-height: 2.8rem !important;
-  padding: 0 var(--space-md) !important;
+  min-height: 2.8rem;
+  padding: 0 var(--space-md);
 }
 
 .section-accordion-summary.Mui-expanded {
-  min-height: 2.8rem !important;
+  min-height: 2.8rem;
 }
 
 .section-accordion-details {
-  padding: var(--space-sm) var(--space-md) var(--space-md) !important;
+  padding: var(--space-sm) var(--space-md) var(--space-md);
 }
 
 .accordion-title {
-  font-size: var(--text-subtitle) !important;
-  font-weight: var(--font-bold) !important;
+  font-size: var(--text-subtitle);
+  font-weight: var(--font-bold);
   color: var(--color-text);
 }
 
 .section-title {
-  font-size: var(--text-body) !important;
-  font-weight: var(--font-medium) !important;
+  font-size: var(--text-body);
+  font-weight: var(--font-medium);
   color: var(--color-text);
 }
 
 .new-button {
-  min-height: 2.3rem !important;
-  padding: var(--space-xs) var(--space-md) !important;
-  border-radius: var(--radius-md) !important;
-  font-family: inherit !important;
-  font-size: var(--text-body) !important;
-  font-weight: var(--font-semibold) !important;
-  text-transform: none !important;
+  min-height: 2.3rem;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--font-semibold);
+  text-transform: none;
 }

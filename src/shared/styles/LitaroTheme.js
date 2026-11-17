@@ -33,11 +33,23 @@ export const litaroTheme = createTheme({
   components: {
     MuiButton: {
       defaultProps: { disableElevation: true },
-      styleOverrides: { root: { padding: "6px 16px", lineHeight: leading.label } },
+      styleOverrides: {
+        // Los botones medianos se alinean con los campos (--control-height); los pequeños no.
+        root: ({ ownerState }) => ({
+          padding: "6px 16px",
+          lineHeight: leading.label,
+          ...(ownerState.size !== "small" && { minHeight: "var(--control-height)" }),
+        }),
+      },
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: { backgroundColor: colors.surface, fontSize: text.body },
+        root: {
+          backgroundColor: colors.surface,
+          fontSize: text.body,
+          "&:not(.MuiInputBase-multiline)": { minHeight: "var(--control-height)" },
+          "& .MuiOutlinedInput-notchedOutline": { borderColor: colors.borderInput },
+        },
         input: { padding: "8px 12px" },
       },
     },

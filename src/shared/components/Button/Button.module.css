@@ -32,7 +32,7 @@
 
 /* Variante primaria — acción principal */
 .primary {
-  color: #ffffff;
+  color: var(--color-on-primary);
   background-color: var(--color-primary);
   border: 1px solid transparent;
 }
@@ -54,7 +54,7 @@
 
 /* Variante secundaria — acción alternativa, usando el color de acento */
 .secondary {
-  color: #ffffff;
+  color: var(--color-on-primary);
   background-color: var(--color-accent);
   border: 1px solid transparent;
 }
@@ -77,8 +77,8 @@
 /* Variante terciaria — fondo blanco, bajo énfasis visual */
 .tertiary {
   color: var(--color-primary);
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-input);
 }
 
 .tertiary:hover:not(:disabled) {
@@ -94,7 +94,7 @@
 
 .tertiary:disabled {
   color: var(--color-muted);
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: var(--color-border);
 }
 
 .full-width {
@@ -129,17 +129,17 @@
 }
 
 .primary .spinner {
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #ffffff;
+  border: 2px solid var(--color-on-primary-muted);
+  border-top-color: var(--color-on-primary);
 }
 
 .secondary .spinner {
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #ffffff;
+  border: 2px solid var(--color-on-primary-muted);
+  border-top-color: var(--color-on-primary);
 }
 
 .tertiary .spinner {
-  border: 2px solid rgba(22, 17, 58, 0.2);
+  border: 2px solid var(--color-border-input);
   border-top-color: var(--color-primary);
 }
 

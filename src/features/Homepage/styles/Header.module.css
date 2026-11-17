@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--space-sm) 4rem;
-  background: #ffffff;
+  background: var(--color-surface);
   border-bottom: 2px solid var(--color-primary);
   gap: var(--space-xl);
   

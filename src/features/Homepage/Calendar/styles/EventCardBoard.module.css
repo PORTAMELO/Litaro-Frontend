@@ -36,8 +36,8 @@
   position: absolute;
   top: var(--space-sm);
   left: var(--space-sm);
-  background: #ffffff;
-  color: #6e6e6e;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
   padding: .375rem .75rem; /*fixed*/
   border-radius: var(--radius-lg);
 }
@@ -107,7 +107,7 @@
 .lower-event-card hr {
   width: 100%;
   border: none;
-  border-top: 1.5px solid #000;
+  border-top: 1.5px solid var(--color-text);
   margin: var(--space-sm) 0;   
 }
 

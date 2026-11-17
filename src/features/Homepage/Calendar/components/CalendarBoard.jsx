@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 
 import "react-calendar/dist/Calendar.css";
 import styles from "../styles/CalendarBoard.module.css";
+import { colors } from "@/shared/styles/tokens";
 
 const MONTHS = [
   "Enero",
@@ -111,7 +112,7 @@ const CalendarBoard = ({ events = [], filteredEvents = [],
       return null;
     }
 
-    const color = evts[0].color || "#FF00FF";
+    const color = evts[0].color || colors.textDisabled;
 
     return (
       <div

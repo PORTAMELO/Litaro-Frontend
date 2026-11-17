@@ -15,7 +15,7 @@
 }
 
 .page-accordion {
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-sm) !important;
   background-color: var(--color-background) !important;
@@ -39,7 +39,7 @@
 }
 
 .section-accordion {
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md) !important;
   box-shadow: none !important;
 }

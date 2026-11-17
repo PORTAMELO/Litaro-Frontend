@@ -7,6 +7,7 @@ import * as service from "../services/EnrollmentService";
 import SidePanel from "@/shared/components/Ui/SidePanel";
 import { Field, StatusMark } from "@/shared/components/Ui/Ui";
 import { ADMISSION_STATUS, ageAt, formatDate, formatDateTime, todayInColombia } from "../utils/EnrollmentUtils";
+import { colors } from "@/shared/styles/tokens";
 
 const DECISIONS = {
   APPROVED: {
@@ -48,7 +49,7 @@ const AdmissionPanel = ({ row, canDecide, onClose, onDecided }) => {
 
   const eventsKey = `${row.admissionRequestId}|${row.status}`;
   const loadingEvents = events.key !== eventsKey;
-  const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+  const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
   const decidable = row.status === "PENDING" || row.status === "WAITLIST";
   const decision = action ? DECISIONS[action] : null;
 
@@ -201,7 +202,7 @@ const AdmissionPanel = ({ row, canDecide, onClose, onDecided }) => {
         ) : (
           <ol className={styles.timeline}>
             {[...events.list].reverse().map((event, index) => {
-              const eventInfo = ADMISSION_STATUS[event.toStatus] ?? { color: "#6b7280" };
+              const eventInfo = ADMISSION_STATUS[event.toStatus] ?? { color: colors.textMuted };
               const showNote = event.note && !(event.toStatus === "PENDING" && !event.fromStatus);
 
               return (

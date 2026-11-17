@@ -285,7 +285,7 @@ const RecordsTable = ({
               },
             }}
             sx={{
-              border: "1px solid rgba(0, 0, 0, 0.08)",
+              border: "1px solid var(--color-border)",
               borderRadius: "var(--radius-md)",
               boxShadow: "var(--shadow-sm)",
               backgroundColor: "var(--color-background)",
@@ -293,8 +293,8 @@ const RecordsTable = ({
               "& .MuiDataGrid-columnHeaders": {
                 minHeight: "2.8rem !important",
                 maxHeight: "2.8rem !important",
-                backgroundColor: "rgba(22, 17, 58, 0.04)",
-                borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+                backgroundColor: "var(--color-primary-tint)",
+                borderBottom: "1px solid var(--color-border)",
               },
 
               "& .MuiDataGrid-columnHeaderTitle": {
@@ -308,7 +308,7 @@ const RecordsTable = ({
                 fontFamily: "Nunito, sans-serif",
                 fontSize: "var(--text-label)",
                 color: "var(--color-text)",
-                borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+                borderBottom: "1px solid var(--color-border)",
               },
 
               "& .MuiDataGrid-row": {
@@ -318,7 +318,7 @@ const RecordsTable = ({
 
               "& .MuiDataGrid-footerContainer": {
                 minHeight: "3rem",
-                borderTop: "1px solid rgba(0, 0, 0, 0.06)",
+                borderTop: "1px solid var(--color-border)",
               },
 
               "& .MuiTablePagination-root": {

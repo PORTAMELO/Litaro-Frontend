@@ -10,6 +10,8 @@ const primitive = {
   navyAlpha8: "rgba(22, 17, 58, 0.08)",
   green500: "#0fd355",
   white: "#ffffff",
+  whiteAlpha12: "rgba(255, 255, 255, 0.12)",
+  whiteAlpha40: "rgba(255, 255, 255, 0.4)",
   gray50: "#f9fafb",
   gray400: "#9ca3af",
   gray500: "#6b7280",
@@ -55,6 +57,8 @@ export const colors = {
   info: primitive.blue600,
   infoBg: primitive.blue50,
   onPrimary: primitive.white,
+  onPrimaryMuted: primitive.whiteAlpha40,
+  onPrimaryTint: primitive.whiteAlpha12,
 };
 
 export const fontFamily = '"Nunito", system-ui, sans-serif';

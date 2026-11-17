@@ -14,6 +14,7 @@ import styles from "../Enrollment.module.css";
 import ui from "@/shared/components/Ui/Ui.module.css";
 import * as administration from "../../Administration/services/AdministrationService";
 import { Field } from "@/shared/components/Ui/Ui";
+import { colors } from "@/shared/styles/tokens";
 
 const startYear = (year) => new Date(year.startDate).getUTCFullYear();
 
@@ -25,11 +26,11 @@ const defaultYearId = (years) => {
   return match?.yearId ?? "";
 };
 
-const SEVERITY_COLOR = { Error: "#b91c1c", Conflicto: "#d97706", Aviso: "#6b7280" };
+const SEVERITY_COLOR = { Error: colors.error, Conflicto: colors.warning, Aviso: colors.textMuted };
 
 const Stat = ({ value, label, alert = false }) => (
   <div className={styles.stat}>
-    <div className={styles.statValue} style={alert && value > 0 ? { color: "#b91c1c" } : undefined}>
+    <div className={styles.statValue} style={alert && value > 0 ? { color: colors.error } : undefined}>
       {value}
     </div>
     <div className={styles.statLabel}>{label}</div>
@@ -104,7 +105,7 @@ const Result = ({ result }) => {
                       <span className={ui.status}>
                         <span
                           className={ui.dot}
-                          style={{ backgroundColor: SEVERITY_COLOR[issue.severity] ?? "#6b7280" }}
+                          style={{ backgroundColor: SEVERITY_COLOR[issue.severity] ?? colors.textMuted }}
                           aria-hidden="true"
                         />
                         {issue.severity}

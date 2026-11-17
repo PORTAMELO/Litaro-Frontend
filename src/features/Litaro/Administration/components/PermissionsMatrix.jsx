@@ -196,7 +196,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                         <TableBody>
                             {withGroupHeaders(rows).map((row) => row.header ? (
                                 <TableRow key={row.tableName}>
-                                    <TableCell colSpan={7} sx={{ fontWeight: 700, backgroundColor: "rgba(22, 17, 58, 0.04)" }}>
+                                    <TableCell colSpan={7} sx={{ fontWeight: 700, backgroundColor: "var(--color-primary-tint)" }}>
                                         {row.header}
                                     </TableCell>
                                 </TableRow>

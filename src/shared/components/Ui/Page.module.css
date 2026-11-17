@@ -34,13 +34,13 @@
 }
 
 .tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .card {
   overflow: hidden;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -51,7 +51,7 @@
   flex-wrap: wrap;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .toolbarTitle {
@@ -80,7 +80,7 @@
 
 .table th {
   padding: var(--space-sm) var(--space-lg);
-  background-color: rgba(22, 17, 58, 0.04);
+  background-color: var(--color-primary-tint);
   color: var(--color-muted);
   font-size: var(--text-label);
   font-weight: var(--font-bold);
@@ -90,14 +90,14 @@
 
 .table td {
   padding: var(--space-sm) var(--space-lg);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--color-border);
   color: var(--color-text);
   font-size: var(--text-body);
   vertical-align: middle;
 }
 
 .table tbody tr:hover {
-  background-color: rgba(22, 17, 58, 0.02);
+  background-color: var(--color-primary-tint);
 }
 
 .table .cellRight {
@@ -138,7 +138,7 @@
   margin: 1px 4px 1px 0;
   padding: 2px 9px;
   border-radius: 10px;
-  background-color: rgba(22, 17, 58, 0.06);
+  background-color: var(--color-primary-tint);
   color: var(--color-primary);
   font-size: var(--text-label);
   font-weight: var(--font-semibold);
@@ -159,15 +159,15 @@
 .notice {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
-  background-color: rgba(22, 17, 58, 0.05);
+  background-color: var(--color-primary-tint);
   color: var(--color-primary);
   font-size: var(--text-body);
   font-weight: var(--font-semibold);
 }
 
 .noticeError {
-  background-color: #fef2f2;
-  color: #b91c1c;
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
 }
 
 .selectionBar {
@@ -182,7 +182,7 @@
   border-radius: var(--radius-lg);
   background-color: var(--color-primary);
   box-shadow: var(--shadow-md);
-  color: #ffffff;
+  color: var(--color-on-primary);
   font-size: var(--text-body);
   font-weight: var(--font-semibold);
 }
@@ -196,13 +196,13 @@
   border-radius: 10px;
   background-color: var(--color-primary);
   box-shadow: var(--shadow-md);
-  color: #ffffff;
+  color: var(--color-on-primary);
   font-size: var(--text-body);
   line-height: 1.4;
 }
 
 .toastError {
-  background-color: #b91c1c;
+  background-color: var(--color-error);
 }
 
 .toastBody {

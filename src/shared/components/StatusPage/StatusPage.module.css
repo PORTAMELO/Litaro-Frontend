@@ -37,7 +37,7 @@
   padding: 0 var(--space-lg);
   border-radius: var(--radius-md);
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-on-primary);
   font-size: var(--text-subtitle);
   font-weight: var(--font-semibold);
   text-decoration: none;

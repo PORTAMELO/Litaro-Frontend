@@ -10,7 +10,7 @@
   padding: var(--space-md) var(--space-sm);
 
   background-color: var(--color-background);
-  border-right: 1px solid rgba(0, 0, 0, 0.06);
+  border-right: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
 
   gap: var(--space-md);
@@ -36,7 +36,7 @@
   padding: var(--space-sm);
   padding-bottom: var(--space-md);
 
-  border-bottom: 1px solid rgba(22, 17, 58, 0.12);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .navigation-header img,
@@ -130,7 +130,7 @@
 
 .navigation-options a:hover,
 .navigation-switch:hover {
-  background-color: rgba(22, 17, 58, 0.05);
+  background-color: var(--color-primary-tint);
   color: var(--color-primary);
 }
 
@@ -167,7 +167,7 @@
   margin-left: auto;
   padding: 0 7px;
   border-radius: 10px;
-  background-color: rgba(22, 17, 58, 0.08);
+  background-color: var(--color-primary-tint-strong);
   color: var(--color-primary);
   font-size: var(--text-label);
   font-weight: var(--font-bold);
@@ -179,7 +179,7 @@
 }
 
 .active {
-  background-color: rgba(22, 17, 58, 0.08);
+  background-color: var(--color-primary-tint-strong);
   color: var(--color-primary) !important;
 }
 
@@ -200,7 +200,7 @@
   margin-top: auto;
   padding: var(--space-sm);
 
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid var(--color-border);
 }
 
 .navigation-logout-button {

@@ -12,7 +12,7 @@ const ColorField = ({ label, value, onCommit }) => {
 
   return (
     <Stack spacing={0.5}>
-      <label style={{ fontSize: "0.75rem", color: "rgba(0, 0, 0, 0.6)" }}>{label}</label>
+      <label style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>{label}</label>
       <input
         type="color"
         value={localValue}
@@ -21,7 +21,7 @@ const ColorField = ({ label, value, onCommit }) => {
         style={{
           width: "100%",
           height: "2.5rem",
-          border: "1px solid rgba(0, 0, 0, 0.23)",
+          border: "1px solid var(--color-border-input)",
           borderRadius: "var(--radius-md)",
           cursor: "pointer",
           padding: 2,

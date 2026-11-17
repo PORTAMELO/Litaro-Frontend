@@ -33,7 +33,7 @@
 .filtersCard,
 .card {
   background-color: var(--color-background);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
 }
@@ -105,7 +105,7 @@
 }
 
 .tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .cardHeader {
@@ -114,7 +114,7 @@
   justify-content: space-between;
   gap: var(--space-md);
   padding: var(--space-lg);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .cardTitle {
@@ -148,7 +148,7 @@
   flex-direction: column;
   min-width: 0;
   border-radius: var(--radius-md);
-  background-color: rgba(22, 17, 58, 0.03);
+  background-color: var(--color-primary-tint);
 }
 
 .dayHeader {
@@ -160,7 +160,7 @@
   font-size: var(--text-body);
   font-weight: var(--font-bold);
   color: var(--color-text);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .dayBody {
@@ -256,15 +256,15 @@
 }
 
 .progress_PENDING {
-  color: #b45309;
+  color: var(--color-warning-text);
 }
 
 .progress_COMPLETE {
-  color: #15803d;
+  color: var(--color-success-text);
 }
 
 .progress_EXCEEDED {
-  color: #b91c1c;
+  color: var(--color-error);
 }
 
 .tableWrapper {
@@ -279,7 +279,7 @@
 .table th {
   padding: var(--space-sm) var(--space-md);
   text-align: left;
-  background-color: rgba(22, 17, 58, 0.04);
+  background-color: var(--color-primary-tint);
   color: var(--color-text);
   font-size: var(--text-label);
   font-weight: var(--font-bold);
@@ -288,7 +288,7 @@
 
 .table td {
   padding: var(--space-sm) var(--space-md);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--color-border);
   font-family: inherit;
   font-size: var(--text-label);
   color: var(--color-text);
@@ -296,7 +296,7 @@
 }
 
 .table tbody tr:hover {
-  background-color: rgba(22, 17, 58, 0.02);
+  background-color: var(--color-primary-tint);
 }
 
 .strongCell {

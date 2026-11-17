@@ -11,6 +11,7 @@ import { getRoleOptions } from "@/shared/utils/ProfileOptions";
 import { ROLES } from "@/shared/utils/Roles";
 import logo from "@/assets/logoinps.jpg";
 import styles from "./SelectProfile.module.css";
+import { colors } from "@/shared/styles/tokens";
 
 const ICONS = {
     [ROLES.STUDENT]: SchoolIcon,
@@ -61,7 +62,7 @@ const SelectProfile = () => {
                         <Card key={option.role} className={styles.card}>
                             <CardActionArea onClick={() => handleSelect(option.role)} sx={{ p: 2 }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
-                                    <Icon sx={{ fontSize: 40, color: "#0F4DB8" }} />
+                                    <Icon sx={{ fontSize: 40, color: colors.primary }} />
                                     <CardContent sx={{ p: "0 !important", textAlign: "center" }}>
                                         <Typography variant="subtitle1" fontWeight={700}>
                                             {option.label}

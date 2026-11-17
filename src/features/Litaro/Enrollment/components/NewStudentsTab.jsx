@@ -16,6 +16,7 @@ import {
   matchesQuery,
   todayInColombia,
 } from "../utils/EnrollmentUtils";
+import { colors } from "@/shared/styles/tokens";
 
 const FILTERS = [
   { value: "PENDING", label: "Pendientes" },
@@ -180,7 +181,7 @@ const NewStudentsTab = ({ yearId, rows, grades, period, canCreate, canDecide, on
 
             <tbody>
               {visible.map((row) => {
-                const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+                const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
                 const decidable = canDecide && (row.status === "PENDING" || row.status === "WAITLIST");
 
                 return (

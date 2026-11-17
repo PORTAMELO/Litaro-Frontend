@@ -11,12 +11,13 @@ import { formatDateTime } from "@/shared/utils/Dates";
 import * as service from "../services/NotificationService";
 import { STATE, announceChange } from "../utils/NotificationUtils";
 import DoneDialog from "./DoneDialog";
+import { colors } from "@/shared/styles/tokens";
 
 const numberFormat = new Intl.NumberFormat("es-CO");
 
 const format = (value) => numberFormat.format(value);
 
-const barButton = { color: "#ffffff", "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.12)" } };
+const barButton = { color: colors.onPrimary, "&:hover": { backgroundColor: colors.onPrimaryTint } };
 
 const InboxTab = ({ canMarkDone, notify }) => {
   const [filter, setFilter] = useState("ALL");
@@ -334,7 +335,7 @@ const InboxTab = ({ canMarkDone, notify }) => {
                 variant="contained"
                 onClick={() => setClosing(true)}
                 disabled={saving}
-                sx={{ backgroundColor: "#ffffff", color: "primary.main", "&:hover": { backgroundColor: "#eeeef6" } }}
+                sx={{ backgroundColor: colors.onPrimary, color: "primary.main", "&:hover": { backgroundColor: colors.background } }}
               >
                 Marcar como realizadas
               </Button>

@@ -3,10 +3,11 @@ import { Button } from "@mui/material";
 import styles from "../Enrollment.module.css";
 import ui from "@/shared/components/Ui/Ui.module.css";
 import { formatDay, todayInColombia, windowState } from "../utils/EnrollmentUtils";
+import { colors } from "@/shared/styles/tokens";
 
-const OPEN_COLOR = "#0fd355";
-const WAITING_COLOR = "#d97706";
-const CLOSED_COLOR = "#9ca3af";
+const OPEN_COLOR = colors.success;
+const WAITING_COLOR = colors.warning;
+const CLOSED_COLOR = colors.textDisabled;
 
 const describe = (state, start, end) => {
   if (state.phase === "before") return { text: `Abre el ${formatDay(start)}`, color: WAITING_COLOR };

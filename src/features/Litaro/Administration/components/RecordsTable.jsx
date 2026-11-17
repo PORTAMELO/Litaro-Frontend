@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Chip, IconButton, Tooltip, Dialog, DialogTitle, DialogContent, Button, Stack, Typography } from "@mui/material";
 
 import { DataGrid } from "@mui/x-data-grid";
@@ -78,15 +78,18 @@ const RecordsTable = ({
 }) => {
   const [configOpen, setConfigOpen] = useState(false);
   const [hasQueried, setHasQueried] = useState(false);
+  const [queriedTable, setQueriedTable] = useState(tableName);
 
   const { can } = usePermissions();
   const canCreate = can(tableName, "create");
   const canUpdate = can(tableName, "update");
   const canDelete = can(tableName, "delete");
 
-  useEffect(() => {
+  // Al cambiar de tabla se vuelve al estado "aún no se ha consultado".
+  if (queriedTable !== tableName) {
+    setQueriedTable(tableName);
     setHasQueried(false);
-  }, [tableName]);
+  }
 
   const primaryKeyColumn = schema?.find((column) => column.columnName.toLowerCase().endsWith("id"));
 

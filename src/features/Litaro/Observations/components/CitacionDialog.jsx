@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Dialog,
@@ -36,26 +36,27 @@ const statusOptions = [
   },
 ];
 
-const CitacionDialog = ({ open, student, appointment, onClose, onSave }) => {
-  const [form, setForm] = useState(initialForm);
-
-  useEffect(() => {
-    if (appointment) {
-      setForm({
+const formFrom = (appointment) =>
+  appointment
+    ? {
         date: appointment.date ?? "",
         time: appointment.time ?? "",
         reason: appointment.reason ?? "",
         place: appointment.place ?? "",
         responsible: appointment.responsible ?? "",
         status: appointment.status ?? "Pendiente",
-      });
-    } else {
-      setForm({
-        ...initialForm,
-        date: new Date().toISOString().split("T")[0],
-      });
-    }
-  }, [appointment, open]);
+      }
+    : { ...initialForm, date: new Date().toISOString().split("T")[0] };
+
+const CitacionDialog = ({ open, student, appointment, onClose, onSave }) => {
+  // Al abrir el diálogo, o al cambiar el registro, el formulario vuelve a sus valores.
+  const [form, setForm] = useState(() => formFrom(appointment));
+  const [shownFor, setShownFor] = useState({ open, appointment });
+
+  if (shownFor.open !== open || shownFor.appointment !== appointment) {
+    setShownFor({ open, appointment });
+    setForm(formFrom(appointment));
+  }
 
   const handleChange = (field, value) => {
     setForm((prev) => ({

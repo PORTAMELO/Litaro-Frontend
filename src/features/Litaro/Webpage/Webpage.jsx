@@ -205,7 +205,7 @@ const Webpage = () => {
                     </AccordionSummary>
 
                     <AccordionDetails className={styles["section-accordion-details"]}>
-                      <Stack direction="row" justifyContent="flex-end" sx={{ mb: 1.5 }}>
+                      <Stack direction="row" sx={{ justifyContent: "flex-end", mb: 1.5 }}>
                         <Button
                           variant="contained"
                           startIcon={<AddIcon />}

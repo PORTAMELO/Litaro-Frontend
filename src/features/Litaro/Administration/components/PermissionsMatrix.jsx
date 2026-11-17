@@ -100,7 +100,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
     const [roles, setRoles] = useState([]);
     const [roleId, setRoleId] = useState("");
     const [rows, setRows] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loadedRole, setLoadedRole] = useState(null);
     const [savingTable, setSavingTable] = useState(null);
     const [error, setError] = useState(null);
 
@@ -114,17 +114,30 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
     }, [open]);
 
     useEffect(() => {
-        if (!open || !roleId) return;
+        if (!open || !roleId) return undefined;
 
-        setLoading(true);
-        setError(null);
+        let cancelled = false;
 
         service
             .getRolePermissions(roleId)
-            .then(setRows)
-            .catch(() => setError("No fue posible cargar los permisos."))
-            .finally(() => setLoading(false));
+            .then((data) => {
+                if (cancelled) return;
+                setRows(data);
+                setError(null);
+            })
+            .catch(() => {
+                if (!cancelled) setError("No fue posible cargar los permisos.");
+            })
+            .finally(() => {
+                if (!cancelled) setLoadedRole(roleId);
+            });
+
+        return () => {
+            cancelled = true;
+        };
     }, [open, roleId]);
+
+    const loading = open && Boolean(roleId) && loadedRole !== roleId;
 
     const toggleFlag = (tableName, flag) => {
         setRows((previous) =>
@@ -159,7 +172,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
             <DialogTitle>Permisos por rol</DialogTitle>
 
             <DialogContent>
-                <Stack direction="row" spacing={2} sx={{ mb: 2 }} alignItems="center">
+                <Stack direction="row" spacing={2} sx={{ alignItems: "center", mb: 2 }}>
                     <Select size="small" value={roleId} onChange={(event) => setRoleId(event.target.value)} displayEmpty>
                         {roles.map((role) => (
                             <MenuItem key={role.id} value={role.id}>
@@ -176,7 +189,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                 )}
 
                 {loading ? (
-                    <Stack alignItems="center" sx={{ py: 3 }}>
+                    <Stack sx={{ alignItems: "center", py: 3 }}>
                         <CircularProgress size={24} />
                     </Stack>
                 ) : (

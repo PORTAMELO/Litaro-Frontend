@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   Dialog,
@@ -35,25 +35,26 @@ const statusOptions = [
   },
 ];
 
-const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
-  const [form, setForm] = useState(initialForm);
-
-  useEffect(() => {
-    if (observation) {
-      setForm({
+const formFrom = (observation) =>
+  observation
+    ? {
         date: observation.date ?? "",
         teacher: observation.teacher ?? "",
         description: observation.description ?? "",
         commitment: observation.commitment ?? "",
         status: observation.status ?? "En seguimiento",
-      });
-    } else {
-      setForm({
-        ...initialForm,
-        date: new Date().toISOString().split("T")[0],
-      });
-    }
-  }, [observation, open]);
+      }
+    : { ...initialForm, date: new Date().toISOString().split("T")[0] };
+
+const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
+  // Al abrir el diálogo, o al cambiar el registro, el formulario vuelve a sus valores.
+  const [form, setForm] = useState(() => formFrom(observation));
+  const [shownFor, setShownFor] = useState({ open, observation });
+
+  if (shownFor.open !== open || shownFor.observation !== observation) {
+    setShownFor({ open, observation });
+    setForm(formFrom(observation));
+  }
 
   const handleChange = (field, value) => {
     setForm((prev) => ({

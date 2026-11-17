@@ -54,7 +54,7 @@ const SelectProfile = () => {
                 Tienes más de un acceso disponible. Elige con cuál quieres entrar.
             </Typography>
 
-            <Stack direction="row" spacing={2} flexWrap="wrap" justifyContent="center">
+            <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
                 {options.map((option) => {
                     const Icon = ICONS[option.role] ?? BadgeIcon;
 

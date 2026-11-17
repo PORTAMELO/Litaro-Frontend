@@ -18,4 +18,7 @@ export const changeClassroom = (enrollmentId, toClassroomId, note) =>
 export const transferCampus = (enrollmentId, toClassroomId, note) =>
   post(`${BASE}/campus`, { enrollmentId, toClassroomId, note });
 
+export const promoteEarly = (enrollmentId, toClassroomId, note) =>
+  post(`${BASE}/early-promotion`, { enrollmentId, toClassroomId, note });
+
 export const withdraw = (enrollmentId, reason, note) => post(`${BASE}/withdrawal`, { enrollmentId, reason, note });

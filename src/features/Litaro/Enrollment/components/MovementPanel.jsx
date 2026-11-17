@@ -20,6 +20,12 @@ const ACTIONS = {
     prompt: "El SIMAT lo trata como un traslado. Al guardar podrás imprimir la constancia para firmas.",
     done: "Cambio de sede registrado. Imprime la constancia desde el historial.",
   },
+  EARLY: {
+    action: "Promover",
+    prompt:
+      "Promoción anticipada (SIEE Art. 12): solo en el primer periodo, con la aprobación del Consejo Directivo. Se avisa a Secretaría para el SIMAT.",
+    done: "Promoción anticipada registrada. Secretaría recibió el aviso para el SIMAT.",
+  },
   WITHDRAWAL: {
     action: "Retirar",
     prompt: "El estudiante queda como retirado. Sus notas, asistencia y observador se conservan.",
@@ -31,10 +37,16 @@ const EVENT_COLOR = {
   CLASSROOM: "#2563eb",
   CAMPUS: "#d97706",
   WITHDRAWAL: "#6b7280",
+  EARLY_PROMO: "#7c3aed",
+  YEAR_CLOSE: "#0f9d58",
 };
 
 const eventTitle = (event) => {
   if (event.type === "WITHDRAWAL") return `Retiro: ${event.reason}`;
+
+  if (event.type === "YEAR_CLOSE") return `Cierre de año: ${event.reason}`;
+
+  if (event.type === "EARLY_PROMO") return `Promoción anticipada: ${event.fromClassroom} a ${event.toClassroom}`;
 
   if (event.type === "CAMPUS")
     return `Cambio de sede: ${event.fromClassroom} (${event.fromCampus}) a ${event.toClassroom} (${event.toCampus})`;
@@ -68,6 +80,12 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
   const campuses = options.campuses.filter((campus) =>
     otherCampus.some((classroom) => classroom.campusId === campus.campusId),
   );
+  const gradeOrder = options.classrooms.find((classroom) => classroom.classroomId === row.classroomId)?.gradeOrder;
+  const higher = options.classrooms.filter(
+    (classroom) => gradeOrder !== undefined && classroom.gradeOrder > gradeOrder && classroom.campusId === row.campusId,
+  );
+  const nextOrder = Math.min(...higher.map((classroom) => classroom.gradeOrder));
+  const nextGrade = higher.filter((classroom) => classroom.gradeOrder === nextOrder);
   const campusClassrooms = otherCampus.filter((classroom) => String(classroom.campusId) === campusId);
 
   useEffect(() => {
@@ -96,7 +114,8 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
     setError(null);
   };
 
-  const complete = action === "WITHDRAWAL" ? reason !== "" : classroomId !== "";
+  const complete =
+    action === "WITHDRAWAL" ? reason !== "" : classroomId !== "" && (action !== "EARLY" || note.trim() !== "");
 
   const submit = async () => {
     const cleanNote = note.trim() === "" ? null : note.trim();
@@ -107,6 +126,7 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
     try {
       if (action === "CLASSROOM") await service.changeClassroom(row.enrollmentId, Number(classroomId), cleanNote);
       if (action === "CAMPUS") await service.transferCampus(row.enrollmentId, Number(classroomId), cleanNote);
+      if (action === "EARLY") await service.promoteEarly(row.enrollmentId, Number(classroomId), cleanNote);
       if (action === "WITHDRAWAL") await service.withdraw(row.enrollmentId, reason, cleanNote);
 
       setBusy(false);
@@ -156,6 +176,27 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
               {sameCampus.map((classroom) => (
                 <option key={classroom.classroomId} value={classroom.classroomId}>
                   {classroom.name}
+                </option>
+              ))}
+            </TextField>
+          </Field>
+        )}
+
+        {action === "EARLY" && (
+          <Field label="Curso del grado siguiente">
+            <TextField
+              select
+              fullWidth
+              size="small"
+              value={classroomId}
+              onChange={(event) => setClassroomId(event.target.value)}
+              disabled={busy}
+              slotProps={selectProps("Curso del grado siguiente")}
+            >
+              <option value="">Selecciona un curso</option>
+              {nextGrade.map((classroom) => (
+                <option key={classroom.classroomId} value={classroom.classroomId}>
+                  {classroom.name} ({classroom.gradeName})
                 </option>
               ))}
             </TextField>
@@ -228,7 +269,7 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
           </Field>
         )}
 
-        <Field label="Nota (opcional)">
+        <Field label={action === "EARLY" ? "Acta o decisión del Consejo Directivo" : "Nota (opcional)"}>
           <TextField
             multiline
             minRows={2}
@@ -263,6 +304,11 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
         <Button color="error" onClick={() => choose("WITHDRAWAL")} sx={{ marginRight: "auto" }}>
           Retirar
         </Button>
+        <span title={nextGrade.length === 0 ? "No hay cursos del grado siguiente en esta sede." : undefined}>
+          <Button variant="outlined" onClick={() => choose("EARLY")} disabled={nextGrade.length === 0}>
+            Promoción anticipada
+          </Button>
+        </span>
         <span title={campuses.length === 0 ? `No hay cursos de ${row.gradeName} en otra sede.` : undefined}>
           <Button variant="outlined" onClick={() => choose("CAMPUS")} disabled={campuses.length === 0}>
             Cambiar de sede

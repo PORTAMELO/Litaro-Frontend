@@ -11,6 +11,7 @@ import DeadlinesTab from "./components/DeadlinesTab";
 import GradeSheetTab from "./components/GradeSheetTab";
 import PlannerPanelTab from "./components/PlannerPanelTab";
 import PlannersTab from "./components/PlannersTab";
+import YearClosingTab from "./components/YearClosingTab";
 import * as service from "./services/GradingService";
 
 const TABS = [
@@ -18,6 +19,7 @@ const TABS = [
   { value: "planners", label: "Plan de estudio", key: "StudyPlanner", actions: ["create"], Component: PlannersTab },
   { value: "panel", label: "Seguimiento", key: "StudyPlannerPanel", actions: ["read"], Component: PlannerPanelTab },
   { value: "settings", label: "Parámetros", key: "GradeSettings", actions: ["read"], Component: DeadlinesTab },
+  { value: "closing", label: "Cierre de año", key: "YearClosing", actions: ["read"], Component: YearClosingTab, standalone: true },
 ];
 
 const Grades = () => {
@@ -28,7 +30,8 @@ const Grades = () => {
   const tabs = TABS.filter((tab) => tab.actions.some((action) => can(tab.key, action)));
   const active = tabs.find((tab) => tab.value === chosenTab) ?? tabs[0];
 
-  const { data: options, error } = useLoad(() => service.getOptions(), [], ready && tabs.length > 0);
+  const needsOptions = tabs.some((tab) => !tab.standalone);
+  const { data: options, error } = useLoad(() => service.getOptions(), [], ready && needsOptions);
 
   return (
     <ThemeProvider theme={litaroTheme}>
@@ -55,11 +58,13 @@ const Grades = () => {
               ))}
             </Tabs>
 
-            {error && <p className={page.message}>{error}</p>}
+            {active.standalone && <active.Component can={can} notify={notify} />}
 
-            {!error && !options && <p className={page.message}>Cargando…</p>}
+            {!active.standalone && error && <p className={page.message}>{error}</p>}
 
-            {options && <active.Component options={options} can={can} notify={notify} />}
+            {!active.standalone && !error && !options && <p className={page.message}>Cargando…</p>}
+
+            {!active.standalone && options && <active.Component options={options} can={can} notify={notify} />}
           </>
         )}
 

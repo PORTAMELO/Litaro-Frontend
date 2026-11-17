@@ -36,14 +36,14 @@ const navigationItems = {
     label: "Matrícula",
     path: "/Litaro/Enrollment",
     icon: MdHowToReg,
-    keys: ["EnrollmentProcess", "AdmissionDecision"],
+    keys: ["EnrollmentProcess", "AdmissionDecision", "StudentMovement"],
   },
 
   grades: {
     label: "Notas",
     path: "/Litaro/Grades",
     icon: MdGrade,
-    keys: ["GradesModule", "GradeBook", "StudyPlanner", "StudyPlannerPanel", "GradeSettings"],
+    keys: ["GradesModule", "GradeBook", "StudyPlanner", "StudyPlannerPanel", "GradeSettings", "YearClosing"],
   },
 
   schedule: {

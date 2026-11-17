@@ -9,6 +9,7 @@ import { usePermissions } from "../../../shared/hooks/UsePermissions";
 import PeriodStrip from "./components/PeriodStrip";
 import OldStudentsTab from "./components/OldStudentsTab";
 import NewStudentsTab from "./components/NewStudentsTab";
+import MovementsTab from "./components/MovementsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
 import SettingsTab from "./components/SettingsTab";
@@ -24,6 +25,7 @@ const Enrollment = () => {
   const staff = can("EnrollmentProcess", "create") || can("EnrollmentProcess", "update");
   const rector = can("AdmissionDecision", "update");
   const settingsViewer = can("EnrollmentSettings", "read");
+  const mover = can("StudentMovement", "read");
 
   const [options, setOptions] = useState(null);
   const [formOptions, setFormOptions] = useState(null);
@@ -109,7 +111,7 @@ const Enrollment = () => {
     );
   }
 
-  if (!viewer) {
+  if (!viewer && !mover) {
     return (
       <div className={styles.page}>
         <p className={styles.message}>No tienes permisos para ver la matrícula.</p>
@@ -125,7 +127,8 @@ const Enrollment = () => {
   const waiting = loaded ? current.pre.filter((row) => row.status === "RESERVED").length : 0;
   const pendingRequests = loaded ? current.admissions.filter((row) => row.status === "PENDING").length : 0;
 
-  const fallbackTab = rector && !staff ? "new" : "old";
+  const viewerTab = rector && !staff ? "new" : "old";
+  const fallbackTab = viewer ? viewerTab : "moves";
   const activeTab = tab ?? fallbackTab;
 
   const tabLabel = (text, count) => (
@@ -141,7 +144,11 @@ const Enrollment = () => {
         <div className={styles.header}>
           <div>
             <h1 className={styles.title}>Matrícula</h1>
-            <p className={styles.subtitle}>Prematrícula de estudiantes antiguos y admisión de nuevos.</p>
+            <p className={styles.subtitle}>
+              {viewer
+                ? "Prematrícula de estudiantes antiguos y admisión de nuevos."
+                : "Cambios de curso, de sede y retiro de estudiantes."}
+            </p>
           </div>
 
           <div className={styles.headerActions}>
@@ -191,9 +198,11 @@ const Enrollment = () => {
 
         {!failed && !optionsError && yearId !== null && !current && <TableSkeleton rows={8} columns={3} />}
 
-        {loaded && (
+        {(loaded || !viewer) && (
           <>
-            <PeriodStrip yearId={yearId} period={current.period} canEdit={staff} onEdit={() => setDatesOpen(true)} />
+            {loaded && activeTab !== "moves" && (
+              <PeriodStrip yearId={yearId} period={current.period} canEdit={staff} onEdit={() => setDatesOpen(true)} />
+            )}
 
             <Tabs
               className={styles.tabs}
@@ -202,12 +211,13 @@ const Enrollment = () => {
               variant="scrollable"
               scrollButtons={false}
             >
-              <Tab value="old" label={tabLabel("Antiguos", waiting)} />
-              <Tab value="new" label={tabLabel("Nuevos", pendingRequests)} />
-              {settingsViewer && <Tab value="settings" label="Parámetros" />}
+              {viewer && <Tab value="old" label={tabLabel("Antiguos", waiting)} />}
+              {viewer && <Tab value="new" label={tabLabel("Nuevos", pendingRequests)} />}
+              {mover && <Tab value="moves" label="Novedades" />}
+              {viewer && settingsViewer && <Tab value="settings" label="Parámetros" />}
             </Tabs>
 
-            {activeTab === "old" && (
+            {loaded && activeTab === "old" && (
               <OldStudentsTab
                 yearId={yearId}
                 rows={current.pre}
@@ -221,7 +231,7 @@ const Enrollment = () => {
               />
             )}
 
-            {activeTab === "new" && (
+            {loaded && activeTab === "new" && (
               <NewStudentsTab
                 yearId={yearId}
                 rows={current.admissions}
@@ -235,7 +245,11 @@ const Enrollment = () => {
               />
             )}
 
-            {activeTab === "settings" && settingsViewer && <SettingsTab can={can} notify={notify} />}
+            {mover && activeTab === "moves" && (
+              <MovementsTab canExecute={can("StudentMovement", "update")} notify={notify} />
+            )}
+
+            {viewer && settingsViewer && activeTab === "settings" && <SettingsTab can={can} notify={notify} />}
           </>
         )}
 

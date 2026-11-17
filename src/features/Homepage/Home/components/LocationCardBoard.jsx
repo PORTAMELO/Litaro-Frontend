@@ -1,22 +1,11 @@
 import { useReducer } from "react";
 import styles from "../styles/LocationCardBoard.module.css";
+import { parseMapLink } from "../../utils/MapLink";
+import { FaMapLocationDot } from "react-icons/fa6";
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
 } from "react-icons/io";
-
-// El mapa se administra en Contenido Web. Se acepta la URL de "Insertar mapa" de
-// Google o el código <iframe> completo que Google ofrece para copiar. Cualquier otro
-// valor se descarta: dentro de un iframe, un texto que no es URL se abre como una
-// página de Litaro y la portada termina cargándose dentro de sí misma.
-const MAP_ORIGINS = ["https://www.google.com/maps/embed", "https://maps.google.com/"];
-
-const mapUrl = (value) => {
-  const text = String(value ?? "").trim();
-  const url = text.startsWith("<") ? (text.match(/src\s*=\s*["']([^"']+)["']/i)?.[1] ?? "") : text;
-
-  return MAP_ORIGINS.some((origin) => url.startsWith(origin)) ? url : null;
-};
 
 const reducer = (state, action) => {
   const total = action.length;
@@ -43,7 +32,7 @@ const LocationCardBoard = ({ locations }) => {
   if (!locations?.length) return null;
 
   const location = locations[state.index];
-  const map = mapUrl(location.map);
+  const map = parseMapLink(location.map);
 
   return (
     <div className={styles["location-card-board"]}>
@@ -80,15 +69,22 @@ const LocationCardBoard = ({ locations }) => {
       </div>
 
       <div className={styles["right-location-card"]}>
-        {map ? (
+        {map?.embed ? (
           <iframe
-            src={map}
+            src={map.embed}
             title={`Mapa de ${location.title}`}
             className={styles.map}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
+        ) : map?.link ? (
+          <div className={styles.mapUnavailable}>
+            <FaMapLocationDot className={styles.mapIcon} aria-hidden="true" />
+            <a className={styles.mapLink} href={map.link} target="_blank" rel="noopener noreferrer">
+              Ver ubicación en Google Maps
+            </a>
+          </div>
         ) : (
           <p className={styles.mapUnavailable}>El mapa de esta sede no está disponible.</p>
         )}

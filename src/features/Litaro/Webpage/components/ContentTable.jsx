@@ -98,11 +98,13 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
             </Tooltip>
           )}
 
-          <Tooltip title="Eliminar">
-            <IconButton color="error" onClick={() => onDelete(row)}>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
+          {onDelete && (
+            <Tooltip title="Eliminar">
+              <IconButton color="error" onClick={() => onDelete(row)}>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          )}
         </>
       ),
     },

@@ -21,6 +21,10 @@ const pageOrder = ["Home", "Nosotros", "Calendario", "Admisiones", "Footer"];
 // Nombre que ve el usuario cuando difiere del nombre técnico de la página.
 const pageLabels = { Footer: "Información institucional" };
 
+// Páginas cuyas variables tienen un solo valor cada una (dirección, teléfono, redes…):
+// se editan, pero no se agregan ni se eliminan, para no dejar duplicados ni huecos.
+const singleValuePages = ["Footer"];
+
 const Webpage = () => {
   const [contents, setContents] = useState([]);
   const [configurations, setConfigurations] = useState([]);
@@ -205,21 +209,23 @@ const Webpage = () => {
                     </AccordionSummary>
 
                     <AccordionDetails className={styles["section-accordion-details"]}>
-                      <Stack direction="row" sx={{ justifyContent: "flex-end", mb: 1.5 }}>
-                        <Button
-                          variant="contained"
-                          startIcon={<AddIcon />}
-                          onClick={() => handleCreate(data.configuration)}
-                          className={styles["new-button"]}
-                        >
-                          Nuevo
-                        </Button>
-                      </Stack>
+                      {!singleValuePages.includes(page) && (
+                        <Stack direction="row" sx={{ justifyContent: "flex-end", mb: 1.5 }}>
+                          <Button
+                            variant="contained"
+                            startIcon={<AddIcon />}
+                            onClick={() => handleCreate(data.configuration)}
+                            className={styles["new-button"]}
+                          >
+                            Nuevo
+                          </Button>
+                        </Stack>
+                      )}
 
                       <ContentTable
                         rows={data.items}
                         onEdit={handleEdit}
-                        onDelete={handleDelete}
+                        onDelete={singleValuePages.includes(page) ? undefined : handleDelete}
                         onActivate={handleActivate}
                         onDeactivate={handleDeactivate}
                       />

@@ -37,7 +37,7 @@
   width: 4rem;
   height: 4rem;
   background: var(--color-primary);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   object-fit: cover;
 }
 
@@ -83,7 +83,7 @@
   background: var(--color-accent);
   color: var(--color-primary);
   padding: var(--space-sm) var(--space-lg);
-  border-radius: 12px; /*fixed*/
+  border-radius: var(--radius-md);
   font-weight: var(--font-semibold);
   transition:
     transform 0.2s ease,

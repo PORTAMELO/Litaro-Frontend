@@ -3,7 +3,7 @@
   flex-wrap: wrap;
   gap: 2px;
   padding: 3px;
-  border-radius: 10px;
+  border-radius: var(--radius-full);
   background-color: var(--color-primary-tint);
 }
 

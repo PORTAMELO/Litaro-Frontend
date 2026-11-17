@@ -48,7 +48,7 @@ const WeekView = ({ blocks, showSaturday, subtitleOf, onAdd, onEdit }) => {
                     )}
                   </>
                 );
-                const blockStyle = { borderLeftColor: info.color, backgroundColor: info.background };
+                const blockStyle = { borderColor: info.color, backgroundColor: info.background };
 
                 return onEdit ? (
                   <button

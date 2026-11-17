@@ -166,7 +166,7 @@
   flex-shrink: 0;
   margin-left: auto;
   padding: 0 7px;
-  border-radius: 10px;
+  border-radius: var(--radius-full);
   background-color: var(--color-primary-tint-strong);
   color: var(--color-primary);
   font-size: var(--text-label);

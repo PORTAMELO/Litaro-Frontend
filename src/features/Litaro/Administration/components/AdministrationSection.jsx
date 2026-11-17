@@ -7,8 +7,8 @@ const AdministrationSection = ({ title, cards, onManage }) => {
       <h2>{title}</h2>
 
       <div className={styles.grid}>
-        {cards.map((card, index) => (
-          <AdministrationCard key={index} {...card} onManage={() => onManage(card)} />
+        {cards.map((card) => (
+          <AdministrationCard key={card.tableName} {...card} onManage={() => onManage(card)} />
         ))}
       </div>
     </section>

@@ -36,14 +36,15 @@ const Footer = ({ information, socials }) => {
         </p>
       </div>
       <div className={styles["social-section"]}>
-        {socials.map((social, index) => {
+        {socials.map((social) => {
           const Icon = socialsMap[social.name.toLowerCase()];
           if (!Icon) return null;
           return (
             <a
-              key={index}
+              key={social.name}
               href={social.url}
               target="_blank"
+              rel="noopener noreferrer"
               className={styles["social"]}
             >
               <Icon className={styles["icon"]} />

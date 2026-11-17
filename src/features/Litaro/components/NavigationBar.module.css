@@ -101,7 +101,8 @@
   overflow-y: auto;
 }
 
-.navigation-options a {
+.navigation-options a,
+.navigation-switch {
   display: flex;
   align-items: center;
 
@@ -127,9 +128,24 @@
     transform 0.15s ease;
 }
 
-.navigation-options a:hover {
+.navigation-options a:hover,
+.navigation-switch:hover {
   background-color: rgba(22, 17, 58, 0.05);
   color: var(--primary-color);
+}
+
+.navigation-switch {
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+}
+
+.navigation-options a:focus-visible,
+.navigation-switch:focus-visible,
+.navigation-logout-button:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
 }
 
 .navigation-options span {

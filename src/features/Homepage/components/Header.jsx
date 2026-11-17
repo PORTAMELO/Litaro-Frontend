@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import logo from "@/assets/logoinps.jpg";
 import styles from "../styles/Header.module.css";
 
 const Header = () => {
   return (
     <header className={styles["header"]}>
       <div className={styles["brand"]}>
-        <img className={styles["logo-placeholder"]} />
+        <img className={styles["logo-placeholder"]} src={logo} alt="Escudo del INPS" />
         <h1>Instituto Nacional de Promoción Social</h1>
       </div>
 

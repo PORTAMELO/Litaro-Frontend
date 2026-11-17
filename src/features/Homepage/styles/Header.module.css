@@ -38,6 +38,7 @@
   height: 4rem;
   background: var(--primary-color);
   border-radius: 10px;
+  object-fit: cover;
 }
 
 /*Navigation*/

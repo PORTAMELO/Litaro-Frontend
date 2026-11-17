@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Tab, Tabs, ThemeProvider } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 
 import page from "@/shared/components/Ui/Page.module.css";
 import Toast from "@/shared/components/Ui/Toast";
 import { useLoad } from "@/shared/hooks/useLoad";
 import { usePermissions } from "@/shared/hooks/usePermissions";
 import { useToast } from "@/shared/hooks/useToast";
-import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import ExcusesTab from "./components/ExcusesTab";
 import LateArrivalsTab from "./components/LateArrivalsTab";
 import RollTab from "./components/RollTab";
@@ -33,7 +32,7 @@ const Attendance = () => {
   const { data: options, error } = useLoad(() => service.getOptions(), [], ready && tabs.length > 0);
 
   return (
-    <ThemeProvider theme={litaroTheme}>
+    <>
       <div className={page.page}>
         <div className={page.header}>
           <h1 className={page.title}>Asistencia</h1>
@@ -67,7 +66,7 @@ const Attendance = () => {
 
         <Toast toast={toast} onClose={close} />
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 

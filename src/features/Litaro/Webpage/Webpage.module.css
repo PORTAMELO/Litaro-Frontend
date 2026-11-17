@@ -9,7 +9,7 @@
 .title {
   margin: 0;
 
-  font-size: var(--text-xxl);
+  font-size: var(--text-headline);
   font-weight: var(--font-bold);
   color: var(--color-text);
 }
@@ -18,7 +18,7 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-sm) !important;
-  background-color: var(--background-color) !important;
+  background-color: var(--color-background) !important;
 }
 
 .page-accordion::before {
@@ -62,13 +62,13 @@
 }
 
 .accordion-title {
-  font-size: var(--text-lg) !important;
+  font-size: var(--text-subtitle) !important;
   font-weight: var(--font-bold) !important;
   color: var(--color-text);
 }
 
 .section-title {
-  font-size: var(--text-md) !important;
+  font-size: var(--text-body) !important;
   font-weight: var(--font-medium) !important;
   color: var(--color-text);
 }
@@ -78,7 +78,7 @@
   padding: var(--space-xs) var(--space-md) !important;
   border-radius: var(--radius-md) !important;
   font-family: inherit !important;
-  font-size: var(--text-md) !important;
+  font-size: var(--text-body) !important;
   font-weight: var(--font-semibold) !important;
   text-transform: none !important;
 }

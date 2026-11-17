@@ -11,8 +11,8 @@ import { deleteBlock, getProgress, getScheduleView, saveBlock } from "../service
 
 const selectSx = {
   fontFamily: "inherit",
-  fontSize: "var(--text-sm)",
-  "& .MuiSelect-select": { fontSize: "var(--text-sm)" },
+  fontSize: "var(--text-label)",
+  "& .MuiSelect-select": { fontSize: "var(--text-label)" },
 };
 
 const SUBTITLES = {
@@ -160,7 +160,7 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
               exclusive
               value={viewBy}
               onChange={(_, value) => value && setViewBy(value)}
-              sx={{ "& .MuiToggleButton-root": { textTransform: "none", fontFamily: "inherit", fontSize: "var(--text-sm)" } }}
+              sx={{ "& .MuiToggleButton-root": { textTransform: "none", fontFamily: "inherit", fontSize: "var(--text-label)" } }}
             >
               <ToggleButton value="classroom">Un salón</ToggleButton>
               <ToggleButton value="teacher">Un docente</ToggleButton>
@@ -193,7 +193,7 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
 
           <FormControlLabel
             control={<Switch size="small" checked={showSaturday} onChange={(e) => setShowSaturday(e.target.checked)} />}
-            label={<Typography sx={{ fontSize: "var(--text-sm)" }}>Mostrar sábado</Typography>}
+            label={<Typography sx={{ fontSize: "var(--text-label)" }}>Mostrar sábado</Typography>}
             className={styles.saturdaySwitch}
           />
         </div>

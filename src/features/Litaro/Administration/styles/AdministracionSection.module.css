@@ -6,7 +6,7 @@
 
 .section h2 {
   margin: 0;
-  font-size: var(--text-xl);
+  font-size: var(--text-title);
   font-weight: var(--font-bold);
   color: var(--color-text);
 }

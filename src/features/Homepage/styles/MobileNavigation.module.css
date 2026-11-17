@@ -6,7 +6,7 @@
   width: 100%;
   box-sizing: border-box;
   background: #ffffff;
-  border-top: 2px solid var(--primary-color);
+  border-top: 2px solid var(--color-primary);
   gap: var(--space-xl);
   position: sticky;
   bottom: 0;
@@ -21,7 +21,7 @@
 
 .mobile-navigation a {
   text-decoration: none;
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: 500;
   color: var(--color-text);
 }
@@ -31,7 +31,7 @@
 }
 
 .icon {
-    font-size: var(--text-xl);
+    font-size: var(--text-title);
 }
 
 @media (min-width: 1200px) {

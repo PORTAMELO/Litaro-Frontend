@@ -1,51 +1,16 @@
+/* Los valores de diseño (variables --color-*, --text-*, --space-*…) se definen en
+   src/shared/styles/tokens.js y se escriben en :root al iniciar la aplicación. */
+
 @font-face {
-    font-family: Nunito;
-    src: url("../src/assets/fonts/Nunito-VariableFont_wght.woff2") format("woff2"),
-        url("../src/assets/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
-    font-weight: 400 700;
-    font-style: normal;
-    font-display: swap;
+  font-family: Nunito;
+  src: url("./assets/fonts/Nunito-VariableFont_wght.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-
 :root {
-    /*Colors*/
-    --primary-color: #16113a;
-    --secondary-color: #0fd355;
-    --background-color: #f9fafb;
-    --color-text: #111827;
-    --color-muted: #6b7280;
-
-    /*Spacing*/
-    --space-xxs: .2rem;
-    --space-xs: .4rem;
-    --space-sm: .8rem;
-    --space-md: 1.2rem;
-    --space-lg: 1.6rem;
-    --space-xl: 2.4rem;
-
-    /*Text size*/
-    --text-xs: .6rem;
-    --text-sm: .7rem;
-    --text-md: 0.8rem;
-    --text-lg: 1rem;
-    --text-xl: 1.2rem;
-    --text-xxl: 1.6rem;
-
-    /*Text weight*/
-    --font-regular: 400;
-    --font-medium: 500;
-    --font-semibold: 600;
-    --font-bold: 700;
-
-    /*Radius*/
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 16px;
-
-    /*Shadows*/
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, .06);
-    --shadow-md: 0 8px 16px rgba(0,0,0, .08);
+  color-scheme: light;
 }
 
 * {
@@ -55,9 +20,19 @@
 }
 
 html {
-    font-family: "Nunito", sans-serif;
+  font-family: var(--font-family);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }

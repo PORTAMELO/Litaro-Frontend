@@ -19,12 +19,12 @@
 }
 
 .mission h1, .vision h1 {
-  font-size: var(--text-xxl);
+  font-size: var(--text-headline);
   font-weight: var(--font-bold);
 }
 
 .mission p, .vision p {
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-regular);
 }
 

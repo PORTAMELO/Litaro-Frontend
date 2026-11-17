@@ -305,9 +305,9 @@ const Observations = () => {
               fullWidth
               sx={{
                 fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-label)",
                 "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
+                  fontSize: "var(--text-label)",
                 },
               }}
             >
@@ -329,9 +329,9 @@ const Observations = () => {
               fullWidth
               sx={{
                 fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-label)",
                 "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
+                  fontSize: "var(--text-label)",
                 },
               }}
             >
@@ -353,9 +353,9 @@ const Observations = () => {
               fullWidth
               sx={{
                 fontFamily: "inherit",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-label)",
                 "& .MuiSelect-select": {
-                  fontSize: "var(--text-sm)",
+                  fontSize: "var(--text-label)",
                 },
               }}
             >

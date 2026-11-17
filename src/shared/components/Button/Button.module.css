@@ -8,7 +8,7 @@
   border-radius: var(--radius-md);
 
   font-family: inherit;
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-semibold);
   line-height: 1.2;
   white-space: nowrap;
@@ -33,7 +33,7 @@
 /* Variante primaria — acción principal */
 .primary {
   color: #ffffff;
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   border: 1px solid transparent;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .primary:focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   box-shadow: var(--shadow-md);
 }
@@ -55,7 +55,7 @@
 /* Variante secundaria — acción alternativa, usando el color de acento */
 .secondary {
   color: #ffffff;
-  background-color: var(--secondary-color);
+  background-color: var(--color-accent);
   border: 1px solid transparent;
 }
 
@@ -65,7 +65,7 @@
 }
 
 .secondary:focus-visible {
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   box-shadow: var(--shadow-md);
 }
@@ -76,18 +76,18 @@
 
 /* Variante terciaria — fondo blanco, bajo énfasis visual */
 .tertiary {
-  color: var(--primary-color);
+  color: var(--color-primary);
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .tertiary:hover:not(:disabled) {
-  background-color: var(--background-color);
+  background-color: var(--color-background);
   box-shadow: var(--shadow-sm);
 }
 
 .tertiary:focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
   box-shadow: var(--shadow-md);
 }
@@ -140,7 +140,7 @@
 
 .tertiary .spinner {
   border: 2px solid rgba(22, 17, 58, 0.2);
-  border-top-color: var(--primary-color);
+  border-top-color: var(--color-primary);
 }
 
 @keyframes spin {

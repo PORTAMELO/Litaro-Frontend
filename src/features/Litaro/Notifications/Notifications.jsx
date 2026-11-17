@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Tab, Tabs, ThemeProvider } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 
 import page from "@/shared/components/Ui/Page.module.css";
 import Toast from "@/shared/components/Ui/Toast";
 import { usePermissions } from "@/shared/hooks/usePermissions";
 import { useToast } from "@/shared/hooks/useToast";
-import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import InboxTab from "./components/InboxTab";
 import RecipientsTab from "./components/RecipientsTab";
 
@@ -22,7 +21,7 @@ const Notifications = () => {
   const activeTab = tabs.some((tab) => tab.value === chosenTab) ? chosenTab : tabs[0]?.value;
 
   return (
-    <ThemeProvider theme={litaroTheme}>
+    <>
       <div className={page.page}>
         <div className={page.header}>
           <h1 className={page.title}>Notificaciones</h1>
@@ -50,7 +49,7 @@ const Notifications = () => {
 
         <Toast toast={toast} onClose={close} />
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 

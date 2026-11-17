@@ -4,7 +4,7 @@
   justify-content: space-between;
   gap: var(--space-md);
   padding: var(--space-sm) 0;
-  font-size: var(--text-md);
+  font-size: var(--text-body);
 }
 
 .settingGroup {
@@ -19,7 +19,7 @@
 .settingGroupTitle {
   margin-bottom: var(--space-xs);
   color: var(--color-text);
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-semibold);
 }
 
@@ -91,12 +91,12 @@
 
 .mutedText {
   color: var(--color-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
 }
 
 .sumNotice {
   color: var(--color-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-regular);
 }
 
@@ -116,7 +116,7 @@
 .areaLost {
   display: inline-block;
   margin-right: var(--space-sm);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   white-space: nowrap;
 }
 
@@ -140,7 +140,7 @@
   margin-right: auto;
   align-self: center;
   color: var(--color-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
 }
 
 .settingsStack {
@@ -156,5 +156,5 @@
 
 .errorText {
   color: #b91c1c;
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
 }

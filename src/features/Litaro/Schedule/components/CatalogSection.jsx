@@ -174,7 +174,7 @@ const CatalogSection = ({
       </div>
 
       {info && (
-        <Alert severity="info" variant="outlined" sx={{ m: "var(--space-md) var(--space-lg) 0", fontSize: "var(--text-sm)" }}>
+        <Alert severity="info" variant="outlined" sx={{ m: "var(--space-md) var(--space-lg) 0", fontSize: "var(--text-label)" }}>
           {info}
         </Alert>
       )}
@@ -237,7 +237,7 @@ const CatalogSection = ({
         fullWidth
         slotProps={{ paper: { sx: { borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-md)" } } }}
       >
-        <DialogTitle sx={{ fontFamily: "Nunito, sans-serif", fontWeight: "var(--font-bold)", fontSize: "var(--text-xl)" }}>
+        <DialogTitle sx={{ fontFamily: "Nunito, sans-serif", fontWeight: "var(--font-bold)", fontSize: "var(--text-title)" }}>
           {dialog.row ? `${editLabel} · ${title}` : `${addLabel} · ${title}`}
         </DialogTitle>
         <DialogContent>

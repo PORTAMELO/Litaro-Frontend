@@ -104,7 +104,7 @@ const PlannerPanelTab = ({ notify }) => {
                   <td>
                     <StatusMark
                       label={row.delivered ? "Entregado" : "Pendiente"}
-                      color={row.delivered ? "var(--primary-color)" : NEUTRAL_COLOR}
+                      color={row.delivered ? "var(--color-primary)" : NEUTRAL_COLOR}
                     />
                   </td>
                   <td>{row.document && formatColombiaDateTime(row.document.uploadedAt)}</td>

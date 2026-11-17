@@ -9,7 +9,7 @@
   margin: 0;
   padding: var(--space-md) var(--space-sm);
 
-  background-color: var(--background-color);
+  background-color: var(--color-background);
   border-right: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: var(--shadow-sm);
 
@@ -60,7 +60,7 @@
 .navigation-profile-title p {
   margin: 0;
 
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: var(--font-bold);
 
   color: var(--color-text);
@@ -76,7 +76,7 @@
 
   margin-top: var(--space-xxs);
 
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-regular);
   line-height: 1.4;
 
@@ -131,7 +131,7 @@
 .navigation-options a:hover,
 .navigation-switch:hover {
   background-color: rgba(22, 17, 58, 0.05);
-  color: var(--primary-color);
+  color: var(--color-primary);
 }
 
 .navigation-switch {
@@ -144,7 +144,7 @@
 .navigation-options a:focus-visible,
 .navigation-switch:focus-visible,
 .navigation-logout-button:focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--color-primary);
   outline-offset: -2px;
 }
 
@@ -156,7 +156,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-semibold);
 
   color: inherit;
@@ -168,19 +168,19 @@
   padding: 0 7px;
   border-radius: 10px;
   background-color: rgba(22, 17, 58, 0.08);
-  color: var(--primary-color);
-  font-size: var(--text-sm);
+  color: var(--color-primary);
+  font-size: var(--text-label);
   font-weight: var(--font-bold);
 }
 
 .icon {
   flex-shrink: 0;
-  font-size: var(--text-xl);
+  font-size: var(--text-title);
 }
 
 .active {
   background-color: rgba(22, 17, 58, 0.08);
-  color: var(--primary-color) !important;
+  color: var(--color-primary) !important;
 }
 
 .active span {

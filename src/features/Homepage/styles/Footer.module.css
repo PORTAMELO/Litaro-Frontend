@@ -1,7 +1,7 @@
 /*Footer*/
 
 .footer {
-    background: var(--primary-color);
+    background: var(--color-primary);
     color: white;
     display: flex;
     flex-wrap: wrap;
@@ -30,13 +30,13 @@
     align-items: center;
     margin: 0;
     gap: 0 var(--space-sm);
-    font-size: var(--text-md);
+    font-size: var(--text-body);
     font-weight: var(--font-medium);
 }
 
 .title {
     flex: 1;
-    font-size: var(--text-lg);
+    font-size: var(--text-subtitle);
     font-weight: var(--font-bold);
     margin-bottom: var(--space-lg);
 }
@@ -55,7 +55,7 @@
 
 .social-section a{
     text-decoration: none;
-    font-size: var(--text-md);
+    font-size: var(--text-body);
     font-weight: var(--font-medium);
     color: white;
 }
@@ -71,11 +71,11 @@
 }
 
 .icon {
-    font-size: var(--text-lg);
+    font-size: var(--text-subtitle);
 }
 
 span {
-    font-size: var(--text-md);
+    font-size: var(--text-body);
 }
 
 @media (max-width: 1200px) {

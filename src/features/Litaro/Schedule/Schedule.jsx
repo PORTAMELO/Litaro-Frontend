@@ -17,8 +17,8 @@ const READ_ONLY_ROLES = [ROLES.TEACHER, ROLES.STUDENT, ROLES.PARENT];
 
 const selectSx = {
   fontFamily: "inherit",
-  fontSize: "var(--text-sm)",
-  "& .MuiSelect-select": { fontSize: "var(--text-sm)" },
+  fontSize: "var(--text-label)",
+  "& .MuiSelect-select": { fontSize: "var(--text-label)" },
 };
 
 const Schedule = () => {

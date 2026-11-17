@@ -7,13 +7,13 @@
   gap: var(--space-xl) var(--space-lg);
   margin: var(--space-lg) var(--space-xl);
   padding: var(--space-lg);
-  background-color: var(--background-color);
+  background-color: var(--color-background);
   
 }
 
 .introduction-card p{
   margin: 0;
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-regular);
   line-height: 1.5;
   white-space: pre-line;

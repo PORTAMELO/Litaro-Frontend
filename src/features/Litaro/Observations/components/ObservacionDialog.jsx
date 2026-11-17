@@ -81,7 +81,7 @@ const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
           pt: "var(--space-lg)",
           pb: "var(--space-sm)",
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-xl)",
+          fontSize: "var(--text-title)",
           fontWeight: "var(--font-bold)",
           color: "var(--color-text)",
         }}
@@ -100,7 +100,7 @@ const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
             <div>
               <Typography
                 sx={{
-                  fontSize: "var(--text-sm)",
+                  fontSize: "var(--text-label)",
                   color: "var(--color-muted)",
                 }}
               >
@@ -109,7 +109,7 @@ const ObservacionDialog = ({ open, student, observation, onClose, onSave }) => {
 
               <Typography
                 sx={{
-                  fontSize: "var(--text-md)",
+                  fontSize: "var(--text-body)",
                   fontWeight: "var(--font-semibold)",
                   color: "var(--color-text)",
                 }}

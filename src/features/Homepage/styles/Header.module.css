@@ -6,7 +6,7 @@
   align-items: center;
   padding: var(--space-sm) 4rem;
   background: #ffffff;
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 2px solid var(--color-primary);
   gap: var(--space-xl);
   
   position: sticky;
@@ -26,9 +26,9 @@
 
 .brand h1 {
   margin: 0;
-  font-size: var(--text-xl);
+  font-size: var(--text-title);
   font-weight: var(--font-bold);
-  color: var(--primary-color);
+  color: var(--color-primary);
 }
 
 /*Logo*/
@@ -36,7 +36,7 @@
 .logo-placeholder {
   width: 4rem;
   height: 4rem;
-  background: var(--primary-color);
+  background: var(--color-primary);
   border-radius: 10px;
   object-fit: cover;
 }
@@ -52,14 +52,14 @@
 .nav a {
   position: relative;
   text-decoration: none;
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: 500;
   color: var(--color-text);
   transition: color 0.2s ease;
 }
 
 .nav a:hover {
-  color: var(--secondary-color);
+  color: var(--color-accent);
 }
 
 .nav a::after {
@@ -69,7 +69,7 @@
   bottom: -6px;
   width: 0%;
   height: 2px;
-  background: var(--secondary-color);
+  background: var(--color-accent);
   transition: width 0.2s ease;
 }
 
@@ -80,7 +80,7 @@
 /*Login Button*/
 
 .login-button {
-  background: var(--secondary-color);
+  background: var(--color-accent);
   color: white !important;
   padding: var(--space-sm) var(--space-lg);
   border-radius: 12px; /*fixed*/
@@ -92,7 +92,7 @@
 
 .login-button:hover {
   transform: translateY(-2px);
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   box-shadow: var(--shadow-sm);
 }
 

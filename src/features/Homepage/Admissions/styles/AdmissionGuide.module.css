@@ -12,7 +12,7 @@
   left: 50%;
   width: 3px;
   height: 100%;
-  background-color: var(--secondary-color);
+  background-color: var(--color-accent);
   transform: translateX(-50%);
 }
 
@@ -48,9 +48,9 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background-color: var(--secondary-color);
+  background-color: var(--color-accent);
   color: white;
-  font-size: var(--text-xl);
+  font-size: var(--text-title);
   font-weight: var(--font-bold);
 }
 
@@ -64,15 +64,15 @@
 
 .guide-card-title {
   margin-bottom: 0.4rem; /*fixed*/
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: var(--font-semibold);
-  color: var(--secondary-color);
+  color: var(--color-accent);
 }
 
 .guide-card-text {
   color: var(--color-muted);
   line-height: 1.5;
-  font-size: var(--text-md);
+  font-size: var(--text-body);
 }
 
 @media (max-width: 1200px) {

@@ -16,7 +16,7 @@
 
 .title {
   margin: 0;
-  font-size: var(--text-xxl);
+  font-size: var(--text-headline);
   font-weight: var(--font-bold);
   line-height: 1.25;
   color: var(--color-text);
@@ -24,7 +24,7 @@
 
 .text {
   margin: 0;
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   line-height: 1.5;
   color: var(--color-muted);
 }
@@ -36,9 +36,9 @@
   margin-top: var(--space-sm);
   padding: 0 var(--space-lg);
   border-radius: var(--radius-md);
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   color: #ffffff;
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: var(--font-semibold);
   text-decoration: none;
 }
@@ -48,6 +48,6 @@
 }
 
 .action:focus-visible {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }

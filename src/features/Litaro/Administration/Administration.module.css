@@ -8,7 +8,7 @@
 
 .container h1 {
   margin: 0;
-  font-size: var(--text-xxl);
+  font-size: var(--text-headline);
   font-weight: var(--font-bold);
   color: var(--color-text);
 }

@@ -240,7 +240,7 @@ const GradeSheetTab = ({ options, can, notify }) => {
 
         {sheet && (
           <>
-            <StatusMark label={sheet.periodClosed ? "Cerrado" : "Abierto"} color={sheet.periodClosed ? NEUTRAL_COLOR : "var(--primary-color)"} />
+            <StatusMark label={sheet.periodClosed ? "Cerrado" : "Abierto"} color={sheet.periodClosed ? NEUTRAL_COLOR : "var(--color-primary)"} />
             {sheet.designLocked && <StatusMark label="Diseño bloqueado" color={NEUTRAL_COLOR} />}
           </>
         )}

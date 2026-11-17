@@ -65,7 +65,7 @@
 .info h3 {
   margin: 0;
 
-  font-size: var(--text-xl);
+  font-size: var(--text-title);
   font-weight: var(--font-bold);
 
   color: #ffffff;
@@ -74,7 +74,7 @@
 .info p {
   margin: 0;
 
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-medium);
 
   color: #ffffff;
@@ -89,7 +89,7 @@
   margin-top: var(--space-md);
 
   color: #ffffff;
-  font-size: var(--text-xl);
+  font-size: var(--text-title);
 }
 
 .actions svg {

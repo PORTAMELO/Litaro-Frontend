@@ -16,7 +16,7 @@
   max-width: 15rem;
   display: flex;
   flex-direction: column;
-  background: var(--background-color);
+  background: var(--color-background);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
 }
@@ -36,11 +36,11 @@
   height: 5.6rem;
   border-radius: 50%;
   object-fit: cover;
-  background: var(--background-color);
+  background: var(--color-background);
 }
 
 .name {
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: var(--font-bold);
   text-align: center;
   color: var(--color-text);
@@ -61,7 +61,7 @@
 /* Role */
 
 .role {
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: 700;
   color: var(--color-text);
   margin: 0 0 1rem 0;
@@ -70,7 +70,7 @@
 /* Description */
 
 .description {
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   line-height: 1.5;
   color: var(--color-muted);
   margin: 0;

@@ -12,7 +12,7 @@
     max-width: 18rem;
     display: flex;
     flex-direction: column;
-    background: var(--background-color);
+    background: var(--color-background);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
 }
@@ -35,15 +35,15 @@
 }
 
 .lower-level-card h4 {
-    font-size: var(--text-lg);
+    font-size: var(--text-subtitle);
     font-weight: var(--font-bold);
     color: var(--color-text);
     margin: 0;
 }
 
 .lower-level-card p {
-    font-size: var(--text-md);
-    font-weight: var(--text-regular);
+    font-size: var(--text-body);
+    font-weight: var(--font-regular);
     line-height: 1.5;
     color: var(--color-muted);
 }

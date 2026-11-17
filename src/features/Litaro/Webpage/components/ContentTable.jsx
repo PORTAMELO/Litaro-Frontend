@@ -127,7 +127,7 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
         border: "1px solid rgba(0, 0, 0, 0.08)",
         borderRadius: "var(--radius-md)",
         boxShadow: "var(--shadow-sm)",
-        backgroundColor: "var(--background-color)",
+        backgroundColor: "var(--color-background)",
 
         "& .MuiDataGrid-columnHeaders": {
           minHeight: "2.8rem !important",
@@ -138,14 +138,14 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
 
         "& .MuiDataGrid-columnHeaderTitle": {
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-sm)",
+          fontSize: "var(--text-label)",
           fontWeight: "var(--font-bold)",
           color: "var(--color-text)",
         },
 
         "& .MuiDataGrid-cell": {
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-sm)",
+          fontSize: "var(--text-label)",
           color: "var(--color-text)",
           borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
         },
@@ -162,7 +162,7 @@ const ContentTable = ({ rows, onEdit, onDelete, onActivate, onDeactivate }) => {
 
         "& .MuiTablePagination-root": {
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-sm)",
+          fontSize: "var(--text-label)",
         },
       }}
     />

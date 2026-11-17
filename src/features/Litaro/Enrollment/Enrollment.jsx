@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, IconButton, Tab, Tabs, TextField, ThemeProvider } from "@mui/material";
+import { Button, IconButton, Tab, Tabs, TextField } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import styles from "./Enrollment.module.css";
-import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import * as service from "./services/EnrollmentService";
 import { usePermissions } from "@/shared/hooks/usePermissions";
 import { useToast } from "@/shared/hooks/useToast";
@@ -127,7 +126,7 @@ const Enrollment = () => {
   );
 
   return (
-    <ThemeProvider theme={litaroTheme}>
+    <>
       <div className={styles.page}>
         <div className={styles.header}>
           <div>
@@ -265,7 +264,7 @@ const Enrollment = () => {
 
         <Toast toast={toast} onClose={closeToast} />
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 

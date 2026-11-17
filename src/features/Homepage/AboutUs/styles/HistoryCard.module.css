@@ -5,12 +5,12 @@
   gap: var(--space-xl) var(--space-lg);
   margin: var(--space-lg) var(--space-xl);
   padding: var(--space-lg);
-  background-color: var(--background-color);
+  background-color: var(--color-background);
 }
 
 .introduction-section p{
   margin: 0;
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-regular);
   line-height: 1.5;
   white-space: pre-line;
@@ -35,7 +35,7 @@
 .next-image{
   width: 10%;
   cursor: pointer;
-  color: var(--primary-color);
+  color: var(--color-primary);
   transition: transform 0.2s ease,
               opacity 0.2s ease;
 }
@@ -44,7 +44,7 @@
 .next-image:hover{
   transform: translateY(-2px);
   opacity: 0.8;
-  color: var(--secondary-color);
+  color: var(--color-accent);
 }
 
 @media (max-width: 1200px) {

@@ -162,7 +162,7 @@ const WeekEventsBoard = ({ events = [] }) => {
                     <article
                       key={`${day.key}-${index}`}
                       className={styles.eventCard}
-                      style={{ borderLeftColor: event.color || "var(--primary-color)" }}
+                      style={{ borderLeftColor: event.color || "var(--color-primary)" }}
                     >
                       <h4 className={styles.eventTitle}>{event.title}</h4>
 

@@ -1,45 +1,61 @@
 import { createTheme } from "@mui/material/styles";
 
+import { breakpoints, colors, fontFamily, fontWeight, leading, radius, shadow, text } from "./tokens";
+
+// Tema de MUI construido desde tokens.js. Se aplica una sola vez, en main.jsx.
 export const litaroTheme = createTheme({
+  breakpoints: {
+    values: { xs: 0, sm: breakpoints.mobile, md: breakpoints.tablet, lg: breakpoints.desktop, xl: 1536 },
+  },
   palette: {
-    primary: { main: "#16113a" },
-    error: { main: "#b91c1c" },
-    warning: { main: "#d97706" },
-    success: { main: "#0f9d58" },
-    info: { main: "#2563eb" },
-    text: { primary: "#111827", secondary: "#6b7280" },
-    divider: "rgba(0, 0, 0, 0.08)",
+    primary: { main: colors.primary, dark: colors.primaryHover, contrastText: colors.onPrimary },
+    error: { main: colors.error },
+    warning: { main: colors.warning, dark: colors.warningText },
+    success: { main: colors.success, dark: colors.successText },
+    info: { main: colors.info },
+    text: { primary: colors.text, secondary: colors.textMuted, disabled: colors.textDisabled },
+    divider: colors.border,
+    background: { default: colors.background, paper: colors.surface },
   },
   shape: { borderRadius: 8 },
   typography: {
-    fontFamily: "inherit",
-    body1: { fontSize: "0.8rem" },
-    body2: { fontSize: "0.7rem" },
-    button: { fontSize: "0.8rem", fontWeight: 600, textTransform: "none" },
+    fontFamily,
+    h4: { fontSize: text.headline, fontWeight: fontWeight.bold, lineHeight: leading.headline },
+    h5: { fontSize: text.headline, fontWeight: fontWeight.bold, lineHeight: leading.headline },
+    h6: { fontSize: text.title, fontWeight: fontWeight.bold, lineHeight: leading.title },
+    subtitle1: { fontSize: text.subtitle, fontWeight: fontWeight.bold, lineHeight: leading.subtitle },
+    subtitle2: { fontSize: text.label, fontWeight: fontWeight.semibold, lineHeight: leading.label },
+    body1: { fontSize: text.body, lineHeight: leading.body },
+    body2: { fontSize: text.label, lineHeight: leading.label },
+    caption: { fontSize: text.caption, lineHeight: leading.caption },
+    button: { fontSize: text.label, fontWeight: fontWeight.semibold, textTransform: "none" },
   },
   components: {
     MuiButton: {
       defaultProps: { disableElevation: true },
-      styleOverrides: { root: { padding: "6px 14px", lineHeight: 1.3 } },
+      styleOverrides: { root: { padding: "6px 16px", lineHeight: leading.label } },
     },
     MuiOutlinedInput: {
       styleOverrides: {
-        root: { backgroundColor: "#ffffff", fontSize: "0.8rem" },
+        root: { backgroundColor: colors.surface, fontSize: text.body },
         input: { padding: "8px 12px" },
       },
     },
+    MuiInputLabel: {
+      styleOverrides: { root: { fontSize: text.body } },
+    },
     MuiTab: {
       defaultProps: { disableRipple: true },
-      styleOverrides: { root: { minHeight: 44, padding: "8px 16px", fontSize: "0.8rem" } },
+      styleOverrides: { root: { minHeight: 44, padding: "8px 16px", fontSize: text.label } },
     },
     MuiMenuItem: {
-      styleOverrides: { root: { fontSize: "0.8rem" } },
+      styleOverrides: { root: { fontSize: text.body } },
     },
     MuiPopover: {
-      styleOverrides: { paper: { borderRadius: 12, boxShadow: "0 8px 24px rgba(0, 0, 0, 0.12)" } },
+      styleOverrides: { paper: { borderRadius: radius.md, boxShadow: shadow.md } },
     },
     MuiDialog: {
-      styleOverrides: { paper: { borderRadius: 16 } },
+      styleOverrides: { paper: { borderRadius: radius.lg, boxShadow: shadow.lg } },
     },
   },
 });

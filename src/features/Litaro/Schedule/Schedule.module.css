@@ -13,7 +13,7 @@
 
 .title {
   margin: 0;
-  font-size: var(--text-xxl);
+  font-size: var(--text-headline);
   font-weight: var(--font-bold);
   color: var(--color-text);
 }
@@ -21,18 +21,18 @@
 .subtitle {
   margin: var(--space-xs) 0 0;
   color: var(--color-muted);
-  font-size: var(--text-md);
+  font-size: var(--text-body);
 }
 
 .emptyText {
   padding: var(--space-md) var(--space-lg);
   color: var(--color-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
 }
 
 .filtersCard,
 .card {
-  background-color: var(--background-color);
+  background-color: var(--color-background);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -49,7 +49,7 @@
 .sectionTitle {
   display: block;
   margin-bottom: var(--space-md) !important;
-  font-size: var(--text-md) !important;
+  font-size: var(--text-body) !important;
   font-weight: var(--font-bold) !important;
   color: var(--color-text);
 }
@@ -74,7 +74,7 @@
 }
 
 .filter label {
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-semibold);
   color: var(--color-text);
 }
@@ -88,7 +88,7 @@
   flex-wrap: wrap;
   gap: var(--space-md);
   margin-top: var(--space-md);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   color: var(--color-muted);
 }
 
@@ -118,7 +118,7 @@
 }
 
 .cardTitle {
-  font-size: var(--text-lg) !important;
+  font-size: var(--text-subtitle) !important;
   font-weight: var(--font-bold) !important;
   color: var(--color-text);
 }
@@ -126,7 +126,7 @@
 .cardSubtitle {
   margin-top: 2px !important;
   color: var(--color-muted);
-  font-size: var(--text-sm) !important;
+  font-size: var(--text-label) !important;
 }
 
 .editorWithSide {
@@ -157,7 +157,7 @@
   justify-content: space-between;
   min-height: 36px;
   padding: var(--space-xs) var(--space-sm);
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-bold);
   color: var(--color-text);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
@@ -174,7 +174,7 @@
 .dayEmpty {
   margin: var(--space-sm) 0;
   text-align: center;
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   color: var(--color-muted);
 }
 
@@ -205,19 +205,19 @@
 }
 
 .blockTime {
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-bold);
 }
 
 .blockTitle {
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   font-weight: var(--font-semibold);
 }
 
 .blockSubtitle,
 .blockType,
 .blockSpace {
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   color: var(--color-muted);
 }
 
@@ -243,7 +243,7 @@
 .progressRow {
   display: flex;
   justify-content: space-between;
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
 }
 
 .progressSubject {
@@ -281,7 +281,7 @@
   text-align: left;
   background-color: rgba(22, 17, 58, 0.04);
   color: var(--color-text);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-bold);
   white-space: nowrap;
 }
@@ -290,7 +290,7 @@
   padding: var(--space-sm) var(--space-md);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   font-family: inherit;
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   color: var(--color-text);
   vertical-align: middle;
 }

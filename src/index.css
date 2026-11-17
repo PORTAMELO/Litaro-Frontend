@@ -32,6 +32,36 @@ body {
   line-height: var(--leading-body);
 }
 
+/* Contorno de foco de DESIGN.md para todo lo que se alcanza con el teclado. Sobre
+   fondos oscuros, cada componente lo cambia a --color-accent. Los campos de MUI
+   tienen su propio estado de foco y no lo llevan. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[role="tab"]:focus-visible,
+[tabindex]:not(.MuiInputBase-input):not([tabindex="-1"]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Movimiento reducido: sin desplazamientos ni brillos decorativos. Los cambios de
+   color y opacidad se conservan para que el cambio de estado se siga notando, y los
+   indicadores de carga siguen girando porque informan. Es el único lugar con
+   !important: debe ganar sobre cualquier componente. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-property: color, background-color, border-color, opacity, box-shadow !important;
+  }
+
+  .MuiSkeleton-root,
+  .MuiSkeleton-root::after {
+    animation: none !important;
+  }
+}
+
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-on-primary);

@@ -282,6 +282,7 @@ const InboxTab = ({ canMarkDone, notify }) => {
             <Tooltip title="Anterior">
               <span>
                 <IconButton
+                  aria-label="Página anterior"
                   size="small"
                   disabled={data.page <= 1 || loading}
                   onClick={() => setPageNumber(data.page - 1)}
@@ -293,6 +294,7 @@ const InboxTab = ({ canMarkDone, notify }) => {
             <Tooltip title="Siguiente">
               <span>
                 <IconButton
+                  aria-label="Página siguiente"
                   size="small"
                   disabled={data.page >= lastPage || loading}
                   onClick={() => setPageNumber(data.page + 1)}

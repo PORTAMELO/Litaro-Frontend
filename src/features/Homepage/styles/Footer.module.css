@@ -2,7 +2,7 @@
 
 .footer {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-on-primary);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -84,4 +84,9 @@ span {
         padding: 0;
         display: none;
     }
+}
+
+/* Sobre el azul marino, el contorno de foco va en el verde de acento. */
+.footer a:focus-visible {
+  outline-color: var(--color-accent);
 }

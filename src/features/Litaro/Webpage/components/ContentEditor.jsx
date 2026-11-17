@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useId } from "react";
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Stack } from "@mui/material";
 
 const ColorField = ({ label, value, onCommit }) => {
   const [localValue, setLocalValue] = useState(value || "#000000");
+  const inputId = useId();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -12,8 +13,11 @@ const ColorField = ({ label, value, onCommit }) => {
 
   return (
     <Stack spacing={0.5}>
-      <label style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>{label}</label>
+      <label htmlFor={inputId} style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>
+        {label}
+      </label>
       <input
+        id={inputId}
         type="color"
         value={localValue}
         onChange={(e) => setLocalValue(e.target.value)}

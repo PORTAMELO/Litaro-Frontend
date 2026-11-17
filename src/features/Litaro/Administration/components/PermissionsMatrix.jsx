@@ -273,6 +273,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                         <Tooltip title="Guardar">
                                             <span>
                                                 <IconButton
+                                                    aria-label="Guardar"
                                                     size="small"
                                                     disabled={!canEdit || savingTable === row.tableName}
                                                     onClick={() => handleSaveRow(row)}

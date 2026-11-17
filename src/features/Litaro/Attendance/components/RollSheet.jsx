@@ -183,6 +183,7 @@ const RollSheetForm = ({ sheet, notify, onSaved }) => {
                           <Tooltip title={isTardy ? "Quitar tardanza" : "Tardanza"}>
                             <span>
                               <IconButton
+                                aria-label={isTardy ? "Quitar tardanza" : "Tardanza"}
                                 size="small"
                                 color={isTardy ? "primary" : "default"}
                                 disabled={locked}

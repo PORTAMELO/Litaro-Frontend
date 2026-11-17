@@ -9,7 +9,7 @@ import styles from "../Grades.module.css";
 export const ViewButton = ({ disabled, onClick }) => (
   <Tooltip title="Ver">
     <span>
-      <IconButton size="small" disabled={disabled} onClick={onClick}>
+      <IconButton aria-label="Ver" size="small" disabled={disabled} onClick={onClick}>
         <VisibilityOutlinedIcon fontSize="small" />
       </IconButton>
     </span>
@@ -19,7 +19,7 @@ export const ViewButton = ({ disabled, onClick }) => (
 export const UploadButton = ({ replace, disabled, onFile }) => (
   <Tooltip title={replace ? "Reemplazar" : "Cargar"}>
     <span>
-      <IconButton size="small" component="label" disabled={disabled}>
+      <IconButton aria-label={replace ? "Reemplazar" : "Cargar"} size="small" component="label" disabled={disabled}>
         <UploadFileOutlinedIcon fontSize="small" />
         <input
           type="file"
@@ -44,7 +44,7 @@ export const DeleteButton = ({ disabled, onConfirm }) => {
     <>
       <Tooltip title="Eliminar">
         <span>
-          <IconButton size="small" disabled={disabled} onClick={() => setConfirming(true)}>
+          <IconButton aria-label="Eliminar" size="small" disabled={disabled} onClick={() => setConfirming(true)}>
             <DeleteOutlineIcon fontSize="small" />
           </IconButton>
         </span>

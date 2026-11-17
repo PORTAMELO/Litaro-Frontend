@@ -160,8 +160,8 @@ const ScheduleAdmin = ({ can, notify, notifyError }) => {
         <div className={styles.filtersGrid}>
           {showYear && (
             <div className={styles.filter}>
-              <label>Año académico</label>
-              <Select size="small" value={yearId} onChange={(e) => setYearId(e.target.value)} fullWidth sx={selectSx}>
+              <label id="horario-anio">Año académico</label>
+              <Select labelId="horario-anio" size="small" value={yearId} onChange={(e) => setYearId(e.target.value)} fullWidth sx={selectSx}>
                 {lookups.years.map((year) => (
                   <MenuItem key={year.id} value={year.id}>
                     {year.label}
@@ -173,8 +173,8 @@ const ScheduleAdmin = ({ can, notify, notifyError }) => {
 
           {showCampus && (
             <div className={styles.filter}>
-              <label>Sede</label>
-              <Select size="small" value={campusId} onChange={(e) => setCampusId(e.target.value)} fullWidth sx={selectSx}>
+              <label id="horario-sede">Sede</label>
+              <Select labelId="horario-sede" size="small" value={campusId} onChange={(e) => setCampusId(e.target.value)} fullWidth sx={selectSx}>
                 {lookups.campuses.map((campus) => (
                   <MenuItem key={campus.id} value={campus.id}>
                     {campus.label}

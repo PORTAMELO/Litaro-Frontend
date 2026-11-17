@@ -55,7 +55,7 @@
 
 /* Variante secundaria — acción alternativa, usando el color de acento */
 .secondary {
-  color: var(--color-on-primary);
+  color: var(--color-primary);
   background-color: var(--color-accent);
   border: 1px solid transparent;
 }

@@ -154,8 +154,9 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
       <section className={styles.filtersCard}>
         <div className={styles.editorFilters}>
           <div className={styles.filter}>
-            <label>Ver horario de</label>
+            <label id="horario-ver-por">Ver horario de</label>
             <ToggleButtonGroup
+              aria-labelledby="horario-ver-por"
               size="small"
               exclusive
               value={viewBy}
@@ -169,8 +170,9 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
           </div>
 
           <div className={styles.filter}>
-            <label>{{ classroom: "Salón", teacher: "Docente", space: "Espacio" }[viewBy]}</label>
+            <label id="horario-seleccion">{{ classroom: "Salón", teacher: "Docente", space: "Espacio" }[viewBy]}</label>
             <Select
+              labelId="horario-seleccion"
               size="small"
               value={selectedId}
               onChange={(e) => setChosenId(e.target.value)}

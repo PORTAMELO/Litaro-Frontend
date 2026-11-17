@@ -98,7 +98,12 @@ const PlannersTab = ({ notify }) => {
                     {!canUpload && !row.delivered && (
                       <Tooltip title={row.requestPending ? "Solicitud enviada" : "Enviar solicitud"}>
                         <span>
-                          <IconButton size="small" disabled={row.requestPending} onClick={() => setRequesting(row)}>
+                          <IconButton
+                            aria-label={row.requestPending ? "Solicitud enviada" : "Enviar solicitud"}
+                            size="small"
+                            disabled={row.requestPending}
+                            onClick={() => setRequesting(row)}
+                          >
                             <SendOutlinedIcon fontSize="small" />
                           </IconButton>
                         </span>

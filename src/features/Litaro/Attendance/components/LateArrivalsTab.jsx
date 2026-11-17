@@ -86,6 +86,7 @@ const LateArrivalsTab = ({ options, can, notify }) => {
                         <Tooltip title="Deshacer">
                           <span>
                             <IconButton
+                              aria-label="Deshacer"
                               size="small"
                               disabled={busy}
                               onClick={() => run(() => service.deleteLateArrival(row.lateArrivalId), "Llegada eliminada.")}

@@ -204,6 +204,10 @@
   background-color: var(--color-error);
 }
 
+.toast button:focus-visible {
+  outline-color: var(--color-accent);
+}
+
 .toastBody {
   display: flex;
   flex-direction: column;

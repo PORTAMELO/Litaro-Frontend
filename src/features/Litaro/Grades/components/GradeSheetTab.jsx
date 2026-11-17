@@ -265,7 +265,7 @@ const GradeSheetTab = ({ options, can, notify }) => {
           <table className={`${page.table} ${styles.sheet}`}>
             <thead>
               <tr>
-                <th rowSpan={2}>Estudiante</th>
+                <th rowSpan={2} className={styles.studentCell}>Estudiante</th>
                 <th colSpan={Math.max(hetero.length, 1) + (sheet.canEditDesign ? 1 : 0)} className={styles.groupHeader}>
                   Heteroevaluación 70 %
                   {weighted && Number(sheet.weightSum) !== 100 && (
@@ -323,7 +323,7 @@ const GradeSheetTab = ({ options, can, notify }) => {
             <tbody>
               {sheet.students.map((row) => (
                 <tr key={row.enrollmentId}>
-                  <td>{row.studentName}</td>
+                  <td className={styles.studentCell}>{row.studentName}</td>
                   {hetero.length === 0 && <td />}
                   {hetero.map((activity) => (
                     <td key={activity.activityId} className={`${page.cellCenter} ${styles.scoreCell}`}>

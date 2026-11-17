@@ -12,6 +12,7 @@ import NewStudentsTab from "./components/NewStudentsTab";
 import MovementsTab from "./components/MovementsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
+import SettingsTab from "./components/SettingsTab";
 import { TableSkeleton } from "../../../shared/components/Ui/Ui";
 import Toast from "../../../shared/components/Ui/Toast";
 
@@ -23,9 +24,11 @@ const Enrollment = () => {
   const viewer = can("EnrollmentProcess", "read");
   const staff = can("EnrollmentProcess", "create") || can("EnrollmentProcess", "update");
   const rector = can("AdmissionDecision", "update");
+  const settingsViewer = can("EnrollmentSettings", "read");
   const mover = can("StudentMovement", "read");
 
   const [options, setOptions] = useState(null);
+  const [formOptions, setFormOptions] = useState(null);
   const [optionsError, setOptionsError] = useState(null);
   const [chosenYear, setChosenYear] = useState(null);
   const [version, setVersion] = useState(0);
@@ -51,6 +54,15 @@ const Enrollment = () => {
       })
       .catch((error) => {
         if (!cancelled) setOptionsError(error.message ?? "No fue posible cargar los años.");
+      });
+
+    service
+      .getFormOptions()
+      .then((result) => {
+        if (!cancelled) setFormOptions(result ?? null);
+      })
+      .catch(() => {
+        if (!cancelled) setFormOptions(null);
       });
 
     return () => {
@@ -202,12 +214,14 @@ const Enrollment = () => {
               {viewer && <Tab value="old" label={tabLabel("Antiguos", waiting)} />}
               {viewer && <Tab value="new" label={tabLabel("Nuevos", pendingRequests)} />}
               {mover && <Tab value="moves" label="Novedades" />}
+              {viewer && settingsViewer && <Tab value="settings" label="Parámetros" />}
             </Tabs>
 
             {loaded && activeTab === "old" && (
               <OldStudentsTab
                 yearId={yearId}
                 rows={current.pre}
+                formOptions={formOptions}
                 period={current.period}
                 canManage={staff}
                 canRestore={can("EnrollmentProcess", "update")}
@@ -221,7 +235,7 @@ const Enrollment = () => {
               <NewStudentsTab
                 yearId={yearId}
                 rows={current.admissions}
-                grades={options?.grades ?? []}
+                formOptions={formOptions}
                 period={current.period}
                 canCreate={staff}
                 canDecide={rector}
@@ -234,6 +248,8 @@ const Enrollment = () => {
             {mover && activeTab === "moves" && (
               <MovementsTab canExecute={can("StudentMovement", "update")} notify={notify} />
             )}
+
+            {viewer && settingsViewer && activeTab === "settings" && <SettingsTab can={can} notify={notify} />}
           </>
         )}
 

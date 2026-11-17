@@ -27,8 +27,6 @@ export const ENROLLMENT_STATUS = {
   FAILED: { label: "Reprobado", color: "#b91c1c" },
 };
 
-export const DOCUMENT_TYPES = ["RC", "TI", "CC", "CE", "NUIP", "PEP", "PPT"];
-
 const toUtc = (value) => {
   const { year, month, day } = parseDay(value);
   return Date.UTC(year, month - 1, day);

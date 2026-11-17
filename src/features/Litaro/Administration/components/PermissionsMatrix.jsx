@@ -79,6 +79,7 @@ const PROCESS_LABELS = {
     StudyPlanner: "Plan de estudio",
     StudyPlannerPanel: "Seguimiento de planes de estudio",
     GradeSettings: "Parámetros de notas",
+    EnrollmentSettings: "Parámetros de matrícula",
 };
 
 const GROUPS = [

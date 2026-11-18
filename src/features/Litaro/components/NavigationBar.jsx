@@ -9,6 +9,7 @@ import {
   MdLogout,
   MdSchedule,
   MdHowToReg,
+  MdManageHistory,
   MdNotifications,
 } from "react-icons/md";
 import { TbFileReport, TbMessageReportFilled } from "react-icons/tb";
@@ -108,6 +109,13 @@ const navigationItems = {
     path: "/Litaro/Security",
     icon: MdOutlineSecurity,
     keys: ["SecurityModule"],
+  },
+
+  audit: {
+    label: "Auditoría",
+    path: "/Litaro/Audit",
+    icon: MdManageHistory,
+    keys: ["AuditModule"],
   },
 
   webpage: {

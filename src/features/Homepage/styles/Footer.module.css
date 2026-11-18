@@ -1,92 +1,73 @@
-/*Footer*/
-
 .footer {
-    background: var(--color-primary);
-    color: var(--color-on-primary);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-
-    gap: var(--space-lg);
-    margin: 0;
-    margin-top: var(--space-xl);
-    padding: 3rem 5rem; /*fixed*/
+  padding-block: var(--space-xxl);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
-/*Contact Section*/
-
-.contact-section {
-    flex: 2;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--space-sm);
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-xl);
 }
 
-.contact-section p{
-    display: flex;
-    align-items: center;
-    margin: 0;
-    gap: 0 var(--space-sm);
-    font-size: var(--text-body);
-    font-weight: var(--font-medium);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .title {
-    flex: 1;
-    font-size: var(--text-subtitle);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--space-lg);
+  font-size: var(--text-title);
+  font-weight: var(--font-bold);
 }
 
-/*Social Section*/
-
-.social-section{
-    flex: 1;
-    max-width: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: var(--space-sm);
+.contact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md) var(--space-xl);
+  margin-top: var(--space-lg);
 }
 
-.social-section a{
-    text-decoration: none;
-    font-size: var(--text-body);
-    font-weight: var(--font-medium);
-    color: white;
-}
-
-.social-section a:hover{
-    opacity: 0.8;
+.socials {
+  display: grid;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  list-style: none;
 }
 
 .social {
-    display: flex;
-    align-items: center;
-    gap: 0 var(--space-sm);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-height: var(--control-height);
+  margin-left: calc(-1 * var(--space-sm));
+  padding: 0 var(--space-sm);
+  border-radius: var(--radius-md);
+  color: var(--color-on-primary);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
 }
 
-.icon {
-    font-size: var(--text-subtitle);
+.social:hover {
+  background-color: var(--color-on-primary-tint);
 }
 
-span {
-    font-size: var(--text-body);
-}
-
-@media (max-width: 1199.98px) {
-    .footer {
-        margin: 0;
-        padding: 0;
-        display: none;
-    }
-}
-
-/* Sobre el azul marino, el contorno de foco va en el verde de acento. */
-.footer a:focus-visible {
+.social:focus-visible {
   outline-color: var(--color-accent);
+}
+
+.socialIcon {
+  font-size: var(--text-title);
+}
+
+@media (max-width: 899.98px) {
+  .footer {
+    display: none;
+  }
 }

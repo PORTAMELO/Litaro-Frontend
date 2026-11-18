@@ -1,261 +1,209 @@
-/*Calendar Board*/
-
-.CalendarBoard {
+.layout {
   display: grid;
-  grid-template-columns: 13fr 7fr;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  gap: var(--space-lg);
   align-items: start;
-  gap: var(--space-xl) var(--space-lg);
-  margin: var(--space-lg) var(--space-xl);
-  padding: var(--space-lg);
-  background-color: var(--color-background);
-}
-
-.wrapper {
-  position: relative;
-  padding: var(--space-md);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-  min-width: 0;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
   gap: var(--space-sm);
 }
 
-.monthCard {
-  background: var(--color-surface);
+.month {
+  display: block;
+  padding: var(--space-sm);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 12px 10px; /*fixed*/
-  min-width: 10rem; /*fixed*/
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.monthCard:hover {
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
   cursor: pointer;
-  border-color: var(--color-primary);
 }
 
-.monthCardSelected {
-  border: 2px solid var(--color-primary);
+.month:hover {
+  border-color: var(--color-border-input);
+}
+
+.month[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-tint);
+}
+
+.monthHead {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-xs);
 }
 
 .monthName {
-  font-size: var(--text-label);
-  font-weight: var(--font-semibold);
-  color: var(--color-muted);
-  margin: 0 0 6px 2px; /*fixed*/
-}
-
-/* ---------- TOOLTIP ---------- */
-
-.tooltip {
-  position: fixed;
-  background: var(--color-surface);
-  border: 0.5px solid var(--color-border); /*fixed*/
-  border-radius: var(--radius-md);
-  padding: 8px 12px; /*fixed*/
-  font-size: var(--text-body);
-  color: var(--color-text);
-  box-shadow: var(--shadow-md);
-  pointer-events: none;
-  z-index: 1000;
-}
-
-.tooltipTitle {
-  font-weight: var(--font-semibold);
-}
-
-.tooltipCat {
-  color: var(--color-muted);
-  font-size: var(--text-label);
-}
-
-.tooltipDate {
-  color: var(--color-muted);
-  font-size: var(--text-label);
-  margin-top: 2px; /*fixed*/
-}
-
-.wrapper :global(.react-calendar) {
-  width: 100%;
-  border: none;
-  background: transparent;
-  font-size: var(--text-subtitle);
-}
-
-.wrapper :global(.react-calendar__navigation) {
-  display: none;
-}
-
-.wrapper :global(.react-calendar__tile) {
-  position: relative;
-  overflow: hidden;
-  pointer-events: none;
-  cursor: default;
-  padding: 6px 0; /*fixed*/
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-}
-
-.tileOverlay {
-  position: absolute;
-  inset: 2px; /*fixed*/
-  border-radius: var(--radius-md);
-  z-index: 0;
-}
-
-.wrapper :global(.react-calendar__tile abbr) {
-  position: relative;
-  z-index: 1;
-}
-
-.hasEvent {
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-.wrapper :global(.hasEvent:hover) {
-  filter: brightness(0.95);
-}
-
-.wrapper :global(.react-calendar__tile--now) {
-  background: var(--color-info-bg);
-  color: var(--color-primary)
-}
-
-.wrapper :global(.react-calendar__month-view__weekdays) {
+  font-weight: var(--font-bold);
   text-transform: capitalize;
 }
 
-.wrapper :global(.react-calendar__month-view__weekdays__weekday abbr) {
-  text-decoration: none;
+.monthCount {
+  color: var(--color-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--font-semibold);
 }
 
-.wrapper :global(.react-calendar__month-view__days__day--weekend) {
-  color: var(--color-text)
+.mini {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  font-size: var(--text-caption);
+  text-align: center;
 }
 
-
-.EventPanel {
-  display: flex;
-  flex-direction: column;
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  padding: var(--space-md);
-  margin-top: var(--space-md);
-  min-width: 0;
+.weekday {
+  color: var(--color-muted);
+  font-weight: var(--font-bold);
 }
 
-.EventPanelHeader {
-  display: flex;
-  flex-wrap: wrap;
+.day {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+}
+
+.hasEvent {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: var(--font-bold);
+}
+
+.today {
+  box-shadow: inset 0 0 0 1.5px var(--color-accent);
+  font-weight: var(--font-bold);
+}
+
+/* Carrusel de meses: solo por debajo de 900 px. */
+.carouselNav {
+  display: none;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-xs);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--color-border);
+  gap: var(--space-sm);
+  width: min(100%, 420px);
+  margin: 0 auto var(--space-sm);
 }
 
-.EventPanelTitle {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  margin: 0;
-  font-size: var(--text-subtitle);
-  font-weight: var(--font-bold);
-  color: var(--color-text);
-}
-
-.EventCount {
-  font-size: var(--text-label);
-  font-weight: var(--font-semibold);
-  color: var(--color-on-primary);
-  background: var(--color-primary);
-  border-radius: 999px;
-  padding: 1px 8px; 
-}
-
-.ShowAllButton {
-  font-family: inherit;
-  font-size: var(--text-body);
-  font-weight: var(--font-semibold);
-  color: var(--color-primary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.EventList {
+.carouselLabel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
-  max-height: 36rem; 
-  overflow-y: auto;
-  padding-top: var(--space-sm);
-  padding-right: var(--space-xs);
-}
-
-.EventItem {
-  display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-md);
+  font-size: var(--text-title);
+  line-height: 1.2;
 }
 
-.EventItem:hover {
-  background: var(--color-background);
-}
-
-.EventDot {
-  width: 16px; 
-  height: 16px; 
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.EventTitle {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
-  font-size: var(--text-body);
-  color: var(--color-text);
-}
-
-.EventDate {
-  flex-shrink: 0;
+.carouselCount {
+  color: var(--color-muted);
   font-size: var(--text-label);
+  font-weight: var(--font-semibold);
+}
+
+.panel {
+  position: sticky;
+  top: 96px;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.panelHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.panelTitle {
+  font-size: var(--text-title);
+  font-weight: var(--font-bold);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-sm);
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.itemDate {
+  display: grid;
+  place-items: center;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-tint-strong);
+  color: var(--color-primary);
+  font-size: var(--text-caption);
+  font-weight: var(--font-bold);
+  line-height: 1.1;
+}
+
+.itemDay {
+  font-size: var(--text-subtitle);
+}
+
+.itemTitle {
+  font-weight: var(--font-semibold);
+}
+
+.empty {
   color: var(--color-muted);
-}
-
-.EmptyList {
-  margin: var(--space-md) 0;
-  text-align: center;
-  font-size: var(--text-body);
-  color: var(--color-muted);
-  font-style: italic;
-}
-
-.EventList::-webkit-scrollbar {
-  width: 6px; 
-}
-
-.EventList::-webkit-scrollbar-thumb {
-  background: var(--color-border-input);
-  border-radius: 999px;
 }
 
 @media (max-width: 1199.98px) {
-  .CalendarBoard {
+  .layout {
     grid-template-columns: 1fr;
   }
 
-  .EventList {
-    max-height: 24rem; 
+  .panel {
+    position: static;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .carouselNav {
+    display: flex;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .month {
+    justify-self: center;
+    width: min(100%, 420px);
+  }
+
+  .month:not(.current) {
+    display: none;
+  }
+
+  .monthHead {
+    display: none;
+  }
+
+  .mini {
+    gap: var(--space-xxs);
+    font-size: var(--text-body);
+  }
+
+  .day {
+    justify-self: center;
+    width: 40px;
+    height: 40px;
+    aspect-ratio: auto;
   }
 }

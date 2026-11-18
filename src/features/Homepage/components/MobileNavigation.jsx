@@ -6,7 +6,7 @@ import { MdLogin } from "react-icons/md";
 import styles from "../styles/MobileNavigation.module.css";
 import { PATHS } from "@/shared/utils/Paths";
 
-// Barra inferior del sitio público en pantallas de menos de 1200 px, donde el
+// Barra inferior del sitio público en pantallas de menos de 900 px, donde el
 // encabezado se oculta. Cada enlace incluye su ícono para que toda el área se pueda tocar.
 const links = [
   { to: PATHS.home, label: "Inicio", icon: FaHome },

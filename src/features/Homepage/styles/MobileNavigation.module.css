@@ -1,7 +1,7 @@
 .mobile-navigation {
   position: sticky;
   bottom: 0;
-  z-index: 1000;
+  z-index: 10;
   display: flex;
   justify-content: space-around;
   align-items: stretch;
@@ -39,7 +39,7 @@
   font-size: var(--text-title);
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 900px) {
   .mobile-navigation {
     display: none;
   }

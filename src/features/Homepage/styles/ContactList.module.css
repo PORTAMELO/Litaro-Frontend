@@ -1,0 +1,37 @@
+.list {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: var(--space-sm);
+  align-items: start;
+}
+
+.icon {
+  margin-top: 2px;
+  color: var(--color-primary);
+  font-size: var(--text-subtitle);
+}
+
+.label {
+  color: var(--color-muted);
+  font-size: var(--text-caption);
+}
+
+.value {
+  font-weight: var(--font-semibold);
+  overflow-wrap: anywhere;
+}
+
+.inverse .icon,
+.inverse .value {
+  color: var(--color-on-primary);
+}
+
+.inverse .label {
+  color: var(--color-on-primary);
+  opacity: 0.75;
+}

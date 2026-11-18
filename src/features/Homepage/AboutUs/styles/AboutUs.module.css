@@ -1,0 +1,24 @@
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-xxl);
+  align-items: center;
+}
+
+.introText {
+  max-width: 64ch;
+  margin-top: var(--space-lg);
+  font-size: var(--text-subtitle);
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.gallery {
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 899.98px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+}

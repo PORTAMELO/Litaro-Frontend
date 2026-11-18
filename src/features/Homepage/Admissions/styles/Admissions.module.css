@@ -1,0 +1,52 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: var(--space-xxl);
+  align-items: start;
+}
+
+.intro {
+  max-width: 64ch;
+  margin-top: var(--space-lg);
+  font-size: var(--text-subtitle);
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.help {
+  position: sticky;
+  top: 96px;
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.helpTitle {
+  font-size: var(--text-title);
+  font-weight: var(--font-bold);
+}
+
+.helpText {
+  margin-top: var(--space-xs);
+  color: var(--color-text-secondary);
+}
+
+.contact {
+  margin-top: var(--space-lg);
+}
+
+.whatsapp {
+  width: 100%;
+  margin-top: var(--space-lg);
+}
+
+@media (max-width: 899.98px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .help {
+    position: static;
+  }
+}

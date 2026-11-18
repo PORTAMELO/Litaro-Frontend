@@ -1,275 +1,164 @@
-import { useState, useMemo } from "react";
-import Calendar from "react-calendar";
+import { useMemo, useState } from "react";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-import "react-calendar/dist/Calendar.css";
+import ui from "../../styles/Public.module.css";
 import styles from "../styles/CalendarBoard.module.css";
-import { colors } from "@/shared/styles/tokens";
+import { MONTHS, SHORT_MONTHS, capitalize, eventCount, parseKey, startOfToday, toKey } from "../../utils/Dates";
 
-const MONTHS = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-];
+const WEEKDAYS = ["L", "M", "M", "J", "V", "S", "D"];
 
-// --------------------------------------------------
-// Convierte fecha a YYYY-MM-DD
-// --------------------------------------------------
-function toKey(date) {
-  if (!date) return "";
+const MonthCard = ({ year, month, eventsByDay, count, todayKey, selected, current, onSelect }) => {
+  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
+  const total = new Date(year, month + 1, 0).getDate();
+  const label = count ? eventCount(count) : "";
 
-  // STRING
-  if (typeof date === "string") {
-    return date.slice(0, 10);
-  }
+  return (
+    <button
+      type="button"
+      className={current ? `${styles.month} ${styles.current}` : styles.month}
+      aria-pressed={selected}
+      aria-label={`${MONTHS[month]}, ${label || "sin eventos"}`}
+      onClick={onSelect}
+    >
+      <span className={styles.monthHead}>
+        <span className={styles.monthName}>{MONTHS[month]}</span>
+        <span className={styles.monthCount}>{label}</span>
+      </span>
 
-  // DATE
-  const y = date.getFullYear();
+      <span className={styles.mini} aria-hidden="true">
+        {WEEKDAYS.map((day, index) => (
+          <span key={`${day}-${index}`} className={styles.weekday}>
+            {day}
+          </span>
+        ))}
+        {Array.from({ length: offset }, (_, index) => (
+          <span key={`blank-${index}`} />
+        ))}
+        {Array.from({ length: total }, (_, index) => {
+          const key = toKey(new Date(year, month, index + 1));
+          const dayEvents = eventsByDay.get(key);
+          const classes = [styles.day, dayEvents ? styles.hasEvent : "", key === todayKey ? styles.today : ""];
 
-  const m = String(date.getMonth() + 1).padStart(2, "0");
+          return (
+            <span
+              key={key}
+              className={classes.filter(Boolean).join(" ")}
+              title={dayEvents ? dayEvents.map((event) => event.title).join(" · ") : undefined}
+            >
+              {index + 1}
+            </span>
+          );
+        })}
+      </span>
+    </button>
+  );
+};
 
-  const d = String(date.getDate()).padStart(2, "0");
+// Vista anual: 12 meses con los días que tienen eventos y, al lado, la lista del año o
+// del mes elegido. Por debajo de 900 px los meses pasan a un carrusel de uno en uno.
+const CalendarBoard = ({ year, yearEvents, shownEvents, selectedMonth, onSelectMonth }) => {
+  const today = startOfToday();
+  const todayKey = toKey(today);
+  const [carouselMonth, setCarouselMonth] = useState(today.getFullYear() === year ? today.getMonth() : 0);
 
-  return `${y}-${m}-${d}`;
-}
+  const eventsByDay = useMemo(() => {
+    const map = new Map();
 
-function formatShortDate(date) {
-  const [y, m, d] = String(date).slice(0, 10).split("-").map(Number);
-
-  return new Date(y, m - 1, d).toLocaleDateString("es-CO", {
-    day: "numeric",
-    month: "short",
-  });
-}
-
-
-const CalendarBoard = ({ events = [], filteredEvents = [],
-   year: yearProp, selectedMonth = null,
-  onSelectMonth = () => {},}) => {
-  // Año actual por defecto
-  const year = yearProp ?? new Date().getFullYear();
-
-  // Tooltip
-  const [tooltip, setTooltip] = useState(null);
-
-  // --------------------------------------------------
-  // MAPA DE EVENTOS
-  // --------------------------------------------------
-  const eventMap = useMemo(() => {
-    const map = Object.create(null);
-
-    for (const ev of events) {
-      const key = toKey(ev.date);
-
-      if (!map[key]) {
-        map[key] = [];
-      }
-
-      map[key].push(ev);
-    }
+    yearEvents.forEach((event) => {
+      const key = toKey(event.date);
+      map.set(key, [...(map.get(key) ?? []), event]);
+    });
 
     return map;
-  }, [events]);
+  }, [yearEvents]);
 
-  // --------------------------------------------------
-  // FECHAS DE LOS 12 MESES
-  // --------------------------------------------------
-  const monthDates = useMemo(
-    () => Array.from({ length: 12 }, (_, m) => new Date(year, m, 1)),
-    [year],
-  );
+  const countByMonth = useMemo(() => {
+    const counts = Array(12).fill(0);
+    yearEvents.forEach((event) => {
+      counts[parseKey(event.date).getMonth()] += 1;
+    });
+    return counts;
+  }, [yearEvents]);
 
-  // --------------------------------------------------
-  // CLASE CSS PARA DÍAS CON EVENTOS
-  // --------------------------------------------------
-  function tileClassName({ date, view }) {
-    if (view !== "month") {
-      return null;
-    }
-
-    return eventMap[toKey(date)] ? styles.hasEvent : null;
-  }
-
-  // --------------------------------------------------
-  // OVERLAY DE COLOR
-  // --------------------------------------------------
-  function tileContent({ date, view }) {
-    if (view !== "month") {
-      return null;
-    }
-
-    const evts = eventMap[toKey(date)];
-
-    if (!evts) {
-      return null;
-    }
-
-    const color = evts[0].color || colors.textDisabled;
-
-    return (
-      <div
-        className={styles.tileOverlay}
-        style={{
-          background: color,
-        }}
-      />
-    );
-  }
-
-  // --------------------------------------------------
-  // TOOLTIP
-  // --------------------------------------------------
-  function tileProperties({ date, view }) {
-    if (view !== "month") {
-      return {};
-    }
-
-    const key = toKey(date);
-
-    if (!eventMap[key]) {
-      return {};
-    }
-
-    return {
-      onMouseEnter: (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-
-        setTooltip({
-          x: rect.left + rect.width / 2,
-
-          y: rect.top - 8,
-
-          evts: eventMap[key],
-        });
-      },
-
-      onMouseLeave: () => {
-        setTooltip(null);
-      },
-    };
-  }
-
-  // --------------------------------------------------
-  // RENDER
-  // --------------------------------------------------
   return (
-    <div className={styles.CalendarBoard}>
-      {/* CALENDARIO */}
-      <div className={styles.wrapper}>
-        {/* GRID DE MESES */}
-        <div className={styles.grid}>
-          {monthDates.map((monthDate, idx) => (
-            <div
-              key={idx}
-              className={`${styles.monthCard} ${
-                selectedMonth === idx ? styles.monthCardSelected : ""
-              }`}
-              onClick={() =>
-                onSelectMonth(selectedMonth === idx ? null : idx)
-              }
-            >
-              {/* MES */}
-              <p className={styles.monthName}>{MONTHS[idx]}</p>
-
-              {/* CALENDARIO */}
-              <Calendar
-                activeStartDate={monthDate}
-                view="month"
-                locale="es-CO"
-                showNavigation={false}
-                showNeighboringMonth={false}
-                tileClassName={tileClassName}
-                tileContent={tileContent}
-                tileProperties={tileProperties}
-              />
-            </div>
-          ))}
+    <div className={styles.layout}>
+      <div>
+        <div className={styles.carouselNav}>
+          <button
+            type="button"
+            className={ui.iconButton}
+            aria-label="Mes anterior"
+            disabled={carouselMonth === 0}
+            onClick={() => setCarouselMonth(carouselMonth - 1)}
+          >
+            <MdChevronLeft aria-hidden="true" />
+          </button>
+          <strong className={styles.carouselLabel} aria-live="polite">
+            {capitalize(MONTHS[carouselMonth])} {year}
+            <span className={styles.carouselCount}>
+              {countByMonth[carouselMonth] ? eventCount(countByMonth[carouselMonth]) : "Sin eventos"}
+            </span>
+          </strong>
+          <button
+            type="button"
+            className={ui.iconButton}
+            aria-label="Mes siguiente"
+            disabled={carouselMonth === 11}
+            onClick={() => setCarouselMonth(carouselMonth + 1)}
+          >
+            <MdChevronRight aria-hidden="true" />
+          </button>
         </div>
 
-        {/* TOOLTIP */}
-        {tooltip && (
-          <div
-            className={styles.tooltip}
-            style={{
-              left: tooltip.x,
-              top: tooltip.y,
-              transform: "translate(-50%, -100%)",
-            }}
-          >
-            {tooltip.evts.map((ev, i) => (
-              <div key={i}>
-                <span className={styles.tooltipTitle}>{ev.title}</span>
-
-                {ev.responsible && (
-                  <span className={styles.tooltipCat}> · {ev.responsible}</span>
-                )}
-              </div>
-            ))}
-
-            <div className={styles.tooltipDate}>
-              {toKey(tooltip.evts[0].date)}
-            </div>
-          </div>
-        )}
+        <div className={styles.grid}>
+          {MONTHS.map((name, month) => (
+            <MonthCard
+              key={name}
+              year={year}
+              month={month}
+              eventsByDay={eventsByDay}
+              count={countByMonth[month]}
+              todayKey={todayKey}
+              selected={selectedMonth === month}
+              current={carouselMonth === month}
+              onSelect={() => onSelectMonth(selectedMonth === month ? null : month)}
+            />
+          ))}
+        </div>
       </div>
 
-       {/* LISTA DE EVENTOS */}
-      <div className={styles.EventPanel}>
-        {/* ENCABEZADO */}
-        <div className={styles.EventPanelHeader}>
-          <p className={styles.EventPanelTitle}>
-            {selectedMonth === null
-              ? `Eventos ${year}`
-              : `Eventos de ${MONTHS[selectedMonth]}`}
-            <span className={styles.EventCount}>{filteredEvents.length}</span>
-          </p>
-
+      <aside className={styles.panel} aria-labelledby="titulo-panel">
+        <div className={styles.panelHead}>
+          <h3 id="titulo-panel" className={styles.panelTitle}>
+            {selectedMonth === null ? `Eventos ${year}` : `Eventos de ${MONTHS[selectedMonth]}`}
+          </h3>
           {selectedMonth !== null && (
-            <button
-              type="button"
-              className={styles.ShowAllButton}
-              onClick={() => onSelectMonth(null)}
-            >
+            <button type="button" className={ui.linkButton} onClick={() => onSelectMonth(null)}>
               Ver todo el año
             </button>
           )}
         </div>
 
-        {/* LISTA CON SCROLL */}
-        <div className={styles.EventList}>
-          {filteredEvents.length === 0 ? (
-            <p className={styles.EmptyList}>No hay eventos para este periodo</p>
-          ) : (
-            filteredEvents.map((event, index) => (
-              <div key={index} className={styles.EventItem}>
-                {/* COLOR */}
-                <span
-                  className={styles.EventDot}
-                  style={{
-                    background: event.color,
-                  }}
-                />
+        {shownEvents.length === 0 ? (
+          <p className={styles.empty}>No hay eventos en este periodo.</p>
+        ) : (
+          <ol className={styles.list}>
+            {shownEvents.map((event, index) => {
+              const date = parseKey(event.date);
 
-                {/* TITULO */}
-                <p className={styles.EventTitle}>{event.title}</p>
-
-                {/* FECHA */}
-                <span className={styles.EventDate}>
-                  {formatShortDate(event.date)}
-                </span>
-              </div>
-            ))
-          )}
-        </div>
-      </div> 
+              return (
+                <li key={`${index}-${event.title}`} className={styles.item}>
+                  <p className={styles.itemDate}>
+                    <b className={styles.itemDay}>{date.getDate()}</b>
+                    {SHORT_MONTHS[date.getMonth()]}
+                  </p>
+                  <span className={styles.itemTitle}>{event.title}</span>
+                </li>
+              );
+            })}
+          </ol>
+        )}
+      </aside>
     </div>
   );
 };

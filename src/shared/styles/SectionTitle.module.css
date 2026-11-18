@@ -1,7 +1,0 @@
-/*Section Title*/
-
-.title {
-  margin: var(--space-lg) var(--space-xl);
-  font-size: var(--text-headline);
-  font-weight: var(--font-bold);
-}

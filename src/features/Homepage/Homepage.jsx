@@ -9,7 +9,7 @@ import styles from "./styles/Homepage.module.css";
 import { getFooter } from "./services/FooterService.js";
 
 const Homepage = () => {
-  // El pie de página se administra desde Contenido Web ("Información institucional").
+  // El pie de página (y el contacto de Admisiones) se administra desde Contenido Web ("Información institucional").
   // Mientras carga, o si falla, se muestran los valores por defecto.
   const { data } = useLoad(getFooter);
 
@@ -21,7 +21,7 @@ const Homepage = () => {
       <SkipLink target="contenido" />
       <Header />
       <main id="contenido" tabIndex={-1} className={styles.main}>
-        <Outlet />
+        <Outlet context={{ information, socials }} />
       </main>
       <Footer information={information} socials={socials} />
       <MobileNavigation />

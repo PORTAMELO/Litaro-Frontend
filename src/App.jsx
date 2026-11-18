@@ -49,6 +49,7 @@ const GradesLitaro = lazy(() => import("./features/Litaro/Grades/Grades"));
 const ObservationsLitaro = lazy(() => import("./features/Litaro/Observations/Observations"));
 const ReportsLitaro = lazy(() => import("./features/Litaro/Reports/Reports"));
 const SecurityLitaro = lazy(() => import("./features/Litaro/Security/Security"));
+const AuditLitaro = lazy(() => import("./features/Litaro/Audit/Audit"));
 const StatisticsLitaro = lazy(() => import("./features/Litaro/Statistics/Statistics"));
 const WebpageLitaro = lazy(() => import("./features/Litaro/Webpage/Webpage"));
 const ScheduleLitaro = lazy(() => import("./features/Litaro/Schedule/Schedule"));
@@ -105,6 +106,7 @@ function App() {
           <Route path="Observations" element={<ObservationsLitaro />} />
           <Route path="Reports" element={<ReportsLitaro />} />
           <Route path="Security" element={<SecurityLitaro />} />
+          <Route path="Audit" element={<AuditLitaro />} />
           <Route path="Statistics" element={<StatisticsLitaro />} />
           <Route path="Webpage" element={<WebpageLitaro />} />
           <Route path="Schedule" element={<ScheduleLitaro />} />

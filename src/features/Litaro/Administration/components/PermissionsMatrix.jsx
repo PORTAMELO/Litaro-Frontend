@@ -80,7 +80,10 @@ const PROCESS_LABELS = {
     StudyPlannerPanel: "Seguimiento de planes de estudio",
     GradeSettings: "Parámetros de notas",
     EnrollmentSettings: "Parámetros de matrícula",
+    AuditModule: "Auditoría",
 };
+
+const isFlagBlocked = (row, flag) => ((row.allowedFlags ?? 15) & flag) === 0;
 
 const GROUPS = [
     { kind: "table", label: "Tablas" },
@@ -210,7 +213,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                     <TableCell align="center">
                                         <Checkbox
                                             size="small"
-                                            disabled={!canEdit}
+                                            disabled={!canEdit || isFlagBlocked(row, PERMISSION.READ)}
                                             checked={(row.permissions & PERMISSION.READ) !== 0}
                                             onChange={() => toggleFlag(row.tableName, PERMISSION.READ)}
                                         />
@@ -219,7 +222,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                     <TableCell align="center">
                                         <Checkbox
                                             size="small"
-                                            disabled={!canEdit}
+                                            disabled={!canEdit || isFlagBlocked(row, PERMISSION.CREATE)}
                                             checked={(row.permissions & PERMISSION.CREATE) !== 0}
                                             onChange={() => toggleFlag(row.tableName, PERMISSION.CREATE)}
                                         />
@@ -228,7 +231,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                     <TableCell align="center">
                                         <Checkbox
                                             size="small"
-                                            disabled={!canEdit}
+                                            disabled={!canEdit || isFlagBlocked(row, PERMISSION.UPDATE)}
                                             checked={(row.permissions & PERMISSION.UPDATE) !== 0}
                                             onChange={() => toggleFlag(row.tableName, PERMISSION.UPDATE)}
                                         />
@@ -237,7 +240,7 @@ const PermissionsMatrix = ({ open, onClose, canEdit }) => {
                                     <TableCell align="center">
                                         <Checkbox
                                             size="small"
-                                            disabled={!canEdit}
+                                            disabled={!canEdit || isFlagBlocked(row, PERMISSION.DELETE)}
                                             checked={(row.permissions & PERMISSION.DELETE) !== 0}
                                             onChange={() => toggleFlag(row.tableName, PERMISSION.DELETE)}
                                         />

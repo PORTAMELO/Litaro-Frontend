@@ -12,8 +12,8 @@ const EventCardBoard = ({ events }) => (
           <p className={styles.date}>{longDate(event.date)}</p>
           <h3 className={styles.title}>{event.title}</h3>
           <p className={styles.description}>{event.description}</p>
-          {(event.label || event.grade) && (
-            <p className={styles.meta}>{[event.label, event.grade].filter(Boolean).join(". ")}</p>
+          {(event.category || event.asistants || event.place) && (
+            <p className={styles.meta}>{[event.category, event.asistants, event.place].filter(Boolean).join(" · ")}</p>
           )}
         </div>
       </article>

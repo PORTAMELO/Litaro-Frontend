@@ -1,4 +1,5 @@
 import styles from "../styles/EventCardBoard.module.css";
+import EventDot from "./EventDot";
 import { SHORT_MONTHS, parseKey, startOfToday } from "../../utils/Dates";
 
 const Detail = ({ label, value }) =>
@@ -31,6 +32,7 @@ const EventCardBoard = ({ events }) => {
             </p>
             <div>
               <h3 className={styles.title}>
+                <EventDot color={event.color} />
                 {event.title}
                 {past && <span className={styles.badge}>Ya se realizó</span>}
               </h3>

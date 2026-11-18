@@ -47,13 +47,6 @@ export const getRoles = async () => {
     return await apiFetch("/roles");
 };
 
-export const createRole = async (name) => {
-    return await apiFetch("/roles", {
-        method: "POST",
-        body: JSON.stringify({ name }),
-    });
-};
-
 export const getRolePermissions = async (roleId) => {
     return await apiFetch(`/role-permissions/${roleId}`);
 };

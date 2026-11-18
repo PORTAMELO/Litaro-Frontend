@@ -89,9 +89,9 @@ const Home = () => {
             data.statistics.length > 0 && (
               <dl className={styles.facts}>
                 {data.statistics.map((fact, index) => (
-                  <div key={`${index}-${fact.subtitle}`} className={styles.fact}>
-                    <dt className={styles.factLabel}>{fact.subtitle}</dt>
-                    <dd className={styles.factValue}>{fact.title}</dd>
+                  <div key={`${index}-${fact.label}`} className={styles.fact}>
+                    <dt className={styles.factLabel}>{fact.label}</dt>
+                    <dd className={styles.factValue}>{fact.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -114,8 +114,8 @@ const Home = () => {
         ) : (
           <ul className={styles.values}>
             {data.values.map((value, index) => (
-              <li key={`${index}-${value.title}`} className={styles.value}>
-                {value.title}
+              <li key={`${index}-${value.label}`} className={styles.value}>
+                {value.label}
               </li>
             ))}
           </ul>

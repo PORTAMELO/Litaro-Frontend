@@ -3,12 +3,6 @@ import { apiFetch } from "./Config";
 export const getAllContentsForAdmin = () =>
   apiFetch("/webcontents/admin");
 
-export const getAllContents = () =>
-  apiFetch("/webcontents");
-
-export const getContent = (pageName, sectionName, contentKey) =>
-  apiFetch(`/webcontents/${pageName}/${sectionName}/${contentKey}`);
-
 const pendingPages = new Map();
 
 export const getPageContent = (pageName) => {

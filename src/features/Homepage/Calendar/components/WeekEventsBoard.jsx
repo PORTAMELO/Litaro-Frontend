@@ -3,6 +3,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 import ui from "../../styles/Public.module.css";
 import styles from "../styles/WeekEventsBoard.module.css";
+import EventDot from "./EventDot";
 import { MONTHS, addDays, mondayOf, parseKey, startOfToday, toKey } from "../../utils/Dates";
 
 const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -93,7 +94,10 @@ const WeekEventsBoard = ({ events }) => {
             ) : (
               day.events.map((event, index) => (
                 <div key={`${index}-${event.title}`} className={styles.event}>
-                  <b className={styles.eventTitle}>{event.title}</b>
+                  <b className={styles.eventTitle}>
+                    <EventDot color={event.color} />
+                    {event.title}
+                  </b>
                   {event.schedule}
                   {event.place && <span className={styles.eventPlace}>{event.place}</span>}
                 </div>

@@ -3,6 +3,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 import ui from "../../styles/Public.module.css";
 import styles from "../styles/CalendarBoard.module.css";
+import EventDot from "./EventDot";
 import { MONTHS, SHORT_MONTHS, capitalize, eventCount, parseKey, startOfToday, toKey } from "../../utils/Dates";
 
 const WEEKDAYS = ["L", "M", "M", "J", "V", "S", "D"];
@@ -152,7 +153,10 @@ const CalendarBoard = ({ year, yearEvents, shownEvents, selectedMonth, onSelectM
                     <b className={styles.itemDay}>{date.getDate()}</b>
                     {SHORT_MONTHS[date.getMonth()]}
                   </p>
-                  <span className={styles.itemTitle}>{event.title}</span>
+                  <span className={styles.itemTitle}>
+                    <EventDot color={event.color} />
+                    {event.title}
+                  </span>
                 </li>
               );
             })}

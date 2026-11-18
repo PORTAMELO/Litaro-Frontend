@@ -89,6 +89,15 @@ const ContentEditor = ({ open, content, onClose, onSave }) => {
       };
     }
 
+    // Solo se acepta la URL de "Insertar mapa" de Google Maps, sin el código <iframe>.
+    if (key === "map") {
+      return {
+        type: "text",
+        placeholder: "https://www.google.com/maps/embed?pb=…",
+        helperText: "En Google Maps: Compartir › Insertar un mapa. Copia solo la dirección que está dentro de src=\"…\".",
+      };
+    }
+
     if (lower.includes("image") || lower.includes("url")) {
       return {
         type: "text",

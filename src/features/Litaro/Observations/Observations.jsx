@@ -1,234 +1,65 @@
 import { useState } from "react";
+import { Tab, Tabs } from "@mui/material";
 
-import styles from "./Observations.module.css";
-import { initialAppointments, initialFilters, initialObservations, initialStudents, mockFilters } from "./ObservationsData";
-import AppointmentDialog from "./components/AppointmentDialog";
-import AppointmentsTable from "./components/AppointmentsTable";
-import GroupFilters from "./components/GroupFilters";
-import ObservationDialog from "./components/ObservationDialog";
-import ObservationsTable from "./components/ObservationsTable";
-import StudentsTable from "./components/StudentsTable";
-import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
+import page from "@/shared/components/Ui/Page.module.css";
 import Toast from "@/shared/components/Ui/Toast";
-import { useConfirm } from "@/shared/hooks/useConfirm";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 import { useToast } from "@/shared/hooks/useToast";
+import CitationsTab from "./components/CitationsTab";
+import ConsolidatedTab from "./components/ConsolidatedTab";
+import RecordTab from "./components/RecordTab";
+import * as service from "./services/ObservationService";
+
+const TABS = [
+  { value: "record", label: "Registro", keys: ["ObservationRecord", "ObservationConsolidated"], Component: RecordTab },
+  { value: "citations", label: "Citaciones", keys: ["Citation"], Component: CitationsTab },
+  { value: "consolidated", label: "Consolidado", keys: ["ObservationConsolidated"], Component: ConsolidatedTab },
+];
 
 const Observations = () => {
-  const [filters, setFilters] = useState(initialFilters);
+  const { can, ready } = usePermissions();
+  const { toast, notify, close } = useToast();
+  const [chosenTab, setChosenTab] = useState(null);
 
-  const [students] = useState(initialStudents);
+  const tabs = TABS.filter((tab) => tab.keys.some((key) => can(key, "read")));
+  const active = tabs.find((tab) => tab.value === chosenTab) ?? tabs[0];
 
-  const [observations, setObservations] = useState(initialObservations);
-  const [appointments, setAppointments] = useState(initialAppointments);
-
-  const { toast, notify, close: closeToast } = useToast();
-  const { ask, dialogProps } = useConfirm();
-
-  const [observationDialog, setObservationDialog] = useState({
-    open: false,
-    student: null,
-    observation: null,
-  });
-
-  const [appointmentDialog, setAppointmentDialog] = useState({
-    open: false,
-    student: null,
-    appointment: null,
-  });
-
-  const selectedClassroom = mockFilters.classrooms.find((classroom) => classroom.id === filters.classroom);
-
-  const filteredStudents = students.filter((student) => student.classroom === filters.classroom);
-
-  const getStudent = (studentId) => students.find((student) => student.id === studentId);
-
-  const inGroup = (record) => filteredStudents.some((student) => student.id === record.studentId);
-  const groupObservations = observations.filter(inGroup);
-  const groupAppointments = appointments.filter(inGroup);
-
-  const handleFilterChange = (field, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleGradeChange = (value) => {
-    setFilters((prev) => ({
-      ...prev,
-      grade: value,
-      classroom: mockFilters.classrooms.find((classroom) => classroom.grade === value)?.id ?? "",
-    }));
-  };
-
-  const openObservation = (student, observation = null) => {
-    setObservationDialog({
-      open: true,
-      student,
-      observation,
-    });
-  };
-
-  const openAppointment = (student, appointment = null) => {
-    setAppointmentDialog({
-      open: true,
-      student,
-      appointment,
-    });
-  };
-
-  const closeObservation = () => {
-    setObservationDialog({
-      open: false,
-      student: null,
-      observation: null,
-    });
-  };
-
-  const closeAppointment = () => {
-    setAppointmentDialog({
-      open: false,
-      student: null,
-      appointment: null,
-    });
-  };
-
-  const handleObservationSave = (form) => {
-    if (observationDialog.observation) {
-      setObservations((prev) =>
-        prev.map((item) =>
-          item.id === observationDialog.observation.id
-            ? {
-                ...item,
-                ...form,
-              }
-            : item,
-        ),
-      );
-
-      notify("Observación actualizada correctamente.", "success");
-    } else {
-      setObservations((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          studentId: observationDialog.student.id,
-          ...form,
-        },
-      ]);
-
-      notify("Observación registrada correctamente.", "success");
-    }
-
-    closeObservation();
-  };
-
-  const handleAppointmentSave = (form) => {
-    if (appointmentDialog.appointment) {
-      setAppointments((prev) =>
-        prev.map((item) =>
-          item.id === appointmentDialog.appointment.id
-            ? {
-                ...item,
-                ...form,
-              }
-            : item,
-        ),
-      );
-
-      notify("Citación actualizada correctamente.", "success");
-    } else {
-      setAppointments((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          studentId: appointmentDialog.student.id,
-          ...form,
-        },
-      ]);
-
-      notify("Citación registrada correctamente.", "success");
-    }
-
-    closeAppointment();
-  };
-
-  const handleDeleteObservation = (observation) => {
-    ask({
-      title: "Eliminar observación",
-      message: "¿Está seguro de eliminar esta observación?",
-      action: () => {
-        setObservations((prev) => prev.filter((item) => item.id !== observation.id));
-
-        notify("Observación eliminada correctamente.", "success");
-      },
-    });
-  };
-
-  const handleDeleteAppointment = (appointment) => {
-    ask({
-      title: "Eliminar citación",
-      message: "¿Está seguro de eliminar esta citación?",
-      action: () => {
-        setAppointments((prev) => prev.filter((item) => item.id !== appointment.id));
-
-        notify("Citación eliminada correctamente.", "success");
-      },
-    });
-  };
+  const { data: options, error } = useLoad(() => service.getOptions(), [], ready && tabs.length > 0);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Observaciones y citaciones</h1>
-
-          <p className={styles.subtitle}>Registra observaciones y gestiona las citaciones de los estudiantes.</p>
-        </div>
+    <div className={page.page}>
+      <div className={page.header}>
+        <h1 className={page.title}>Observaciones y citaciones</h1>
       </div>
 
-      <GroupFilters filters={filters} onFilterChange={handleFilterChange} onGradeChange={handleGradeChange} />
+      {!ready && <p className={page.message}>Cargando…</p>}
 
-      <StudentsTable
-        classroomName={selectedClassroom?.name}
-        students={filteredStudents}
-        onObservation={openObservation}
-        onAppointment={openAppointment}
-      />
+      {ready && tabs.length === 0 && <p className={page.message}>No tienes permisos para ver el Observador.</p>}
 
-      <ObservationsTable
-        observations={groupObservations}
-        studentOf={getStudent}
-        onEdit={openObservation}
-        onDelete={handleDeleteObservation}
-      />
+      {ready && tabs.length > 0 && (
+        <>
+          <Tabs
+            className={page.tabs}
+            value={active.value}
+            onChange={(_, value) => setChosenTab(value)}
+            variant="scrollable"
+            scrollButtons={false}
+          >
+            {tabs.map((tab) => (
+              <Tab key={tab.value} value={tab.value} label={tab.label} />
+            ))}
+          </Tabs>
 
-      <AppointmentsTable
-        appointments={groupAppointments}
-        studentOf={getStudent}
-        onEdit={openAppointment}
-        onDelete={handleDeleteAppointment}
-      />
+          {error && <p className={page.message}>{error}</p>}
 
-      <ObservationDialog
-        open={observationDialog.open}
-        student={observationDialog.student}
-        observation={observationDialog.observation}
-        onClose={closeObservation}
-        onSave={handleObservationSave}
-      />
+          {!error && !options && <p className={page.message}>Cargando…</p>}
 
-      <AppointmentDialog
-        open={appointmentDialog.open}
-        student={appointmentDialog.student}
-        appointment={appointmentDialog.appointment}
-        onClose={closeAppointment}
-        onSave={handleAppointmentSave}
-      />
+          {options && <active.Component options={options} can={can} notify={notify} />}
+        </>
+      )}
 
-      <Toast toast={toast} onClose={closeToast} />
-
-      <ConfirmDialog {...dialogProps} />
+      <Toast toast={toast} onClose={close} />
     </div>
   );
 };

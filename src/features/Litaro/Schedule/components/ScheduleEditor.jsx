@@ -5,14 +5,14 @@ import styles from "../Schedule.module.css";
 import WeekView from "./WeekView";
 import BlockDialog from "./BlockDialog";
 import ProgressPanel from "./ProgressPanel";
-import ConfirmDialog from "./ConfirmDialog";
+import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
 import { BLOCK_TYPES, blockTitle, dayLabel, shortTime } from "../utils/ScheduleUtils";
 import { deleteBlock, getProgress, getScheduleView, saveBlock } from "../services/ScheduleService";
 
 const selectSx = {
   fontFamily: "inherit",
-  fontSize: "var(--text-sm)",
-  "& .MuiSelect-select": { fontSize: "var(--text-sm)" },
+  fontSize: "var(--text-label)",
+  "& .MuiSelect-select": { fontSize: "var(--text-label)" },
 };
 
 const SUBTITLES = {
@@ -120,9 +120,9 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
       const warnings = result?.warnings ?? [];
 
       if (warnings.length > 0) {
-        notify({ severity: "warning", title: "Se guardó, pero revisa lo siguiente", details: warnings });
+        notify("", "warning", { title: "Se guardó, pero revisa lo siguiente", details: warnings });
       } else {
-        notify({ severity: "success", message: id ? "Cambios guardados en el horario." : "Agregado al horario." });
+        notify(id ? "Cambios guardados en el horario." : "Agregado al horario.", "success");
       }
 
       closeDialog();
@@ -139,7 +139,7 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
     setConfirm({ open: false, block: null });
     try {
       await deleteBlock(block.scheduleId);
-      notify({ severity: "success", message: "Quitado del horario." });
+      notify("Quitado del horario.", "success");
       closeDialog();
       reload();
     } catch (error) {
@@ -154,13 +154,14 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
       <section className={styles.filtersCard}>
         <div className={styles.editorFilters}>
           <div className={styles.filter}>
-            <label>Ver horario de</label>
+            <label id="horario-ver-por">Ver horario de</label>
             <ToggleButtonGroup
+              aria-labelledby="horario-ver-por"
               size="small"
               exclusive
               value={viewBy}
               onChange={(_, value) => value && setViewBy(value)}
-              sx={{ "& .MuiToggleButton-root": { textTransform: "none", fontFamily: "inherit", fontSize: "var(--text-sm)" } }}
+              sx={{ "& .MuiToggleButton-root": { textTransform: "none", fontFamily: "inherit", fontSize: "var(--text-label)" } }}
             >
               <ToggleButton value="classroom">Un salón</ToggleButton>
               <ToggleButton value="teacher">Un docente</ToggleButton>
@@ -169,8 +170,9 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
           </div>
 
           <div className={styles.filter}>
-            <label>{{ classroom: "Salón", teacher: "Docente", space: "Espacio" }[viewBy]}</label>
+            <label id="horario-seleccion">{{ classroom: "Salón", teacher: "Docente", space: "Espacio" }[viewBy]}</label>
             <Select
+              labelId="horario-seleccion"
               size="small"
               value={selectedId}
               onChange={(e) => setChosenId(e.target.value)}
@@ -193,7 +195,7 @@ const ScheduleEditor = ({ yearId, campusId, data, permissions, notify, notifyErr
 
           <FormControlLabel
             control={<Switch size="small" checked={showSaturday} onChange={(e) => setShowSaturday(e.target.checked)} />}
-            label={<Typography sx={{ fontSize: "var(--text-sm)" }}>Mostrar sábado</Typography>}
+            label={<Typography sx={{ fontSize: "var(--text-label)" }}>Mostrar sábado</Typography>}
             className={styles.saturdaySwitch}
           />
         </div>

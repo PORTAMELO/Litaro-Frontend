@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Chip, IconButton, Tooltip, Dialog, DialogTitle, DialogContent, Button, Stack, Typography } from "@mui/material";
 
 import { DataGrid } from "@mui/x-data-grid";
@@ -13,7 +13,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 
 import ColumnFilterConfig from "./ColumnFilterConfig";
 import RecordsFilterForm from "./RecordsFilterForm";
-import { usePermissions } from "../../../../shared/hooks/UsePermissions";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 
 const toDisplayDate = (raw) => {
   if (!raw) return raw;
@@ -78,15 +78,18 @@ const RecordsTable = ({
 }) => {
   const [configOpen, setConfigOpen] = useState(false);
   const [hasQueried, setHasQueried] = useState(false);
+  const [queriedTable, setQueriedTable] = useState(tableName);
 
   const { can } = usePermissions();
   const canCreate = can(tableName, "create");
   const canUpdate = can(tableName, "update");
   const canDelete = can(tableName, "delete");
 
-  useEffect(() => {
+  // Al cambiar de tabla se vuelve al estado "aún no se ha consultado".
+  if (queriedTable !== tableName) {
+    setQueriedTable(tableName);
     setHasQueried(false);
-  }, [tableName]);
+  }
 
   const primaryKeyColumn = schema?.find((column) => column.columnName.toLowerCase().endsWith("id"));
 
@@ -285,30 +288,30 @@ const RecordsTable = ({
               },
             }}
             sx={{
-              border: "1px solid rgba(0, 0, 0, 0.08)",
+              border: "1px solid var(--color-border)",
               borderRadius: "var(--radius-md)",
               boxShadow: "var(--shadow-sm)",
-              backgroundColor: "var(--background-color)",
+              backgroundColor: "var(--color-background)",
 
               "& .MuiDataGrid-columnHeaders": {
                 minHeight: "2.8rem !important",
                 maxHeight: "2.8rem !important",
-                backgroundColor: "rgba(22, 17, 58, 0.04)",
-                borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+                backgroundColor: "var(--color-primary-tint)",
+                borderBottom: "1px solid var(--color-border)",
               },
 
               "& .MuiDataGrid-columnHeaderTitle": {
                 fontFamily: "Nunito, sans-serif",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-label)",
                 fontWeight: "var(--font-bold)",
                 color: "var(--color-text)",
               },
 
               "& .MuiDataGrid-cell": {
                 fontFamily: "Nunito, sans-serif",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-label)",
                 color: "var(--color-text)",
-                borderBottom: "1px solid rgba(0, 0, 0, 0.05)",
+                borderBottom: "1px solid var(--color-border)",
               },
 
               "& .MuiDataGrid-row": {
@@ -318,12 +321,12 @@ const RecordsTable = ({
 
               "& .MuiDataGrid-footerContainer": {
                 minHeight: "3rem",
-                borderTop: "1px solid rgba(0, 0, 0, 0.06)",
+                borderTop: "1px solid var(--color-border)",
               },
 
               "& .MuiTablePagination-root": {
                 fontFamily: "Nunito, sans-serif",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-label)",
               },
             }}
           />

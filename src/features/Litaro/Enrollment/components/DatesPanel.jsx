@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
 import { todayInColombia } from "../utils/EnrollmentUtils";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field } from "../../../../shared/components/Ui/Ui";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field } from "@/shared/components/Ui/Ui";
 
 const DatesPanel = ({ yearId, period, pendingCount = 0, onClose, onSaved }) => {
   const [dates, setDates] = useState({

@@ -1,80 +1,74 @@
-import { useReducer } from "react";
+import { useState } from "react";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+
+import ui from "../../styles/Public.module.css";
 import styles from "../styles/LocationCardBoard.module.css";
-import {
-  IoIosArrowDropleftCircle,
-  IoIosArrowDroprightCircle,
-} from "react-icons/io";
+import PhotoSlot from "../../components/PhotoSlot";
 
-const reducer = (state, action) => {
-  const total = action.length;
+// Solo se acepta la URL de "Insertar mapa" de Google Maps (https://www.google.com/maps/embed?pb=…).
+// Cualquier otro valor no llega al iframe: dentro de él se abriría una página de Litaro
+// y la portada se cargaría en bucle.
+const EMBED_PREFIX = "https://www.google.com/maps/embed?pb=";
 
-  switch (action.type) {
-    case "previous":
-      return {
-        index: (state.index - 1 + total) % total,
-      };
-
-    case "next":
-      return {
-        index: (state.index + 1) % total,
-      };
-
-    default:
-      return state;
-  }
+const embedUrl = (value) => {
+  const url = String(value ?? "").trim();
+  return url.startsWith(EMBED_PREFIX) ? url : null;
 };
 
+// Una sede a la vez con flechas: el colegio tiene 9 sedes y una lista achicaría el mapa.
 const LocationCardBoard = ({ locations }) => {
-  const [state, dispatch] = useReducer(reducer, { index: 0 });
+  const [index, setIndex] = useState(0);
 
   if (!locations?.length) return null;
 
-  const location = locations[state.index];
+  const total = locations.length;
+  const current = Math.min(index, total - 1);
+  const location = locations[current];
+  const map = embedUrl(location.map);
+  const move = (step) => setIndex((current + step + total) % total);
 
   return (
-    <div className={styles["location-card-board"]}>
-      <div className={styles["left-location-card"]}>
-        <h1>{location.title}</h1>
+    <div className={styles.campus}>
+      <article className={styles.card} aria-live="polite">
+        <PhotoSlot className={styles.photo} src={location.image} alt={location.title} label="Foto de la sede" />
 
-        <p>{location.description}</p>
-
-        <img src={location.image} alt={location.title} loading="lazy" />
-
-        <div className={styles["location-buttons"]}>
-          <IoIosArrowDropleftCircle
-            size={"3.5rem"}
-            className={styles["previous-location-button"]}
-            onClick={() =>
-              dispatch({
-                type: "previous",
-                length: locations.length,
-              })
-            }
-          />
-
-          <IoIosArrowDroprightCircle
-            size={"3.5rem"}
-            className={styles["next-location-button"]}
-            onClick={() =>
-              dispatch({
-                type: "next",
-                length: locations.length,
-              })
-            }
-          />
+        <div>
+          <h3 className={styles.name}>{location.title}</h3>
+          <p className={location.description ? styles.description : `${styles.description} ${ui.pending}`}>
+            {location.description || "Descripción pendiente."}
+          </p>
         </div>
-      </div>
 
-      <div className={styles["right-location-card"]}>
-        <iframe
-          src={location.map}
-          width="600"
-          height="450"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        <div className={styles.nav}>
+          <button type="button" className={ui.iconButton} aria-label="Sede anterior" onClick={() => move(-1)}>
+            <MdChevronLeft aria-hidden="true" />
+          </button>
+          <span className={styles.count}>
+            Sede {current + 1} de {total}
+          </span>
+          <button type="button" className={ui.iconButton} aria-label="Sede siguiente" onClick={() => move(1)}>
+            <MdChevronRight aria-hidden="true" />
+          </button>
+        </div>
+      </article>
+
+      <div className={styles.map}>
+        {map ? (
+          <iframe
+            key={map}
+            src={map}
+            title={`Mapa de ${location.title}`}
+            className={styles.frame}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        ) : (
+          <div className={styles.unavailable}>
+            <strong className={styles.unavailableName}>{location.title}</strong>
+            <span>El mapa de esta sede no está disponible.</span>
+          </div>
+        )}
       </div>
     </div>
   );

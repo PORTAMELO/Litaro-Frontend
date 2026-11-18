@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
+import page from "@/shared/components/Ui/Page.module.css";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
 

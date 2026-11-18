@@ -1,9 +1,5 @@
-import { apiFetch } from "../../../../api/Config";
-
-const toQuery = (params = {}) => {
-  const entries = Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== "");
-  return entries.length ? `?${new URLSearchParams(entries).toString()}` : "";
-};
+import { apiFetch } from "@/api/Config";
+import { toQuery } from "@/api/Query";
 
 const recordsOf = (result) => (Array.isArray(result) ? result : (result?.records ?? []));
 

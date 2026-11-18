@@ -7,27 +7,38 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const DEFAULT_TIMEOUT_MS = 90000; // 90 segundos
 
+const TIMEOUT_MESSAGE = "La petición tardó demasiado. Intenta de nuevo.";
+const SESSION_MESSAGE = "Tu sesión venció. Inicia sesión de nuevo.";
+
+const sessionExpired = (cause) => {
+  const error = new Error(SESSION_MESSAGE, { cause });
+  error.status = 401;
+
+  return error;
+};
+
 export const apiFetch = async (
   endpoint,
   requestOptions = {},
   isAuthCall = false,
 ) => {
-  const { timeoutMs = DEFAULT_TIMEOUT_MS, raw = false, ...options } = requestOptions;
+  const { timeoutMs = DEFAULT_TIMEOUT_MS, raw = false, signal: callerSignal, ...options } = requestOptions;
 
   const timeoutController = new AbortController();
+  let timedOut = false;
 
   const timeoutId = setTimeout(() => {
+    timedOut = true;
     timeoutController.abort();
   }, timeoutMs);
 
   const sessionSignal = getSessionSignal();
 
-  const combinedSignal =
-    options.signal ??
-    anySignal([
-      sessionSignal,
-      timeoutController.signal,
-    ]);
+  // El límite de tiempo y el cierre de sesión aplican siempre,
+  // también cuando quien llama pasa su propia señal de cancelación.
+  const combinedSignal = anySignal(
+    [sessionSignal, timeoutController.signal, callerSignal].filter(Boolean),
+  );
 
   const isFormData = options.body instanceof FormData;
 
@@ -54,7 +65,7 @@ export const apiFetch = async (
 
       handleUnauthorized();
 
-      return;
+      throw sessionExpired();
     }
 
     // Cualquier otro error HTTP
@@ -79,11 +90,16 @@ export const apiFetch = async (
     return raw ? response.blob() : response.json();
   } catch (error) {
     if (error.name === "AbortError") {
-      throw new Error(
-        "La petición tardó demasiado. Intenta de nuevo.", {cause: error},
-      );
+      if (timedOut) {
+        throw new Error(TIMEOUT_MESSAGE, { cause: error });
+      }
+
+      if (sessionSignal.aborted) {
+        throw sessionExpired(error);
+      }
     }
 
+    // Una cancelación pedida por quien llama se propaga tal cual (AbortError).
     throw error;
   } finally {
     clearTimeout(timeoutId);

@@ -2,41 +2,35 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { MenuItem, Select, Tab, Tabs, Typography } from "@mui/material";
 
 import styles from "./Schedule.module.css";
-import { useAuth } from "../../../shared/hooks/UseAuth";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
-import AppNotification from "./components/AppNotification";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { usePermissions } from "@/shared/hooks/usePermissions";
+import Toast from "@/shared/components/Ui/Toast";
+import { useToast } from "@/shared/hooks/useToast";
 import ScheduleEditor from "./components/ScheduleEditor";
 import MySchedule from "./components/MySchedule";
 import ParentAttentionBoard from "./components/ParentAttentionBoard";
 import { AssignmentsTab, AvailabilityTab, ClassroomsTab, SpacesTab, StudyPlanTab } from "./components/CatalogTabs";
+import { ROLES } from "@/shared/utils/Roles";
 import { getAssignments, getClassrooms, getLookupOptions, getSpaces } from "./services/ScheduleService";
 
-const READ_ONLY_ROLES = ["Profesor", "Estudiante", "Acudiente"];
+const READ_ONLY_ROLES = [ROLES.TEACHER, ROLES.STUDENT, ROLES.PARENT];
 
 const selectSx = {
   fontFamily: "inherit",
-  fontSize: "var(--text-sm)",
-  "& .MuiSelect-select": { fontSize: "var(--text-sm)" },
+  fontSize: "var(--text-label)",
+  "& .MuiSelect-select": { fontSize: "var(--text-label)" },
 };
 
 const Schedule = () => {
   const { user } = useAuth();
   const { can, ready } = usePermissions();
 
-  const [notification, setNotification] = useState({ open: false, severity: "success", title: "", message: "", details: [] });
-
-  const notify = useCallback(
-    ({ severity = "success", title = "", message = "", details = [] }) =>
-      setNotification({ open: true, severity, title, message, details }),
-    [],
-  );
+  const { toast, notify, close } = useToast();
 
   const notifyError = useCallback(
     (error, fallbackTitle = "Ocurrió un error") =>
-      notify({
-        severity: "error",
+      notify(error?.message ?? "Intenta de nuevo.", "error", {
         title: error?.status === 409 ? "Cruce de horario" : error?.status === 403 ? "Sin permiso" : fallbackTitle,
-        message: error?.message ?? "Intenta de nuevo.",
       }),
     [notify],
   );
@@ -66,7 +60,7 @@ const Schedule = () => {
         <p className={styles.emptyText}>No tienes permisos para consultar el horario. Solicítalos al administrador.</p>
       )}
 
-      <AppNotification {...notification} onClose={() => setNotification((prev) => ({ ...prev, open: false }))} />
+      <Toast toast={toast} onClose={close} />
     </div>
   );
 };
@@ -166,8 +160,8 @@ const ScheduleAdmin = ({ can, notify, notifyError }) => {
         <div className={styles.filtersGrid}>
           {showYear && (
             <div className={styles.filter}>
-              <label>Año académico</label>
-              <Select size="small" value={yearId} onChange={(e) => setYearId(e.target.value)} fullWidth sx={selectSx}>
+              <label id="horario-anio">Año académico</label>
+              <Select labelId="horario-anio" size="small" value={yearId} onChange={(e) => setYearId(e.target.value)} fullWidth sx={selectSx}>
                 {lookups.years.map((year) => (
                   <MenuItem key={year.id} value={year.id}>
                     {year.label}
@@ -179,8 +173,8 @@ const ScheduleAdmin = ({ can, notify, notifyError }) => {
 
           {showCampus && (
             <div className={styles.filter}>
-              <label>Sede</label>
-              <Select size="small" value={campusId} onChange={(e) => setCampusId(e.target.value)} fullWidth sx={selectSx}>
+              <label id="horario-sede">Sede</label>
+              <Select labelId="horario-sede" size="small" value={campusId} onChange={(e) => setCampusId(e.target.value)} fullWidth sx={selectSx}>
                 {lookups.campuses.map((campus) => (
                   <MenuItem key={campus.id} value={campus.id}>
                     {campus.label}

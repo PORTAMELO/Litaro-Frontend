@@ -1,8 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { StyledEngineProvider, ThemeProvider } from "@mui/material/styles";
 import "./index.css";
+import { injectTokens } from "@/shared/styles/tokens";
+import { litaroTheme } from "@/shared/styles/LitaroTheme";
 import App from "./App.jsx";
-import { AuthProvider } from "./shared/context/AuthProvider";
+import { AuthProvider } from "@/shared/context/AuthProvider";
 
 const CHUNK_RELOAD_KEY = "litaro_chunk_reload";
 
@@ -27,10 +30,18 @@ window.addEventListener("vite:preloadError", (event) => {
   window.location.reload();
 });
 
+injectTokens();
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    {/* injectFirst: los estilos de MUI se insertan primero, así los CSS Modules
+        los ajustan sin !important. */}
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={litaroTheme}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
   </StrictMode>,
 );

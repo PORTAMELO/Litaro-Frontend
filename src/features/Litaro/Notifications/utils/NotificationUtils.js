@@ -1,7 +1,8 @@
+import { colors } from "@/shared/styles/tokens";
 export const STATE = {
-  UNREAD: { label: "No leída", color: "#16113a" },
-  PENDING: { label: "Pendiente", color: "#d97706" },
-  DONE: { label: "Realizada", color: "#9ca3af" },
+  UNREAD: { label: "No leída", color: colors.primary },
+  PENDING: { label: "Pendiente", color: colors.warning },
+  DONE: { label: "Realizada", color: colors.textDisabled },
 };
 
 export const NOTIFICATIONS_CHANGED = "litaro:notifications-changed";

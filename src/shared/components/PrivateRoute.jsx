@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/UseAuth";
+import { useAuth } from "../hooks/useAuth";
 import { LayoutSkeleton } from "./Ui/Skeletons";
+import { PATHS } from "@/shared/utils/Paths";
 
 function PrivateRoute({ children, allowedRoles, requireRole = true, fallback = <LayoutSkeleton /> }) {
   const { user, loading, isAuthenticated } = useAuth();
@@ -10,15 +11,15 @@ function PrivateRoute({ children, allowedRoles, requireRole = true, fallback = <
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={PATHS.login} replace />;
   }
 
   if (requireRole && !user.role) {
-    return <Navigate to="/SeleccionarPerfil" replace />;
+    return <Navigate to={PATHS.selectProfile} replace />;
   }
 
   if (allowedRoles && user.role && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to={PATHS.unauthorized} replace />;
   }
 
   return children;

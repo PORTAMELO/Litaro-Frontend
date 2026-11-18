@@ -1,8 +1,8 @@
 import { Button, Chip } from "@mui/material";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import styles from "../Audit.module.css";
 import * as service from "../services/AuditService";
 import { eventColor, eventLabel, TABS } from "../utils/AuditUtils";

@@ -1,108 +1,90 @@
-/*Header*/
-
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: var(--space-sm) 4rem;
-  background: #ffffff;
-  border-bottom: 2px solid var(--primary-color);
-  gap: var(--space-xl);
-  
   position: sticky;
   top: 0;
-  z-index: 1000;
-} 
+  z-index: 10;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
 
-/*Brand*/
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  min-height: 72px;
+}
 
 .brand {
   display: flex;
   align-items: center;
-  margin: 0;
-  padding: 0;
-  gap: 1rem; /*fixed*/
+  gap: var(--space-sm);
+  margin-right: auto;
+  color: var(--color-text);
+  text-decoration: none;
 }
 
-.brand h1 {
-  margin: 0;
-  font-size: var(--text-xl);
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  max-width: 16rem;
+  font-size: var(--text-subtitle);
   font-weight: var(--font-bold);
-  color: var(--primary-color);
+  line-height: 1.2;
 }
-
-/*Logo*/
-
-.logo-placeholder {
-  width: 4rem;
-  height: 4rem;
-  background: var(--primary-color);
-  border-radius: 10px;
-}
-
-/*Navigation*/
 
 .nav {
   display: flex;
-  align-items: center;
-  gap: 3rem; /*fixed*/
+  gap: var(--space-xs);
 }
 
-.nav a {
+.link {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-height);
+  padding: 0 var(--space-sm);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-semibold);
   text-decoration: none;
-  font-size: var(--text-lg);
-  font-weight: 500;
-  color: var(--color-text);
-  transition: color 0.2s ease;
 }
 
-.nav a:hover {
-  color: var(--secondary-color);
+.link:hover {
+  background-color: var(--color-primary-tint);
+  color: var(--color-primary);
 }
 
-.nav a::after {
+.active {
+  color: var(--color-primary);
+}
+
+.active::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0%;
+  right: var(--space-sm);
+  bottom: 4px;
+  left: var(--space-sm);
   height: 2px;
-  background: var(--secondary-color);
-  transition: width 0.2s ease;
+  border-radius: 2px;
+  background-color: var(--color-accent);
 }
 
-.nav a:hover::after {
-  width: 100%;
+@media (max-width: 899.98px) {
+  .nav {
+    display: none;
+  }
 }
 
-/*Login Button*/
+@media (max-width: 599.98px) {
+  .name {
+    font-size: var(--text-body);
+  }
 
-.login-button {
-  background: var(--secondary-color);
-  color: white !important;
-  padding: var(--space-sm) var(--space-lg);
-  border-radius: 12px; /*fixed*/
-  font-weight: var(--font-semibold);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.login-button:hover {
-  transform: translateY(-2px);
-  background-color: var(--primary-color);
-  box-shadow: var(--shadow-sm);
-}
-
-.login-button::after {
-  display: none;
-}
-
-@media (max-width: 1200px) {
-    .header {
-        margin: 0;
-        padding: 0;
-        display: none;
-    }
+  .login {
+    display: none;
+  }
 }

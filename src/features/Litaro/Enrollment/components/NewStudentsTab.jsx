@@ -6,7 +6,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "../Enrollment.module.css";
 import AdmissionForm from "./AdmissionForm";
 import AdmissionPanel from "./AdmissionPanel";
-import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "@/shared/components/Ui/Ui";
 import {
   ADMISSION_STATUS,
   PAGE_SIZE,
@@ -17,6 +17,7 @@ import {
   plural,
   todayInColombia,
 } from "../utils/EnrollmentUtils";
+import { colors } from "@/shared/styles/tokens";
 
 const FILTERS = [
   { value: "PENDING", label: "Pendientes" },
@@ -183,7 +184,7 @@ const NewStudentsTab = ({ yearId, rows, formOptions, period, canCreate, canDecid
 
             <tbody>
               {visible.map((row) => {
-                const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+                const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
                 const decidable = canDecide && (row.status === "PENDING" || row.status === "WAITLIST");
 
                 return (

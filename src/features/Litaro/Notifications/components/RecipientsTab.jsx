@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Autocomplete, Button, FormControlLabel, Switch, TextField } from "@mui/material";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
-import { EmptyState, Field, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import ui from "@/shared/components/Ui/Ui.module.css";
+import { EmptyState, Field, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import * as service from "../services/NotificationService";
 import { TEMPLATE_LIMIT } from "../utils/NotificationUtils";
 

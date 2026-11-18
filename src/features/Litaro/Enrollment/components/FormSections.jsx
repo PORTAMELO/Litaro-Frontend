@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import { Field, FieldGroup } from "../../../../shared/components/Ui/Ui";
+import { Field, FieldGroup } from "@/shared/components/Ui/Ui";
 import { todayInColombia } from "../utils/EnrollmentUtils";
 import { C600_FIELDS } from "../utils/EnrollmentForm";
 

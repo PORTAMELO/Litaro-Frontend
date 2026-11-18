@@ -6,8 +6,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import styles from "../Enrollment.module.css";
 import * as service from "../services/MovementService";
 import MovementPanel from "./MovementPanel";
-import { EmptyState, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, StatusMark } from "@/shared/components/Ui/Ui";
 import { ENROLLMENT_STATUS } from "../utils/EnrollmentUtils";
+import { colors } from "@/shared/styles/tokens";
 
 const MIN_QUERY = 2;
 const SEARCH_DELAY = 300;
@@ -108,7 +109,7 @@ const MovementsTab = ({ canExecute, notify }) => {
 
           <tbody>
             {rows.map((row) => {
-              const info = ENROLLMENT_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+              const info = ENROLLMENT_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
 
               return (
                 <tr key={row.enrollmentId} className={styles.rowClickable} onClick={() => setSelectedId(row.enrollmentId)}>

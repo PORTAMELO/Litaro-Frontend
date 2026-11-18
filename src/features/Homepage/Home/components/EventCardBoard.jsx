@@ -1,29 +1,24 @@
 import styles from "../styles/EventCardBoard.module.css";
+import PhotoSlot from "../../components/PhotoSlot";
+import { longDate } from "../../utils/Dates";
 
-const EventCardBoard = ({ events }) => {
-  return (
-    <div className={styles["event-card-board"]}>
-      {events.map((event, index) => {
-        return (
-          <div className={styles["event-card"]} key={index}>
-            <div className={styles["upper-event-card"]}>
-              <img src={event.image} alt={event.title} loading="lazy" />
-              <p className={styles["label"]}>{event.label}</p>
-            </div>
-
-            <div className={styles["lower-event-card"]}>
-              <div className={styles["lw-info"]}>
-                <p className={styles["lw-date"]}>{event.date}</p>
-                <p className={styles["lw-grade"]}>{event.grade}</p>
-              </div>
-              <h2 className={styles["lw-title"]}>{event.title}</h2>
-              <p className={styles["lw-description"]}>{event.description}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+// Eventos destacados: actividades que la institución ya realizó.
+const EventCardBoard = ({ events }) => (
+  <div className={styles.grid}>
+    {events.map((event, index) => (
+      <article key={`${index}-${event.title}`} className={styles.event}>
+        <PhotoSlot className={styles.photo} src={event.image} alt={event.title} label="Foto del evento" />
+        <div className={styles.body}>
+          <p className={styles.date}>{longDate(event.date)}</p>
+          <h3 className={styles.title}>{event.title}</h3>
+          <p className={styles.description}>{event.description}</p>
+          {(event.category || event.asistants || event.place) && (
+            <p className={styles.meta}>{[event.category, event.asistants, event.place].filter(Boolean).join(" · ")}</p>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+);
 
 export default EventCardBoard;

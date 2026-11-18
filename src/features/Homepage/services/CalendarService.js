@@ -1,4 +1,4 @@
-import * as api from "../../../api/WebContentApi";
+import * as api from "@/api/WebContentApi";
 
 const getSection = async (sectionName, contentKey) => {
   const response = api.selectSection(
@@ -25,7 +25,7 @@ const formatTime = (time) => {
 };
 
 // Texto del horario
-const buildSchedule = ({ startTime, endTime, duration }) => {
+const buildSchedule = ({ startTime, endTime }) => {
   if (startTime && endTime) {
     return `${formatTime(startTime)} - ${formatTime(endTime)}`;
   }
@@ -34,13 +34,12 @@ const buildSchedule = ({ startTime, endTime, duration }) => {
     return `Desde las ${formatTime(startTime)}`;
   }
 
-  return duration || "Todo el día";
+  return "Todo el día";
 };
 
 // Eventos
 const normalizeEvent = (event) => ({
   ...event,
-  responsible: event.responsible || event.category || "",
   schedule: buildSchedule(event),
 });
 

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, IconButton, Tab, Tabs, TextField, ThemeProvider } from "@mui/material";
+import { Button, IconButton, Tab, Tabs, TextField } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 import styles from "./Enrollment.module.css";
-import { litaroTheme } from "../../../shared/styles/LitaroTheme";
 import * as service from "./services/EnrollmentService";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { usePermissions } from "@/shared/hooks/usePermissions";
+import { useToast } from "@/shared/hooks/useToast";
 import PeriodStrip from "./components/PeriodStrip";
 import OldStudentsTab from "./components/OldStudentsTab";
 import NewStudentsTab from "./components/NewStudentsTab";
@@ -13,8 +13,8 @@ import MovementsTab from "./components/MovementsTab";
 import DatesPanel from "./components/DatesPanel";
 import ImportDialog from "./components/ImportDialog";
 import SettingsTab from "./components/SettingsTab";
-import { TableSkeleton } from "../../../shared/components/Ui/Ui";
-import Toast from "../../../shared/components/Ui/Toast";
+import { TableSkeleton } from "@/shared/components/Ui/Ui";
+import Toast from "@/shared/components/Ui/Toast";
 
 const yearText = (year) => `Año ${year.yearId}${year.active ? "" : " (inactivo)"}`;
 
@@ -36,7 +36,7 @@ const Enrollment = () => {
   const [tab, setTab] = useState(null);
   const [datesOpen, setDatesOpen] = useState(false);
   const [importOpen, setImportOpen] = useState(false);
-  const [toast, setToast] = useState(null);
+  const { toast, notify, close: closeToast } = useToast();
 
   const years = options?.years ?? [];
   const yearId = chosenYear ?? (years.length > 0 ? Math.max(...years.map((year) => year.yearId)) : null);
@@ -100,7 +100,6 @@ const Enrollment = () => {
     };
   }, [viewer, yearId, key]);
 
-  const notify = useCallback((message, kind = "info") => setToast({ id: Date.now(), message, kind }), []);
   const reload = useCallback(() => setVersion((current) => current + 1), []);
 
   if (!ready) {
@@ -139,7 +138,7 @@ const Enrollment = () => {
   );
 
   return (
-    <ThemeProvider theme={litaroTheme}>
+    <>
       <div className={styles.page}>
         <div className={styles.header}>
           <div>
@@ -279,9 +278,9 @@ const Enrollment = () => {
           }}
         />
 
-        <Toast toast={toast} onClose={() => setToast(null)} />
+        <Toast toast={toast} onClose={closeToast} />
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 

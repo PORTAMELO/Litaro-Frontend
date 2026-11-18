@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import * as service from "./services/WebContentManagerService";
 import * as configurationService from "./services/WebContentConfigurationService";
 import styles from "./Webpage.module.css";
-import { ContentSkeleton } from "../../../shared/components/Ui/Ui";
+import { ContentSkeleton } from "@/shared/components/Ui/Ui";
 
 import { Accordion, AccordionSummary, AccordionDetails, Typography, Button, Stack } from "@mui/material";
 
@@ -11,10 +11,19 @@ import AddIcon from "@mui/icons-material/Add";
 
 import ContentTable from "./components/ContentTable";
 import ContentEditor from "./components/ContentEditor";
-import AppNotification from "./components/AppNotification";
-import ConfirmDialog from "./components/ConfirmDialog";
+import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
+import Toast from "@/shared/components/Ui/Toast";
+import { useConfirm } from "@/shared/hooks/useConfirm";
+import { useToast } from "@/shared/hooks/useToast";
 
-const pageOrder = ["Home", "Nosotros", "Calendario", "Admisiones"];
+const pageOrder = ["Home", "Nosotros", "Calendario", "Admisiones", "Footer"];
+
+// Nombre que ve el usuario cuando difiere del nombre técnico de la página.
+const pageLabels = { Footer: "Información institucional" };
+
+// Páginas cuyas variables tienen un solo valor cada una (dirección, teléfono, redes…):
+// se editan, pero no se agregan ni se eliminan, para no dejar duplicados ni huecos.
+const singleValuePages = ["Footer"];
 
 const Webpage = () => {
   const [contents, setContents] = useState([]);
@@ -23,21 +32,10 @@ const Webpage = () => {
   const [selectedContent, setSelectedContent] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const [notification, setNotification] = useState({
-    open: false,
-    severity: "success",
-    title: "",
-    message: "",
-  });
+  const { toast, notify, close: closeToast } = useToast();
+  const { ask, dialogProps } = useConfirm();
 
-  const [confirm, setConfirm] = useState({
-    open: false,
-    title: "",
-    message: "",
-    action: null,
-  });
-
-  const load = async () => {
+  const load = useCallback(async () => {
     try {
       const [contentData, configurationData] = await Promise.all([service.getAll(), configurationService.getAll()]);
 
@@ -45,35 +43,17 @@ const Webpage = () => {
       setConfigurations(configurationData);
     } catch (err) {
       console.error(err);
-      setNotification({ open: true, severity: "error", title: "Error", message: "No fue posible cargar el contenido." });
+      notify("No fue posible cargar el contenido.", "error");
     } finally {
       setLoading(false);
     }
-  };
+  }, [notify]);
 
   useEffect(() => {
     (async () => {
       await load();
     })();
-  }, []);
-
-  const showNotification = ({ severity = "success", title = "", message = "" }) => {
-    setNotification({
-      open: true,
-      severity,
-      title,
-      message,
-    });
-  };
-
-  const askConfirmation = ({ title, message, action }) => {
-    setConfirm({
-      open: true,
-      title,
-      message,
-      action,
-    });
-  };
+  }, [load]);
 
   const handleCreate = (configuration) => {
     const items = contents.filter(
@@ -115,17 +95,11 @@ const Webpage = () => {
       if (selectedContent.webContentId) {
         await service.update(selectedContent.webContentId, payload);
 
-        showNotification({
-          severity: "success",
-          message: "Contenido actualizado correctamente.",
-        });
+        notify("Contenido actualizado correctamente.", "success");
       } else {
         await service.create(payload);
 
-        showNotification({
-          severity: "success",
-          message: "Contenido creado correctamente.",
-        });
+        notify("Contenido creado correctamente.", "success");
       }
 
       setEditorOpen(false);
@@ -133,11 +107,7 @@ const Webpage = () => {
 
       await load();
     } catch (err) {
-      showNotification({
-        severity: "error",
-        title: "Error",
-        message: err.message,
-      });
+      notify(err.message, "error", { title: "No fue posible guardar" });
     }
   };
 
@@ -145,23 +115,16 @@ const Webpage = () => {
     try {
       await service.remove(content.webContentId);
 
-      showNotification({
-        severity: "success",
-        message: "Contenido eliminado correctamente.",
-      });
+      notify("Contenido eliminado correctamente.", "success");
 
       await load();
     } catch (err) {
-      showNotification({
-        severity: "error",
-        title: "No fue posible eliminar",
-        message: err.message,
-      });
+      notify(err.message, "error", { title: "No fue posible eliminar" });
     }
   };
 
   const handleDelete = (content) => {
-    askConfirmation({
+    ask({
       title: "Eliminar contenido",
       message: "¿Está seguro de eliminar este contenido?",
       action: () => deleteContent(content),
@@ -172,18 +135,11 @@ const Webpage = () => {
     try {
       await service.activate(content.webContentId);
 
-      showNotification({
-        severity: "success",
-        message: "Contenido activado correctamente.",
-      });
+      notify("Contenido activado correctamente.", "success");
 
       await load();
     } catch (err) {
-      showNotification({
-        severity: "error",
-        title: "No fue posible activar",
-        message: err.message,
-      });
+      notify(err.message, "error", { title: "No fue posible activar" });
     }
   };
 
@@ -191,23 +147,16 @@ const Webpage = () => {
     try {
       await service.deactivate(content.webContentId);
 
-      showNotification({
-        severity: "success",
-        message: "Contenido desactivado.",
-      });
+      notify("Contenido desactivado.", "success");
 
       await load();
     } catch (err) {
-      showNotification({
-        severity: "error",
-        title: "No fue posible desactivar",
-        message: err.message,
-      });
+      notify(err.message, "error", { title: "No fue posible desactivar" });
     }
   };
 
   const handleDeactivate = (content) => {
-    askConfirmation({
+    ask({
       title: "Desactivar contenido",
       message: "¿Desea desactivar este contenido?",
       action: () => deactivateContent(content),
@@ -249,7 +198,7 @@ const Webpage = () => {
           return (
             <Accordion key={page} defaultExpanded>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">{page}</Typography>
+                <Typography variant="h6">{pageLabels[page] ?? page}</Typography>
               </AccordionSummary>
 
               <AccordionDetails>
@@ -260,21 +209,23 @@ const Webpage = () => {
                     </AccordionSummary>
 
                     <AccordionDetails className={styles["section-accordion-details"]}>
-                      <Stack direction="row" justifyContent="flex-end" sx={{ mb: 1.5 }}>
-                        <Button
-                          variant="contained"
-                          startIcon={<AddIcon />}
-                          onClick={() => handleCreate(data.configuration)}
-                          className={styles["new-button"]}
-                        >
-                          Nuevo
-                        </Button>
-                      </Stack>
+                      {!singleValuePages.includes(page) && (
+                        <Stack direction="row" sx={{ justifyContent: "flex-end", mb: 1.5 }}>
+                          <Button
+                            variant="contained"
+                            startIcon={<AddIcon />}
+                            onClick={() => handleCreate(data.configuration)}
+                            className={styles["new-button"]}
+                          >
+                            Nuevo
+                          </Button>
+                        </Stack>
+                      )}
 
                       <ContentTable
                         rows={data.items}
                         onEdit={handleEdit}
-                        onDelete={handleDelete}
+                        onDelete={singleValuePages.includes(page) ? undefined : handleDelete}
                         onActivate={handleActivate}
                         onDeactivate={handleDeactivate}
                       />
@@ -296,35 +247,9 @@ const Webpage = () => {
         onSave={handleSave}
       />
 
-      <AppNotification
-        {...notification}
-        onClose={() =>
-          setNotification((prev) => ({
-            ...prev,
-            open: false,
-          }))
-        }
-      />
+      <Toast toast={toast} onClose={closeToast} />
 
-      <ConfirmDialog
-        open={confirm.open}
-        title={confirm.title}
-        message={confirm.message}
-        onClose={() =>
-          setConfirm((prev) => ({
-            ...prev,
-            open: false,
-          }))
-        }
-        onConfirm={async () => {
-          await confirm.action?.();
-
-          setConfirm((prev) => ({
-            ...prev,
-            open: false,
-          }));
-        }}
-      />
+      <ConfirmDialog {...dialogProps} />
     </div>
   );
 };

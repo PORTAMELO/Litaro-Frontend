@@ -15,7 +15,7 @@
 
 .title {
   margin: 0;
-  font-size: var(--text-xxl);
+  font-size: var(--text-headline);
   font-weight: var(--font-bold);
   color: var(--color-text);
 }
@@ -30,19 +30,18 @@
 .message {
   padding: var(--space-md) var(--space-lg);
   color: var(--color-muted);
-  font-size: var(--text-md);
+  font-size: var(--text-body);
 }
 
 .tabs {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .card {
   overflow: hidden;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
 }
 
 .toolbar {
@@ -51,18 +50,18 @@
   flex-wrap: wrap;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .toolbarTitle {
   color: var(--color-text);
-  font-size: var(--text-lg);
+  font-size: var(--text-subtitle);
   font-weight: var(--font-bold);
 }
 
 .toolbarMeta {
   color: var(--color-muted);
-  font-size: var(--text-md);
+  font-size: var(--text-body);
 }
 
 .toolbarSpacer {
@@ -80,9 +79,9 @@
 
 .table th {
   padding: var(--space-sm) var(--space-lg);
-  background-color: rgba(22, 17, 58, 0.04);
+  background-color: var(--color-primary-tint);
   color: var(--color-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-bold);
   text-align: left;
   white-space: nowrap;
@@ -90,14 +89,14 @@
 
 .table td {
   padding: var(--space-sm) var(--space-lg);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--color-border);
   color: var(--color-text);
-  font-size: var(--text-md);
+  font-size: var(--text-body);
   vertical-align: middle;
 }
 
 .table tbody tr:hover {
-  background-color: rgba(22, 17, 58, 0.02);
+  background-color: var(--color-primary-tint);
 }
 
 .table .cellRight {
@@ -129,7 +128,7 @@
   display: block;
   margin-top: 2px;
   color: var(--color-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-label);
   font-weight: var(--font-regular);
 }
 
@@ -137,10 +136,10 @@
   display: inline-block;
   margin: 1px 4px 1px 0;
   padding: 2px 9px;
-  border-radius: 10px;
-  background-color: rgba(22, 17, 58, 0.06);
-  color: var(--primary-color);
-  font-size: var(--text-sm);
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-size: var(--text-label);
   font-weight: var(--font-semibold);
 }
 
@@ -159,15 +158,15 @@
 .notice {
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
-  background-color: rgba(22, 17, 58, 0.05);
-  color: var(--primary-color);
-  font-size: var(--text-md);
+  background-color: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-size: var(--text-body);
   font-weight: var(--font-semibold);
 }
 
 .noticeError {
-  background-color: #fef2f2;
-  color: #b91c1c;
+  background-color: var(--color-error-bg);
+  color: var(--color-error);
 }
 
 .selectionBar {
@@ -180,10 +179,10 @@
   gap: var(--space-md);
   padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-lg);
   border-radius: var(--radius-lg);
-  background-color: var(--primary-color);
+  background-color: var(--color-primary);
   box-shadow: var(--shadow-md);
-  color: #ffffff;
-  font-size: var(--text-md);
+  color: var(--color-on-primary);
+  font-size: var(--text-body);
   font-weight: var(--font-semibold);
 }
 
@@ -193,14 +192,35 @@
   gap: var(--space-sm);
   max-width: 28rem;
   padding: 10px 14px;
-  border-radius: 10px;
-  background-color: var(--primary-color);
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary);
   box-shadow: var(--shadow-md);
-  color: #ffffff;
-  font-size: var(--text-md);
+  color: var(--color-on-primary);
+  font-size: var(--text-body);
   line-height: 1.4;
 }
 
 .toastError {
-  background-color: #b91c1c;
+  background-color: var(--color-error);
+}
+
+.toast button:focus-visible {
+  outline-color: var(--color-accent);
+}
+
+.toastBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.toastTitle {
+  font-weight: var(--font-bold);
+}
+
+.toastDetails {
+  margin: 2px 0 0;
+  padding-left: 1.1rem;
 }

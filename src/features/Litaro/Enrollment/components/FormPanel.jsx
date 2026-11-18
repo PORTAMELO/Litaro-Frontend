@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Button, Tab, Tabs, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field } from "../../../../shared/components/Ui/Ui";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field } from "@/shared/components/Ui/Ui";
 import { C600Section, GuardianSection, StudentSection } from "./FormSections";
 import DocumentChecklist from "./DocumentChecklist";
 import { SECTION_LABELS, applyLookup, missingSections } from "../utils/EnrollmentForm";

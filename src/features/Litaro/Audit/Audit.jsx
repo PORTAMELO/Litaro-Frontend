@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Tab, Tabs, ThemeProvider } from "@mui/material";
+import { Tab, Tabs } from "@mui/material";
 
-import page from "../../../shared/components/Ui/Page.module.css";
-import Toast from "../../../shared/components/Ui/Toast";
-import { useLoad } from "../../../shared/hooks/UseLoad";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
-import { useToast } from "../../../shared/hooks/UseToast";
-import { litaroTheme } from "../../../shared/styles/LitaroTheme";
+import page from "@/shared/components/Ui/Page.module.css";
+import Toast from "@/shared/components/Ui/Toast";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { usePermissions } from "@/shared/hooks/usePermissions";
+import { useToast } from "@/shared/hooks/useToast";
 import AuditDetailPanel from "./components/AuditDetailPanel";
 import AuditTab from "./components/AuditTab";
 import * as service from "./services/AuditService";
@@ -34,7 +33,7 @@ const Audit = () => {
   };
 
   return (
-    <ThemeProvider theme={litaroTheme}>
+    <>
       <div className={page.page}>
         <div className={page.header}>
           <h1 className={page.title}>Auditoría</h1>
@@ -87,7 +86,7 @@ const Audit = () => {
 
         <Toast toast={toast} onClose={close} />
       </div>
-    </ThemeProvider>
+    </>
   );
 };
 

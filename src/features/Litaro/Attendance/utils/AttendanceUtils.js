@@ -1,7 +1,8 @@
+import { colors } from "@/shared/styles/tokens";
 export const NOVELTY = {
-  EVASION: { label: "Evasión", color: "#d97706" },
-  TARDY: { label: "Tardanza", color: "#2563eb" },
-  JUSTIFIED: { label: "Justificada", color: "#6b7280" },
+  EVASION: { label: "Evasión", color: colors.warning },
+  TARDY: { label: "Tardanza", color: colors.info },
+  JUSTIFIED: { label: "Justificada", color: colors.textMuted },
 };
 
 export const OBSERVATION_LIMIT = 500;

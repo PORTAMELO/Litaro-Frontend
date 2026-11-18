@@ -1,3 +1,4 @@
+import { colors } from "@/shared/styles/tokens";
 export const WEEKDAYS = [
   { value: 1, label: "Lunes", short: "Lun" },
   { value: 2, label: "Martes", short: "Mar" },
@@ -10,11 +11,11 @@ export const WEEKDAYS = [
 export const dayLabel = (weekday) => WEEKDAYS.find((day) => day.value === weekday)?.label ?? "";
 
 export const BLOCK_TYPES = {
-  CLASS: { label: "Clase", color: "#2563eb", background: "#eff6ff" },
-  PARENT_ATTENTION: { label: "Atención a padres", color: "#0f9d58", background: "#ecfdf3" },
-  ACCOMPANIMENT: { label: "Zona de acompañamiento", color: "#d97706", background: "#fffbeb" },
-  MEETING: { label: "Reunión", color: "#7c3aed", background: "#f5f3ff" },
-  OTHER: { label: "Otro", color: "#6b7280", background: "#f3f4f6" },
+  CLASS: { label: "Clase", color: colors.info, background: colors.infoBg },
+  PARENT_ATTENTION: { label: "Atención a padres", color: colors.success, background: colors.successBg },
+  ACCOMPANIMENT: { label: "Zona de acompañamiento", color: colors.warning, background: colors.warningBg },
+  MEETING: { label: "Reunión", color: colors.primary, background: colors.primaryTintStrong },
+  OTHER: { label: "Otro", color: colors.textMuted, background: colors.primaryTint },
 };
 
 export const typeInfo = (type) => BLOCK_TYPES[type] ?? BLOCK_TYPES.OTHER;

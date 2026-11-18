@@ -4,19 +4,20 @@ import CheckIcon from "@mui/icons-material/Check";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, SegmentedFilter, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
-import { formatDateTime } from "../../../../shared/utils/Dates";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, SegmentedFilter, StatusMark, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
+import { formatDateTime } from "@/shared/utils/Dates";
 import * as service from "../services/NotificationService";
 import { STATE, announceChange } from "../utils/NotificationUtils";
 import DoneDialog from "./DoneDialog";
+import { colors } from "@/shared/styles/tokens";
 
 const numberFormat = new Intl.NumberFormat("es-CO");
 
 const format = (value) => numberFormat.format(value);
 
-const barButton = { color: "#ffffff", "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.12)" } };
+const barButton = { color: colors.onPrimary, "&:hover": { backgroundColor: colors.onPrimaryTint } };
 
 const InboxTab = ({ canMarkDone, notify }) => {
   const [filter, setFilter] = useState("ALL");
@@ -281,6 +282,7 @@ const InboxTab = ({ canMarkDone, notify }) => {
             <Tooltip title="Anterior">
               <span>
                 <IconButton
+                  aria-label="Página anterior"
                   size="small"
                   disabled={data.page <= 1 || loading}
                   onClick={() => setPageNumber(data.page - 1)}
@@ -292,6 +294,7 @@ const InboxTab = ({ canMarkDone, notify }) => {
             <Tooltip title="Siguiente">
               <span>
                 <IconButton
+                  aria-label="Página siguiente"
                   size="small"
                   disabled={data.page >= lastPage || loading}
                   onClick={() => setPageNumber(data.page + 1)}
@@ -334,7 +337,7 @@ const InboxTab = ({ canMarkDone, notify }) => {
                 variant="contained"
                 onClick={() => setClosing(true)}
                 disabled={saving}
-                sx={{ backgroundColor: "#ffffff", color: "primary.main", "&:hover": { backgroundColor: "#eeeef6" } }}
+                sx={{ backgroundColor: colors.onPrimary, color: "primary.main", "&:hover": { backgroundColor: colors.background } }}
               >
                 Marcar como realizadas
               </Button>

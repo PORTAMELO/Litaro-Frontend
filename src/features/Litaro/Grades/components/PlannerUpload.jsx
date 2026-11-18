@@ -2,7 +2,7 @@ import {
   DeleteButton as SharedDeleteButton,
   UploadButton as SharedUploadButton,
   ViewButton,
-} from "../../../../shared/components/Ui/FileButtons";
+} from "@/shared/components/Ui/FileButtons";
 
 const PDF_ONLY = "application/pdf,.pdf";
 

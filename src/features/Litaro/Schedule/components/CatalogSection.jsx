@@ -19,7 +19,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import styles from "../Schedule.module.css";
-import ConfirmDialog from "./ConfirmDialog";
+import ConfirmDialog from "@/shared/components/ConfirmDialog/ConfirmDialog";
 
 const buttonSx = {
   borderRadius: "var(--radius-md)",
@@ -81,7 +81,7 @@ const CatalogSection = ({
     setSaving(true);
     try {
       await onSave(dialog.row, form);
-      notify({ severity: "success", message: dialog.row ? "Cambios guardados correctamente." : "Registro agregado correctamente." });
+      notify(dialog.row ? "Cambios guardados correctamente." : "Registro agregado correctamente.", "success");
       closeDialog();
     } catch (error) {
       notifyError(error, "No se pudo guardar");
@@ -95,7 +95,7 @@ const CatalogSection = ({
     setConfirm(null);
     try {
       await onDelete(row);
-      notify({ severity: "success", message: "Registro eliminado correctamente." });
+      notify("Registro eliminado correctamente.", "success");
     } catch (error) {
       notifyError(error, "No se pudo eliminar");
     }
@@ -174,7 +174,7 @@ const CatalogSection = ({
       </div>
 
       {info && (
-        <Alert severity="info" variant="outlined" sx={{ m: "var(--space-md) var(--space-lg) 0", fontSize: "var(--text-sm)" }}>
+        <Alert severity="info" variant="outlined" sx={{ m: "var(--space-md) var(--space-lg) 0", fontSize: "var(--text-label)" }}>
           {info}
         </Alert>
       )}
@@ -237,7 +237,7 @@ const CatalogSection = ({
         fullWidth
         slotProps={{ paper: { sx: { borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-md)" } } }}
       >
-        <DialogTitle sx={{ fontFamily: "Nunito, sans-serif", fontWeight: "var(--font-bold)", fontSize: "var(--text-xl)" }}>
+        <DialogTitle sx={{ fontFamily: "Nunito, sans-serif", fontWeight: "var(--font-bold)", fontSize: "var(--text-title)" }}>
           {dialog.row ? `${editLabel} · ${title}` : `${addLabel} · ${title}`}
         </DialogTitle>
         <DialogContent>

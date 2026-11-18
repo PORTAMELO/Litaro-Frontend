@@ -3,9 +3,9 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlineOutlin
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 
 import styles from "../Enrollment.module.css";
-import { DeleteButton, UploadButton, ViewButton } from "../../../../shared/components/Ui/FileButtons";
-import { EmptyState } from "../../../../shared/components/Ui/Ui";
-import { openBlob } from "../../../../shared/utils/Files";
+import { DeleteButton, UploadButton, ViewButton } from "@/shared/components/Ui/FileButtons";
+import { EmptyState } from "@/shared/components/Ui/Ui";
+import { openBlob } from "@/shared/utils/Files";
 import { formatDay } from "../utils/EnrollmentUtils";
 
 const ACCEPT = "application/pdf,image/jpeg,image/png,.pdf,.jpg,.jpeg,.png";

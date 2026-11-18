@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { ContentSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { ContentSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import FormPanel from "./FormPanel";
 import { EMPTY_FORM, fromDetail, toRequest, withDefaults } from "../utils/EnrollmentForm";
 

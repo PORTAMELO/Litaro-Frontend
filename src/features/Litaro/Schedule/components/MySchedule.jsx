@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Tab, Tabs, Typography } from "@mui/material";
 
-import { TableSkeleton } from "../../../../shared/components/Ui/Ui";
+import { TableSkeleton } from "@/shared/components/Ui/Ui";
 import styles from "../Schedule.module.css";
 import WeekView from "./WeekView";
 import { getMySchedule } from "../services/ScheduleService";
 import { dayLabel, shortTime } from "../utils/ScheduleUtils";
+import { ROLES } from "@/shared/utils/Roles";
 
 const MySchedule = ({ role, notifyError }) => {
   const [data, setData] = useState(null);
@@ -19,7 +20,7 @@ const MySchedule = ({ role, notifyError }) => {
 
   if (!data) return <TableSkeleton rows={6} columns={6} label="Cargando horario" />;
 
-  if (role === "Profesor") {
+  if (role === ROLES.TEACHER) {
     return (
       <section className={styles.card}>
         <div className={styles.cardHeader}>
@@ -38,7 +39,7 @@ const MySchedule = ({ role, notifyError }) => {
     );
   }
 
-  if (role === "Estudiante") {
+  if (role === ROLES.STUDENT) {
     const blocks = data.student ?? [];
     const subtitle =
       data.student === null

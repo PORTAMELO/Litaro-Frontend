@@ -1,29 +1,8 @@
 import { useState } from "react";
 import * as service from "./services/AdministrationService";
-import AdministracionSection from "./components/AdministracionSection";
-import { Snackbar, Alert } from "@mui/material";
-import {
-  FaSchool,
-  FaBuilding,
-  FaUserGraduate,
-  FaUsers,
-  FaChalkboardTeacher,
-  FaBookOpen,
-  FaClipboardCheck,
-  FaGraduationCap,
-  FaCalendarAlt,
-  FaCalendarWeek,
-  FaUserFriends,
-  FaClipboardList,
-  FaClock,
-  FaTheaterMasks,
-  FaDoorOpen,
-  FaLayerGroup,
-  FaBookReader,
-  FaListUl,
-  FaTags,
-  FaUserShield,
-} from "react-icons/fa";
+import AdministrationSection from "./components/AdministrationSection";
+import Toast from "@/shared/components/Ui/Toast";
+import { useToast } from "@/shared/hooks/useToast";
 import styles from "./Administration.module.css";
 import RecordsTable from "./components/RecordsTable";
 import DynamicForm from "./components/DynamicForm";
@@ -31,7 +10,8 @@ import RoleForm from "./components/RoleForm";
 import PermissionsMatrix from "./components/PermissionsMatrix";
 import UserRolesManager from "./components/UserRolesManager";
 import { ROLE_FORM_CONFIG } from "./RoleFormConfig";
-import { usePermissions } from "../../../shared/hooks/UsePermissions";
+import { ACADEMIC_CARDS, CATALOGS_CARDS, INSTITUTIONAL_CARDS, SECURITY_CARDS, USERS_CARDS } from "./AdministrationCards";
+import { usePermissions } from "@/shared/hooks/usePermissions";
 
 const getRowId = (tableName, row) => {
   if (!tableName) return undefined;
@@ -56,9 +36,11 @@ const Administration = () => {
   const [userRolesOpen, setUserRolesOpen] = useState(false);
   const [userRolesTarget, setUserRolesTarget] = useState(null);
 
-  const [feedback, setFeedback] = useState(null);
+  const { toast, notify, close: closeToast } = useToast();
 
   const { can, ready } = usePermissions();
+
+  const showError = (error, fallback) => notify(error?.message ?? fallback, "error");
 
   const handleCreate = async () => {
     if (!can(selectedCard?.tableName, "create")) return;
@@ -71,7 +53,7 @@ const Administration = () => {
           const result = await service.getRecords("/students");
           setStudentOptions(result.records ?? []);
         } catch (error) {
-          console.error("Error cargando estudiantes:", error);
+          showError(error, "No fue posible cargar la lista de estudiantes.");
           setStudentOptions([]);
         }
       }
@@ -110,7 +92,7 @@ const Administration = () => {
         setLookups(result.lookups);
       }
     } catch (error) {
-      console.error("Error cargando la administración:", error);
+      showError(error, "No fue posible cargar esta sección.");
       setManagerOpen(false);
     } finally {
       setRecordsLoading(false);
@@ -133,7 +115,7 @@ const Administration = () => {
       setLookups(result.lookups);
       setLastFilters(filters);
     } catch (error) {
-      console.error("Error consultando registros:", error);
+      showError(error, "No fue posible consultar los registros.");
     } finally {
       setRecordsLoading(false);
     }
@@ -146,7 +128,7 @@ const Administration = () => {
       const schemaData = await service.getSchema(selectedCard.tableName);
       setSchema(schemaData);
     } catch (error) {
-      console.error("Error actualizando el schema:", error);
+      showError(error, "No fue posible actualizar las columnas.");
     }
   };
 
@@ -168,7 +150,7 @@ const Administration = () => {
       setFormOpen(false);
       await refreshRecords();
     } catch (error) {
-      console.error("Error creando el registro:", error);
+      showError(error, "No fue posible crear el registro.");
     }
   };
 
@@ -182,12 +164,15 @@ const Administration = () => {
       const result = await service.createRecord(roleConfig.endpoint, payload);
       setRoleFormOpen(false);
 
-      setFeedback({
-        severity: "success",
-        message: result?.temporaryPassword
-          ? `${roleConfig.roleLabel} guardado correctamente. Contraseña temporal: ${result.temporaryPassword}`
-          : `${roleConfig.roleLabel} guardado correctamente.`,
-      });
+      // La contraseña temporal se muestra una sola vez: el aviso no se cierra solo.
+      if (result?.temporaryPassword) {
+        notify(`Contraseña temporal: ${result.temporaryPassword}`, "success", {
+          title: `${roleConfig.roleLabel} guardado correctamente.`,
+          persistent: true,
+        });
+      } else {
+        notify(`${roleConfig.roleLabel} guardado correctamente.`, "success");
+      }
 
       await refreshRecords();
     } catch (error) {
@@ -202,218 +187,25 @@ const Administration = () => {
       const id = getRowId(selectedCard.tableName, row);
       await service.setProfileEstado(selectedCard.endpoint, id, active);
 
-      setFeedback({
-        severity: "success",
-        message: active ? "Perfil activado correctamente." : "Perfil desactivado correctamente.",
-      });
+      notify(active ? "Perfil activado correctamente." : "Perfil desactivado correctamente.", "success");
 
       await refreshRecords();
     } catch (error) {
-      setFeedback({
-        severity: "error",
-        message: error.message ?? "No fue posible actualizar el estado del perfil.",
-      });
+      showError(error, "No fue posible actualizar el estado del perfil.");
     }
   };
 
   const handleActivate = (row) => handleSetProfileActive(row, true);
   const handleDeactivate = (row) => handleSetProfileActive(row, false);
 
-  const institutional = [
-    {
-      title: "Colegio",
-      tableName: "School",
-      endpoint: "/schools",
-      records: 17478,
-      color: "#0F4DB8",
-      icon: <FaSchool />,
-    },
-    {
-      title: "Sedes",
-      tableName: "Campus",
-      endpoint: "/campus",
-      records: 17478,
-      color: "#0F4DB8",
-      icon: <FaBuilding />,
-    },
-    {
-      title: "Años académicos",
-      tableName: "AcademicYear",
-      endpoint: "/academic-years",
-      records: 17478,
-      color: "#0F4DB8",
-      icon: <FaCalendarAlt />,
-    },
-    {
-      title: "Períodos académicos",
-      tableName: "AcademicPeriod",
-      endpoint: "/academic-periods",
-      records: 17478,
-      color: "#0F4DB8",
-      icon: <FaCalendarWeek />,
-    },
-  ];
-
-  const catalogs = [
-    {
-      title: "Características",
-      tableName: "Characteristic",
-      endpoint: "/characteristics",
-      records: 17478,
-      color: "#0F4DB8",
-      icon: <FaListUl />,
-    },
-    {
-      title: "Detalles de característica",
-      tableName: "CharacteristicDetail",
-      endpoint: "/characteristic-details",
-      records: 17478,
-      color: "#0F4DB8",
-      icon: <FaTags />,
-    },
-  ];
-
-  const users = [
-    {
-      title: "Usuarios",
-      tableName: "User",
-      endpoint: "/users",
-      records: 17478,
-      color: "#72D84B",
-      icon: <FaUsers />,
-      readOnly: true,
-    },
-    {
-      title: "Estudiantes",
-      tableName: "Student",
-      endpoint: "/students",
-      records: 17478,
-      color: "#72D84B",
-      icon: <FaUserGraduate />,
-      role: "Student",
-    },
-    {
-      title: "Padres",
-      tableName: "Parent",
-      endpoint: "/parents",
-      records: 17478,
-      color: "#72D84B",
-      icon: <FaUserFriends />,
-      role: "Parent",
-    },
-    {
-      title: "Profesores",
-      tableName: "Teacher",
-      endpoint: "/teachers",
-      records: 17478,
-      color: "#72D84B",
-      icon: <FaChalkboardTeacher />,
-      role: "Teacher",
-    },
-  ];
-
-  const security = [
-    {
-      title: "Roles",
-      tableName: "Role",
-      endpoint: "/roles",
-      records: 17478,
-      color: "#3B3F58",
-      icon: <FaUserShield />,
-    },
-    {
-      title: "Permisos por rol",
-      tableName: "RolePermission",
-      records: 17478,
-      color: "#3B3F58",
-      icon: <FaUserShield />,
-      special: "permissions",
-    },
-  ];
-
-  const academic = [
-    {
-      title: "Grados",
-      tableName: "Grade",
-      endpoint: "/grades",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaLayerGroup />,
-    },
-    {
-      title: "Salones",
-      tableName: "Classroom",
-      endpoint: "/classrooms",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaDoorOpen />,
-    },
-    {
-      title: "Materias",
-      tableName: "Subject",
-      endpoint: "/subjects",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaBookOpen />,
-    },
-    {
-      title: "Asignaciones",
-      tableName: "AcademicAssignment",
-      endpoint: "/academic-assignments",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaTheaterMasks />,
-    },
-    {
-      title: "Horarios",
-      tableName: "Schedule",
-      endpoint: "/schedules",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaClock />,
-    },
-    {
-      title: "Matrículas",
-      tableName: "Enrollment",
-      endpoint: "/enrollments",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaClipboardList />,
-    },
-    {
-      title: "Notas",
-      tableName: "GradeScore",
-      endpoint: "/grade-scores",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaGraduationCap />,
-    },
-    {
-      title: "Asistencia",
-      tableName: "Attendance",
-      endpoint: "/attendances",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaClipboardCheck />,
-    },
-    {
-      title: "Observador",
-      tableName: "StudentLog",
-      endpoint: "/student-logs",
-      records: 17478,
-      color: "#C06AF2",
-      icon: <FaBookReader />,
-    },
-  ];
-
   const activeRoleConfig = selectedCard?.role ? ROLE_FORM_CONFIG[selectedCard.role] : null;
 
   const canRead = (card) => can(card.tableName, "read");
-  const institutionalCards = institutional.filter(canRead);
-  const catalogCards = catalogs.filter(canRead);
-  const userCards = users.filter(canRead);
-  const securityCards = security.filter(canRead);
-  const academicCards = academic.filter(canRead);
+  const institutionalCards = INSTITUTIONAL_CARDS.filter(canRead);
+  const catalogCards = CATALOGS_CARDS.filter(canRead);
+  const userCards = USERS_CARDS.filter(canRead);
+  const securityCards = SECURITY_CARDS.filter(canRead);
+  const academicCards = ACADEMIC_CARDS.filter(canRead);
   const noAccess = [
     institutionalCards,
     catalogCards,
@@ -429,23 +221,23 @@ const Administration = () => {
       {ready && noAccess && <p>No tienes permisos para administrar ninguna tabla.</p>}
 
       {institutionalCards.length > 0 && (
-        <AdministracionSection title="Administración institucional" cards={institutionalCards} onManage={handleManage} />
+        <AdministrationSection title="Administración institucional" cards={institutionalCards} onManage={handleManage} />
       )}
 
       {catalogCards.length > 0 && (
-        <AdministracionSection title="Catálogos" cards={catalogCards} onManage={handleManage} />
+        <AdministrationSection title="Catálogos" cards={catalogCards} onManage={handleManage} />
       )}
 
       {userCards.length > 0 && (
-        <AdministracionSection title="Perfiles" cards={userCards} onManage={handleManage} />
+        <AdministrationSection title="Perfiles" cards={userCards} onManage={handleManage} />
       )}
 
       {securityCards.length > 0 && (
-        <AdministracionSection title="Roles" cards={securityCards} onManage={handleManage} />
+        <AdministrationSection title="Roles" cards={securityCards} onManage={handleManage} />
       )}
 
       {academicCards.length > 0 && (
-        <AdministracionSection title="Administración académica" cards={academicCards} onManage={handleManage} />
+        <AdministrationSection title="Administración académica" cards={academicCards} onManage={handleManage} />
       )}
 
       {selectedCard && (
@@ -514,23 +306,10 @@ const Administration = () => {
           setUserRolesTarget(null);
         }}
         canEdit={can("User", "update")}
-        onSaved={() =>
-          setFeedback({ severity: "success", message: "Roles actualizados correctamente." })
-        }
+        onSaved={() => notify("Roles actualizados correctamente.", "success")}
       />
 
-      <Snackbar
-        open={!!feedback}
-        autoHideDuration={10000}
-        onClose={() => setFeedback(null)}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        {feedback && (
-          <Alert severity={feedback.severity} onClose={() => setFeedback(null)} sx={{ width: "100%" }}>
-            {feedback.message}
-          </Alert>
-        )}
-      </Snackbar>
+      <Toast toast={toast} onClose={closeToast} />
     </div>
   );
 };

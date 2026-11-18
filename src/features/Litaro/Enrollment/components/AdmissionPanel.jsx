@@ -2,15 +2,16 @@ import { Fragment, useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/EnrollmentService";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field, StatusMark } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field, StatusMark } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import AdmissionForm from "./AdmissionForm";
 import DocumentChecklist from "./DocumentChecklist";
 import { ADMISSION_STATUS, ageAt, formatDate, formatDateTime, todayInColombia } from "../utils/EnrollmentUtils";
 import { C600_FIELDS, optionLabel } from "../utils/EnrollmentForm";
+import { colors } from "@/shared/styles/tokens";
 
 const DECISIONS = {
   APPROVED: {
@@ -62,7 +63,7 @@ const AdmissionPanel = ({ row, options, canDecide, canCreate, onClose, onDecided
   const id = row.admissionRequestId;
   const eventsKey = `${id}|${row.status}|${version}`;
   const loadingEvents = events.key !== eventsKey;
-  const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+  const info = ADMISSION_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
   const decidable = row.status === "PENDING" || row.status === "WAITLIST";
   const decision = action ? DECISIONS[action] : null;
 
@@ -312,7 +313,7 @@ const AdmissionPanel = ({ row, options, canDecide, canCreate, onClose, onDecided
         ) : (
           <ol className={styles.timeline}>
             {[...events.list].reverse().map((event, index) => {
-              const eventInfo = ADMISSION_STATUS[event.toStatus] ?? { color: "#6b7280" };
+              const eventInfo = ADMISSION_STATUS[event.toStatus] ?? { color: colors.textMuted };
               const showNote = event.note && !(event.toStatus === "PENDING" && !event.fromStatus);
 
               return (

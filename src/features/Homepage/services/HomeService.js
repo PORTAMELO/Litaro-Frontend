@@ -1,31 +1,19 @@
-import * as api from "../../../api/WebContentApi";
+import * as api from "@/api/WebContentApi";
 
 const getSection = async (sectionName, contentKey) => {
-  const response = api.selectSection(
-    await api.getPageContent("Home"),
-    sectionName,
-    contentKey
-  );
+  const response = api.selectSection(await api.getPageContent("Home"), sectionName, contentKey);
 
-  return response.map((item) =>
-    JSON.parse(item.dataJson)
-  );
+  return response.map((item) => JSON.parse(item.dataJson));
 };
 
-export const getIntroduction = () =>
-  getSection("Introducción", "Description");
+export const getIntroduction = () => getSection("Introducción", "Description");
 
-export const getLocations = () =>
-  getSection("Sedes", "Cards");
+export const getLocations = () => getSection("Sedes", "Cards");
 
-export const getAcademicLevels = () =>
-  getSection("Niveles Académicos", "Cards");
+export const getAcademicLevels = () => getSection("Niveles Académicos", "Cards");
 
-export const getEvents = () =>
-  getSection("Eventos", "Cards");
+export const getEvents = () => getSection("Eventos", "Cards");
 
-export const getStatistics = () =>
-  getSection("Estadisticas", "Statistics");
+export const getStatistics = () => getSection("Estadisticas", "Statistics");
 
-export const getValues = () =>
-  getSection("Valores", "Values");
+export const getValues = () => getSection("Valores", "Values");

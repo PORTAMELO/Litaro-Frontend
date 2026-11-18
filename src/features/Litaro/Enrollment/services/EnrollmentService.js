@@ -1,5 +1,5 @@
-import { apiFetch } from "../../../../api/Config";
-import { CLIENT_HEADERS } from "../../../../shared/utils/Files";
+import { apiFetch } from "@/api/Config";
+import { CLIENT_HEADERS } from "@/shared/utils/Files";
 
 const BASE = "/enrollment-process";
 

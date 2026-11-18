@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useId } from "react";
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, Stack } from "@mui/material";
 
 const ColorField = ({ label, value, onCommit }) => {
   const [localValue, setLocalValue] = useState(value || "#000000");
+  const inputId = useId();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -12,8 +13,11 @@ const ColorField = ({ label, value, onCommit }) => {
 
   return (
     <Stack spacing={0.5}>
-      <label style={{ fontSize: "0.75rem", color: "rgba(0, 0, 0, 0.6)" }}>{label}</label>
+      <label htmlFor={inputId} style={{ fontSize: "0.75rem", color: "var(--color-text-muted)" }}>
+        {label}
+      </label>
       <input
+        id={inputId}
         type="color"
         value={localValue}
         onChange={(e) => setLocalValue(e.target.value)}
@@ -21,7 +25,7 @@ const ColorField = ({ label, value, onCommit }) => {
         style={{
           width: "100%",
           height: "2.5rem",
-          border: "1px solid rgba(0, 0, 0, 0.23)",
+          border: "1px solid var(--color-border-input)",
           borderRadius: "var(--radius-md)",
           cursor: "pointer",
           padding: 2,
@@ -85,6 +89,15 @@ const ContentEditor = ({ open, content, onClose, onSave }) => {
       };
     }
 
+    // Solo se acepta la URL de "Insertar mapa" de Google Maps, sin el código <iframe>.
+    if (key === "map") {
+      return {
+        type: "text",
+        placeholder: "https://www.google.com/maps/embed?pb=…",
+        helperText: "En Google Maps: Compartir › Insertar un mapa. Copia solo la dirección que está dentro de src=\"…\".",
+      };
+    }
+
     if (lower.includes("image") || lower.includes("url")) {
       return {
         type: "text",
@@ -130,7 +143,7 @@ const ContentEditor = ({ open, content, onClose, onSave }) => {
           pt: "var(--space-lg)",
           pb: "var(--space-sm)",
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-xl)",
+          fontSize: "var(--text-title)",
           fontWeight: "var(--font-bold)",
           color: "var(--color-text)",
         }}

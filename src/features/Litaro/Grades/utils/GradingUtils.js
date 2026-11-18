@@ -1,16 +1,17 @@
+import { colors } from "@/shared/styles/tokens";
 export const PERFORMANCE = {
-  LOW: { label: "Bajo", color: "#c98a8a" },
-  BASIC: { label: "Básico", color: "#d4b26a" },
-  HIGH: { label: "Alto", color: "#9cbf8f" },
-  SUPERIOR: { label: "Superior", color: "#5f9e6e" },
+  LOW: { label: "Bajo", color: colors.error },
+  BASIC: { label: "Básico", color: colors.warning },
+  HIGH: { label: "Alto", color: colors.success },
+  SUPERIOR: { label: "Superior", color: colors.successText },
 };
 
-export const NEUTRAL_COLOR = "#b8b8c2";
+export const NEUTRAL_COLOR = colors.textDisabled;
 
 export const CLOSING_RESULT = {
-  PROMOTED: { label: "Promovido", color: "#0f9d58" },
-  FAILED: { label: "Reprobado", color: "#b91c1c" },
-  PENDING: { label: "Pendiente por notas", color: "#d97706" },
+  PROMOTED: { label: "Promovido", color: colors.success },
+  FAILED: { label: "Reprobado", color: colors.error },
+  PENDING: { label: "Pendiente por notas", color: colors.warning },
 };
 
 export const COMPONENTS = {
@@ -73,4 +74,4 @@ export const formatColombiaDateTime = (isoUtc) => {
   return `${pad(local.getUTCDate())}/${pad(local.getUTCMonth() + 1)}/${local.getUTCFullYear()} ${pad(local.getUTCHours())}:${pad(local.getUTCMinutes())}`;
 };
 
-export { openBlob } from "../../../../shared/utils/Files";
+export { openBlob } from "@/shared/utils/Files";

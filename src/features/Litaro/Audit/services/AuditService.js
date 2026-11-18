@@ -1,4 +1,4 @@
-import { apiFetch } from "../../../../api/Config";
+import { apiFetch } from "@/api/Config";
 
 export const PAGE_SIZE = 50;
 

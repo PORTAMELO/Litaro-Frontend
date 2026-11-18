@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Autocomplete, MenuItem, TextField } from "@mui/material";
 
-import { Field } from "../../../../shared/components/Ui/Ui";
+import { Field } from "@/shared/components/Ui/Ui";
 import * as service from "../services/AuditService";
 import styles from "../Audit.module.css";
 

@@ -101,7 +101,7 @@ const ColumnFilterConfig = ({ open, tableName, onClose, onSaved }) => {
                 {c.columnName}
               </Typography>
 
-              <Stack direction="row" spacing={2} alignItems="center" sx={{ flexWrap: "wrap" }}>
+              <Stack direction="row" spacing={2} sx={{ alignItems: "center", flexWrap: "wrap" }}>
                 <FormControlLabel
                   control={
                     <Checkbox

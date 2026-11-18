@@ -1,18 +1,17 @@
 import styles from "../styles/MissionVision.module.css";
 
-const MissionVission = ({ mision, vision }) => {
-  return (
-    <div className={styles["mission-vision"]}>
-      <div className={styles["mission"]}>
-        <h1>Misión</h1>
-        <p>{mision}</p>
-      </div>
-      <div className={styles["vision"]}>
-        <h1>Visión</h1>
-        <p>{vision}</p>
-      </div>
-    </div>
-  );
-};
+// Misión y visión lado a lado con la misma altura.
+const MissionVision = ({ mission, vision }) => (
+  <div className={styles.grid}>
+    <article className={`${styles.card} ${styles.mission}`}>
+      <h3 className={styles.title}>Misión</h3>
+      <p className={styles.text}>{mission}</p>
+    </article>
+    <article className={`${styles.card} ${styles.vision}`}>
+      <h3 className={styles.title}>Visión</h3>
+      <p className={styles.text}>{vision}</p>
+    </article>
+  </div>
+);
 
-export default MissionVission;
+export default MissionVision;

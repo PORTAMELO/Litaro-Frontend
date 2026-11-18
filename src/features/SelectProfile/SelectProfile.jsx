@@ -6,16 +6,19 @@ import PersonIcon from "@mui/icons-material/Person";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BadgeIcon from "@mui/icons-material/Badge";
 
-import { useAuth } from "../../shared/hooks/UseAuth";
-import { getRoleOptions } from "../../shared/utils/ProfileOptions";
-import logo from "../../assets/logoinps.jpg";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { getRoleOptions } from "@/shared/utils/ProfileOptions";
+import { ROLES } from "@/shared/utils/Roles";
+import { PATHS } from "@/shared/utils/Paths";
+import logo from "@/assets/logoinps.jpg";
 import styles from "./SelectProfile.module.css";
+import { colors } from "@/shared/styles/tokens";
 
 const ICONS = {
-    Estudiante: SchoolIcon,
-    Profesor: GroupsIcon,
-    Acudiente: PersonIcon,
-    Administrador: AdminPanelSettingsIcon,
+    [ROLES.STUDENT]: SchoolIcon,
+    [ROLES.TEACHER]: GroupsIcon,
+    [ROLES.PARENT]: PersonIcon,
+    [ROLES.ADMIN]: AdminPanelSettingsIcon,
 };
 
 const SelectProfile = () => {
@@ -26,7 +29,7 @@ const SelectProfile = () => {
 
     const handleSelect = (role) => {
         chooseRole(role);
-        navigate("/Litaro", { replace: true });
+        navigate(PATHS.portal, { replace: true });
     };
 
     if (options.length === 0) {
@@ -52,7 +55,7 @@ const SelectProfile = () => {
                 Tienes más de un acceso disponible. Elige con cuál quieres entrar.
             </Typography>
 
-            <Stack direction="row" spacing={2} flexWrap="wrap" justifyContent="center">
+            <Stack direction="row" spacing={2} sx={{ flexWrap: "wrap", justifyContent: "center" }}>
                 {options.map((option) => {
                     const Icon = ICONS[option.role] ?? BadgeIcon;
 
@@ -60,7 +63,7 @@ const SelectProfile = () => {
                         <Card key={option.role} className={styles.card}>
                             <CardActionArea onClick={() => handleSelect(option.role)} sx={{ p: 2 }}>
                                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
-                                    <Icon sx={{ fontSize: 40, color: "#0F4DB8" }} />
+                                    <Icon sx={{ fontSize: 40, color: colors.primary }} />
                                     <CardContent sx={{ p: "0 !important", textAlign: "center" }}>
                                         <Typography variant="subtitle1" fontWeight={700}>
                                             {option.label}

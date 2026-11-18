@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { TextField, MenuItem, Button, Stack } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -23,17 +23,20 @@ const getFilterInputType = (dataType) => {
 
 const RecordsFilterForm = ({ columns, onQuery, loading }) => {
   const [values, setValues] = useState({});
+  const [valuesFor, setValuesFor] = useState(columns);
 
-  useEffect(() => {
+  // Si cambian las columnas (otra tabla), los filtros escritos ya no aplican.
+  if (valuesFor !== columns) {
+    setValuesFor(columns);
     setValues({});
-  }, [columns]);
+  }
 
   const handleChange = (field, value) => {
     setValues((previous) => ({ ...previous, [field]: value }));
   };
 
   return (
-    <Stack direction="row" spacing={1.5} sx={{ flexWrap: "wrap", mb: 2 }} alignItems="center">
+    <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", flexWrap: "wrap", mb: 2 }}>
       {columns.map((column) => {
         const inputType = getFilterInputType(column.dataType);
         const value = values[column.field] ?? "";

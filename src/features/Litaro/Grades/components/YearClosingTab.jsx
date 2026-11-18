@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Button, MenuItem, TextField } from "@mui/material";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, StatusMark, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import styles from "../Grades.module.css";
 import * as service from "../services/YearClosingService";
 import { CLOSING_RESULT, formatGrade, formatPercent } from "../utils/GradingUtils";
 import PromotionSettingsPanel from "./PromotionSettingsPanel";
+import { colors } from "@/shared/styles/tokens";
 
 const DECIDABLE = ["PROMOTED", "FAILED"];
 
@@ -151,7 +152,7 @@ const YearClosingTab = ({ can, notify }) => {
 
             <tbody>
               {rows.map((row) => {
-                const info = CLOSING_RESULT[row.proposed] ?? { label: row.proposed, color: "#6b7280" };
+                const info = CLOSING_RESULT[row.proposed] ?? { label: row.proposed, color: colors.textMuted };
                 const closed = row.status !== "ACTIVE";
                 const editable = canClose && !closed && DECIDABLE.includes(row.proposed);
                 const differs = editable && result(row) !== row.proposed;

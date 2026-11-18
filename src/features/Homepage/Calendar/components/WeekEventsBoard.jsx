@@ -1,196 +1,110 @@
 import { useMemo, useState } from "react";
-import { FaChevronLeft, FaChevronRight, FaClock, FaUserTie } from "react-icons/fa";
-import { MdPlace } from "react-icons/md";
+import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
+import ui from "../../styles/Public.module.css";
 import styles from "../styles/WeekEventsBoard.module.css";
-
-// Ajuste de fecha
-const toDateKey = (date) => {
-  if (!date) return "";
-  if (typeof date === "string") return date.slice(0, 10);
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
-};
-
-// Usa el formato YYYY-MM-DD
-const parseDateKey = (key) => {
-  const [y, m, d] = key.split("-").map(Number);
-  return new Date(y, m - 1, d);
-};
-
-const addDays = (date, amount) => {
-  const result = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  result.setDate(result.getDate() + amount);
-  return result;
-};
-
-// Lunes de la semana 0 es el domingo
-const getMonday = (date) => {
-  const day = date.getDay();
-  return addDays(date, day === 0 ? -5 : 1 - day);
-};
+import EventDot from "./EventDot";
+import { MONTHS, addDays, mondayOf, parseKey, startOfToday, toKey } from "../../utils/Dates";
 
 const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
 
+const dayMonth = (date) => `${date.getDate()} de ${MONTHS[date.getMonth()]}`;
 
-const formatDayMonth = (date) =>
-  date.toLocaleDateString("es-CO", { day: "numeric", month: "long" });
+// Semana de lunes a sábado, navegable con flechas, por fecha o volviendo a la actual.
+const WeekEventsBoard = ({ events }) => {
+  const [weekStart, setWeekStart] = useState(() => mondayOf(startOfToday()));
 
-const WeekEventsBoard = ({ events = [] }) => {
-  // Lunes actual de la semana
-  const [weekStart, setWeekStart] = useState(() => getMonday(new Date()));
+  const todayKey = toKey(startOfToday());
+  const isCurrentWeek = toKey(weekStart) === toKey(mondayOf(startOfToday()));
 
-  const todayKey = toDateKey(new Date());
-  const currentWeekKey = toDateKey(getMonday(new Date()));
-  const isCurrentWeek = toDateKey(weekStart) === currentWeekKey;
-
-  // Días de la semana
-  const weekDays = useMemo(
+  const days = useMemo(
     () =>
       DAY_NAMES.map((name, index) => {
         const date = addDays(weekStart, index);
+        const key = toKey(date);
+        const dayEvents = events
+          .filter((event) => toKey(String(event.date ?? "")) === key)
+          .sort((a, b) => (a.startTime || "").localeCompare(b.startTime || ""));
 
-        return { name, date, key: toDateKey(date) };
+        return { name, date, key, events: dayEvents };
       }),
-    [weekStart],
+    [events, weekStart],
   );
 
-  // Eventos agurpados por dia
-  const eventsByDay = useMemo(() => {
-    const weekKeys = new Set(weekDays.map((day) => day.key));
-    const map = {};
+  const weekEnd = days[days.length - 1].date;
+  const label = `${dayMonth(weekStart)} al ${dayMonth(weekEnd)} de ${weekEnd.getFullYear()}`;
 
-    for (const event of events) {
-      const key = toDateKey(event.date);
+  const pickDate = (event) => {
+    const date = parseKey(event.target.value);
 
-      if (!weekKeys.has(key)) continue;
-
-      if (!map[key]) map[key] = [];
-
-      map[key].push(event);
-    }
-
-    // Ordenarlos por hora de inicio
-    Object.values(map).forEach((list) =>
-      list.sort((a, b) => (a.startTime || "").localeCompare(b.startTime || "")),
-    );
-
-    return map;
-  }, [events, weekDays]);
-
-  // navegación de las semanas
-  const goToPreviousWeek = () => setWeekStart((prev) => addDays(prev, -7));
-  const goToNextWeek = () => setWeekStart((prev) => addDays(prev, 7));
-  const goToCurrentWeek = () => setWeekStart(getMonday(new Date()));
-
-  const handleDatePick = (e) => {
-    if (!e.target.value) return;
-
-    setWeekStart(getMonday(parseDateKey(e.target.value)));
+    if (date) setWeekStart(mondayOf(date));
   };
 
-  const weekEnd = addDays(weekStart, 6);
-  const weekLabel = `${formatDayMonth(weekStart)} al ${formatDayMonth(weekEnd)} de ${weekEnd.getFullYear()}`;
-
-  
   return (
-    <div className={styles.weekBoard}>
-      {/* BARRA SUPERIOR */}
+    <div>
       <div className={styles.toolbar}>
         <div className={styles.navigation}>
           <button
             type="button"
-            className={styles.navButton}
-            onClick={goToPreviousWeek}
+            className={ui.iconButton}
             aria-label="Semana anterior"
+            onClick={() => setWeekStart(addDays(weekStart, -7))}
           >
-            <FaChevronLeft />
+            <MdChevronLeft aria-hidden="true" />
           </button>
-
-          <h3 className={styles.weekLabel}>{weekLabel}</h3>
-
+          <strong className={styles.label} aria-live="polite">
+            {label}
+          </strong>
           <button
             type="button"
-            className={styles.navButton}
-            onClick={goToNextWeek}
+            className={ui.iconButton}
             aria-label="Semana siguiente"
+            onClick={() => setWeekStart(addDays(weekStart, 7))}
           >
-            <FaChevronRight />
+            <MdChevronRight aria-hidden="true" />
           </button>
         </div>
 
-        <div className={styles.actions}>
-          <label className={styles.datePicker}>
+        <div className={styles.tools}>
+          <label className={styles.picker}>
             Ir a la semana del
-            <input type="date" value={toDateKey(weekStart)} onChange={handleDatePick} />
+            <input className={styles.dateInput} type="date" value={toKey(weekStart)} onChange={pickDate} />
           </label>
-
           <button
             type="button"
-            className={styles.currentWeekButton}
-            onClick={goToCurrentWeek}
+            className={`${ui.button} ${ui.tertiary}`}
             disabled={isCurrentWeek}
+            onClick={() => setWeekStart(mondayOf(startOfToday()))}
           >
             Semana actual
           </button>
         </div>
       </div>
 
-      {/* DÍAS */}
-      <div className={styles.daysGrid}>
-        {weekDays.map((day) => {
-          const dayEvents = eventsByDay[day.key] ?? [];
-          const isToday = day.key === todayKey;
-
-          return (
-            <div
-              key={day.key}
-              className={`${styles.dayColumn} ${isToday ? styles.today : ""}`}
-            >
-              <div className={styles.dayHeader}>
-                <span className={styles.dayName}>{day.name}</span>
-                <span className={styles.dayNumber}>{day.date.getDate()}</span>
-              </div>
-
-              <div className={styles.dayBody}>
-                {dayEvents.length === 0 ? (
-                  <p className={styles.noEvents}>No se encuentran eventos</p>
-                ) : (
-                  dayEvents.map((event, index) => (
-                    <article
-                      key={`${day.key}-${index}`}
-                      className={styles.eventCard}
-                      style={{ borderLeftColor: event.color || "var(--primary-color)" }}
-                    >
-                      <h4 className={styles.eventTitle}>{event.title}</h4>
-
-                      <p className={styles.eventInfo}>
-                        <FaClock className={styles.icon} />
-                        {event.schedule}
-                      </p>
-
-                      {event.responsible && (
-                        <p className={styles.eventInfo}>
-                          <FaUserTie className={styles.icon} />
-                          {event.responsible}
-                        </p>
-                      )}
-
-                      {event.place && (
-                        <p className={styles.eventInfo}>
-                          <MdPlace className={styles.icon} />
-                          {event.place}
-                        </p>
-                      )}
-                    </article>
-                  ))
-                )}
-              </div>
+      <div className={styles.grid}>
+        {days.map((day) => (
+          <div key={day.key} className={day.key === todayKey ? `${styles.day} ${styles.today}` : styles.day}>
+            <div className={styles.dayHead}>
+              {day.name}
+              <b className={styles.dayNumber}>{day.date.getDate()}</b>
             </div>
-          );
-        })}
+
+            {day.events.length === 0 ? (
+              <p className={styles.empty}>Sin eventos</p>
+            ) : (
+              day.events.map((event, index) => (
+                <div key={`${index}-${event.title}`} className={styles.event}>
+                  <b className={styles.eventTitle}>
+                    <EventDot color={event.color} />
+                    {event.title}
+                  </b>
+                  {event.schedule}
+                  {event.place && <span className={styles.eventPlace}>{event.place}</span>}
+                </div>
+              ))
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

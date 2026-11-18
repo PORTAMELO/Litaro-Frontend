@@ -13,9 +13,9 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, StatusMark, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import styles from "../Grades.module.css";
 import * as service from "../services/GradingService";
 import ActivityPanel from "./ActivityPanel";
@@ -240,7 +240,7 @@ const GradeSheetTab = ({ options, can, notify }) => {
 
         {sheet && (
           <>
-            <StatusMark label={sheet.periodClosed ? "Cerrado" : "Abierto"} color={sheet.periodClosed ? NEUTRAL_COLOR : "var(--primary-color)"} />
+            <StatusMark label={sheet.periodClosed ? "Cerrado" : "Abierto"} color={sheet.periodClosed ? NEUTRAL_COLOR : "var(--color-primary)"} />
             {sheet.designLocked && <StatusMark label="Diseño bloqueado" color={NEUTRAL_COLOR} />}
           </>
         )}
@@ -265,7 +265,7 @@ const GradeSheetTab = ({ options, can, notify }) => {
           <table className={`${page.table} ${styles.sheet}`}>
             <thead>
               <tr>
-                <th rowSpan={2}>Estudiante</th>
+                <th rowSpan={2} className={styles.studentCell}>Estudiante</th>
                 <th colSpan={Math.max(hetero.length, 1) + (sheet.canEditDesign ? 1 : 0)} className={styles.groupHeader}>
                   Heteroevaluación 70 %
                   {weighted && Number(sheet.weightSum) !== 100 && (
@@ -323,7 +323,7 @@ const GradeSheetTab = ({ options, can, notify }) => {
             <tbody>
               {sheet.students.map((row) => (
                 <tr key={row.enrollmentId}>
-                  <td>{row.studentName}</td>
+                  <td className={styles.studentCell}>{row.studentName}</td>
                   {hetero.length === 0 && <td />}
                   {hetero.map((activity) => (
                     <td key={activity.activityId} className={`${page.cellCenter} ${styles.scoreCell}`}>

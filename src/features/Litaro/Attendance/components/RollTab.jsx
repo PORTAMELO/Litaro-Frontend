@@ -2,9 +2,9 @@ import { useState } from "react";
 import { MenuItem, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import styles from "../Attendance.module.css";
 import * as service from "../services/AttendanceService";
 import { formatTime, slotKey } from "../utils/AttendanceUtils";

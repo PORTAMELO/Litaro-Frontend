@@ -1,52 +1,50 @@
 import styles from "../styles/EventCardBoard.module.css";
-import { FaCalendarCheck } from "react-icons/fa";
-import { MdPlace } from "react-icons/md";
-import { BsFillPeopleFill } from "react-icons/bs";
+import EventDot from "./EventDot";
+import { SHORT_MONTHS, parseKey, startOfToday } from "../../utils/Dates";
 
+const Detail = ({ label, value }) =>
+  value ? (
+    <div className={styles.detail}>
+      <dt className={styles.detailLabel}>{label}:</dt>
+      <dd className={styles.detailValue}>{value}</dd>
+    </div>
+  ) : null;
+
+// Detalle de los eventos del año (o del mes elegido). Los que ya pasaron se marcan.
 const EventCardBoard = ({ events }) => {
-  return (
-    <div className={styles["event-card-board"]}>
-      {events.map((event, index) => {
-        return (
-          <div className={styles["event-card"]} key={index}>
-            <div
-              className={styles["upper-event-card"]}
-              style={{ background: event.color }}
-            >
-              <div className={styles["dot-label"]}>
-                <div
-                  className={styles["dot"]}
-                  style={{ background: event.color }}
-                ></div>
-                <span className={styles["label"]}>{event.responsible}</span>
+  if (events.length === 0) return <p className={styles.empty}>No hay eventos en este periodo.</p>;
 
-              </div>
-              <div className={styles["title-date"]}>
-                <h1>{event.title}</h1>
-                <p>{event.date}</p>
-              </div>
+  const today = startOfToday();
+
+  return (
+    <div className={styles.list}>
+      {events.map((event, index) => {
+        const date = parseKey(event.date);
+        const past = date < today;
+
+        return (
+          <article key={`${index}-${event.title}`} className={past ? `${styles.event} ${styles.past}` : styles.event}>
+            <p className={styles.date}>
+              <span className={styles.day}>{date.getDate()}</span>
+              <span className={styles.month}>
+                {SHORT_MONTHS[date.getMonth()]} {date.getFullYear()}
+              </span>
+            </p>
+            <div>
+              <h3 className={styles.title}>
+                <EventDot color={event.color} />
+                {event.title}
+                {past && <span className={styles.badge}>Ya se realizó</span>}
+              </h3>
+              {event.description && <p className={styles.description}>{event.description}</p>}
+              <dl className={styles.details}>
+                <Detail label="Horario" value={event.schedule} />
+                <Detail label="Lugar" value={event.place} />
+                <Detail label="Dirigido a" value={event.asistants} />
+                <Detail label="Responsable" value={event.responsible} />
+              </dl>
             </div>
-            <div className={styles["lower-event-card"]}>
-              <div className={styles["event-labels"]}>
-                <div>
-                  <FaCalendarCheck className={styles["icon"]} />
-                  <span className={styles["float-span"]}>{event.schedule}</span>
-                </div>
-                <div>
-                  <MdPlace className={styles["icon"]} />
-                  <span className={styles["float-span"]}>{event.place}</span>
-                </div>
-                <div className={styles["info"]}>
-                  <BsFillPeopleFill className={styles["icon"]} />
-                  <span className={styles["float-span"]}>
-                    {event.asistants}
-                  </span>
-                </div>
-              </div>
-              <hr />
-              <p className={styles["description"]}>{event.description}</p>
-            </div>
-          </div>
+          </article>
         );
       })}
     </div>

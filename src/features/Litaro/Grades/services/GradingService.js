@@ -1,20 +1,8 @@
-import { apiFetch } from "../../../../api/Config";
-import { CLIENT_HEADERS } from "../../../../shared/utils/Files";
+import { apiFetch } from "@/api/Config";
+import { toQuery } from "@/api/Query";
+import { CLIENT_HEADERS } from "@/shared/utils/Files";
 
 const BASE = "/grading";
-
-const query = (params) => {
-  const search = new URLSearchParams();
-
-  Object.entries(params).forEach(([key, value]) => {
-    if (value !== null && value !== undefined && value !== "") search.set(key, value);
-  });
-
-  const text = search.toString();
-
-  return text ? `?${text}` : "";
-};
-
 
 const send = (method, url, body) =>
   apiFetch(url, { method, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
@@ -22,7 +10,7 @@ const send = (method, url, body) =>
 export const getOptions = () => apiFetch(`${BASE}/options`);
 
 export const getSheet = (classroomId, subjectId, periodId) =>
-  apiFetch(`${BASE}/sheet${query({ classroomId, subjectId, periodId })}`);
+  apiFetch(`${BASE}/sheet${toQuery({ classroomId, subjectId, periodId })}`);
 
 export const setMode = (body) => send("PUT", `${BASE}/sheet/mode`, body);
 
@@ -52,6 +40,6 @@ export const downloadPlanner = (assignmentId) => apiFetch(`${BASE}/planners/${as
 export const requestPlanner = (assignmentId) =>
   apiFetch(`${BASE}/planners/${assignmentId}/request`, { method: "POST", headers: CLIENT_HEADERS });
 
-export const getDeadlines = (yearId) => apiFetch(`${BASE}/deadlines${query({ yearId })}`);
+export const getDeadlines = (yearId) => apiFetch(`${BASE}/deadlines${toQuery({ yearId })}`);
 
 export const saveDeadlines = (body) => send("PUT", `${BASE}/deadlines`, body);

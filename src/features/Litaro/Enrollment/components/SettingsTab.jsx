@@ -4,8 +4,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
-import { EmptyState, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import { EmptyState, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 
 const STATES = [
   { value: "OBLIGATORIO", label: "Obligatorio" },
@@ -102,7 +102,7 @@ const SettingsForm = ({ items, canEdit, notify, onSaved }) => {
             {canEdit && (
               <Tooltip title={row.hasFiles ? "Tiene archivos cargados" : "Quitar"}>
                 <span>
-                  <IconButton size="small" disabled={disabled || row.hasFiles} onClick={() => remove(row.key)}>
+                  <IconButton aria-label="Quitar" size="small" disabled={disabled || row.hasFiles} onClick={() => remove(row.key)}>
                     <CloseIcon fontSize="small" />
                   </IconButton>
                 </span>

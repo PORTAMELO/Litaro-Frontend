@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 
 import styles from "../Enrollment.module.css";
-import ui from "../../../../shared/components/Ui/Ui.module.css";
+import ui from "@/shared/components/Ui/Ui.module.css";
 import * as service from "../services/MovementService";
-import SidePanel from "../../../../shared/components/Ui/SidePanel";
-import { Field, StatusMark } from "../../../../shared/components/Ui/Ui";
+import SidePanel from "@/shared/components/Ui/SidePanel";
+import { Field, StatusMark } from "@/shared/components/Ui/Ui";
 import { ENROLLMENT_STATUS, formatDateTime } from "../utils/EnrollmentUtils";
 import { openCertificateWindow, printCertificate } from "../utils/MovementCertificate";
+import { colors } from "@/shared/styles/tokens";
 
 const ACTIONS = {
   CLASSROOM: {
@@ -34,11 +35,11 @@ const ACTIONS = {
 };
 
 const EVENT_COLOR = {
-  CLASSROOM: "#2563eb",
-  CAMPUS: "#d97706",
-  WITHDRAWAL: "#6b7280",
-  EARLY_PROMO: "#7c3aed",
-  YEAR_CLOSE: "#0f9d58",
+  CLASSROOM: colors.info,
+  CAMPUS: colors.warning,
+  WITHDRAWAL: colors.textMuted,
+  EARLY_PROMO: colors.primary,
+  YEAR_CLOSE: colors.success,
 };
 
 const eventTitle = (event) => {
@@ -68,7 +69,7 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
 
   const eventsKey = `${row.enrollmentId}|${version}`;
   const loadingEvents = events.key !== eventsKey;
-  const info = ENROLLMENT_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+  const info = ENROLLMENT_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
   const active = row.status === "ACTIVE";
   const chosen = action ? ACTIONS[action] : null;
 
@@ -370,7 +371,7 @@ const MovementPanel = ({ row, options, canExecute, version, onClose, onDone, not
               <li key={event.enrollmentEventId} className={styles.timelineItem}>
                 <span
                   className={styles.timelineDot}
-                  style={{ backgroundColor: EVENT_COLOR[event.type] ?? "#6b7280" }}
+                  style={{ backgroundColor: EVENT_COLOR[event.type] ?? colors.textMuted }}
                   aria-hidden="true"
                 />
                 <div className={styles.timelineTitle}>{eventTitle(event)}</div>

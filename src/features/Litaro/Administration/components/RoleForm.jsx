@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -36,8 +36,27 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
   const [columnSchema, setColumnSchema] = useState([]);
   const [characteristicOptions, setCharacteristicOptions] = useState({});
   const [fkOptions, setFkOptions] = useState({});
-  const [lookupResult, setLookupResult] = useState(null);
+  const [lookup, setLookup] = useState(null);
   const [lookupLoading, setLookupLoading] = useState(false);
+  const [wasOpen, setWasOpen] = useState(open);
+  // Catálogos ya pedidos: cada uno se carga una sola vez.
+  const requested = useRef(new Set());
+
+  const documentType = form.documentType?.trim();
+  const documentNumber = form.documentNumber?.trim();
+  const documentKey = documentType && documentNumber?.length >= 5 ? `${documentType}|${documentNumber}` : null;
+  // El resultado solo vale para el documento que se buscó.
+  const lookupResult = lookup && lookup.key === documentKey ? lookup.result : null;
+
+  // Al cerrar, el formulario queda limpio para la próxima vez.
+  if (wasOpen !== open) {
+    setWasOpen(open);
+    if (!open) {
+      setForm({});
+      setSelectedStudents([]);
+      setLookup(null);
+    }
+  }
 
   const profileKey = roleTableName?.toLowerCase();
   const existingProfile = lookupResult?.found ? lookupResult[profileKey] : null;
@@ -46,12 +65,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
   const isBlocked = !!(existingProfile?.exists && existingProfile.active);
 
   useEffect(() => {
-    if (!open) {
-      setForm({});
-      setSelectedStudents([]);
-      setLookupResult(null);
-      return;
-    }
+    if (!open) return;
 
     Promise.all([
       roleTableName ? service.getSchema(roleTableName) : Promise.resolve([]),
@@ -62,15 +76,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
   }, [open, roleTableName]);
 
   useEffect(() => {
-    if (!open) return;
-
-    const documentType = form.documentType?.trim();
-    const documentNumber = form.documentNumber?.trim();
-
-    if (!documentType || !documentNumber || documentNumber.length < 5) {
-      setLookupResult(null);
-      return;
-    }
+    if (!open || !documentKey) return undefined;
 
     const timeout = setTimeout(() => {
       setLookupLoading(true);
@@ -78,7 +84,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
       service
         .lookupUserByDocument(documentType, documentNumber)
         .then((result) => {
-          setLookupResult(result);
+          setLookup({ key: documentKey, result });
 
           if (result?.found) {
             setForm((previous) => ({
@@ -91,13 +97,12 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
             }));
           }
         })
-        .catch(() => setLookupResult(null))
+        .catch(() => setLookup(null))
         .finally(() => setLookupLoading(false));
     }, 500);
 
     return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, form.documentType, form.documentNumber]);
+  }, [open, documentKey, documentType, documentNumber]);
 
   useEffect(() => {
     if (!open) return;
@@ -114,7 +119,9 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
     ];
 
     characteristicIds.forEach((characteristicId) => {
-      if (characteristicOptions[characteristicId]) return;
+      const cacheKey = `characteristic:${characteristicId}`;
+      if (requested.current.has(cacheKey)) return;
+      requested.current.add(cacheKey);
 
       service.getCharacteristicDetails(characteristicId).then((details) => {
         setCharacteristicOptions((previous) => ({
@@ -123,7 +130,6 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
         }));
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, columnSchema, fields]);
 
   useEffect(() => {
@@ -138,13 +144,14 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
     ];
 
     tables.forEach((table) => {
-      if (fkOptions[table]) return;
+      const cacheKey = `table:${table}`;
+      if (requested.current.has(cacheKey)) return;
+      requested.current.add(cacheKey);
 
       service.getLookupOptions(table).then((options) => {
         setFkOptions((previous) => ({ ...previous, [table]: options }));
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, fields]);
 
   const getCharacteristicIdFor = (fieldName) => {
@@ -204,7 +211,7 @@ const RoleForm = ({ open, title, fields, roleTableName, students, onClose, onSav
           pt: "var(--space-lg)",
           pb: "var(--space-sm)",
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-xl)",
+          fontSize: "var(--text-title)",
           fontWeight: "var(--font-bold)",
           color: "var(--color-text)",
         }}

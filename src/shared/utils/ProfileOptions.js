@@ -1,18 +1,20 @@
+import { ROLES } from "./Roles";
+
 export const PROFILE_ROLE_MAP = {
-  Estudiante: "student",
-  Profesor: "teacher",
-  Acudiente: "parent",
+  [ROLES.STUDENT]: "student",
+  [ROLES.TEACHER]: "teacher",
+  [ROLES.PARENT]: "parent",
 };
 
 export const PROFILE_LABELS = {
-  Estudiante: "Estudiante",
-  Profesor: "Profesor",
-  Acudiente: "Padre/Acudiente",
-  Administrador: "Administrador",
+  [ROLES.STUDENT]: "Estudiante",
+  [ROLES.TEACHER]: "Profesor",
+  [ROLES.PARENT]: "Padre/Acudiente",
+  [ROLES.ADMIN]: "Administrador",
 };
 
 const ROLE_ALIASES = {
-  Padre: "Acudiente",
+  Padre: ROLES.PARENT,
 };
 
 const normalizeRole = (role) => ROLE_ALIASES[role] ?? role;

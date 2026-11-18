@@ -1,30 +1,31 @@
-import { parseDay } from "../../../../shared/utils/Dates";
+import { parseDay } from "@/shared/utils/Dates";
+import { colors } from "@/shared/styles/tokens";
 
-export { formatDate, formatDateTime, formatDay, todayInColombia } from "../../../../shared/utils/Dates";
+export { formatDate, formatDateTime, formatDay, todayInColombia } from "@/shared/utils/Dates";
 
 export const PAGE_SIZE = 50;
 
 export const PRE_STATUS = {
-  RESERVED: { label: "Sin respuesta", color: "#d97706" },
-  CONFIRMED: { label: "Confirmó", color: "#0f9d58" },
-  DECLINED: { label: "No continúa", color: "#6b7280" },
-  LOST: { label: "Perdió el cupo", color: "#b91c1c" },
+  RESERVED: { label: "Sin respuesta", color: colors.warning },
+  CONFIRMED: { label: "Confirmó", color: colors.success },
+  DECLINED: { label: "No continúa", color: colors.textMuted },
+  LOST: { label: "Perdió el cupo", color: colors.error },
 };
 
 export const ADMISSION_STATUS = {
-  PENDING: { label: "Pendiente", color: "#d97706" },
-  WAITLIST: { label: "En lista de espera", color: "#2563eb" },
-  APPROVED: { label: "Aprobada", color: "#0f9d58" },
-  REJECTED: { label: "Rechazada", color: "#b91c1c" },
+  PENDING: { label: "Pendiente", color: colors.warning },
+  WAITLIST: { label: "En lista de espera", color: colors.info },
+  APPROVED: { label: "Aprobada", color: colors.success },
+  REJECTED: { label: "Rechazada", color: colors.error },
 };
 
 export const ENROLLMENT_STATUS = {
-  ACTIVE: { label: "Matriculado", color: "#0f9d58" },
-  WITHDRAWN: { label: "Retirado", color: "#6b7280" },
-  TRANSFERRED: { label: "Trasladado", color: "#2563eb" },
-  GRADUATED: { label: "Graduado", color: "#7c3aed" },
-  PROMOTED: { label: "Promovido", color: "#0f9d58" },
-  FAILED: { label: "Reprobado", color: "#b91c1c" },
+  ACTIVE: { label: "Matriculado", color: colors.success },
+  WITHDRAWN: { label: "Retirado", color: colors.textMuted },
+  TRANSFERRED: { label: "Trasladado", color: colors.info },
+  GRADUATED: { label: "Graduado", color: colors.primary },
+  PROMOTED: { label: "Promovido", color: colors.success },
+  FAILED: { label: "Reprobado", color: colors.error },
 };
 
 const toUtc = (value) => {

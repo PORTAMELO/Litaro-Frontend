@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Tooltip } from "@mui/material";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 
-import page from "../../../../shared/components/Ui/Page.module.css";
-import { EmptyState, StatusMark, TableSkeleton } from "../../../../shared/components/Ui/Ui";
-import { useLoad } from "../../../../shared/hooks/UseLoad";
+import page from "@/shared/components/Ui/Page.module.css";
+import { EmptyState, StatusMark, TableSkeleton } from "@/shared/components/Ui/Ui";
+import { useLoad } from "@/shared/hooks/useLoad";
 import * as service from "../services/GradingService";
 import { NEUTRAL_COLOR, formatColombiaDateTime } from "../utils/GradingUtils";
 import { usePlannerFiles } from "../hooks/UsePlannerFiles";
@@ -67,7 +67,7 @@ const PlannersTab = ({ notify }) => {
                   <td>
                     <StatusMark
                       label={row.delivered ? "Entregado" : "Pendiente"}
-                      color={row.delivered ? "var(--primary-color)" : NEUTRAL_COLOR}
+                      color={row.delivered ? "var(--color-primary)" : NEUTRAL_COLOR}
                     />
                   </td>
                   <td>
@@ -98,7 +98,12 @@ const PlannersTab = ({ notify }) => {
                     {!canUpload && !row.delivered && (
                       <Tooltip title={row.requestPending ? "Solicitud enviada" : "Enviar solicitud"}>
                         <span>
-                          <IconButton size="small" disabled={row.requestPending} onClick={() => setRequesting(row)}>
+                          <IconButton
+                            aria-label={row.requestPending ? "Solicitud enviada" : "Enviar solicitud"}
+                            size="small"
+                            disabled={row.requestPending}
+                            onClick={() => setRequesting(row)}
+                          >
                             <SendOutlinedIcon fontSize="small" />
                           </IconButton>
                         </span>

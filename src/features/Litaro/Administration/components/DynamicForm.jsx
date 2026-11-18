@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   Dialog,
@@ -16,32 +16,33 @@ import {
 
 import * as service from "../services/AdministrationService";
 
+const formFrom = (open, record, schema) => {
+  if (!open || !record) return {};
+
+  const initialForm = {};
+
+  schema.forEach((column) => {
+    const fieldName = column.columnName.charAt(0).toLowerCase() + column.columnName.slice(1);
+
+    initialForm[fieldName] = record[fieldName] ?? "";
+  });
+
+  return initialForm;
+};
+
 const DynamicForm = ({ open, title, schema, record, onClose, onSave }) => {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState(() => formFrom(open, record, schema));
+  const [shownFor, setShownFor] = useState({ open, record, schema });
   const [characteristicOptions, setCharacteristicOptions] = useState({});
   const [fkOptions, setFkOptions] = useState({});
+  // Catálogos ya pedidos: cada uno se carga una sola vez.
+  const requested = useRef(new Set());
 
-  useEffect(() => {
-    if (record) {
-      const initialForm = {};
-
-      schema.forEach((column) => {
-        const fieldName = column.columnName.charAt(0).toLowerCase() + column.columnName.slice(1);
-
-        initialForm[fieldName] = record[fieldName] ?? "";
-      });
-
-      setForm(initialForm);
-    } else {
-      setForm({});
-    }
-  }, [record, schema]);
-
-  useEffect(() => {
-    if (!open) {
-      setForm({});
-    }
-  }, [open]);
+  // Al abrir, cerrar o cambiar de registro, el formulario vuelve a sus valores.
+  if (shownFor.open !== open || shownFor.record !== record || shownFor.schema !== schema) {
+    setShownFor({ open, record, schema });
+    setForm(formFrom(open, record, schema));
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -55,7 +56,9 @@ const DynamicForm = ({ open, title, schema, record, onClose, onSave }) => {
     ];
 
     characteristicIds.forEach((characteristicId) => {
-      if (characteristicOptions[characteristicId]) return;
+      const cacheKey = `characteristic:${characteristicId}`;
+      if (requested.current.has(cacheKey)) return;
+      requested.current.add(cacheKey);
 
       service.getCharacteristicDetails(characteristicId).then((details) => {
         setCharacteristicOptions((previous) => ({
@@ -78,13 +81,14 @@ const DynamicForm = ({ open, title, schema, record, onClose, onSave }) => {
     ];
 
     tables.forEach((table) => {
-      if (fkOptions[table]) return;
+      const cacheKey = `table:${table}`;
+      if (requested.current.has(cacheKey)) return;
+      requested.current.add(cacheKey);
 
       service.getLookupOptions(table).then((options) => {
         setFkOptions((previous) => ({ ...previous, [table]: options }));
       });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, schema]);
 
   const handleChange = (field, value) => {
@@ -149,7 +153,7 @@ const DynamicForm = ({ open, title, schema, record, onClose, onSave }) => {
           pt: "var(--space-lg)",
           pb: "var(--space-sm)",
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-xl)",
+          fontSize: "var(--text-title)",
           fontWeight: "var(--font-bold)",
           color: "var(--color-text)",
         }}

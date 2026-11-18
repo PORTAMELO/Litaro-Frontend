@@ -134,7 +134,7 @@ const BlockDialog = ({ open, block, defaults, context, saving, onClose, onSave, 
           pt: "var(--space-lg)",
           pb: "var(--space-sm)",
           fontFamily: "Nunito, sans-serif",
-          fontSize: "var(--text-xl)",
+          fontSize: "var(--text-title)",
           fontWeight: "var(--font-bold)",
           color: "var(--color-text)",
         }}
@@ -280,7 +280,7 @@ const BlockDialog = ({ open, block, defaults, context, saving, onClose, onSave, 
           </TextField>
 
           {isClass && selectedClassroom && (
-            <Alert severity="info" variant="outlined" sx={{ fontSize: "var(--text-sm)" }}>
+            <Alert severity="info" variant="outlined" sx={{ fontSize: "var(--text-label)" }}>
               En {selectedClassroom.name} cada hora de clase dura {classMinutes} minutos; la hora de fin se calcula sola.
             </Alert>
           )}

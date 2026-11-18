@@ -18,7 +18,7 @@ import styles from "../Enrollment.module.css";
 import * as service from "../services/EnrollmentService";
 import ResponsePopover from "./ResponsePopover";
 import StudentFormPanel from "./StudentFormPanel";
-import { EmptyState, SegmentedFilter, StatusMark } from "../../../../shared/components/Ui/Ui";
+import { EmptyState, SegmentedFilter, StatusMark } from "@/shared/components/Ui/Ui";
 import {
   PAGE_SIZE,
   PRE_STATUS,
@@ -29,6 +29,7 @@ import {
   plural,
   todayInColombia,
 } from "../utils/EnrollmentUtils";
+import { colors } from "@/shared/styles/tokens";
 
 const FILTERS = [
   { value: "RESERVED", label: "Sin respuesta" },
@@ -233,7 +234,7 @@ const OldStudentsTab = ({ yearId, rows, formOptions, period, canManage, canResto
 
             <tbody>
               {visible.map((row) => {
-                const info = PRE_STATUS[row.status] ?? { label: row.status, color: "#6b7280" };
+                const info = PRE_STATUS[row.status] ?? { label: row.status, color: colors.textMuted };
                 const detail =
                   row.responseNote ??
                   (row.respondedAt ? formatDateTime(row.respondedAt) : `Reservado el ${formatDay(row.createdAt)}`);

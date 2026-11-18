@@ -14,6 +14,14 @@ const Intro = () => (
   </div>
 );
 
+const Lines = () => (
+  <div className={styles.lines}>
+    <Block className={styles.line} />
+    <Block className={styles.line} />
+    <Block className={styles.lineShort} />
+  </div>
+);
+
 const Banner = () => (
   <div className={styles.banner}>
     {Array.from({ length: 4 }, (_, index) => (
@@ -44,6 +52,7 @@ const CalendarGrid = () => (
 
 const variants = {
   intro: Intro,
+  lines: Lines,
   banner: Banner,
   cards: Cards,
   calendar: CalendarGrid,

@@ -1,0 +1,9 @@
+.dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin-right: var(--space-xs);
+  border-radius: var(--radius-full);
+  vertical-align: middle;
+}

@@ -5,6 +5,7 @@ import {
   MdForum,
   MdGrade,
   MdHowToReg,
+  MdManageHistory,
   MdNotifications,
   MdOutlineManageSearch,
   MdOutlineSecurity,
@@ -121,6 +122,14 @@ export const litaroModules = [
     icon: MdOutlineSecurity,
     keys: ["SecurityModule"],
     component: lazy(() => import("./Security/Security")),
+  },
+  {
+    path: "Auditoria",
+    legacyPath: "Audit",
+    label: "Auditoría",
+    icon: MdManageHistory,
+    keys: ["AuditModule"],
+    component: lazy(() => import("./Audit/Audit")),
   },
   {
     path: "ContenidoWeb",

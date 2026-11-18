@@ -109,10 +109,6 @@
   min-width: 9rem;
 }
 
-.hiddenInput {
-  display: none;
-}
-
 .selectWide {
   min-width: 18rem;
 }

@@ -14,6 +14,7 @@ import {
   formatDateTime,
   formatDay,
   matchesQuery,
+  plural,
   todayInColombia,
 } from "../utils/EnrollmentUtils";
 import { colors } from "@/shared/styles/tokens";
@@ -25,7 +26,7 @@ const FILTERS = [
   { value: "REJECTED", label: "Rechazadas" },
 ];
 
-const NewStudentsTab = ({ yearId, rows, grades, period, canCreate, canDecide, onChanged, notify, onConfigure }) => {
+const NewStudentsTab = ({ yearId, rows, formOptions, period, canCreate, canDecide, onChanged, notify, onConfigure }) => {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState(null);
   const [limit, setLimit] = useState(PAGE_SIZE);
@@ -70,13 +71,11 @@ const NewStudentsTab = ({ yearId, rows, grades, period, canCreate, canDecide, on
       {creating && (
         <AdmissionForm
           yearId={yearId}
-          grades={grades}
+          options={formOptions}
+          canManageDocuments={canCreate}
           onClose={() => setCreating(false)}
-          onCreated={() => {
-            setCreating(false);
-            notify("Solicitud registrada. Queda pendiente de la decisión del Rector.");
-            onChanged();
-          }}
+          onChanged={onChanged}
+          notify={notify}
         />
       )}
 
@@ -84,7 +83,11 @@ const NewStudentsTab = ({ yearId, rows, grades, period, canCreate, canDecide, on
         <AdmissionPanel
           key={selected.admissionRequestId}
           row={selected}
+          options={formOptions}
           canDecide={canDecide}
+          canCreate={canCreate}
+          onChanged={onChanged}
+          notify={notify}
           onClose={() => setSelectedId(null)}
           onDecided={(message) => {
             setSelectedId(null);
@@ -209,6 +212,11 @@ const NewStudentsTab = ({ yearId, rows, grades, period, canCreate, canDecide, on
                       <StatusMark label={info.label} color={info.color} />
                       {row.waitlistPosition && (
                         <span className={styles.secondaryText}>Puesto {row.waitlistPosition} en su grado</span>
+                      )}
+                      {row.missingDocuments > 0 && (
+                        <span className={styles.secondaryText}>
+                          Faltan {row.missingDocuments} {plural(row.missingDocuments, "documento", "documentos")}
+                        </span>
                       )}
                     </td>
 

@@ -28,7 +28,7 @@ const MODE_TEXT = {
   },
   activate: {
     title: "ACTIVA TU CUENTA",
-    subtitle: `Es tu primer ingreso. Confirma tu fecha de nacimiento y crea tu contraseña (${PASSWORD_RULES}).`,
+    subtitle: `Es tu primer ingreso. Confirma tu fecha de nacimiento y crea tu contraseña (${PASSWORD_RULES}). Si eres acudiente, usa la fecha de nacimiento del estudiante a tu cargo.`,
     button: "Activar e ingresar",
   },
   change: {

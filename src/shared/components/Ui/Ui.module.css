@@ -172,6 +172,10 @@
   border-top: 0;
 }
 
+.hiddenInput {
+  display: none;
+}
+
 .contentSkeleton {
   display: flex;
   flex-direction: column;

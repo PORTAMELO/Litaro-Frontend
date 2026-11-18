@@ -71,7 +71,7 @@ export const litaroModules = [
     legacyPath: "Observations",
     label: "Observaciones",
     icon: TbMessageReportFilled,
-    keys: ["ObservationsModule"],
+    keys: ["ObservationsModule", "ObservationRecord", "ObservationConsolidated", "Citation"],
     component: lazy(() => import("./Observations/Observations")),
   },
   {
